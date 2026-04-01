@@ -27,38 +27,44 @@ namespace OpenAI.Dialogue
         private bool dialogueOpen = false;
         private Transform playerTransform;
 
+
+        // En NPCInteractionTrigger.cs — sustituye Update() y Start() por esto:
+
         private void Start()
         {
             if (interactPrompt != null)
                 interactPrompt.SetActive(false);
 
-            // Buscar jugador automáticamente si no está asignado
-            var player = GameObject.FindGameObjectWithTag(playerTag);
-            if (player != null) playerTransform = player.transform;
+            // Crear collider trigger automáticamente
+            var col = gameObject.AddComponent<SphereCollider>();
+            col.isTrigger = true;
+            col.radius = interactionRadius;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!other.CompareTag(playerTag)) return;
+            playerTransform = other.transform;
+            playerInRange = true;
+            if (interactPrompt != null) interactPrompt.SetActive(true);
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (!other.CompareTag(playerTag)) return;
+            playerInRange = false;
+            if (interactPrompt != null && !dialogueOpen)
+                interactPrompt.SetActive(false);
         }
 
         private void Update()
         {
-            if (playerTransform == null) return;
-
-            float dist = Vector3.Distance(transform.position, playerTransform.position);
-            playerInRange = dist <= interactionRadius;
-
-            // Mostrar/ocultar prompt flotante
-            if (interactPrompt != null)
-                interactPrompt.SetActive(playerInRange && !dialogueOpen);
-
-            // Abrir diálogo
+            // Ahora Update solo maneja input, no distancia
             if (playerInRange && !dialogueOpen && Keyboard.current.eKey.wasPressedThisFrame)
-            {
                 OpenDialogue();
-            }
 
-            // Cerrar con Escape
             if (dialogueOpen && Keyboard.current.escapeKey.wasPressedThisFrame)
-            {
                 CloseDialogue();
-            }
         }
 
         private void OpenDialogue()
