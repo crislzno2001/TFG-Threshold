@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8444546880734912626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: ChoiceNode
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  contextForAI: te parece guapo el personaje, asi que te pones un poco nerviosa
+  nextNodes: []
+  choices:
+  - condition: que tal?
+    nextNode: {fileID: 1164246994411011483}
+  - condition: me das dinero?
+    nextNode: {fileID: -7646600175864665336}
+--- !u!114 &-7646600175864665336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: SpeechNode
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  contextForAI: te enfadas, todo el mundo quiere lo mismo
+  nextNodes: []
+  actor: {fileID: 0}
+  openingLine: 
+  transitions: []
+--- !u!114 &-865146430397692324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: SpeechNode
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  contextForAI: 'gareth esa muy contento porq ha follado esta noche, se acerca un
+    brujo con aire de impotencia '
+  nextNodes:
+  - {fileID: -8444546880734912626}
+  actor: {fileID: 0}
+  openingLine: 
+  transitions: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb61de17a0d8834c8344f4ab533f2da, type: 3}
+  m_Name: Princesa
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueGraphSO
+  nodes:
+  - {fileID: -865146430397692324}
+  - {fileID: -8444546880734912626}
+  - {fileID: -7646600175864665336}
+  - {fileID: 1164246994411011483}
+  entryNode: {fileID: -865146430397692324}
+  nodePositions:
+  - nodeId: -9922
+    position: {x: 121.6, y: 132.8}
+  - nodeId: -9944
+    position: {x: 132, y: 269.59998}
+  - nodeId: -9956
+    position: {x: 687.2, y: 386.4}
+  - nodeId: -9968
+    position: {x: 720, y: 224.8}
+--- !u!114 &1164246994411011483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: SpeechNode
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  contextForAI: borracho
+  nextNodes: []
+  actor: {fileID: 0}
+  openingLine: 
+  transitions: []

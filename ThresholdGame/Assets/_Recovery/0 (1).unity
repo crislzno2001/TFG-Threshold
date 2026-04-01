@@ -2158,7 +2158,7 @@ MonoBehaviour:
   maxTokens: 150
   maxHistoryMessages: 10
   maxMemories: 5
-  dialogueGraph: {fileID: 11400000, guid: 48a492350ff27ff429245beb4c1ddd4c, type: 2}
+  dialogueGraph: {fileID: 11400000, guid: 3de763871d5eeed4ababca2a17a1da14, type: 2}
 --- !u!114 &1304690372
 MonoBehaviour:
   m_ObjectHideFlags: 0

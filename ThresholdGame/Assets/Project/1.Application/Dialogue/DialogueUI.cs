@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -27,10 +29,17 @@ namespace OpenAI.Dialogue
 
         private NPCBrain currentNPC;
         private bool isWaiting = false;
+        private bool _scrollPending = false;
+
+        // Buffer de líneas para no reconstruir todo el string en cada mensaje
+        private readonly List<string> _chatLines = new List<string>();
+        private readonly StringBuilder _sb = new StringBuilder();
+
+        private DialogueRunner _runner;
 
         private void Awake()
         {
-           
+
 
             dialoguePanel.SetActive(false);
 
@@ -45,6 +54,7 @@ namespace OpenAI.Dialogue
         {
             currentNPC = npc;
             dialoguePanel.SetActive(true);
+            _chatLines.Clear();
             chatDisplay.text = "";
 
             npcNameText.text = npc.npcName;
@@ -58,6 +68,22 @@ namespace OpenAI.Dialogue
 
             SetStatus("");
             SetInputInteractable(true);
+
+            _runner = npc.GetComponent<DialogueRunner>();
+            if (_runner == null)
+            {
+                Debug.LogError($"[DialogueUI] El NPC '{npc.npcName}' no tiene componente DialogueRunner. Añádelo al mismo GameObject.", npc);
+                return;
+            }
+            _runner.StartDialogue();
+
+            // Si el nodo de entrada tiene frase de apertura, mostrarla
+            if (_runner.Current is SpeechNodeSO speechNode &&
+                !string.IsNullOrEmpty(speechNode.openingLine))
+                AppendNPC(speechNode.openingLine);
+
+
+
         }
 
         public void Close()
@@ -79,7 +105,7 @@ namespace OpenAI.Dialogue
             await ProcessUserInput(userText);
         }
 
-    
+
 
         // ---- PROCESAR INPUT (texto o voz) ----
 
@@ -91,7 +117,7 @@ namespace OpenAI.Dialogue
             AppendPlayer(userText);
             SetStatus($"{currentNPC.npcName} está pensando...");
 
-            string reply = await currentNPC.SendMessage(userText);
+            string reply = await _runner.ProcessMessage(userText);
 
             SetStatus("");
             AppendNPC(reply);
@@ -106,16 +132,27 @@ namespace OpenAI.Dialogue
 
         // ---- HELPERS UI ----
 
+        private void AppendLine(string line)
+        {
+            _chatLines.Add(line);
+            _sb.Clear();
+            for (int i = 0; i < _chatLines.Count; i++)
+            {
+                if (i > 0) _sb.Append('\n');
+                _sb.Append(_chatLines[i]);
+            }
+            chatDisplay.text = _sb.ToString();
+            ScrollToBottom();
+        }
+
         private void AppendPlayer(string text)
         {
-            chatDisplay.text += $"\n<color=#88ccff><b>Tú:</b></color> {text}";
-            ScrollToBottom();
+            AppendLine($"<color=#88ccff><b>Tú:</b></color> {text}");
         }
 
         private void AppendNPC(string text)
         {
-            chatDisplay.text += $"\n<color=#ffcc88><b>{currentNPC.npcName}:</b></color> {text}";
-            ScrollToBottom();
+            AppendLine($"<color=#ffcc88><b>{currentNPC.npcName}:</b></color> {text}");
         }
 
         private void SetStatus(string msg)
@@ -130,16 +167,22 @@ namespace OpenAI.Dialogue
             sendButton.interactable = value;
         }
 
-     
+
         private void ScrollToBottom()
         {
-            StartCoroutine(ScrollNextFrame());
+            // Evita lanzar múltiples coroutines si hay varios mensajes seguidos
+            if (!_scrollPending)
+            {
+                _scrollPending = true;
+                StartCoroutine(ScrollNextFrame());
+            }
         }
 
         private IEnumerator ScrollNextFrame()
         {
             yield return null;
             scrollRect.verticalNormalizedPosition = 0f;
+            _scrollPending = false;
         }
 
         private void OnCloseClicked()
@@ -149,6 +192,10 @@ namespace OpenAI.Dialogue
             if (trigger != null) trigger.CloseDialogue();
             else Close();
         }
+
+
+
+
 
     }
 }

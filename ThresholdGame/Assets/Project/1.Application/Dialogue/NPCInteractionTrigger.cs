@@ -15,7 +15,6 @@ namespace OpenAI.Dialogue
         [Header("Configuración")]
         [SerializeField] private float interactionRadius = 2.5f;
         [SerializeField] private string playerTag = "Player";
-        [SerializeField] private KeyCode interactKey = KeyCode.E;
 
         [Header("Referencias")]
         [SerializeField] private DialogueUI dialogueUI;
@@ -65,6 +64,8 @@ namespace OpenAI.Dialogue
         private void OpenDialogue()
         {
             dialogueOpen = true;
+            npcBrain.isInteracting = true;
+
             dialogueUI.Open(npcBrain);
 
             // Bloquear movimiento del jugador
@@ -75,6 +76,8 @@ namespace OpenAI.Dialogue
         public void CloseDialogue()
         {
             dialogueOpen = false;
+            npcBrain.isInteracting = false;
+
             dialogueUI.Close();
 
             // Devolver control al jugador

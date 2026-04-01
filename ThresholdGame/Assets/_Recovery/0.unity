@@ -2017,7 +2017,6 @@ GameObject:
   - component: {fileID: 1304690366}
   - component: {fileID: 1304690371}
   - component: {fileID: 1304690370}
-  - component: {fileID: 1304690372}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -2134,6 +2133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.NPCInteractionTrigger
   interactionRadius: 2.5
   playerTag: Player
+  interactKey: 101
   dialogueUI: {fileID: 620822060}
   npcBrain: {fileID: 1304690371}
   interactPrompt: {fileID: 0}
@@ -2157,20 +2157,6 @@ MonoBehaviour:
   temperature: 0.8
   maxTokens: 150
   maxHistoryMessages: 10
-  maxMemories: 5
-  dialogueGraph: {fileID: 11400000, guid: 48a492350ff27ff429245beb4c1ddd4c, type: 2}
---- !u!114 &1304690372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1304690365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d844fdb146fdd0439d35ddb1c71fe3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueRunner
 --- !u!1 &1331646459
 GameObject:
   m_ObjectHideFlags: 0
