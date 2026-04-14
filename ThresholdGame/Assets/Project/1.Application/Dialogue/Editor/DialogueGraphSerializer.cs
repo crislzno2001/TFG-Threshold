@@ -14,8 +14,10 @@ namespace OpenAI.Dialogue.Editor
             string assetPath = AssetDatabase.GetAssetPath(graphSO);
 
             foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(assetPath))
+            {
                 if (asset != graphSO && asset is DialogueNodeSO)
                     AssetDatabase.RemoveObjectFromAsset(asset);
+            }
 
             graphSO.nodes.Clear();
             graphSO.nodePositions.Clear();
@@ -26,12 +28,16 @@ namespace OpenAI.Dialogue.Editor
             {
                 var so = nodeView.NodeSO;
                 so.nextNodes.Clear();
-                so.name = nodeView.title;
+                so.name = nodeView.SceneName;
                 AssetDatabase.AddObjectToAsset(so, graphSO);
                 graphSO.nodes.Add(so);
+
+                if (string.IsNullOrEmpty(so.nodeGuid))
+                    so.nodeGuid = System.Guid.NewGuid().ToString();
+
                 graphSO.nodePositions.Add(new NodePositionData
                 {
-                    nodeId = so.GetHashCode().ToString(),
+                    nodeId = so.nodeGuid,
                     position = nodeView.GetPosition().position
                 });
             }
@@ -57,7 +63,8 @@ namespace OpenAI.Dialogue.Editor
 
             var nodesWithInput = view.edges.ToList()
                 .Select(e => (e.input.node as DialogueNodeView)?.NodeSO)
-                .Where(s => s != null).ToHashSet();
+                .Where(s => s != null)
+                .ToHashSet();
 
             graphSO.entryNode = graphSO.nodes.FirstOrDefault(n => !nodesWithInput.Contains(n));
 
@@ -73,9 +80,13 @@ namespace OpenAI.Dialogue.Editor
 
             foreach (var nodeSO in graphSO.nodes)
             {
-                var posData = graphSO.nodePositions
-                    .Find(p => p != null && p.nodeId == nodeSO.GetHashCode().ToString());
+                string id = !string.IsNullOrEmpty(nodeSO.nodeGuid)
+                    ? nodeSO.nodeGuid
+                    : nodeSO.GetHashCode().ToString();
+
+                var posData = graphSO.nodePositions.Find(p => p != null && p.nodeId == id);
                 var pos = posData != null ? posData.position : Vector2.zero;
+
                 map[nodeSO] = view.CreateNodeView(nodeSO, pos);
             }
 

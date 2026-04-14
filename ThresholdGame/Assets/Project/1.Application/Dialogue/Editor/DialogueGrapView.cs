@@ -25,12 +25,10 @@ namespace OpenAI.Dialogue.Editor
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
 
-            // Grid de fondo
             var grid = new GridBackground();
             Insert(0, grid);
             grid.StretchToParentSize();
 
-            // Menú contextual clic derecho
             nodeCreationRequest = ctx =>
             {
                 var provider = ScriptableObject.CreateInstance<NodeSearchProvider>();
@@ -39,10 +37,13 @@ namespace OpenAI.Dialogue.Editor
             };
         }
 
-        public DialogueNodeView CreateNodeView(DialogueNodeSO so, Vector2 position)
+        /// <summary>Creates a node view at the given position with an optional saved size.</summary>
+        public DialogueNodeView CreateNodeView(DialogueNodeSO so, Vector2 position, Vector2 size = default)
         {
-            var view = new DialogueNodeView(so);
-            view.SetPosition(new Rect(position, new Vector2(240, 150)));
+            if (size.x < 10) size = new Vector2(260, 200);
+
+            var view = new DialogueNodeView(so, size);
+            view.SetPosition(new Rect(position, size));
             AddElement(view);
             return view;
         }
