@@ -1,0 +1,267 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4324968273607372507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: "Explicaci\xF3n_reglas"
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 8ca06e38-e4cd-4126-b7ff-7310f77565e2
+  contextForAI: Este nodo se activa porque Supervisor le ha dicho al jujgador que
+    hay que empear la prueba y este le ha preguntado por las reglas del juego. Inventatelas
+    por ahora.
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter:
+  - flag: reglas_aprendidas
+    value: 1
+  nextNodes: []
+  openingLine: 
+  transitions: []
+--- !u!114 &-2276975470968006274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Explicacion_Instalacion_01
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 2b22d1c2-b323-4bff-bd8a-3f5db177e928
+  contextForAI: "Este nodo se activa cuando el jugador pregunta d\xF3nde est\xE1
+    o qu\xE9 es este lugar. Supervisor A-13 debe responder con claridad controlada,
+    sin contarlo todo. Debe explicar que se trata de una instalaci\xF3n de evaluaci\xF3n
+    cognitiva y sugerir que el sujeto ha sido seleccionado por una capacidad mental
+    valiosa."
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: -960038713439285489}
+  openingLine: "Te encuentras en una unidad de evaluaci\xF3n cognitiva. Has sido
+    conservado porque tu mente puede producir patrones que nuestros sistemas no logran
+    originar por s\xED solos."
+  transitions: []
+--- !u!114 &-960038713439285489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Inicio_prueba_1
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 7b035e19-cec5-4920-be76-00188fd1bf17
+  contextForAI: 'Hay que empezar ya la primera prueba, el reloj marca la hora, Supervisor
+    A-13 debe decirserlo al jugador. '
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: 7650282313962434067}
+  openingLine: 
+  transitions: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb61de17a0d8834c8344f4ab533f2da, type: 3}
+  m_Name: SupervisorNode
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueGraphSO
+  nodes:
+  - {fileID: 3412995496488760195}
+  - {fileID: 8693151127427725103}
+  - {fileID: -960038713439285489}
+  - {fileID: 7650282313962434067}
+  - {fileID: 5311021644098170501}
+  - {fileID: 7457023828542092963}
+  - {fileID: -2276975470968006274}
+  - {fileID: 5623132093418138325}
+  - {fileID: -4324968273607372507}
+  entryNode: {fileID: 3412995496488760195}
+  nodePositions:
+  - nodeId: ff52e304-b826-45c3-97c6-c25434a1c159
+    position: {x: 18.4, y: 124}
+  - nodeId: c2ae8185-8fed-429a-ae07-90eab20cfcfe
+    position: {x: 776.8, y: 291.19998}
+  - nodeId: 7b035e19-cec5-4920-be76-00188fd1bf17
+    position: {x: 1101.6, y: 276.8}
+  - nodeId: 158ba61c-a6c5-4067-bb11-69b17601015a
+    position: {x: 1476, y: 392.8}
+  - nodeId: 11874186-2001-4714-b629-98588c026707
+    position: {x: 2042.4, y: 291.19998}
+  - nodeId: a3dfadb3-1afc-47b8-b6ce-8571fcfb747c
+    position: {x: 329.6, y: 262.4}
+  - nodeId: 2b22d1c2-b323-4bff-bd8a-3f5db177e928
+    position: {x: 776.8, y: -101.600006}
+  - nodeId: 81fc6227-6e5e-4ad9-86e0-3a3222e08990
+    position: {x: 1893.6, y: 605.6}
+  - nodeId: 8ca06e38-e4cd-4126-b7ff-7310f77565e2
+    position: {x: 1684.8, y: 46.399998}
+--- !u!114 &3412995496488760195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Inicio_Prueba_01
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: ff52e304-b826-45c3-97c6-c25434a1c159
+  contextForAI: "Supervisor A-13 inicia el primer contacto con un sujeto humano reci\xE9n
+    despertado dentro de una instalaci\xF3n de pruebas cognitivas. El jugador a\xFAn
+    no entiende d\xF3nde est\xE1 ni qu\xE9 est\xE1 ocurriendo. En esta escena debes
+    transmitir control, frialdad y misterio. No debes explicar toda la verdad todav\xEDa,
+    solo dejar claro que el jugador forma parte de un procedimiento importante."
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: 7457023828542092963}
+  openingLine: "Sujeto H-17, la fase de observaci\xF3n ha terminado. Tu actividad
+    cognitiva ser\xE1 evaluada a partir de este momento."
+  transitions: []
+--- !u!114 &5311021644098170501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: "Negaci\xF3n_juego"
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 11874186-2001-4714-b629-98588c026707
+  contextForAI: este nodo se activa porque supervisor le ha dicho al jugador que
+    hay que empezar la prueba y este se niega, dile que eso no puede ser.
+  prerequisiteFlags: []
+  lockedReply: 
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: 7650282313962434067}
+  openingLine: 
+  transitions: []
+--- !u!114 &5623132093418138325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Empezar_prueba
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 81fc6227-6e5e-4ad9-86e0-3a3222e08990
+  contextForAI: este nodo se activa porque supervisor le ha dicho al jugador que
+    hay que empezar la prueba y ya sabe las reglas, ahora podemos empezar
+  prerequisiteFlags:
+  - flag: reglas_aprendidas
+    expectedValue: 1
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: 
+  transitions: []
+--- !u!114 &7457023828542092963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Reaccion_Inicial_01
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: a3dfadb3-1afc-47b8-b6ce-8571fcfb747c
+  contextForAI: "Este nodo representa la primera reacci\xF3n del jugador al despertar
+    en la instalaci\xF3n. Las posibles intenciones del jugador son pedir explicaciones
+    sobre el lugar, preguntar por el motivo del experimento o rechazar la situaci\xF3n
+    con miedo o desconfianza."
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter: []
+  nextNodes: []
+  choices:
+  - condition: "pregunta donde est\xE1 o que es este lugar "
+    nextNode: {fileID: -2276975470968006274}
+  - condition: "pregunta por qu\xE9 los robots necesitan imaginaci\xF3n humana "
+    nextNode: {fileID: 8693151127427725103}
+--- !u!114 &7650282313962434067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: ChoiceNode
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: 158ba61c-a6c5-4067-bb11-69b17601015a
+  contextForAI: "Este nodo representa la primera reacci\xF3n del jugador a la notica
+    de que empieza la prueba"
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter: []
+  nextNodes: []
+  choices:
+  - condition: "pregunta cu\xE1les son las reglas"
+    nextNode: {fileID: -4324968273607372507}
+  - condition: dice que no quiere jugar
+    nextNode: {fileID: 5311021644098170501}
+  - condition: 'dice que empiece el juego '
+    nextNode: {fileID: 5623132093418138325}
+--- !u!114 &8693151127427725103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Motivo_Imaginacion_01
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: c2ae8185-8fed-429a-ae07-90eab20cfcfe
+  contextForAI: "Este nodo se activa cuando el jugador pregunta por qu\xE9 los robots
+    necesitan imaginaci\xF3n humana o cuando se resiste al experimento y exige una
+    explicaci\xF3n. Supervisor A-13 debe explicar que la crisis actual requiere ideas
+    improbables, intuiciones y asociaciones que las m\xE1quinas no generan con facilidad.
+    El tono debe seguir siendo fr\xEDo y anal\xEDtico."
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: -960038713439285489}
+  openingLine: "Podemos calcular, optimizar y predecir. Pero no inventar del mismo
+    modo que vosotros. La crisis exige posibilidades nuevas, y vuestra especie sigue
+    produciendo errores creativos que pueden convertirse en soluci\xF3n."
+  transitions: []

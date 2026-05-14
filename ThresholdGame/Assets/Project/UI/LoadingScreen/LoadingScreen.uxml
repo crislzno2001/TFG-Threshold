@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/UI/LoadingScreen/LoadingScreen.uss?fileID=7433441132597879392&amp;guid=8ba4145ddefbbe14d857969a6da96805&amp;type=3#LoadingScreen"/>
+    <ui:VisualElement name="root" class="loading-root">
+        <ui:VisualElement name="content" class="loading-content" style="width: 296px;">
+            <ui:Label name="title" text="CARGANDO" class="loading-title"/>
+            <ui:VisualElement name="progress-track" class="progress-track">
+                <ui:VisualElement name="progress-fill" class="progress-fill"/>
+            </ui:VisualElement>
+            <ui:Label name="percentage" text="0%" class="loading-percentage"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,3 +1,4 @@
+using UnityEngine;
 namespace ThresholdGame.Presentation.Player
 {
     public abstract class PlayerBaseState

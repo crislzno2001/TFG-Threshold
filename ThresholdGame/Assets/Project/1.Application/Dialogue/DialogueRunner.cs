@@ -1,16 +1,33 @@
-using UnityEngine;
+﻿using UnityEngine;
+using ThresholdGame.Application.NPC;
+using ThresholdGame.Presentation.NPC;
 
 namespace OpenAI.Dialogue
 {
+    /// <summary>
+    /// Procesa los mensajes del jugador durante el diálogo.
+    ///
+    /// Flujo:
+    ///   1. Llega un mensaje del jugador.
+    ///   2. NPCOrderInterpreter lo analiza.
+    ///   3a. Si es una orden → NPCStateMachine la ejecuta → respuesta de confirmación (sin IA).
+    ///   3b. Si no es una orden → flujo normal de NPCBrain + OpenAI.
+    /// </summary>
     public class DialogueRunner : MonoBehaviour
     {
         private NPCBrain _brain;
+        private NPCStateMachine _npcStateMachine;
+        private NPCOrderInterpreter _interpreter;
         private DialogueNodeSO _current;
 
         private void Awake()
         {
             _brain = GetComponent<NPCBrain>();
+            _npcStateMachine = GetComponent<NPCStateMachine>();
+            _interpreter = new NPCOrderInterpreter();
         }
+
+        // ── Diálogo ────────────────────────────────────────────────────────────
 
         public void StartDialogue()
         {
@@ -24,7 +41,6 @@ namespace OpenAI.Dialogue
         public void AdvanceTo(DialogueNodeSO node)
         {
             if (node == null) return;
-
             _current = node;
             _brain.SetNode(node);
         }
@@ -37,20 +53,45 @@ namespace OpenAI.Dialogue
 
         public async System.Threading.Tasks.Task<string> ProcessMessage(string userMessage)
         {
-            if (_brain == null || _current == null)
-                return "...";
+            if (_brain == null || _current == null) return "...";
 
+            // ── 1. Intentar interpretar como orden ─────────────────────────────
+            if (_npcStateMachine != null)
+            {
+                NPCOrder order = _interpreter.Interpret(userMessage);
+
+                if (order.IsOrder)
+                {
+                    bool executed = _npcStateMachine.ExecuteOrder(order);
+
+                    if (executed)
+                        return ConfirmationFor(order);
+
+                    if (order.Type == NPCOrderType.MoveToDestination)
+                        return "No conozco ese lugar.";
+                }
+            }
+
+            // ── 2. Diálogo normal con OpenAI ───────────────────────────────────
             DialogueStepResult result = await _brain.ProcessStep(userMessage, _current);
 
-            if (result != null && result.NextNode != null && result.NextNode != _current)
+            if (result?.NextNode != null && result.NextNode != _current)
                 AdvanceTo(result.NextNode);
 
-            if (result == null || string.IsNullOrWhiteSpace(result.Reply))
-                return "...";
-
-            return result.Reply;
+            return string.IsNullOrWhiteSpace(result?.Reply) ? "..." : result.Reply;
         }
 
         public DialogueNodeSO Current => _current;
+
+        // ── Respuestas de confirmación ─────────────────────────────────────────
+
+        private static string ConfirmationFor(NPCOrder order) => order.Type switch
+        {
+            NPCOrderType.Follow => "Entendido. Te sigo.",
+            NPCOrderType.Stop => "De acuerdo. Me quedo aquí.",
+            NPCOrderType.ReturnHome => "Volviendo a mi posición.",
+            NPCOrderType.MoveToDestination => "Me dirijo hacia allí.",
+            _ => "Orden recibida."
+        };
     }
 }

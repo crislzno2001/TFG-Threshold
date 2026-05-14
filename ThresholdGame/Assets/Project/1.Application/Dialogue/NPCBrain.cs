@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -19,8 +20,10 @@ namespace OpenAI.Dialogue
 
         [Header("OpenAI")]
         [SerializeField] private string model = "gpt-4o-mini";
+
         [Range(0f, 2f)]
         [SerializeField] private float temperature = 0.8f;
+
         [SerializeField] private int maxTokens = 150;
 
         [Header("Historial conversación")]
@@ -33,11 +36,14 @@ namespace OpenAI.Dialogue
         public DialogueGraphSO dialogueGraph;
 
         private OpenAIApi openai;
+
         private readonly List<ChatMessage> history = new();
         private readonly Dictionary<string, string> memory = new();
         private readonly Dictionary<string, bool> progressionFlags = new();
 
         private DialogueNodeSO _currentNode;
+
+        private string cachedGlobalRulesBlock = "";
 
         public string npcName =>
             characterProfile != null && !string.IsNullOrWhiteSpace(characterProfile.characterName)
@@ -47,11 +53,21 @@ namespace OpenAI.Dialogue
         private void Awake()
         {
             openai = new OpenAIApi();
+            RefreshStaticPromptCache();
             ResetHistory();
+        }
+
+        private void RefreshStaticPromptCache()
+        {
+            cachedGlobalRulesBlock = globalRules != null
+                ? globalRules.BuildGlobalRulesBlock()
+                : "";
         }
 
         public void ResetHistory()
         {
+            RefreshStaticPromptCache();
+
             history.Clear();
             history.Add(new ChatMessage
             {
@@ -87,7 +103,8 @@ namespace OpenAI.Dialogue
                 if (requirement == null || string.IsNullOrWhiteSpace(requirement.flag))
                     continue;
 
-                bool currentValue = progressionFlags.TryGetValue(requirement.flag.Trim(), out bool stored) && stored;
+                bool currentValue =
+                    progressionFlags.TryGetValue(requirement.flag.Trim(), out bool stored) && stored;
 
                 if (currentValue != requirement.expectedValue)
                     return false;
@@ -116,11 +133,14 @@ namespace OpenAI.Dialogue
             RebuildSystemPromptForNode(node);
         }
 
-        public async System.Threading.Tasks.Task<DialogueStepResult> ProcessStep(string userMessage, DialogueNodeSO currentNode)
+        public async System.Threading.Tasks.Task<DialogueStepResult> ProcessStep(
+            string userMessage,
+            DialogueNodeSO currentNode)
         {
             if (!isInteracting)
             {
                 Debug.Log("[Brain] No hay interacción activa");
+
                 return new DialogueStepResult
                 {
                     NextNode = currentNode,
@@ -129,9 +149,16 @@ namespace OpenAI.Dialogue
             }
 
             _currentNode = currentNode;
+
             DetectMemory(userMessage);
 
-            DialogueNodeSO nextNode = await ResolveNextNodeAsync(userMessage, currentNode);
+            DialogueNodeSO nextNode;
+
+            if (!TryResolveFastNextNode(currentNode, out nextNode))
+            {
+                nextNode = await ResolveNextNodeAsync(userMessage, currentNode);
+            }
+
             if (nextNode == null)
                 nextNode = currentNode;
 
@@ -145,27 +172,18 @@ namespace OpenAI.Dialogue
 
                 Debug.Log($"[Dialogue] gate bloqueó acceso a '{nextNode.name}'");
 
-                RebuildSystemPromptForNode(currentNode);
-
-                history.Add(new ChatMessage
-                {
-                    role = "user",
-                    content = userMessage
-                });
-                TrimHistory();
-
-                history.Add(new ChatMessage
-                {
-                    role = "assistant",
-                    content = blockedReply
-                });
-                TrimHistory();
+                AddTurnToHistory(userMessage, blockedReply, currentNode);
 
                 return new DialogueStepResult
                 {
                     NextNode = currentNode,
                     Reply = blockedReply
                 };
+            }
+
+            if (nextNode != currentNode)
+            {
+                ApplyFlagsOnEnter(nextNode);
             }
 
             string reply = await GenerateReplyForNode(userMessage, nextNode);
@@ -177,7 +195,90 @@ namespace OpenAI.Dialogue
             };
         }
 
-        private async System.Threading.Tasks.Task<DialogueNodeSO> ResolveNextNodeAsync(string userMessage, DialogueNodeSO currentNode)
+        private bool TryResolveFastNextNode(DialogueNodeSO currentNode, out DialogueNodeSO nextNode)
+        {
+            nextNode = null;
+
+            if (currentNode == null)
+                return false;
+
+            if (currentNode is SpeechNodeSO speechNode)
+            {
+                if (speechNode.transitions != null && speechNode.transitions.Count == 1)
+                {
+                    var transition = speechNode.transitions[0];
+
+                    if (transition.targetNode != null && IsAutomaticCondition(transition.condition))
+                    {
+                        nextNode = transition.targetNode;
+                        return true;
+                    }
+                }
+
+                if (speechNode.transitions != null && speechNode.transitions.Count > 0)
+                    return false;
+
+                if (speechNode.nextNodes == null || speechNode.nextNodes.Count == 0)
+                    return false;
+
+                DialogueNodeSO candidate = speechNode.nextNodes[0];
+
+                if (candidate is ChoiceNodeSO nextChoice &&
+                    nextChoice.choices != null &&
+                    nextChoice.choices.Count > 0)
+                {
+                    if (nextChoice.choices.Count == 1 &&
+                        nextChoice.choices[0].nextNode != null &&
+                        IsAutomaticCondition(nextChoice.choices[0].condition))
+                    {
+                        nextNode = nextChoice.choices[0].nextNode;
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                if (candidate != null)
+                {
+                    nextNode = candidate;
+                    return true;
+                }
+            }
+
+            if (currentNode is ChoiceNodeSO choiceNode &&
+                choiceNode.choices != null &&
+                choiceNode.choices.Count == 1)
+            {
+                var choice = choiceNode.choices[0];
+
+                if (choice.nextNode != null && IsAutomaticCondition(choice.condition))
+                {
+                    nextNode = choice.nextNode;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsAutomaticCondition(string condition)
+        {
+            if (string.IsNullOrWhiteSpace(condition))
+                return true;
+
+            string normalized = condition.Trim().ToLowerInvariant();
+
+            return normalized == "default" ||
+                   normalized == "always" ||
+                   normalized == "continue" ||
+                   normalized == "continuar" ||
+                   normalized == "any" ||
+                   normalized == "cualquier respuesta";
+        }
+
+        private async System.Threading.Tasks.Task<DialogueNodeSO> ResolveNextNodeAsync(
+            string userMessage,
+            DialogueNodeSO currentNode)
         {
             if (currentNode == null)
                 return null;
@@ -222,6 +323,8 @@ namespace OpenAI.Dialogue
                     {
                         return nextChoice.choices[idx].nextNode;
                     }
+
+                    return currentNode;
                 }
 
                 return nextNode;
@@ -249,14 +352,16 @@ namespace OpenAI.Dialogue
             return currentNode;
         }
 
-        private async System.Threading.Tasks.Task<string> GenerateReplyForNode(string userMessage, DialogueNodeSO nodeForReply)
+        private async System.Threading.Tasks.Task<string> GenerateReplyForNode(
+            string userMessage,
+            DialogueNodeSO nodeForReply)
         {
             RebuildSystemPromptForNode(nodeForReply);
 
             history.Add(new ChatMessage
             {
                 role = "user",
-                content = userMessage
+                content = userMessage ?? ""
             });
 
             TrimHistory();
@@ -264,19 +369,29 @@ namespace OpenAI.Dialogue
             var req = new CreateChatCompletionRequest
             {
                 model = model,
-                messages = history,
+                messages = new List<ChatMessage>(history),
                 temperature = temperature,
                 max_tokens = maxTokens
             };
 
-            var response = await openai.CreateChatCompletion(req);
+            string reply = "...";
 
-            if (response?.choices == null || response.choices.Count == 0)
-                return "...";
+            try
+            {
+                var response = await openai.CreateChatCompletion(req);
 
-            string reply = response.choices[0].message.content?.Trim();
-            if (string.IsNullOrWhiteSpace(reply))
-                reply = "...";
+                if (response?.choices != null && response.choices.Count > 0)
+                {
+                    reply = response.choices[0].message.content?.Trim();
+
+                    if (string.IsNullOrWhiteSpace(reply))
+                        reply = "...";
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[OpenAI] Error generando respuesta: {ex.Message}");
+            }
 
             reply = SanitizeReply(reply);
 
@@ -285,6 +400,8 @@ namespace OpenAI.Dialogue
                 role = "assistant",
                 content = reply
             });
+
+            TrimHistory();
 
             return reply;
         }
@@ -296,39 +413,35 @@ namespace OpenAI.Dialogue
             if (options == null || options.Count == 0)
                 return -1;
 
+            if (options.Count == 1 && IsAutomaticCondition(options[0].condition))
+                return 0;
+
             var sb = new StringBuilder();
-            sb.AppendLine("Eres un clasificador semántico para un juego de rol.");
-            sb.AppendLine("Tu tarea es clasificar la intención del jugador.");
-            sb.AppendLine("Elige la opción que mejor describa la INTENCIÓN del mensaje.");
-            sb.AppendLine("No compares palabras exactas, sino significado.");
+
+            sb.AppendLine("Clasifica la intención del jugador en una de las opciones.");
+            sb.AppendLine("Responde SOLO con el número de la opción. Si ninguna encaja claramente, responde -1.");
             sb.AppendLine();
 
-            if (_currentNode != null && !string.IsNullOrEmpty(_currentNode.contextForAI))
-                sb.AppendLine($"Contexto actual del nodo: {_currentNode.contextForAI}");
-
-            if (memory.Count > 0)
+            if (_currentNode != null && !string.IsNullOrWhiteSpace(_currentNode.contextForAI))
             {
-                sb.AppendLine("Recuerdos del NPC sobre el jugador:");
-                foreach (var kv in memory)
-                    sb.AppendLine($"{kv.Key}: {kv.Value}");
+                sb.AppendLine("Contexto actual:");
+                sb.AppendLine(_currentNode.contextForAI);
+                sb.AppendLine();
             }
 
-            if (progressionFlags.Count > 0)
-            {
-                sb.AppendLine("Flags narrativas actuales:");
-                foreach (var kv in progressionFlags)
-                    sb.AppendLine($"{kv.Key}: {kv.Value}");
-            }
+            sb.AppendLine("Opciones:");
 
-            sb.AppendLine();
-            sb.AppendLine("Opciones disponibles:");
             for (int i = 0; i < options.Count; i++)
-                sb.AppendLine($"{i}: {options[i].condition}");
+            {
+                string condition = string.IsNullOrWhiteSpace(options[i].condition)
+                    ? "Continuación/default"
+                    : options[i].condition.Trim();
+
+                sb.AppendLine($"{i}: {condition}");
+            }
 
             sb.AppendLine();
             sb.AppendLine($"Mensaje del jugador: \"{userMessage}\"");
-            sb.AppendLine("Responde SOLO con el número entero correspondiente a la opción correcta. Nada más.");
-            sb.AppendLine("Si ninguna opción encaja claramente, responde -1.");
 
             var req = new CreateChatCompletionRequest
             {
@@ -338,7 +451,7 @@ namespace OpenAI.Dialogue
                     new ChatMessage
                     {
                         role = "system",
-                        content = "Eres un clasificador de intenciones. Responde SOLO con un número."
+                        content = "Eres un clasificador de intención. Responde solo con un número entero."
                     },
                     new ChatMessage
                     {
@@ -347,31 +460,72 @@ namespace OpenAI.Dialogue
                     }
                 },
                 temperature = 0f,
-                max_tokens = 5
+                max_tokens = 3
             };
 
-            var response = await openai.CreateChatCompletion(req);
-
-            if (response?.choices == null || response.choices.Count == 0)
-                return -1;
-
-            string raw = response.choices[0].message.content?.Trim() ?? "";
-            raw = Regex.Match(raw, @"-?\d+").Value;
-
-            int result = int.TryParse(raw, out int parsed) ? parsed : -1;
-
-            if (result < 0 || result >= options.Count)
+            try
             {
-                Debug.Log("[Dialogue] transición inválida");
+                var response = await openai.CreateChatCompletion(req);
+
+                if (response?.choices == null || response.choices.Count == 0)
+                    return -1;
+
+                string raw = response.choices[0].message.content?.Trim() ?? "";
+                raw = Regex.Match(raw, @"-?\d+").Value;
+
+                int result = int.TryParse(raw, out int parsed) ? parsed : -1;
+
+                if (result < 0 || result >= options.Count)
+                {
+                    Debug.Log("[Dialogue] transición inválida");
+                    return -1;
+                }
+
+                Debug.Log($"[Dialogue] transición → {userMessage} → {result}");
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[OpenAI] Error evaluando transición: {ex.Message}");
                 return -1;
             }
+        }
 
-            Debug.Log($"[Dialogue] transición → {userMessage} → {result}");
-            return result;
+        private void AddTurnToHistory(
+            string userMessage,
+            string assistantReply,
+            DialogueNodeSO nodeForPrompt)
+        {
+            RebuildSystemPromptForNode(nodeForPrompt);
+
+            history.Add(new ChatMessage
+            {
+                role = "user",
+                content = userMessage ?? ""
+            });
+
+            TrimHistory();
+
+            history.Add(new ChatMessage
+            {
+                role = "assistant",
+                content = assistantReply ?? "..."
+            });
+
+            TrimHistory();
         }
 
         private void TrimHistory()
         {
+            if (history.Count == 0)
+            {
+                history.Add(new ChatMessage
+                {
+                    role = "system",
+                    content = BuildSystemPromptForNode(_currentNode)
+                });
+            }
+
             while (history.Count > maxHistoryMessages + 1)
                 history.RemoveAt(1);
         }
@@ -379,7 +533,15 @@ namespace OpenAI.Dialogue
         private void RebuildSystemPromptForNode(DialogueNodeSO node)
         {
             if (history.Count == 0)
-                ResetHistory();
+            {
+                history.Add(new ChatMessage
+                {
+                    role = "system",
+                    content = BuildSystemPromptForNode(node)
+                });
+
+                return;
+            }
 
             history[0] = new ChatMessage
             {
@@ -392,12 +554,15 @@ namespace OpenAI.Dialogue
         {
             string nodeContext = node != null ? node.contextForAI : "";
             string memoryContext = BuildMemoryContext();
-            string globalRulesBlock = globalRules != null ? globalRules.BuildGlobalRulesBlock() : "";
             string flagsContext = BuildFlagsContext();
 
             if (characterProfile != null)
             {
-                string prompt = characterProfile.BuildCharacterPrompt(globalRulesBlock, nodeContext, memoryContext);
+                string prompt = characterProfile.BuildCharacterPrompt(
+                    cachedGlobalRulesBlock,
+                    nodeContext,
+                    memoryContext
+                );
 
                 if (!string.IsNullOrWhiteSpace(flagsContext))
                     prompt += "\n\n" + flagsContext;
@@ -406,12 +571,13 @@ namespace OpenAI.Dialogue
             }
 
             var sb = new StringBuilder();
+
             sb.AppendLine("Eres un NPC de un videojuego.");
 
-            if (!string.IsNullOrWhiteSpace(globalRulesBlock))
+            if (!string.IsNullOrWhiteSpace(cachedGlobalRulesBlock))
             {
                 sb.AppendLine();
-                sb.AppendLine(globalRulesBlock);
+                sb.AppendLine(cachedGlobalRulesBlock);
             }
 
             if (!string.IsNullOrWhiteSpace(nodeContext))
@@ -438,6 +604,9 @@ namespace OpenAI.Dialogue
 
         private string SanitizeReply(string reply)
         {
+            if (string.IsNullOrWhiteSpace(reply))
+                return "...";
+
             if (globalRules != null && globalRules.forbiddenPhrases != null)
             {
                 foreach (string forbidden in globalRules.forbiddenPhrases)
@@ -462,7 +631,11 @@ namespace OpenAI.Dialogue
 
         private string ClampWords(string text, int maxWords)
         {
+            if (string.IsNullOrWhiteSpace(text))
+                return "...";
+
             string[] words = Regex.Split(text.Trim(), @"\s+");
+
             if (words.Length <= maxWords)
                 return text;
 
@@ -471,6 +644,12 @@ namespace OpenAI.Dialogue
 
         public void Remember(string key, string value)
         {
+            if (string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(value))
+                return;
+
+            key = key.Trim();
+            value = value.Trim();
+
             if (memory.ContainsKey(key))
             {
                 memory[key] = value;
@@ -488,36 +667,45 @@ namespace OpenAI.Dialogue
 
         private void DetectMemory(string text)
         {
-            text = text.ToLower();
+            if (string.IsNullOrWhiteSpace(text))
+                return;
 
-            if (text.Contains("me llamo"))
+            string lowerText = text.ToLowerInvariant();
+
+            if (lowerText.Contains("me llamo"))
             {
-                var parts = text.Split("me llamo");
+                var parts = lowerText.Split("me llamo");
+
                 if (parts.Length > 1)
                 {
                     string name = parts[1].Trim();
+
                     if (!string.IsNullOrEmpty(name))
                         Remember("Nombre del jugador", name);
                 }
             }
 
-            if (text.Contains("odio"))
+            if (lowerText.Contains("odio"))
             {
-                var parts = text.Split("odio");
+                var parts = lowerText.Split("odio");
+
                 if (parts.Length > 1)
                 {
                     string thing = parts[1].Trim();
+
                     if (!string.IsNullOrEmpty(thing))
                         Remember("Odia", thing);
                 }
             }
 
-            if (text.Contains("me gusta"))
+            if (lowerText.Contains("me gusta"))
             {
-                var parts = text.Split("me gusta");
+                var parts = lowerText.Split("me gusta");
+
                 if (parts.Length > 1)
                 {
                     string thing = parts[1].Trim();
+
                     if (!string.IsNullOrEmpty(thing))
                         Remember("Le gusta", thing);
                 }
@@ -530,6 +718,7 @@ namespace OpenAI.Dialogue
                 return "";
 
             var sb = new StringBuilder();
+
             sb.AppendLine("Recuerdos del NPC sobre el jugador:");
 
             foreach (var kv in memory)
@@ -544,6 +733,7 @@ namespace OpenAI.Dialogue
                 return "";
 
             var sb = new StringBuilder();
+
             sb.AppendLine("Estado narrativo actual:");
 
             foreach (var kv in progressionFlags)

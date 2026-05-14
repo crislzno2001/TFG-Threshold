@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/UI/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=4f19563c2d40d53458e813e29092c7e4&amp;type=3#MainMenu"/>
+    <ui:VisualElement name="root" class="root">
+        <ui:VisualElement name="background" class="background"/>
+        <ui:VisualElement name="content" class="content">
+            <ui:Label name="title" text="THRESHOLD" class="title"/>
+            <ui:Label name="subtitle" text="Una prueba de imaginación" class="subtitle"/>
+            <ui:VisualElement name="buttons" class="buttons">
+                <ui:Button name="btn-new-game" text="Nueva partida" class="menu-button"/>
+                <ui:Button name="btn-continue" text="Continuar" class="menu-button menu-button--disabled"/>
+                <ui:Button name="btn-settings" text="Configuración" class="menu-button"/>
+                <ui:Button name="btn-credits" text="Créditos" class="menu-button"/>
+                <ui:Button name="btn-quit" text="Salir" class="menu-button"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

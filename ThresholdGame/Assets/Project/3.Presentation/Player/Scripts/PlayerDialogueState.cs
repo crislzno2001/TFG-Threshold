@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace ThresholdGame.Presentation.Player
 {
+    /// <summary>
+    /// Estado activo durante el diálogo con un NPC.
+    /// La salida la gestiona NPCInteractionTrigger.CloseDialogue().
+    /// </summary>
     public sealed class PlayerDialogueState : PlayerBaseState
     {
         public PlayerDialogueState(PlayerStateMachine sm) : base(sm) { }
