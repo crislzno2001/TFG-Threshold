@@ -1,0 +1,40 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/UI/SettingsMenu/SettingsMenu.uss?fileID=7433441132597879392&amp;guid=06b5d561e81303843896fca9f9a44ede&amp;type=3#SettingsMenu"/>
+    <ui:VisualElement name="root" class="settings-root">
+        <ui:VisualElement name="overlay" class="settings-overlay"/>
+        <ui:VisualElement name="panel" class="settings-panel">
+            <ui:Label name="title" text="CONFIGURACIÓN" class="settings-title"/>
+            <ui:VisualElement name="rows" class="settings-rows">
+                <ui:VisualElement class="settings-row">
+                    <ui:Label text="Volumen general" class="settings-label"/>
+                    <ui:Slider name="slider-master" low-value="0" high-value="1" value="1" class="settings-slider"/>
+                    <ui:Label name="value-master" text="100%" class="settings-value"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="settings-row">
+                    <ui:Label text="Música" class="settings-label"/>
+                    <ui:Slider name="slider-music" low-value="0" high-value="1" value="1" class="settings-slider"/>
+                    <ui:Label name="value-music" text="100%" class="settings-value"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="settings-row">
+                    <ui:Label text="Efectos (SFX)" class="settings-label"/>
+                    <ui:Slider name="slider-sfx" low-value="0" high-value="1" value="1" class="settings-slider"/>
+                    <ui:Label name="value-sfx" text="100%" class="settings-value"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="settings-row">
+                    <ui:Label text="Voz IA" class="settings-label"/>
+                    <ui:Slider name="slider-aivoice" low-value="0" high-value="1" value="1" class="settings-slider"/>
+                    <ui:Label name="value-aivoice" text="100%" class="settings-value"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="settings-row">
+                    <ui:Label text="Tamaño de texto" class="settings-label"/>
+                    <ui:Slider name="slider-text" low-value="0.75" high-value="1.5" value="1" class="settings-slider"/>
+                    <ui:Label name="value-text" text="100%" class="settings-value"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="buttons" class="settings-buttons">
+                <ui:Button name="btn-reset" text="Restaurar" class="settings-button"/>
+                <ui:Button name="btn-back" text="Volver" class="settings-button"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
