@@ -1,49 +1,69 @@
 ﻿using UnityEngine;
-using CharacterControls;
 using ThresholdGame.Core.Interaction;
+using ThresholdGame.Presentation.Player.Locomotion;
 using ThresholdGame.Presentation.UI;
 
 namespace ThresholdGame.Presentation.Player
 {
     /// <summary>
     /// Máquina de estados del jugador.
-    /// Implementa IPlayerController para que los IInteractable puedan cambiar
-    /// su estado sin conocer esta clase concreta.
+    /// 
+    /// Implementa IPlayerController para que los IInteractable puedan
+    /// cambiar su estado sin conocer esta clase concreta.
+    /// 
+    /// Depende de ILocomotionProvider (no de un controller concreto),
+    /// lo que permite intercambiar implementaciones de movimiento
+    /// (AnimalCrossing, TopDown, etc.) sin tocar esta clase.
     /// </summary>
     public sealed class PlayerStateMachine : MonoBehaviour, IPlayerController
     {
         [Header("Componentes")]
-        [SerializeField] private ThirdPersonController _locomotion;
+        [Tooltip("Componente que implementa ILocomotionProvider.")]
+        [SerializeField] private MonoBehaviour _locomotionSource;
         [SerializeField] private PlayerAnimationDriver _animationDriver;
 
         [Header("UI")]
         [SerializeField] private InspectUI _inspectUI;
 
+        // Estados
         public PlayerFreeRoamState FreeRoamState { get; private set; }
         public PlayerDialogueState DialogueState { get; private set; }
         public PlayerInspectState InspectState { get; private set; }
         public PlayerPausedState PausedState { get; private set; }
 
-        public ThirdPersonController Locomotion => _locomotion;
+        // Accesores expuestos a los estados
+        public ILocomotionProvider Locomotion { get; private set; }
         public PlayerAnimationDriver AnimationDriver => _animationDriver;
         public InspectUI InspectUI => _inspectUI;
 
         private PlayerBaseState _currentState;
         private PlayerBaseState _stateBeforePause;
 
-        // ── Unity ──────────────────────────────────────────────────────────────
+        // ── Unity ──────────────────────────────────────────────────────────
 
         private void Reset()
         {
-            if (_locomotion == null) _locomotion = GetComponent<ThirdPersonController>();
-            if (_animationDriver == null) _animationDriver = GetComponent<PlayerAnimationDriver>();
+            if (_animationDriver == null)
+                _animationDriver = GetComponent<PlayerAnimationDriver>();
         }
 
         private void Awake()
         {
-            if (_locomotion == null) _locomotion = GetComponent<ThirdPersonController>();
-            if (_animationDriver == null) _animationDriver = GetComponent<PlayerAnimationDriver>();
+            // Resolución de la dependencia de locomoción vía interfaz
+            Locomotion = _locomotionSource as ILocomotionProvider;
+            if (Locomotion == null)
+            {
+                Debug.LogError(
+                    $"[PlayerStateMachine] El campo 'LocomotionSource' debe " +
+                    $"implementar ILocomotionProvider. Asignado: {_locomotionSource}",
+                    this
+                );
+            }
 
+            if (_animationDriver == null)
+                _animationDriver = GetComponent<PlayerAnimationDriver>();
+
+            // Instanciación de los estados
             FreeRoamState = new PlayerFreeRoamState(this);
             DialogueState = new PlayerDialogueState(this);
             InspectState = new PlayerInspectState(this);
@@ -54,13 +74,13 @@ namespace ThresholdGame.Presentation.Player
 
         private void Update() => _currentState?.Update();
 
-        // ── IPlayerController ──────────────────────────────────────────────────
+        // ── IPlayerController ──────────────────────────────────────────────
 
         public void EnterFreeRoam() => TransitionTo(FreeRoamState);
         public void EnterDialogue() => TransitionTo(DialogueState);
         public void EnterInspect() => TransitionTo(InspectState);
 
-        // ── Pausa (apilable: recuerda el estado anterior) ─────────────────────
+        // ── Pausa (apilable: recuerda el estado anterior) ─────────────────
 
         /// <summary>
         /// Entra en pausa preservando el estado anterior para poder restaurarlo.
@@ -74,26 +94,21 @@ namespace ThresholdGame.Presentation.Player
         }
 
         /// <summary>
-        /// Restaura el estado previo a la pausa (FreeRoam, Dialogue o Inspect).
+        /// Restaura el estado anterior a la pausa.
         /// Llamado por un GameEventListener escuchando Ev_ResumePlaying.
         /// </summary>
         public void ResumeFromPause()
         {
-            if (_stateBeforePause == null)
-            {
-                TransitionTo(FreeRoamState);
-                return;
-            }
-
-            TransitionTo(_stateBeforePause);
+            if (_currentState != PausedState) return;
+            TransitionTo(_stateBeforePause ?? FreeRoamState);
             _stateBeforePause = null;
         }
 
-        // ── API interna ────────────────────────────────────────────────────────
+        // ── Transición interna ─────────────────────────────────────────────
 
-        public void TransitionTo(PlayerBaseState newState)
+        private void TransitionTo(PlayerBaseState newState)
         {
-            if (newState == null || _currentState == newState) return;
+            if (newState == null) return;
 
             _currentState?.Exit();
             _currentState = newState;

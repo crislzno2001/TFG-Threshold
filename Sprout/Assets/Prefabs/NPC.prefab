@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 372514346153900054}
   - component: {fileID: 5753413613180750314}
   - component: {fileID: 2126468366752849368}
-  - component: {fileID: 353292931163666723}
   - component: {fileID: 539865070221731585}
   - component: {fileID: 1123347206215131359}
   m_Layer: 0
@@ -139,23 +138,6 @@ MonoBehaviour:
   maxHistoryMessages: 10
   maxMemories: 5
   dialogueGraph: {fileID: 11400000, guid: 48a492350ff27ff429245beb4c1ddd4c, type: 2}
---- !u!114 &353292931163666723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6744869944065882702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c7d37ff67d347546812f308594fa475, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.NPCInteractionTrigger
-  interactionRadius: 2.5
-  playerTag: Player
-  dialogueUI: {fileID: 0}
-  npcBrain: {fileID: 2126468366752849368}
-  interactPrompt: {fileID: 0}
 --- !u!114 &539865070221731585
 MonoBehaviour:
   m_ObjectHideFlags: 0
