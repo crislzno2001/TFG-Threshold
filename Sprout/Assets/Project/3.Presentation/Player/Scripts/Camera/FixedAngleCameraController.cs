@@ -24,7 +24,7 @@ namespace ThresholdGame.Presentation.Player.Camera
         [Header("Fixed Orientation")]
         [Tooltip("Ángulo picado de la cámara (X). 45-55 da feeling Animal Crossing.")]
         [Range(0f, 89f)]
-        [SerializeField] private float pitch = 50f;
+        [SerializeField] private float pitch = 30f;
 
         [Tooltip("Ángulo lateral (Y). 0 = frontal, 45 = vista diagonal estilo isométrico.")]
         [Range(-180f, 180f)]
