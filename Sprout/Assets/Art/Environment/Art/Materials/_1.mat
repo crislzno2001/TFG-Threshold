@@ -125,7 +125,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0.96}
     - _Color: {r: 1, g: 1, b: 1, a: 0.96}
-    - _CurveOrigin: {r: 0.6573499, g: -0.010000229, b: -15.98646, a: 0}
+    - _CurveOrigin: {r: -0.7226916, g: 49.989998, b: 22.47291, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
