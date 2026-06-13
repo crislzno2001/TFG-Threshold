@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9137193743759804144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: SpeechNode
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 23a528ec-18b9-4872-9a52-aef6c57a46e1
+  contextForAI: "Conversaci\xF3n libre. El jugador propone combinaciones culinarias.
+    Mochi reacciona dram\xE1ticamente a cada una. Aqu\xED se mide fluidez."
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: 
+  transitions: []
+--- !u!114 &-8349154093194918040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: SpeechNode
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 2b1b5c04-38f0-470b-a966-fdb200b65bae
+  contextForAI: "Mochi est\xE1 en pleno ataque de p\xE1nico italiano. Esta noche
+    llega un cliente VIP a su restaurante y solo tiene ingredientes rar\xEDsimos.
+    NO revela qui\xE9n es el cliente. Habla con drama exagerado y muletillas italianas.
+    Suplica ideas a la florista.\n"
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: -9137193743759804144}
+  openingLine: "Mamma mia! \xA1Bellissima florista! \xA1Esta noche es una CAT\xC1STROFE!
+    \xA1Necesito ideas YA! "
+  transitions: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb61de17a0d8834c8344f4ab533f2da, type: 3}
+  m_Name: Mochi_DialogueGraph
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueGraphSO
+  nodes:
+  - {fileID: -8349154093194918040}
+  - {fileID: -9137193743759804144}
+  entryNode: {fileID: -8349154093194918040}
+  nodePositions:
+  - nodeId: 2b1b5c04-38f0-470b-a966-fdb200b65bae
+    position: {x: 38, y: 212}
+  - nodeId: 23a528ec-18b9-4872-9a52-aef6c57a46e1
+    position: {x: 402, y: 233}

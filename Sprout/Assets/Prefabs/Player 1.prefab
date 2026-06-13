@@ -451,6 +451,38 @@ Transform:
   - {fileID: 2878080366249543498}
   m_Father: {fileID: 3222038614092596335}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1374202891989853854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2270452001340878185}
+  m_Layer: 8
+  m_Name: CameraRig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2270452001340878185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374202891989853854}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5242641137583353504}
+  m_Father: {fileID: 7965988378059212502}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1427546543952570922
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,12 +571,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568117117236224313}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalRotation: {x: 0.42261827, y: -0, z: -0, w: 0.9063079}
   m_LocalPosition: {x: 0, y: 1.375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7965988378059212502}
+  m_Children:
+  - {fileID: 8659758367883662144}
+  m_Father: {fileID: 2270452001340878185}
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
 --- !u!114 &2351899142669351890
 MonoBehaviour:
@@ -558,9 +591,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f76326725222f844bad73b230f05f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThresholdGame.Presentation.Player.Camera.FixedAngleCameraController
+  followTarget: {fileID: 0}
   cameraAnchor: {fileID: 5242641137583353504}
   pitch: 50
   yaw: 0
+  distance: 10
+  height: 7
+  lookAtOffset: {x: 0, y: 1, z: 0}
 --- !u!1 &1640038415268363944
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,12 +851,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2294806340010045616}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 12.865668, z: -9.641813}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7965988378059212502}
+  m_Father: {fileID: 5242641137583353504}
   m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
 --- !u!114 &8628032507305433837
 MonoBehaviour:
@@ -1656,11 +1693,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5242641137583353504}
   - {fileID: 7615965839162662764}
   - {fileID: 1354735628996473252}
-  - {fileID: 8659758367883662144}
   - {fileID: 3382957127396092344}
+  - {fileID: 2270452001340878185}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8273436513068764586
@@ -1856,7 +1892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea13d375cd13de4e9ea02574a1b2fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThresholdGame.Presentation.Player.PlayerStateMachine
-  _locomotion: {fileID: 0}
+  _locomotionSource: {fileID: 0}
   _animationDriver: {fileID: 4227532747588600408}
   _inspectUI: {fileID: 0}
 --- !u!114 &4227532747588600408

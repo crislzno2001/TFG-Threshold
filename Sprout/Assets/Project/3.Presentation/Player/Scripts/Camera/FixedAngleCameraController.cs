@@ -1,55 +1,78 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 namespace ThresholdGame.Presentation.Player.Camera
 {
     /// <summary>
-    /// Controla la orientaciÛn fija del target de la Cinemachine Camera
-    /// para conseguir un encuadre tipo Animal Crossing.
+    /// Controla un anchor de c√°mara fijo estilo Animal Crossing.
+    /// Calcula posici√≥n y rotaci√≥n del anchor cada LateUpdate bas√°ndose
+    /// en el target (player), un offset configurable y √°ngulos fijos.
     /// 
-    /// La c·mara virtual (Cinemachine) sigue a un Transform "anchor"
-    /// que este script orienta cada frame con un pitch (X) y un yaw (Y)
-    /// fijos definidos en el Inspector.
-    /// 
-    /// El jugador NO puede rotar esta c·mara con input ó es intencionalmente
-    /// est·tica para preservar la composiciÛn del encuadre, igual que
-    /// Animal Crossing.
+    /// La c√°mara virtual de Cinemachine debe seguir este anchor con
+    /// "Hard Lock to Target" (sin Third Person Follow), de forma que
+    /// la composici√≥n del encuadre depende √∫nicamente de este script.
     /// </summary>
     public sealed class FixedAngleCameraController : MonoBehaviour
     {
-        [Header("Camera Anchor")]
-        [Tooltip("Transform al que Cinemachine sigue como Tracking Target. " +
-                 "Este script controlar· su rotaciÛn.")]
+        [Header("References")]
+        [Tooltip("Transform al que la c√°mara sigue (normalmente el Player).")]
+        [SerializeField] private Transform followTarget;
+
+        [Tooltip("Transform que la Cinemachine usar√° como Tracking Target. " +
+                 "Este script controla su posici√≥n y rotaci√≥n.")]
         [SerializeField] private Transform cameraAnchor;
 
         [Header("Fixed Orientation")]
-        [Tooltip("¡ngulo picado de la c·mara (X). 45-55 da feeling Animal Crossing.")]
         [Range(0f, 89f)]
-        [SerializeField] private float pitch = 30f;
+        [SerializeField] private float pitch = 50f;
 
-        [Tooltip("¡ngulo lateral (Y). 0 = frontal, 45 = vista diagonal estilo isomÈtrico.")]
         [Range(-180f, 180f)]
         [SerializeField] private float yaw = 0f;
 
-        /// <summary>
-        /// Yaw actual de la c·mara. Lo expone para que el sistema de
-        /// movimiento pueda calcular direcciones relativas a la c·mara.
-        /// </summary>
+        [Header("Framing")]
+        [Tooltip("Distancia horizontal de la c√°mara al target.")]
+        [SerializeField] private float distance = 10f;
+
+        [Tooltip("Altura de la c√°mara sobre el target.")]
+        [SerializeField] private float height = 7f;
+
+        [Tooltip("Offset del punto al que mira la c√°mara (relativo al target). " +
+                 "Sube Y para mirar a la cabeza, baja para mirar al suelo.")]
+        [SerializeField] private Vector3 lookAtOffset = new Vector3(0f, 1f, 0f);
+
+      
+        /// <summary>Yaw actual de la c√°mara, para que el sistema de movimiento calcule direcciones relativas.</summary>
         public float CurrentYaw => yaw;
-
-        private void Reset()
-        {
-            // Por defecto, intentamos auto-asignar el target si est· como hijo.
-            if (cameraAnchor == null)
-                cameraAnchor = transform;
-        }
-
         private void LateUpdate()
         {
-            if (cameraAnchor == null) return;
+            if (followTarget == null || cameraAnchor == null) return;
 
-            // LateUpdate para garantizar que se aplica despuÈs de cualquier
-            // movimiento del personaje en Update.
+            Vector3 lookAtPoint = followTarget.position + lookAtOffset;
+
+            Quaternion yawRotation = Quaternion.Euler(0f, yaw, 0f);
+            Vector3 backDirection = yawRotation * Vector3.back;
+
+            Vector3 desiredPosition = lookAtPoint
+                                    + Vector3.up * height
+                                    + backDirection * distance;
+
+            // Follow directo, sin suavizado (estilo Animal Crossing).
+            cameraAnchor.position = desiredPosition;
             cameraAnchor.rotation = Quaternion.Euler(pitch, yaw, 0f);
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
+        {
+            if (followTarget == null) return;
+            Vector3 lookAt = followTarget.position + lookAtOffset;
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(lookAt, 0.15f);
+            if (cameraAnchor != null)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawLine(cameraAnchor.position, lookAt);
+            }
+        }
+#endif
     }
 }
