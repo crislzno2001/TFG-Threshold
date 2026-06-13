@@ -53,7 +53,7 @@ Material:
     m_Floats:
     - _CurveStrength: 0
     m_Colors:
-    - _CurveOrigin: {r: -0.0000000054375358, g: 0.06298947, b: 4.5550322e-10, a: 0}
+    - _CurveOrigin: {r: 1.3799207, g: -0.010000229, b: 5.6301727, a: 0}
     - _Tiling: {r: 4, g: 4, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

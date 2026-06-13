@@ -202,6 +202,10 @@ namespace OpenAI.Dialogue
             if (currentNode == null)
                 return false;
 
+            // Los ConversationNode siempre evalúan exitCondition async — nunca fast-path.
+            if (currentNode is ConversationNodeSO)
+                return false;
+
             if (currentNode is SpeechNodeSO speechNode)
             {
                 if (speechNode.transitions != null && speechNode.transitions.Count == 1)
@@ -282,6 +286,25 @@ namespace OpenAI.Dialogue
         {
             if (currentNode == null)
                 return null;
+
+            // ── ConversationNode: evaluar exitCondition. Si se cumple → avanza. ─
+            if (currentNode is ConversationNodeSO conversationNode)
+            {
+                bool shouldExit = await EvaluateExitCondition(
+                    userMessage,
+                    conversationNode.exitCondition,
+                    conversationNode
+                );
+
+                if (shouldExit &&
+                    conversationNode.nextNodes != null &&
+                    conversationNode.nextNodes.Count > 0)
+                {
+                    return conversationNode.nextNodes[0];
+                }
+
+                return currentNode;
+            }
 
             if (currentNode is SpeechNodeSO speechNodeWithTransitions &&
                 speechNodeWithTransitions.transitions != null &&
@@ -741,5 +764,74 @@ namespace OpenAI.Dialogue
 
             return sb.ToString();
         }
+
+        private async System.Threading.Tasks.Task<bool> EvaluateExitCondition(
+            string userMessage,
+            string exitCondition,
+            ConversationNodeSO node)
+        {
+            if (string.IsNullOrWhiteSpace(exitCondition))
+                return false;
+
+            var sb = new StringBuilder();
+
+            sb.AppendLine("Determina si la conversación debe avanzar.");
+            sb.AppendLine("Responde SOLO 'si' o 'no'. Sin texto adicional.");
+            sb.AppendLine();
+
+            if (node != null && !string.IsNullOrWhiteSpace(node.contextForAI))
+            {
+                sb.AppendLine("Contexto del nodo actual:");
+                sb.AppendLine(node.contextForAI);
+                sb.AppendLine();
+            }
+
+            sb.AppendLine("Condición de salida (cuando se cumpla, la conversación avanza):");
+            sb.AppendLine(exitCondition.Trim());
+            sb.AppendLine();
+            sb.AppendLine($"Último mensaje del jugador: \"{userMessage}\"");
+            sb.AppendLine();
+            sb.AppendLine("¿Se cumple la condición de salida? Responde 'si' o 'no'.");
+
+            var req = new CreateChatCompletionRequest
+            {
+                model = model,
+                messages = new List<ChatMessage>
+                {
+                    new ChatMessage
+                    {
+                        role = "system",
+                        content = "Eres un clasificador binario. Responde solo 'si' o 'no'."
+                    },
+                    new ChatMessage
+                    {
+                        role = "user",
+                        content = sb.ToString()
+                    }
+                },
+                temperature = 0f,
+                max_tokens = 3
+            };
+
+            try
+            {
+                var response = await openai.CreateChatCompletion(req);
+
+                if (response?.choices == null || response.choices.Count == 0)
+                    return false;
+
+                string raw = response.choices[0].message.content?.Trim().ToLowerInvariant() ?? "";
+                bool result = raw.StartsWith("si") || raw.StartsWith("sí") || raw.StartsWith("yes");
+
+                Debug.Log($"[Dialogue] exitCondition → \"{userMessage}\" → {result}");
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[OpenAI] Error evaluando exitCondition: {ex.Message}");
+                return false;
+            }
+        }
+
     }
 }

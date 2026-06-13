@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace ThresholdGame.Application.NPC
 {
@@ -14,7 +14,6 @@ namespace ThresholdGame.Application.NPC
     public sealed class NPCOrder
     {
         public static readonly NPCOrder None = new(NPCOrderType.None, null);
-
         public NPCOrderType Type { get; }
         public string DestinationId { get; }
         public bool IsOrder => Type != NPCOrderType.None;
@@ -27,47 +26,74 @@ namespace ThresholdGame.Application.NPC
     }
 
     /// <summary>
-    /// Clase pura de C# que analiza el texto del jugador con expresiones regulares
-    /// y devuelve la orden detectada.
-    /// Si en el futuro quieres usar OpenAI function calling en vez de regex,
-    /// solo cambias esta clase.
+    /// Interpreta el mensaje del jugador y detecta si es una orden para el NPC.
+    ///
+    /// Solo detecta órdenes cuando son CLARAS:
+    /// - El mensaje debe ser corto (≤ 8 palabras) — las frases largas son conversación, no órdenes.
+    /// - Los patrones requieren contexto (no solo palabras sueltas).
+    /// - Para movimiento, también acepta "me traes X" o "tráeme X" si X está registrado.
     /// </summary>
     public sealed class NPCOrderInterpreter
     {
+        // ── Órdenes de seguimiento (frases cortas e imperativas) ─────────────
         private static readonly Regex FollowPattern = new(
-            @"\b(ven|s�gueme|sigueme|acomp��ame|acompa�ame|ven\s+aqu�|ven\s+aqui)\b",
+            @"^(?:venga,?\s+)?(sígueme|sigueme|acompáñame|acompañame|ven\s+(?:aquí|aqui|conmigo))\b",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        // ── Órdenes de parar (imperativas, no "para X") ──────────────────────
+        // OJO: "para" solo se detecta cuando va sola o seguida de signos.
         private static readonly Regex StopPattern = new(
-            @"\b(para|detente|qu�date|quedate|quieto|espera|no\s+te\s+muevas)\b",
+            @"^(detente|quédate\s+(?:aquí|aqui|quieto|quieta)|quedate\s+(?:aquí|aqui|quieto|quieta)|quieto|quieta|no\s+te\s+muevas|espérame\s+aquí|esperame\s+aqui)\b",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        // ── Órdenes de volver ────────────────────────────────────────────────
         private static readonly Regex ReturnPattern = new(
-            @"\b(vuelve|regresa|ve\s+a\s+tu\s+sitio|vuelve\s+a\s+tu\s+sitio)\b",
+            @"^(vuelve\s+(?:a\s+tu\s+sitio|a\s+casa|atrás|atras)|regresa\s+(?:a\s+tu\s+sitio|a\s+casa))\b",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        // Captura el alias del destino: "ve a la foto", "mu�vete hacia la puerta"
+        // ── Mover a un destino: "ve a X", "muévete hacia X", "dirígete a X" ──
         private static readonly Regex MoveToPattern = new(
-            @"\b(?:ve|mu�vete|muevete|dir�gete|dirigete|ac�rcate|acercate)\s+(?:a|al|hacia|hasta)\s+(?:la\s+|el\s+|los\s+|las\s+)?(\w+(?:\s+\w+)?)\b",
+            @"\b(?:ve|muévete|muevete|dirígete|dirigete|acércate|acercate)\s+(?:a|al|hacia|hasta)\s+(?:la\s+|el\s+|los\s+|las\s+)?(\w+(?:\s+\w+)?)\b",
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        // ── "Tráeme X" / "Me traes X" / "Puedes traerme X" ───────────────────
+        private static readonly Regex BringPattern = new(
+            @"\b(?:tráeme|traeme|me\s+traes|puedes\s+traerme|tráete|me\s+puedes\s+traer)\s+(?:la\s+|el\s+|los\s+|las\s+|un\s+|una\s+)?(\w+(?:\s+\w+)?)\b",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         public NPCOrder Interpret(string playerMessage)
         {
             if (string.IsNullOrWhiteSpace(playerMessage)) return NPCOrder.None;
 
-            if (FollowPattern.IsMatch(playerMessage))
+            string trimmed = playerMessage.Trim();
+
+            // Si el mensaje es muy largo, casi seguro no es una orden directa
+            // sino una propuesta o conversación.
+            int wordCount = trimmed.Split(' ').Length;
+            if (wordCount > 8) return NPCOrder.None;
+
+            if (FollowPattern.IsMatch(trimmed))
                 return new NPCOrder(NPCOrderType.Follow);
 
-            if (StopPattern.IsMatch(playerMessage))
+            if (StopPattern.IsMatch(trimmed))
                 return new NPCOrder(NPCOrderType.Stop);
 
-            if (ReturnPattern.IsMatch(playerMessage))
+            if (ReturnPattern.IsMatch(trimmed))
                 return new NPCOrder(NPCOrderType.ReturnHome);
 
-            var match = MoveToPattern.Match(playerMessage);
-            if (match.Success)
+            // "ve a X" — orden directa de movimiento
+            var moveMatch = MoveToPattern.Match(trimmed);
+            if (moveMatch.Success)
             {
-                string id = match.Groups[1].Value.Trim().ToLowerInvariant();
+                string id = moveMatch.Groups[1].Value.Trim().ToLowerInvariant();
+                return new NPCOrder(NPCOrderType.MoveToDestination, id);
+            }
+
+            // "tráeme la sal" — petición de movimiento hacia el objeto
+            var bringMatch = BringPattern.Match(trimmed);
+            if (bringMatch.Success)
+            {
+                string id = bringMatch.Groups[1].Value.Trim().ToLowerInvariant();
                 return new NPCOrder(NPCOrderType.MoveToDestination, id);
             }
 

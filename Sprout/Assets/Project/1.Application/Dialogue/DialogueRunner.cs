@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using ThresholdGame.Application.NPC;
 using ThresholdGame.Presentation.NPC;
 
@@ -15,6 +16,11 @@ namespace OpenAI.Dialogue
     /// </summary>
     public class DialogueRunner : MonoBehaviour
     {
+        // ── Eventos para sistemas externos (Torrance tracker, analytics, etc.) ─
+        [Header("Eventos")]
+        [Tooltip("Se dispara después de cada paso de diálogo, pasando el nodo en el que se ha quedado el runner.")]
+        public UnityEvent<DialogueNodeSO> onStepCompleted;
+
         private NPCBrain _brain;
         private NPCStateMachine _npcStateMachine;
         private NPCOrderInterpreter _interpreter;
@@ -65,10 +71,16 @@ namespace OpenAI.Dialogue
                     bool executed = _npcStateMachine.ExecuteOrder(order);
 
                     if (executed)
+                    {
+                        onStepCompleted?.Invoke(_current);
                         return ConfirmationFor(order);
+                    }
 
                     if (order.Type == NPCOrderType.MoveToDestination)
+                    {
+                        onStepCompleted?.Invoke(_current);
                         return "No conozco ese lugar.";
+                    }
                 }
             }
 
@@ -77,6 +89,9 @@ namespace OpenAI.Dialogue
 
             if (result?.NextNode != null && result.NextNode != _current)
                 AdvanceTo(result.NextNode);
+
+            // 🔔 Notificar al tracker / otros sistemas
+            onStepCompleted?.Invoke(_current);
 
             return string.IsNullOrWhiteSpace(result?.Reply) ? "..." : result.Reply;
         }

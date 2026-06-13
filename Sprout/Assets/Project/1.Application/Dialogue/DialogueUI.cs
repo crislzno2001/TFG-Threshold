@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 using ThresholdGame.Presentation.Interaction;
 
@@ -7,6 +8,14 @@ namespace OpenAI.Dialogue
 {
     public class DialogueUI : MonoBehaviour
     {
+        // ── Eventos para sistemas externos (Torrance, analytics, etc.) ─────────
+        [Header("Eventos de conversación")]
+        [Tooltip("Se dispara cuando el jugador envía un mensaje")]
+        public UnityEvent<string> onPlayerMessageSent;
+
+        [Tooltip("Se dispara cuando el NPC devuelve su respuesta")]
+        public UnityEvent<string> onNPCReplied;
+
         [Header("Panel principal")]
         [SerializeField] private GameObject dialoguePanel;
         [SerializeField] private TMP_Text npcNameText;
@@ -65,6 +74,11 @@ namespace OpenAI.Dialogue
             {
                 ShowNPCMessage(speechNode.openingLine);
             }
+            else if (_runner.Current is ConversationNodeSO conversationNode &&
+                     !string.IsNullOrEmpty(conversationNode.openingLine))
+            {
+                ShowNPCMessage(conversationNode.openingLine);
+            }
         }
 
         public void Close()
@@ -104,10 +118,18 @@ namespace OpenAI.Dialogue
 
             SetStatus($"{currentNPC.npcName} está pensando...");
 
+            // 🔔 Notificar a los listeners (Torrance tracker, etc.)
+            onPlayerMessageSent?.Invoke(userText);
+
             string reply = await _runner.ProcessMessage(userText);
 
             SetStatus("");
-            ShowNPCMessage(string.IsNullOrWhiteSpace(reply) ? "..." : reply);
+            string displayReply = string.IsNullOrWhiteSpace(reply) ? "..." : reply;
+
+            // 🔔 Notificar respuesta del NPC
+            onNPCReplied?.Invoke(displayReply);
+
+            ShowNPCMessage(displayReply);
 
             isWaiting = false;
             SetInputInteractable(true);

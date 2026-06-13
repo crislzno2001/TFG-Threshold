@@ -10465,7 +10465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &809982642
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11138,7 +11138,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285110475}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5bad90137025cb4b8d1d4a7740138c6, type: 3}
   m_Name: 
@@ -11187,6 +11187,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1304690393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285110475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fed4f7087078f34ba774b85d40554f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Evaluation.MochiTorranceTracker
+  _brain: {fileID: 1304690371}
+  _ideasNode: {fileID: -6570824603773933646, guid: b3761c10944612e478deb3519eedc32c, type: 2}
+  _classifierModel: gpt-4o-mini
+  _highFluencyThreshold: 4
+  onIdeaCountChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _debug_ideaCount: 0
+  _debug_currentNode: 
+  _debug_fluencyLevel: ninguna
+  _debug_validIdeas: []
+  _debug_rejectedMessages: []
 --- !u!1 &1323353311
 GameObject:
   m_ObjectHideFlags: 0
@@ -11572,6 +11596,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 809982642}
     m_Modifications:
+    - target: {fileID: 1898765127374819377, guid: 76da642dfbe6f6940880d6ca5f24e4b6, type: 3}
+      propertyPath: onPlayerMessageSent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898765127374819377, guid: 76da642dfbe6f6940880d6ca5f24e4b6, type: 3}
+      propertyPath: onPlayerMessageSent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898765127374819377, guid: 76da642dfbe6f6940880d6ca5f24e4b6, type: 3}
+      propertyPath: onPlayerMessageSent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1304690393}
+    - target: {fileID: 1898765127374819377, guid: 76da642dfbe6f6940880d6ca5f24e4b6, type: 3}
+      propertyPath: onPlayerMessageSent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898765127374819377, guid: 76da642dfbe6f6940880d6ca5f24e4b6, type: 3}
+      propertyPath: onPlayerMessageSent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RegisterPlayerMessage
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898765127374819377, guid: 76da642dfbe6f6940880d6ca5f24e4b6, type: 3}
+      propertyPath: onPlayerMessageSent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Sprout.Evaluation.MochiTorranceTracker, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898765127374819377, guid: 76da642dfbe6f6940880d6ca5f24e4b6, type: 3}
+      propertyPath: onPlayerMessageSent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2491544149300321903, guid: 76da642dfbe6f6940880d6ca5f24e4b6, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -11678,6 +11730,42 @@ PrefabInstance:
       propertyPath: dialogueUI
       value: 
       objectReference: {fileID: 620822060}
+    - target: {fileID: 539865070221731585, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
+      propertyPath: onStepCompleted.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 539865070221731585, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
+      propertyPath: onStepCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1304690393}
+    - target: {fileID: 539865070221731585, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
+      propertyPath: onStepCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 539865070221731585, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
+      propertyPath: onStepCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnDialogueStepCompleted
+      objectReference: {fileID: 0}
+    - target: {fileID: 539865070221731585, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
+      propertyPath: onStepCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Sprout.Evaluation.MochiTorranceTracker, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 539865070221731585, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
+      propertyPath: onStepCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2126468366752849368, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
+      propertyPath: globalRules
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2126468366752849368, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
+      propertyPath: dialogueGraph
+      value: 
+      objectReference: {fileID: 11400000, guid: b3761c10944612e478deb3519eedc32c, type: 2}
+    - target: {fileID: 2126468366752849368, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
+      propertyPath: characterProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: 5bf6783e9af1c254099f23e9d5e53189, type: 2}
     - target: {fileID: 4878133620225290393, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -11755,6 +11843,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6744869944065882702, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1304690387}
+    - targetCorrespondingSourceObject: {fileID: 6744869944065882702, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1304690393}
   m_SourcePrefab: {fileID: 100100000, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
 --- !u!1 &2114283753834967212
 GameObject:

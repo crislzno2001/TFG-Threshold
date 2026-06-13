@@ -17,15 +17,16 @@ namespace OpenAI.Dialogue.Editor
             _screenMousePos = screenMousePos;
         }
 
-      public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
-{
-    return new List<SearchTreeEntry>
-    {
-        new SearchTreeGroupEntry(new GUIContent("Crear nodo"), 0),
-        new SearchTreeEntry(new GUIContent("Speech Node")) { level = 1, userData = typeof(SpeechNodeSO) },
-        new SearchTreeEntry(new GUIContent("Choice Node")) { level = 1, userData = typeof(ChoiceNodeSO) },
-    };
-}
+        public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
+        {
+            return new List<SearchTreeEntry>
+            {
+                new SearchTreeGroupEntry(new GUIContent("Crear nodo"), 0),
+                new SearchTreeEntry(new GUIContent("Speech Node")) { level = 1, userData = typeof(SpeechNodeSO) },
+                new SearchTreeEntry(new GUIContent("Choice Node")) { level = 1, userData = typeof(ChoiceNodeSO) },
+                new SearchTreeEntry(new GUIContent("Conversation Node")) { level = 1, userData = typeof(ConversationNodeSO) },
+            };
+        }
 
         public bool OnSelectEntry(SearchTreeEntry entry, SearchWindowContext context)
         {
@@ -35,7 +36,6 @@ namespace OpenAI.Dialogue.Editor
             var so = ScriptableObject.CreateInstance(type) as DialogueNodeSO;
             so.name = type.Name.Replace("SO", "");
 
-            // Posici�n aproximada en el centro del grafo visible
             _graphView.CreateNodeView(so, Vector2.zero);
             return true;
         }

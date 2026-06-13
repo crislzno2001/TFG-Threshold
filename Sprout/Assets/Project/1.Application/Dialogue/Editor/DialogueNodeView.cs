@@ -8,9 +8,9 @@ namespace OpenAI.Dialogue.Editor
 {
     public class DialogueNodeView : Node
     {
-        public DialogueNodeSO NodeSO    { get; private set; }
-        public Port           InputPort  { get; private set; }
-        public Port           OutputPort { get; private set; }
+        public DialogueNodeSO NodeSO { get; private set; }
+        public Port InputPort { get; private set; }
+        public Port OutputPort { get; private set; }
 
         public string SceneName => _sceneNameField?.value ?? NodeSO.name;
 
@@ -76,6 +76,8 @@ namespace OpenAI.Dialogue.Editor
                 titleContainer.style.backgroundColor = new Color(0.15f, 0.35f, 0.55f);
             else if (NodeSO is ChoiceNodeSO)
                 titleContainer.style.backgroundColor = new Color(0.45f, 0.25f, 0.05f);
+            else if (NodeSO is ConversationNodeSO)
+                titleContainer.style.backgroundColor = new Color(0.15f, 0.45f, 0.25f);
         }
 
         protected override void ToggleCollapse()
@@ -215,7 +217,8 @@ namespace OpenAI.Dialogue.Editor
                             choiceSO.choices.RemoveAt(idx);
                             EditorUtility.SetDirty(NodeSO);
                             RefreshChoices();
-                        }) { text = "✕" };
+                        })
+                        { text = "✕" };
                         removeBtn.style.width = 24;
 
                         row.Add(condField);
@@ -235,9 +238,102 @@ namespace OpenAI.Dialogue.Editor
                     choiceSO.choices.Add(new ChoiceData { condition = "nueva opción" });
                     EditorUtility.SetDirty(NodeSO);
                     RefreshChoices();
-                }) { text = "+ Añadir opción" };
+                })
+                { text = "+ Añadir opción" };
                 addBtn.style.marginTop = 4;
                 _body.Add(addBtn);
+            }
+            else if (NodeSO is ConversationNodeSO conversationSO)
+            {
+                // Frase inicial
+                var openingField = new TextField("Frase inicial") { value = conversationSO.openingLine };
+                openingField.RegisterValueChangedCallback(e =>
+                {
+                    conversationSO.openingLine = e.newValue;
+                    EditorUtility.SetDirty(NodeSO);
+                });
+                _body.Add(openingField);
+
+                // Temas de conversación
+                if (conversationSO.conversationTopics == null)
+                    conversationSO.conversationTopics = new System.Collections.Generic.List<string>();
+
+                var topicsHeader = new Label("── Temas de conversación ──");
+                topicsHeader.style.unityFontStyleAndWeight = FontStyle.Bold;
+                topicsHeader.style.marginTop = 6;
+                _body.Add(topicsHeader);
+
+                var topicsContainer = new VisualElement();
+                _body.Add(topicsContainer);
+
+                void RefreshTopics()
+                {
+                    topicsContainer.Clear();
+                    for (int i = 0; i < conversationSO.conversationTopics.Count; i++)
+                    {
+                        int idx = i;
+                        var row = new VisualElement();
+                        row.style.flexDirection = FlexDirection.Row;
+                        row.style.marginBottom = 2;
+
+                        var topicField = new TextField { value = conversationSO.conversationTopics[idx] };
+                        topicField.style.flexGrow = 1;
+                        topicField.tooltip = "Tema que el jugador puede tocar. La IA lo usa como guía, NO es transición.";
+                        topicField.RegisterValueChangedCallback(e =>
+                        {
+                            conversationSO.conversationTopics[idx] = e.newValue;
+                            EditorUtility.SetDirty(NodeSO);
+                        });
+
+                        var removeBtn = new Button(() =>
+                        {
+                            conversationSO.conversationTopics.RemoveAt(idx);
+                            EditorUtility.SetDirty(NodeSO);
+                            RefreshTopics();
+                        })
+                        { text = "✕" };
+                        removeBtn.style.width = 24;
+
+                        row.Add(topicField);
+                        row.Add(removeBtn);
+                        topicsContainer.Add(row);
+                    }
+                }
+
+                RefreshTopics();
+
+                var addTopicBtn = new Button(() =>
+                {
+                    conversationSO.conversationTopics.Add("nuevo tema");
+                    EditorUtility.SetDirty(NodeSO);
+                    RefreshTopics();
+                })
+                { text = "+ Añadir tema" };
+                addTopicBtn.style.marginTop = 4;
+                _body.Add(addTopicBtn);
+
+                // Condición de salida
+                var exitHeader = new Label("── Condición de salida ──");
+                exitHeader.style.unityFontStyleAndWeight = FontStyle.Bold;
+                exitHeader.style.marginTop = 8;
+                _body.Add(exitHeader);
+
+                var exitHelp = new Label("Cuando se cumpla esta condición, la conversación avanza al siguiente nodo.");
+                exitHelp.style.whiteSpace = WhiteSpace.Normal;
+                exitHelp.style.fontSize = 10;
+                exitHelp.style.color = new Color(0.7f, 0.7f, 0.7f);
+                exitHelp.style.marginBottom = 2;
+                _body.Add(exitHelp);
+
+                var exitField = new TextField { value = conversationSO.exitCondition, multiline = true };
+                exitField.style.minHeight = 50;
+                exitField.style.whiteSpace = WhiteSpace.Normal;
+                exitField.RegisterValueChangedCallback(e =>
+                {
+                    conversationSO.exitCondition = e.newValue;
+                    EditorUtility.SetDirty(NodeSO);
+                });
+                _body.Add(exitField);
             }
 
             extensionContainer.Add(_body);
@@ -299,175 +395,175 @@ namespace OpenAI.Dialogue.Editor
         }
 
         private void BuildGateEditors(VisualElement parent)
-{
-    if (NodeSO.prerequisiteFlags == null)
-        NodeSO.prerequisiteFlags = new System.Collections.Generic.List<DialogueFlagRequirement>();
-
-    if (NodeSO.flagsOnEnter == null)
-        NodeSO.flagsOnEnter = new System.Collections.Generic.List<DialogueFlagChange>();
-
-    var gateHeader = new Label("── Prerequisite Gates ──");
-    gateHeader.style.unityFontStyleAndWeight = FontStyle.Bold;
-    gateHeader.style.marginTop = 6;
-    parent.Add(gateHeader);
-
-    var lockedReplyField = new TextField("Locked Reply")
-    {
-        value = NodeSO.lockedReply,
-        multiline = true
-    };
-    lockedReplyField.RegisterValueChangedCallback(e =>
-    {
-        NodeSO.lockedReply = e.newValue;
-        EditorUtility.SetDirty(NodeSO);
-    });
-    parent.Add(lockedReplyField);
-
-    var requirementsContainer = new VisualElement();
-    parent.Add(requirementsContainer);
-
-    void RefreshRequirements()
-    {
-        requirementsContainer.Clear();
-
-        for (int i = 0; i < NodeSO.prerequisiteFlags.Count; i++)
         {
-            int idx = i;
+            if (NodeSO.prerequisiteFlags == null)
+                NodeSO.prerequisiteFlags = new System.Collections.Generic.List<DialogueFlagRequirement>();
 
-            var row = new VisualElement();
-            row.style.flexDirection = FlexDirection.Row;
-            row.style.alignItems = Align.Center;
+            if (NodeSO.flagsOnEnter == null)
+                NodeSO.flagsOnEnter = new System.Collections.Generic.List<DialogueFlagChange>();
 
-            var flagField = new TextField
+            var gateHeader = new Label("── Prerequisite Gates ──");
+            gateHeader.style.unityFontStyleAndWeight = FontStyle.Bold;
+            gateHeader.style.marginTop = 6;
+            parent.Add(gateHeader);
+
+            var lockedReplyField = new TextField("Locked Reply")
             {
-                value = NodeSO.prerequisiteFlags[idx].flag
+                value = NodeSO.lockedReply,
+                multiline = true
             };
-            flagField.style.flexGrow = 1;
-            flagField.RegisterValueChangedCallback(e =>
+            lockedReplyField.RegisterValueChangedCallback(e =>
             {
-                NodeSO.prerequisiteFlags[idx].flag = e.newValue;
+                NodeSO.lockedReply = e.newValue;
                 EditorUtility.SetDirty(NodeSO);
             });
+            parent.Add(lockedReplyField);
 
-            var expectedToggle = new Toggle("true")
-            {
-                value = NodeSO.prerequisiteFlags[idx].expectedValue
-            };
-            expectedToggle.style.width = 70;
-            expectedToggle.RegisterValueChangedCallback(e =>
-            {
-                NodeSO.prerequisiteFlags[idx].expectedValue = e.newValue;
-                EditorUtility.SetDirty(NodeSO);
-            });
+            var requirementsContainer = new VisualElement();
+            parent.Add(requirementsContainer);
 
-            var removeBtn = new Button(() =>
+            void RefreshRequirements()
             {
-                NodeSO.prerequisiteFlags.RemoveAt(idx);
+                requirementsContainer.Clear();
+
+                for (int i = 0; i < NodeSO.prerequisiteFlags.Count; i++)
+                {
+                    int idx = i;
+
+                    var row = new VisualElement();
+                    row.style.flexDirection = FlexDirection.Row;
+                    row.style.alignItems = Align.Center;
+
+                    var flagField = new TextField
+                    {
+                        value = NodeSO.prerequisiteFlags[idx].flag
+                    };
+                    flagField.style.flexGrow = 1;
+                    flagField.RegisterValueChangedCallback(e =>
+                    {
+                        NodeSO.prerequisiteFlags[idx].flag = e.newValue;
+                        EditorUtility.SetDirty(NodeSO);
+                    });
+
+                    var expectedToggle = new Toggle("true")
+                    {
+                        value = NodeSO.prerequisiteFlags[idx].expectedValue
+                    };
+                    expectedToggle.style.width = 70;
+                    expectedToggle.RegisterValueChangedCallback(e =>
+                    {
+                        NodeSO.prerequisiteFlags[idx].expectedValue = e.newValue;
+                        EditorUtility.SetDirty(NodeSO);
+                    });
+
+                    var removeBtn = new Button(() =>
+                    {
+                        NodeSO.prerequisiteFlags.RemoveAt(idx);
+                        EditorUtility.SetDirty(NodeSO);
+                        RefreshRequirements();
+                    })
+                    { text = "✕" };
+                    removeBtn.style.width = 24;
+
+                    row.Add(flagField);
+                    row.Add(expectedToggle);
+                    row.Add(removeBtn);
+
+                    requirementsContainer.Add(row);
+                }
+            }
+
+            RefreshRequirements();
+
+            var addRequirementBtn = new Button(() =>
+            {
+                NodeSO.prerequisiteFlags.Add(new DialogueFlagRequirement
+                {
+                    flag = "new_flag",
+                    expectedValue = true
+                });
                 EditorUtility.SetDirty(NodeSO);
                 RefreshRequirements();
             })
-            { text = "✕" };
-            removeBtn.style.width = 24;
+            { text = "+ Añadir requisito" };
+            addRequirementBtn.style.marginTop = 4;
+            parent.Add(addRequirementBtn);
 
-            row.Add(flagField);
-            row.Add(expectedToggle);
-            row.Add(removeBtn);
+            var enterHeader = new Label("── Flags al entrar ──");
+            enterHeader.style.unityFontStyleAndWeight = FontStyle.Bold;
+            enterHeader.style.marginTop = 8;
+            parent.Add(enterHeader);
 
-            requirementsContainer.Add(row);
-        }
-    }
+            var flagsOnEnterContainer = new VisualElement();
+            parent.Add(flagsOnEnterContainer);
 
-    RefreshRequirements();
-
-    var addRequirementBtn = new Button(() =>
-    {
-        NodeSO.prerequisiteFlags.Add(new DialogueFlagRequirement
-        {
-            flag = "new_flag",
-            expectedValue = true
-        });
-        EditorUtility.SetDirty(NodeSO);
-        RefreshRequirements();
-    })
-    { text = "+ Añadir requisito" };
-    addRequirementBtn.style.marginTop = 4;
-    parent.Add(addRequirementBtn);
-
-    var enterHeader = new Label("── Flags al entrar ──");
-    enterHeader.style.unityFontStyleAndWeight = FontStyle.Bold;
-    enterHeader.style.marginTop = 8;
-    parent.Add(enterHeader);
-
-    var flagsOnEnterContainer = new VisualElement();
-    parent.Add(flagsOnEnterContainer);
-
-    void RefreshFlagsOnEnter()
-    {
-        flagsOnEnterContainer.Clear();
-
-        for (int i = 0; i < NodeSO.flagsOnEnter.Count; i++)
-        {
-            int idx = i;
-
-            var row = new VisualElement();
-            row.style.flexDirection = FlexDirection.Row;
-            row.style.alignItems = Align.Center;
-
-            var flagField = new TextField
+            void RefreshFlagsOnEnter()
             {
-                value = NodeSO.flagsOnEnter[idx].flag
-            };
-            flagField.style.flexGrow = 1;
-            flagField.RegisterValueChangedCallback(e =>
-            {
-                NodeSO.flagsOnEnter[idx].flag = e.newValue;
-                EditorUtility.SetDirty(NodeSO);
-            });
+                flagsOnEnterContainer.Clear();
 
-            var valueToggle = new Toggle("true")
-            {
-                value = NodeSO.flagsOnEnter[idx].value
-            };
-            valueToggle.style.width = 70;
-            valueToggle.RegisterValueChangedCallback(e =>
-            {
-                NodeSO.flagsOnEnter[idx].value = e.newValue;
-                EditorUtility.SetDirty(NodeSO);
-            });
+                for (int i = 0; i < NodeSO.flagsOnEnter.Count; i++)
+                {
+                    int idx = i;
 
-            var removeBtn = new Button(() =>
+                    var row = new VisualElement();
+                    row.style.flexDirection = FlexDirection.Row;
+                    row.style.alignItems = Align.Center;
+
+                    var flagField = new TextField
+                    {
+                        value = NodeSO.flagsOnEnter[idx].flag
+                    };
+                    flagField.style.flexGrow = 1;
+                    flagField.RegisterValueChangedCallback(e =>
+                    {
+                        NodeSO.flagsOnEnter[idx].flag = e.newValue;
+                        EditorUtility.SetDirty(NodeSO);
+                    });
+
+                    var valueToggle = new Toggle("true")
+                    {
+                        value = NodeSO.flagsOnEnter[idx].value
+                    };
+                    valueToggle.style.width = 70;
+                    valueToggle.RegisterValueChangedCallback(e =>
+                    {
+                        NodeSO.flagsOnEnter[idx].value = e.newValue;
+                        EditorUtility.SetDirty(NodeSO);
+                    });
+
+                    var removeBtn = new Button(() =>
+                    {
+                        NodeSO.flagsOnEnter.RemoveAt(idx);
+                        EditorUtility.SetDirty(NodeSO);
+                        RefreshFlagsOnEnter();
+                    })
+                    { text = "✕" };
+                    removeBtn.style.width = 24;
+
+                    row.Add(flagField);
+                    row.Add(valueToggle);
+                    row.Add(removeBtn);
+
+                    flagsOnEnterContainer.Add(row);
+                }
+            }
+
+            RefreshFlagsOnEnter();
+
+            var addFlagBtn = new Button(() =>
             {
-                NodeSO.flagsOnEnter.RemoveAt(idx);
+                NodeSO.flagsOnEnter.Add(new DialogueFlagChange
+                {
+                    flag = "new_flag",
+                    value = true
+                });
                 EditorUtility.SetDirty(NodeSO);
                 RefreshFlagsOnEnter();
             })
-            { text = "✕" };
-            removeBtn.style.width = 24;
-
-            row.Add(flagField);
-            row.Add(valueToggle);
-            row.Add(removeBtn);
-
-            flagsOnEnterContainer.Add(row);
+            { text = "+ Añadir flag al entrar" };
+            addFlagBtn.style.marginTop = 4;
+            parent.Add(addFlagBtn);
         }
-    }
-
-    RefreshFlagsOnEnter();
-
-    var addFlagBtn = new Button(() =>
-    {
-        NodeSO.flagsOnEnter.Add(new DialogueFlagChange
-        {
-            flag = "new_flag",
-            value = true
-        });
-        EditorUtility.SetDirty(NodeSO);
-        RefreshFlagsOnEnter();
-    })
-    { text = "+ Añadir flag al entrar" };
-    addFlagBtn.style.marginTop = 4;
-    parent.Add(addFlagBtn);
-}
     }
 
 
