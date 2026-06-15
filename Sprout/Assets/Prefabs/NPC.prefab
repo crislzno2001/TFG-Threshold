@@ -14,7 +14,11 @@ GameObject:
   - component: {fileID: 5753413613180750314}
   - component: {fileID: 2126468366752849368}
   - component: {fileID: 539865070221731585}
-  - component: {fileID: 1123347206215131359}
+  - component: {fileID: 3221547261648253395}
+  - component: {fileID: 8496944307539895004}
+  - component: {fileID: 3630002987949609034}
+  - component: {fileID: 738032618974847192}
+  - component: {fileID: 438689523490868420}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -31,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 6744869944065882702}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.17077, y: 1.0844, z: 9.6}
+  m_LocalPosition: {x: 1.55, y: 0.66, z: 7.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -130,14 +134,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.NPCBrain
   isInteracting: 0
-  characterProfile: {fileID: 11400000, guid: b39cb90dc0256724186e1696f6470bf3, type: 2}
-  globalRules: {fileID: 11400000, guid: fae2a125883648643be86f1d14766f76, type: 2}
+  characterProfile: {fileID: 11400000, guid: 5bf6783e9af1c254099f23e9d5e53189, type: 2}
+  globalRules: {fileID: 0}
   model: gpt-4o-mini
   temperature: 0.8
   maxTokens: 150
   maxHistoryMessages: 10
   maxMemories: 5
-  dialogueGraph: {fileID: 11400000, guid: 48a492350ff27ff429245beb4c1ddd4c, type: 2}
+  dialogueGraph: {fileID: 11400000, guid: b3761c10944612e478deb3519eedc32c, type: 2}
 --- !u!114 &539865070221731585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +154,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d844fdb146fdd0439d35ddb1c71fe3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueRunner
---- !u!195 &1123347206215131359
+  onStepCompleted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 438689523490868420}
+        m_TargetAssemblyTypeName: Sprout.Evaluation.MochiTorranceTracker, Assembly-CSharp
+        m_MethodName: OnDialogueStepCompleted
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!195 &3221547261648253395
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,3 +191,83 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8496944307539895004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6744869944065882702}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5bad90137025cb4b8d1d4a7740138c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThresholdGame.Presentation.NPC.NPCStateMachine
+  playerTransform: {fileID: 0}
+  destinationRegistry: {fileID: 0}
+  arrivalThreshold: 0.5
+--- !u!114 &3630002987949609034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6744869944065882702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729a6c5b70ff9c54daa5d6e001375c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThresholdGame.Presentation.Interaction.NPCInteractionTrigger
+  dialogueUI: {fileID: 0}
+  npcBrain: {fileID: 2126468366752849368}
+--- !u!54 &738032618974847192
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6744869944065882702}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &438689523490868420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6744869944065882702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fed4f7087078f34ba774b85d40554f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Evaluation.MochiTorranceTracker
+  _brain: {fileID: 2126468366752849368}
+  _ideasNode: {fileID: -6570824603773933646, guid: b3761c10944612e478deb3519eedc32c, type: 2}
+  _classifierModel: gpt-4o-mini
+  _highFluencyThreshold: 4
+  onIdeaCountChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _debug_ideaCount: 0
+  _debug_currentNode: 
+  _debug_fluencyLevel: ninguna
+  _debug_validIdeas: []
+  _debug_rejectedMessages: []

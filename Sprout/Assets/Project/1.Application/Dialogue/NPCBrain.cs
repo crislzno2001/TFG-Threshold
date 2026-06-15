@@ -81,16 +81,32 @@ namespace OpenAI.Dialogue
             progressionFlags.Clear();
         }
 
+        /// <summary>Raised when a flag actually changes value (drives the central store).</summary>
+        public event System.Action<string, bool> OnFlagSet;
+
         public void SetFlag(string flag, bool value = true)
         {
             if (string.IsNullOrWhiteSpace(flag)) return;
-            progressionFlags[flag.Trim()] = value;
+            flag = flag.Trim();
+            bool had = progressionFlags.TryGetValue(flag, out bool old);
+            progressionFlags[flag] = value;
+            if (!had || old != value) OnFlagSet?.Invoke(flag, value);
         }
 
         public bool GetFlag(string flag)
         {
             if (string.IsNullOrWhiteSpace(flag)) return false;
             return progressionFlags.TryGetValue(flag.Trim(), out bool value) && value;
+        }
+
+        // ── Memory persistence (save/load) ───────────────────────────────────
+        public IReadOnlyDictionary<string, string> ExportMemory() => memory;
+
+        public void ImportMemory(Dictionary<string, string> saved)
+        {
+            memory.Clear();
+            if (saved == null) return;
+            foreach (var kv in saved) memory[kv.Key] = kv.Value;
         }
 
         public bool MeetsRequirements(DialogueNodeSO node)

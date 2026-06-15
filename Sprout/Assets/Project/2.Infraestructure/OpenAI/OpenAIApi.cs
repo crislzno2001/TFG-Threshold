@@ -16,30 +16,22 @@ namespace OpenAI
         private string apiKey;
         private string organization;
 
-        // cargar desde archivo ~/.openai/auth.json 
+        /// <summary>True once a non-empty API key has been resolved.</summary>
+        public bool IsConfigured => !string.IsNullOrWhiteSpace(apiKey);
+
+        // Resolves the key via AIConfig (env var → persistentDataPath →
+        // StreamingAssets → ~/.openai/auth.json). Never hardcodes a key.
         public OpenAIApi()
         {
-            LoadAuthFromFile();
+            apiKey = AIConfig.ApiKey;
+            organization = AIConfig.Organization;
         }
 
-        private void LoadAuthFromFile()
+        // Explicit key (used by tests / tooling). DEV use only.
+        public OpenAIApi(string key, string org = null)
         {
-            string path = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                ".openai", "auth.json"
-            );
-
-            if (File.Exists(path))
-            {
-                string json = File.ReadAllText(path);
-                var auth = JsonUtility.FromJson<OpenAIAuth>(json);
-                apiKey = auth.apiKey;
-                organization = auth.organization;
-            }
-            else
-            {
-                Debug.LogWarning("[OpenAI] No se encontr� ~/.openai/auth.json. Usa new OpenAIApi(\"tu-api-key\") o crea el archivo.");
-            }
+            apiKey = key;
+            organization = org;
         }
 
         // ---- HELPERS ----
@@ -80,6 +72,72 @@ namespace OpenAI
             }
 
             return SimpleJson.Deserialize<T>(request.downloadHandler.text);
+        }
+
+        // ---- CONNECTION TEST ----
+
+        /// <summary>
+        /// Performs a tiny chat request to verify the key works and the network is
+        /// reachable. Returns a categorised result for the AI setup screen.
+        /// </summary>
+        public async Task<AIConnectionResult> TestConnection(string model = "gpt-4o-mini", float timeoutSeconds = 15f)
+        {
+            if (!IsConfigured)
+                return AIConnectionResult.Make(AIConnectionStatus.MissingKey,
+                    "No API key configured. Add your OpenAI key to start the game.");
+
+            var req = new CreateChatCompletionRequest
+            {
+                model = model,
+                messages = new List<ChatMessage>
+                {
+                    new ChatMessage { role = "system", content = "Reply with the single word: ok" },
+                    new ChatMessage { role = "user", content = "ping" }
+                },
+                temperature = 0f,
+                max_tokens = 2,
+                stream = false
+            };
+
+            string json = SimpleJson.SerializeChatRequest(req);
+
+            using var request = CreateRequest("chat/completions", "POST", json);
+            request.timeout = Mathf.Max(1, Mathf.CeilToInt(timeoutSeconds));
+
+            var op = request.SendWebRequest();
+            while (!op.isDone) await Task.Yield();
+
+            switch (request.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    return AIConnectionResult.Make(AIConnectionStatus.Ok, "AI connection OK.", 200);
+
+                case UnityWebRequest.Result.ConnectionError:
+                    return AIConnectionResult.Make(AIConnectionStatus.NetworkError,
+                        "Could not reach OpenAI. Check your internet connection.", request.responseCode);
+
+                case UnityWebRequest.Result.DataProcessingError:
+                    return AIConnectionResult.Make(AIConnectionStatus.Unknown,
+                        "Unexpected response from OpenAI.", request.responseCode);
+
+                default: // ProtocolError (HTTP >= 400)
+                    long code = request.responseCode;
+                    if (code == 401 || code == 403)
+                        return AIConnectionResult.Make(AIConnectionStatus.InvalidKey,
+                            "API key was rejected (401/403). Check the key is valid and active.", code);
+                    if (code == 429)
+                        return AIConnectionResult.Make(AIConnectionStatus.RateLimited,
+                            "Rate limited or out of quota (429). Try again shortly.", code);
+                    if (code >= 500)
+                        return AIConnectionResult.Make(AIConnectionStatus.ServerError,
+                            "OpenAI server error. Try again in a moment.", code);
+                    // Unity reports timeouts as a ProtocolError with code 0 sometimes.
+                    if (code == 0)
+                        return AIConnectionResult.Make(AIConnectionStatus.Timeout,
+                            "The request timed out. Check your connection and try again.", 0);
+                    return AIConnectionResult.Make(AIConnectionStatus.Unknown,
+                        $"Unexpected error ({code}).", code);
+            }
         }
 
         // ---- CHAT COMPLETION ----

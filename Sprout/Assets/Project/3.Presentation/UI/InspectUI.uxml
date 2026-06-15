@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="inspect-root" picking-mode="Position" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; align-items: center; justify-content: center; background-color: rgba(20, 16, 24, 0.45);">
+        <ui:VisualElement name="inspect-panel" style="width: 720px; max-width: 90%; background-color: rgb(250, 244, 232); border-top-left-radius: 22px; border-top-right-radius: 22px; border-bottom-left-radius: 22px; border-bottom-right-radius: 22px; border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; border-left-color: rgb(201, 166, 107); border-right-color: rgb(201, 166, 107); border-top-color: rgb(201, 166, 107); border-bottom-color: rgb(201, 166, 107); padding-left: 32px; padding-right: 32px; padding-top: 28px; padding-bottom: 28px; align-items: center;">
+            <ui:Button name="inspect-close" text="X" style="position: absolute; top: 12px; right: 14px; width: 44px; height: 44px; border-top-left-radius: 22px; border-top-right-radius: 22px; border-bottom-left-radius: 22px; border-bottom-right-radius: 22px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgb(233, 198, 170); color: rgb(58, 46, 42); font-size: 22px;" />
+            <ui:Label name="inspect-title" text="Título" style="font-size: 34px; color: rgb(214, 120, 140); -unity-font-style: bold; margin-bottom: 14px; -unity-text-align: middle-center; white-space: normal;" />
+            <ui:VisualElement name="inspect-image" style="width: 240px; height: 240px; margin-bottom: 16px; background-color: rgba(0, 0, 0, 0.05); border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; -unity-background-scale-mode: scale-to-fit;" />
+            <ui:Label name="inspect-description" text="Descripción" style="font-size: 20px; color: rgb(58, 46, 42); white-space: normal; -unity-text-align: middle-center; max-width: 640px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

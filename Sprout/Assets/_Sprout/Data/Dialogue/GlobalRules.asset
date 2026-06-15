@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba015f1ece5f5c84b92841089955eced, type: 3}
+  m_Name: GlobalRules
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueGlobalRulesSO
+  neverBreakCharacter: 1
+  forbidMetaAIReferences: 1
+  avoidModernLanguage: 0
+  mandatoryRules:
+  - "Responde SIEMPRE en espa\xF1ol."
+  forbiddenPhrases: []

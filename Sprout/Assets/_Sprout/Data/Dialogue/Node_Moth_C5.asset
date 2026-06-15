@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Node_Moth_C5
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 
+  contextForAI: "Moth pide al jugador inventar un mensaje falso para enga\xF1ar a
+    Rix. Reacciona a si el jugador acepta o se niega. Responde siempre en espa\xF1ol."
+  prerequisiteFlags:
+  - flag: moth_friendship_value_4
+    expectedValue: 1
+  - flag: moth_asked_for_help
+    expectedValue: 1
+  lockedReply: "A\xFAn no conf\xEDo del todo en ti... sus\xFArrame algo m\xE1s primero."
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "Es para Rix. Quiero que crea que otra persona le ama, para acercarme
+    yo. \xBFMe ayudas a inventar ese mensaje falso?"
+  transitions:
+  - condition: "el jugador acepta ayudar con el mensaje falso o el enga\xF1o"
+    targetNode: {fileID: 11400000, guid: 9ccb775807ae1b94b9be8a8ba2fbda4f, type: 2}
+  - condition: "el jugador se niega a enga\xF1ar a Rix o aconseja sinceridad"
+    targetNode: {fileID: 11400000, guid: be794db4106fe08408cd4e5bd2c88b12, type: 2}

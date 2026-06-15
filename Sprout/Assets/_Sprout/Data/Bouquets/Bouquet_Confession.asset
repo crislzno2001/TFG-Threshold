@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08a8fba4450a184aa16f4d8600eafad, type: 3}
+  m_Name: Bouquet_Confession
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Data.BouquetDefinitionSO
+  kind: 6
+  displayName: Bouquet of Confession
+  emotionalMeaning: A secret finally told.
+  ingredientA: 6
+  ingredientB: 7
+  icon: {fileID: 21300000, guid: b85fa7590cab4f24c85642b2c67e06bb, type: 3}
+  model: {fileID: 0}
+  reactions:
+  - npc: 0
+    reactionContext: Mochi reacts dramatically to the Confession.
+    affinityDelta: 1
+    requiresTrust: 0
+  - npc: 1
+    reactionContext: Aster studies the Confession nervously.
+    affinityDelta: 1
+    requiresTrust: 0
+  - npc: 2
+    reactionContext: Moth reads hidden meaning in the Confession.
+    affinityDelta: 1
+    requiresTrust: 0
+  - npc: 3
+    reactionContext: Rix pretends not to care about the Confession.
+    affinityDelta: 0
+    requiresTrust: 0

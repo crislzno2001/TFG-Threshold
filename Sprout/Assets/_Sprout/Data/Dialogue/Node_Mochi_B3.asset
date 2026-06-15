@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Node_Mochi_B3
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 
+  contextForAI: "Mochi te hace probar su plato (probablemente horrible). Reacciona
+    a si el jugador miente con amabilidad o es brutalmente sincero. Responde siempre
+    en espa\xF1ol."
+  prerequisiteFlags:
+  - flag: mochi_ideas_count_value_2
+    expectedValue: 1
+  lockedReply: "\xA1A\xFAn no, a\xFAn no! Necesito m\xE1s ideas antes de cocinar.
+    \xA1Dame m\xE1s!"
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "\xA1Listo! Prueba esto... dime, \xBFes una obra maestra?"
+  transitions:
+  - condition: "el jugador miente con amabilidad, dice que est\xE1 bueno o lo elogia"
+    targetNode: {fileID: 11400000, guid: 6f4e24fbef985f445904bb8eae3a2ac2, type: 2}
+  - condition: "el jugador es brutalmente sincero, dice que est\xE1 malo o lo critica"
+    targetNode: {fileID: 11400000, guid: 348666ad9b07a3a4fad66ed8b9eebc12, type: 2}

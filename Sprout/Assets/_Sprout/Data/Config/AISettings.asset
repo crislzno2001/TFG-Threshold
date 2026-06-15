@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924d677cb4cd43f4e8f9ca77dfc73f11, type: 3}
+  m_Name: AISettings
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Data.AISettingsSO
+  chatModel: gpt-4o-mini
+  classifierModel: gpt-4o-mini
+  connectionTestModel: gpt-4o-mini
+  requestTimeoutSeconds: 20
+  useMockAI: 0
