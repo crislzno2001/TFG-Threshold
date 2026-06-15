@@ -849,7 +849,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4280954426
   m_fontColor: {r: 0.22745098, g: 0.18039216, b: 0.16470589, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -862,7 +862,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -1571,7 +1571,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4287396054
   m_fontColor: {r: 0.8392157, g: 0.47058824, b: 0.54901963, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1584,7 +1584,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -7415,7 +7415,7 @@ PrefabInstance:
     - target: {fileID: -1791021718884840133, guid: 8e590819e6512cd4687400d3587d8f0e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 2486cb28c3c9bd34b83ee5768c02c32e, type: 2}
+      objectReference: {fileID: 2100000, guid: 7ec6e2ab08006754cb84f81d7eacd1e2, type: 2}
     - target: {fileID: -1779398635042198751, guid: 8e590819e6512cd4687400d3587d8f0e, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -13578,7 +13578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8134837689134937748, guid: 8e590819e6512cd4687400d3587d8f0e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8135453981748977944, guid: 8e590819e6512cd4687400d3587d8f0e, type: 3}
       propertyPath: m_Layer
@@ -14479,10 +14479,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -1820862175217482997, guid: 8e590819e6512cd4687400d3587d8f0e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1697915575}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8134837689134937748, guid: 8e590819e6512cd4687400d3587d8f0e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1898130732}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e590819e6512cd4687400d3587d8f0e, type: 3}
 --- !u!1 &189986773 stripped
 GameObject:
@@ -15858,7 +15855,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &441041198
 Transform:
   m_ObjectHideFlags: 0
@@ -26469,7 +26466,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -28233,51 +28230,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &1898130727 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8134837689134937748, guid: 8e590819e6512cd4687400d3587d8f0e, type: 3}
-  m_PrefabInstance: {fileID: 186622103}
-  m_PrefabAsset: {fileID: 0}
---- !u!218 &1898130732
-Terrain:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898130727}
-  m_Enabled: 1
-  serializedVersion: 6
-  m_TerrainData: {fileID: 0}
-  m_TreeDistance: 5000
-  m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
-  m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
-  m_DetailObjectDensity: 1
-  m_HeightmapPixelError: 5
-  m_SplatMapDistance: 1000
-  m_HeightmapMinimumLODSimplification: 0
-  m_HeightmapMaximumLOD: 0
-  m_ShadowCastingMode: 2
-  m_DrawHeightmap: 1
-  m_DrawInstanced: 0
-  m_DrawTreesAndFoliage: 1
-  m_StaticShadowCaster: 0
-  m_IgnoreQualitySettings: 0
-  m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 0}
-  m_BakeLightProbesForTrees: 1
-  m_PreserveTreePrototypeLayers: 0
-  m_DeringLightProbesForTrees: 1
-  m_ReceiveGI: 1
-  m_ScaleInLightmap: 1
-  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
-  m_GroupingID: 0
-  m_RenderingLayerMask: 1
-  m_AllowAutoConnect: 0
-  m_EnableHeightmapRayTracing: 1
-  m_EnableTreesAndDetailsRayTracing: 0
-  m_TreeMotionVectorModeOverride: 3
 --- !u!1 &1903563036
 GameObject:
   m_ObjectHideFlags: 0
@@ -30324,8 +30276,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2351899142669351890, guid: fe9ae16014a28c6439d55f2160070288, type: 3}
+      propertyPath: pitch
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2351899142669351890, guid: fe9ae16014a28c6439d55f2160070288, type: 3}
       propertyPath: distance
-      value: 17
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2351899142669351890, guid: fe9ae16014a28c6439d55f2160070288, type: 3}
       propertyPath: occludedPitch
