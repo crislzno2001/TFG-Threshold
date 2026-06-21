@@ -98,23 +98,23 @@ MonoBehaviour:
   entryNode: {fileID: 3412995496488760195}
   nodePositions:
   - nodeId: ff52e304-b826-45c3-97c6-c25434a1c159
-    position: {x: 18.4, y: 124}
+    position: {x: 80, y: 80}
   - nodeId: c2ae8185-8fed-429a-ae07-90eab20cfcfe
-    position: {x: 776.8, y: 291.19998}
+    position: {x: 420, y: 80}
   - nodeId: 7b035e19-cec5-4920-be76-00188fd1bf17
-    position: {x: 1101.6, y: 276.8}
+    position: {x: 760, y: 80}
   - nodeId: 158ba61c-a6c5-4067-bb11-69b17601015a
-    position: {x: 1476, y: 392.8}
+    position: {x: 1100, y: 80}
   - nodeId: 11874186-2001-4714-b629-98588c026707
-    position: {x: 2042.4, y: 291.19998}
+    position: {x: 80, y: 320}
   - nodeId: a3dfadb3-1afc-47b8-b6ce-8571fcfb747c
-    position: {x: 329.6, y: 262.4}
+    position: {x: 420, y: 320}
   - nodeId: 2b22d1c2-b323-4bff-bd8a-3f5db177e928
-    position: {x: 776.8, y: -101.600006}
+    position: {x: 760, y: 320}
   - nodeId: 81fc6227-6e5e-4ad9-86e0-3a3222e08990
-    position: {x: 1893.6, y: 605.6}
+    position: {x: 1100, y: 320}
   - nodeId: 8ca06e38-e4cd-4126-b7ff-7310f77565e2
-    position: {x: 1684.8, y: 46.399998}
+    position: {x: 80, y: 560}
 --- !u!114 &3412995496488760195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +207,7 @@ MonoBehaviour:
   lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
   flagsOnEnter: []
   nextNodes: []
+  openingLine: 
   choices:
   - condition: "pregunta donde est\xE1 o que es este lugar "
     nextNode: {fileID: -2276975470968006274}
@@ -231,6 +232,7 @@ MonoBehaviour:
   lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
   flagsOnEnter: []
   nextNodes: []
+  openingLine: 
   choices:
   - condition: "pregunta cu\xE1les son las reglas"
     nextNode: {fileID: -4324968273607372507}

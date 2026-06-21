@@ -16,6 +16,14 @@ namespace ThresholdGame.Presentation.Interaction
 
         private IPlayerController _player;
 
+        private void Awake()
+        {
+            // Si no se asignaron en el inspector, intentamos resolverlos solos.
+            if (npcBrain == null) npcBrain = GetComponent<NPCBrain>();
+            if (dialogueUI == null)
+                dialogueUI = FindFirstObjectByType<DialogueUI>(FindObjectsInactive.Include);
+        }
+
         // ── IInteractable ──────────────────────────────────────────────────────
 
         public string InteractionLabel => "Hablar";
@@ -23,6 +31,22 @@ namespace ThresholdGame.Presentation.Interaction
         public void Interact(IPlayerController player)
         {
             _player = player;
+
+            if (npcBrain == null) npcBrain = GetComponent<NPCBrain>();
+            if (dialogueUI == null)
+                dialogueUI = FindFirstObjectByType<DialogueUI>(FindObjectsInactive.Include);
+
+            if (npcBrain == null)
+            {
+                Debug.LogError($"[NPCInteractionTrigger] '{name}' no tiene NPCBrain. Asígnalo en el inspector.", this);
+                return;
+            }
+            if (dialogueUI == null)
+            {
+                Debug.LogError($"[NPCInteractionTrigger] No encuentro ningún DialogueUI en la escena para '{name}'. " +
+                               "Asigna el campo 'Dialogue UI' (el del canvas de diálogo).", this);
+                return;
+            }
 
             npcBrain.isInteracting = true;
             dialogueUI.Open(npcBrain);

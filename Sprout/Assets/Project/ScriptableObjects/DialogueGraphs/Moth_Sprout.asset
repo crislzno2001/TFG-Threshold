@@ -1,0 +1,219 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8904186055231509168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Moth_refused
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 9d0feadd-e6f8-474b-982c-732b77069de4
+  contextForAI: El jugador se niega a la mentira (honestidad). Moth se duele pero
+    lo encaja.
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter:
+  - flag: player_was_honest
+    value: 1
+  nextNodes:
+  - {fileID: 6461630656984719229}
+  openingLine: "\u2026Claro. Tienes raz\xF3n. Perdona. Es que\u2026 no quiero que
+    se apague antes de encenderse."
+  transitions: []
+--- !u!114 &-2309065594898298876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Moth_request
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: 84323570-89e3-4e40-b086-2de5474375f8
+  contextForAI: "Petici\xF3n turbia: Moth pide inventarle a Rix algo que ella no
+    hizo. Decisi\xF3n moral del juego."
+  prerequisiteFlags:
+  - flag: moth_pidio_ayuda
+    expectedValue: 1
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "Dile a Rix que escrib\xED una canci\xF3n para \xE9l. No es verdad,
+    pero\u2026 funciona mejor si no lo es."
+  choices:
+  - condition: el jugador acepta inventarle la mentira a Rix
+    nextNode: {fileID: 2003639617293267540}
+  - condition: "el jugador se niega a mentir y le pone l\xEDmites con cari\xF1o"
+    nextNode: {fileID: -8904186055231509168}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb61de17a0d8834c8344f4ab533f2da, type: 3}
+  m_Name: Moth_Sprout
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueGraphSO
+  nodes:
+  - {fileID: 2653171959398314921}
+  - {fileID: 4372214877672487808}
+  - {fileID: 8384139551066877730}
+  - {fileID: -2309065594898298876}
+  - {fileID: 2003639617293267540}
+  - {fileID: -8904186055231509168}
+  - {fileID: 6461630656984719229}
+  entryNode: {fileID: 2653171959398314921}
+  nodePositions:
+  - nodeId: 28809cb5-e019-41cd-a9e8-315a4f532c84
+    position: {x: 260, y: 60}
+  - nodeId: 700a6af5-9371-4596-b1b3-1209724e7e63
+    position: {x: 260, y: 280}
+  - nodeId: d207512e-5fb5-4663-bfc7-204a8bf2502e
+    position: {x: 260, y: 500}
+  - nodeId: 84323570-89e3-4e40-b086-2de5474375f8
+    position: {x: 260, y: 720}
+  - nodeId: 63a913fa-27f2-41e6-9107-ba9395617566
+    position: {x: 260, y: 940}
+  - nodeId: 9d0feadd-e6f8-474b-982c-732b77069de4
+    position: {x: 260, y: 1160}
+  - nodeId: 634db20e-367a-4d1a-a60f-768ae5b54a8f
+    position: {x: 260, y: 1380}
+--- !u!114 &2003639617293267540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Moth_helped
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 63a913fa-27f2-41e6-9107-ba9395617566
+  contextForAI: El jugador acepta la mentira. Esto puede estallar cuando Rix lo descubra.
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter:
+  - flag: helped_moth_lie
+    value: 1
+  nextNodes:
+  - {fileID: 6461630656984719229}
+  openingLine: "\xBFLo har\xE1s? Gracias. Gracias. Sab\xEDa que t\xFA s\xED sent\xEDas
+    mi luz."
+  transitions: []
+--- !u!114 &2653171959398314921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Moth_talk
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: 28809cb5-e019-41cd-a9e8-315a4f532c84
+  contextForAI: "Moth, polilla obsesiva y metaf\xF3rica. Habla en met\xE1foras raras,
+    observa demasiado, dice cosas que no deber\xEDa. Est\xE1 obsesionada con Rix
+    pero lo disfraza de inter\xE9s filos\xF3fico."
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter:
+  - flag: moth_conocida
+    value: 1
+  nextNodes:
+  - {fileID: 4372214877672487808}
+  openingLine: "La luz no se mira. Se siente. T\xFA tienes una luz\u2026 pr\xE1ctica.
+    Me gusta."
+  conversationTopics: []
+  exitCondition: "El jugador le sigue la conversaci\xF3n o le pregunta qu\xE9 quiere."
+--- !u!114 &4372214877672487808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Moth_poem
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: 700a6af5-9371-4596-b1b3-1209724e7e63
+  contextForAI: "NODO DE ELABORACI\xD3N: Moth pide ayuda para escribir un poema para
+    Rix. Aqu\xED se mide Elaboraci\xF3n (si el jugador da detalles concretos o va
+    seco)."
+  prerequisiteFlags:
+  - flag: moth_conocida
+    expectedValue: 1
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: 8384139551066877730}
+  openingLine: "\xBFMe ayudas con unas palabras? Para\u2026 un amigo. Tienen que
+    sonar a verdad aunque no lo sean."
+  conversationTopics: []
+  exitCondition: El jugador aporta una estrofa, una imagen concreta, o dice que no
+    se le ocurre nada.
+--- !u!114 &6461630656984719229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Moth_bye
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 634db20e-367a-4d1a-a60f-768ae5b54a8f
+  contextForAI: Despedida de Moth. Nodo terminal.
+  prerequisiteFlags: []
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "Vuelve ma\xF1ana. La luz cambia de noche. Yo tambi\xE9n. No te vayas
+    t\xFA tambi\xE9n."
+  transitions: []
+--- !u!114 &8384139551066877730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Moth_confess
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: d207512e-5fb5-4663-bfc7-204a8bf2502e
+  contextForAI: "Moth confiesa su obsesi\xF3n con Rix y pide a la florista que medie.
+    Empieza a depender emocionalmente."
+  prerequisiteFlags:
+  - flag: moth_conocida
+    expectedValue: 1
+  lockedReply: "A\xFAn no puedes avanzar por aqu\xED."
+  flagsOnEnter:
+  - flag: moth_pidio_ayuda
+    value: 1
+  nextNodes:
+  - {fileID: -2309065594898298876}
+  openingLine: "Vale. No es para un amigo. Es para Rix. Lo necesito. \xBFMe ayudas
+    a que me vea?"
+  conversationTopics: []
+  exitCondition: "El jugador acepta ayudar, duda, o le pone l\xEDmites."

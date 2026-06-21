@@ -53,6 +53,8 @@ namespace OpenAI.Dialogue
         private bool isWaiting = false;
         private DialogueRunner _runner;
         private Coroutine _typing;
+        private DialogueNodeSO _lastNode; // último nodo cuya frase inicial ya mostramos
+        private bool _closeAfterType;     // cerrar el diálogo al acabar de teclear (nodo de despedida)
 
         private void Awake()
         {
@@ -100,15 +102,21 @@ namespace OpenAI.Dialogue
 
             _runner.StartDialogue();
 
-            if (_runner.Current is SpeechNodeSO speechNode &&
-                !string.IsNullOrEmpty(speechNode.openingLine))
+            _lastNode = _runner.Current;
+            string opening = OpeningLineOf(_runner.Current);
+            if (!string.IsNullOrEmpty(opening))
+                ShowNPCMessage(opening);
+        }
+
+        /// <summary>Frase inicial de un nodo (vale para Speech, Conversation y Choice).</summary>
+        private static string OpeningLineOf(DialogueNodeSO node)
+        {
+            switch (node)
             {
-                ShowNPCMessage(speechNode.openingLine);
-            }
-            else if (_runner.Current is ConversationNodeSO conversationNode &&
-                     !string.IsNullOrEmpty(conversationNode.openingLine))
-            {
-                ShowNPCMessage(conversationNode.openingLine);
+                case SpeechNodeSO s:       return s.openingLine;
+                case ConversationNodeSO c: return c.openingLine;
+                case ChoiceNodeSO ch:      return ch.openingLine;
+                default:                   return null;
             }
         }
 
@@ -160,7 +168,19 @@ namespace OpenAI.Dialogue
             string reply = await _runner.ProcessMessage(userText);
 
             SetStatus("");
-            string displayReply = string.IsNullOrWhiteSpace(reply) ? "..." : reply;
+
+            // Si hemos avanzado a un nodo NUEVO que tiene frase inicial, el NPC dice esa
+            // frase guionizada (la del beat: confesión, pregunta de elección, etc.). Si
+            // seguimos en el mismo nodo, mostramos la respuesta libre de la IA.
+            DialogueNodeSO node = _runner.Current;
+            string opening = OpeningLineOf(node);
+            string displayReply;
+            if (node != _lastNode && !string.IsNullOrEmpty(opening))
+                displayReply = opening;
+            else
+                displayReply = string.IsNullOrWhiteSpace(reply) ? "..." : reply;
+            _lastNode = node;
+            _closeAfterType = IsTerminal(node); // nodo de despedida -> cerrar al acabar de teclear
 
             // 🔔 Notificar respuesta del NPC
             onNPCReplied?.Invoke(displayReply);
@@ -185,7 +205,8 @@ namespace OpenAI.Dialogue
             isWaiting = true;
             SetInputInteractable(false);
 
-            string speaker = currentNPC != null ? currentNPC.npcName : "";
+            // El nombre del NPC ya se muestra arriba (npcNameText), así que aquí NO lo
+            // repetimos: solo el texto de lo que dice.
             float delay = charsPerSecond > 0f ? 1f / charsPerSecond : 0f;
 
             int step = Mathf.Max(1, blipEveryChars);
@@ -199,7 +220,7 @@ namespace OpenAI.Dialogue
                 foreach (char c in phrase)
                 {
                     sb.Append(c);
-                    SetDialogueText($"<b>{speaker}:</b>\n{sb}");
+                    SetDialogueText(sb.ToString());
 
                     if (!char.IsWhiteSpace(c) && idx % step == 0) PlayBlip();
                     idx++;
@@ -212,8 +233,28 @@ namespace OpenAI.Dialogue
 
             _typing = null;
             isWaiting = false;
+
+            // Si hemos llegado a un nodo de despedida (terminal), cerramos solos tras una pausa.
+            if (_closeAfterType)
+            {
+                _closeAfterType = false;
+                yield return new WaitForSeconds(1.4f);
+                RequestClose();
+                yield break;
+            }
+
             SetInputInteractable(true);
             if (inputField != null) { inputField.Select(); inputField.ActivateInputField(); }
+        }
+
+        /// <summary>True si el nodo no tiene salidas (es una despedida / final de rama).</summary>
+        private static bool IsTerminal(DialogueNodeSO node)
+        {
+            if (node == null) return false;
+            if (node.nextNodes != null && node.nextNodes.Count > 0) return false;
+            if (node is ChoiceNodeSO c && c.choices != null && c.choices.Count > 0) return false;
+            if (node is SpeechNodeSO s && s.transitions != null && s.transitions.Count > 0) return false;
+            return true;
         }
 
         private void PlayBlip()

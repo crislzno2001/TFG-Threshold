@@ -646,6 +646,13 @@ namespace OpenAI.Dialogue
             if (string.IsNullOrWhiteSpace(reply))
                 return "...";
 
+            // Quitar emojis y símbolos que la fuente (TMP) no sabe dibujar (salían como cuadraditos).
+            reply = Regex.Replace(reply, @"\p{Cs}", "");                                   // emojis (pares suplentes 😀🌟…)
+            reply = Regex.Replace(reply, @"[\u2190-\u21FF\u2300-\u27BF\u2B00-\u2BFF\uFE00-\uFE0F]", ""); // flechas, dingbats, simbolos
+            reply = Regex.Replace(reply, @"[ ]{2,}", " ").Trim();
+            if (string.IsNullOrWhiteSpace(reply))
+                return "...";
+
             if (globalRules != null && globalRules.forbiddenPhrases != null)
             {
                 foreach (string forbidden in globalRules.forbiddenPhrases)
@@ -678,7 +685,12 @@ namespace OpenAI.Dialogue
             if (words.Length <= maxWords)
                 return text;
 
-            return string.Join(" ", words, 0, maxWords).Trim() + "...";
+            // Cortamos por la última frase COMPLETA dentro del límite, no a media frase.
+            string truncated = string.Join(" ", words, 0, maxWords).Trim();
+            int lastEnd = truncated.LastIndexOfAny(new[] { '.', '!', '?', '…' });
+            if (lastEnd >= truncated.Length / 2)
+                return truncated.Substring(0, lastEnd + 1).Trim();
+            return truncated + "...";
         }
 
         public void Remember(string key, string value)
@@ -791,23 +803,35 @@ namespace OpenAI.Dialogue
 
             var sb = new StringBuilder();
 
-            sb.AppendLine("Determina si la conversación debe avanzar.");
+            sb.AppendLine("Lee la conversación reciente y decide si YA se cumple la condición de salida.");
             sb.AppendLine("Responde SOLO 'si' o 'no'. Sin texto adicional.");
+            sb.AppendLine("Responde 'si' si los mensajes recientes del jugador cumplen razonablemente la");
+            sb.AppendLine("condición, aunque no use las palabras exactas. No exijas una formulación literal.");
             sb.AppendLine();
 
             if (node != null && !string.IsNullOrWhiteSpace(node.contextForAI))
             {
-                sb.AppendLine("Contexto del nodo actual:");
+                sb.AppendLine("Contexto del momento:");
                 sb.AppendLine(node.contextForAI);
                 sb.AppendLine();
             }
 
-            sb.AppendLine("Condición de salida (cuando se cumpla, la conversación avanza):");
+            sb.AppendLine("Condición de salida:");
             sb.AppendLine(exitCondition.Trim());
             sb.AppendLine();
-            sb.AppendLine($"Último mensaje del jugador: \"{userMessage}\"");
+
+            // Le damos la conversación reciente (no solo el último mensaje), saltando el system prompt.
+            sb.AppendLine("Conversación reciente:");
+            int from = Mathf.Max(1, history.Count - 8);
+            for (int i = from; i < history.Count; i++)
+            {
+                var m = history[i];
+                if (m.role == "user") sb.AppendLine($"Jugador: {m.content}");
+                else if (m.role == "assistant") sb.AppendLine($"NPC: {m.content}");
+            }
+            sb.AppendLine($"Jugador (último): {userMessage}");
             sb.AppendLine();
-            sb.AppendLine("¿Se cumple la condición de salida? Responde 'si' o 'no'.");
+            sb.AppendLine("¿Se cumple ya la condición de salida? Responde 'si' o 'no'.");
 
             var req = new CreateChatCompletionRequest
             {

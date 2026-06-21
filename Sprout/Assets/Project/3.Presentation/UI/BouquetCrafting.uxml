@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="root" picking-mode="Position" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; align-items: center; justify-content: center; background-color: rgba(15, 12, 18, 0.55);">
+        <ui:VisualElement name="card" style="width: 760px; max-width: 92%; background-color: rgb(250, 244, 232); border-top-left-radius: 24px; border-top-right-radius: 24px; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; border-left-color: rgb(201, 166, 107); border-right-color: rgb(201, 166, 107); border-top-color: rgb(201, 166, 107); border-bottom-color: rgb(201, 166, 107); padding-left: 28px; padding-right: 28px; padding-top: 22px; padding-bottom: 22px; align-items: center;">
+            <ui:Label text="Crear ramo" style="font-size: 30px; -unity-font-style: bold; color: rgb(214, 120, 140); margin-bottom: 6px;" />
+            <ui:Label name="selection" text="Seleccionado: None + None" style="font-size: 18px; color: rgb(58, 46, 42); -unity-text-align: middle-center; white-space: normal; margin-bottom: 10px;" />
+
+            <ui:Label text="Flor A" style="font-size: 16px; color: rgb(120, 95, 80); margin-top: 4px;" />
+            <ui:VisualElement name="row-a" style="flex-direction: row; flex-wrap: wrap; justify-content: center;" />
+
+            <ui:Label text="Flor B" style="font-size: 16px; color: rgb(120, 95, 80); margin-top: 8px;" />
+            <ui:VisualElement name="row-b" style="flex-direction: row; flex-wrap: wrap; justify-content: center;" />
+
+            <ui:Label name="result" text="" style="font-size: 18px; color: rgb(70, 120, 70); -unity-text-align: middle-center; white-space: normal; margin-top: 10px; min-height: 24px;" />
+
+            <ui:VisualElement style="flex-direction: row; justify-content: center; margin-top: 8px;">
+                <ui:Button name="craft" text="Crear ramo" style="width: 200px; height: 44px; margin-left: 6px; margin-right: 6px; border-top-left-radius: 14px; border-top-right-radius: 14px; border-bottom-left-radius: 14px; border-bottom-right-radius: 14px; background-color: rgb(150, 200, 150); color: rgb(30, 50, 30); font-size: 17px; -unity-font-style: bold; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
+                <ui:Button name="close" text="Cerrar (C)" style="width: 200px; height: 44px; margin-left: 6px; margin-right: 6px; border-top-left-radius: 14px; border-top-right-radius: 14px; border-bottom-left-radius: 14px; border-bottom-right-radius: 14px; background-color: rgb(233, 198, 170); color: rgb(58, 46, 42); font-size: 17px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
