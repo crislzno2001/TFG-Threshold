@@ -69,7 +69,7 @@ namespace Sprout.EditorTools
             }
             if (clips.Count == 0) { Dlg("No encontré clips en Rig_Medium."); return; }
 
-            AnimationClip idle  = Pick(clips, "idle_a", "idle");
+            AnimationClip idle  = Pick(clips, "idle_b", "idle_a", "idle");
             AnimationClip walk  = Pick(clips, "walking_a", "walk");
             AnimationClip run   = Pick(clips, "running_a", "run");
             AnimationClip jStart= Pick(clips, "jump_start", "jump_full");
@@ -103,11 +103,26 @@ namespace Sprout.EditorTools
             var sm = ctrl.layers[0].stateMachine;
 
             // Locomoción (Speed: 0 idle, 2 walk, 5.3 run)
+            // Leer las velocidades REALES de la locomoción para que los umbrales encajen exactos
+            // (así andar = moveSpeed -> Walking_A puro, y esprintar = sprintSpeed -> Running_A puro).
+            float walkT = WalkSpeed, runT = RunSpeed;
+            foreach (var mb in Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            {
+                if (mb == null || mb.GetType().Name != "AnimalCrossingLocomotion") continue;
+                var so = new SerializedObject(mb);
+                var mv = so.FindProperty("moveSpeed");
+                var sp = so.FindProperty("sprintSpeed");
+                if (mv != null) walkT = mv.floatValue;
+                if (sp != null) runT = sp.floatValue;
+                break;
+            }
+            if (runT <= walkT + 0.1f) runT = walkT + 1.5f; // por si no hay sprint distinto
+
             var bt = new BlendTree { name = "Locomotion", blendType = BlendTreeType.Simple1D, blendParameter = "Speed" };
             AssetDatabase.AddObjectToAsset(bt, ctrl);
             bt.AddChild(idle, 0f);
-            bt.AddChild(walk, WalkSpeed);
-            bt.AddChild(run, 3.5f); // umbral bajo: al esprintar (Speed ~5.3) usa Running_A de verdad, no andar rápido
+            bt.AddChild(walk, walkT);   // andar = moveSpeed real
+            bt.AddChild(run, runT);     // correr = sprintSpeed real
             var loco = sm.AddState("Locomotion");
             loco.motion = bt;
             sm.defaultState = loco;
@@ -134,10 +149,10 @@ namespace Sprout.EditorTools
             int n = 0;
             foreach (var smr in Object.FindObjectsByType<SkinnedMeshRenderer>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             {
-                string rn = smr.transform.root.name.ToLowerInvariant();
-                if (!rn.Contains("angry") && !rn.Contains("florista")) continue;
-                var go = smr.transform.root.gameObject;
-                var anim = go.GetComponent<Animator>() ?? Undo.AddComponent<Animator>(go);
+                if (!NameChainContains(smr.transform, "angry", "florista")) continue;
+                // usa el Animator que ya conduce a la florista (en el Player o en el modelo)
+                var anim = smr.GetComponentInParent<Animator>();
+                if (anim == null) anim = Undo.AddComponent<Animator>(smr.transform.root.gameObject);
                 anim.runtimeAnimatorController = ctrl;
                 if (avatar != null) anim.avatar = avatar;
                 anim.applyRootMotion = false;
@@ -196,6 +211,17 @@ namespace Sprout.EditorTools
             return n.Contains("idle") || n.Contains("walk") || n.Contains("run") ||
                    n.Contains("sit") || n.Contains("lie") || n.Contains("sleep") ||
                    n.Contains("crawl") || n.Contains("sneak") || n.Contains("crouch");
+        }
+
+        private static bool NameChainContains(Transform t, params string[] keys)
+        {
+            while (t != null)
+            {
+                string n = t.name.ToLowerInvariant();
+                foreach (var k in keys) if (n.Contains(k)) return true;
+                t = t.parent;
+            }
+            return false;
         }
 
         private static string Nm(AnimationClip c) => c != null ? c.name : "—";

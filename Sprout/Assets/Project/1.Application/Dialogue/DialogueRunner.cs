@@ -41,7 +41,14 @@ namespace OpenAI.Dialogue
                 return;
 
             _brain.ResetHistory();
-            AdvanceTo(_brain.dialogueGraph.entryNode);
+
+            // Si hay un enrutador de entrada, empezamos por el nodo del día actual; si no, el de siempre.
+            var router = GetComponent<DialogueEntryRouter>();
+            DialogueNodeSO entry = router != null
+                ? router.ResolveEntry(_brain.dialogueGraph.entryNode)
+                : _brain.dialogueGraph.entryNode;
+
+            AdvanceTo(entry);
         }
 
         public void AdvanceTo(DialogueNodeSO node)

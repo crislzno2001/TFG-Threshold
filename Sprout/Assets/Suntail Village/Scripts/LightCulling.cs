@@ -17,10 +17,17 @@ namespace Suntail
         private void Awake()
         {
             _light = GetComponent<Light>();
+
+            // Si no se asignó la cámara en el inspector, usar la cámara principal (tag MainCamera).
+            if (playerCamera == null && Camera.main != null)
+                playerCamera = Camera.main.gameObject;
         }
 
         private void Update()
         {
+            // Sin cámara no hay nada que calcular: evita el NullReferenceException.
+            if (playerCamera == null) return;
+
             //Calculate the distance between a given object and the light source
             float cameraDistance = Vector3.Distance(playerCamera.transform.position, gameObject.transform.position);
 
