@@ -8,28 +8,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Branches
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 3ac7f6f69133e0449b766db4d446ec48, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _ALPHATEST_ON
-  - _NORMALMAP
-  m_InvalidKeywords:
-  - _ANCHORTHEFOLIAGEBASE_ON
-  - _COLOR2OVERLAYTYPE_VERTEX_POSITION_BASED
-  - _COVERAGEOVERLAYTYPE_WORLD_NORMAL
-  - _ENABLEWIND_ON
-  - _FIXTHEBASEOFFOLIAGE_ON
-  - _SECONDCOLOROVERLAYTYPE_VERTEX_POSITION_BASED
-  - _SECONDCOLOROVERLAYTYPE_WORLD_POSITION
-  - _SNOWOVERLAYTYPE_WORLD_NORMAL_BASED
-  - _WIND_ON
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -86,6 +74,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicSmoothness:
+        m_Texture: {fileID: 2800000, guid: 2678ca4f38e4ac84a8c463a97b53440f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
@@ -166,6 +158,7 @@ Material:
     - _CoverageThickness: 1
     - _Cull: 0
     - _CullMode: 0
+    - _CurveStrength: 0
     - _Cutoff: 0.35
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -201,6 +194,7 @@ Material:
     - _NormalScale: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SNOW: 0
@@ -249,10 +243,13 @@ Material:
     - _Color1: {r: 0.9622642, g: 0.7497543, b: 0.5492168, a: 0}
     - _Color2: {r: 0, g: 0, b: 0, a: 0}
     - _CoverageColor: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveOrigin: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 0.68235296, g: 0.48235294, b: 0.44313726, a: 0}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _SecondColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &5592046371366238391

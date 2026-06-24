@@ -50,19 +50,26 @@ namespace Sprout.EditorTools
                     if (n.Contains("bed") || n.Contains("cama")) { found = t.gameObject; break; }
                 }
                 bedGo = found != null ? found : new GameObject("SleepPoint (cama)");
-                bsp = Undo.AddComponent<BedSleepPoint>(bedGo);
             }
+
+            // Collider trigger PRIMERO (BedSleepPoint requiere Collider; añadirlo antes evita el fallo).
             var col = bedGo.GetComponent<Collider>();
             if (col == null) { var bc = Undo.AddComponent<BoxCollider>(bedGo); bc.isTrigger = true; bc.size = new Vector3(2f, 1f, 2f); }
             else col.isTrigger = true;
 
+            if (bsp == null) bsp = bedGo.GetComponent<BedSleepPoint>();
+            if (bsp == null) bsp = Undo.AddComponent<BedSleepPoint>(bedGo);
+
             // Referencias del BedSleepPoint
-            var so = new SerializedObject(bsp);
-            var pDay = so.FindProperty("dayCycle");
-            var pGos = so.FindProperty("gossip");
-            if (pDay != null) pDay.objectReferenceValue = Object.FindFirstObjectByType<DayCycleService>();
-            if (pGos != null) pGos.objectReferenceValue = Object.FindFirstObjectByType<NightGossipService>();
-            so.ApplyModifiedProperties();
+            if (bsp != null)
+            {
+                var so = new SerializedObject(bsp);
+                var pDay = so.FindProperty("dayCycle");
+                var pGos = so.FindProperty("gossip");
+                if (pDay != null) pDay.objectReferenceValue = Object.FindFirstObjectByType<DayCycleService>();
+                if (pGos != null) pGos.objectReferenceValue = Object.FindFirstObjectByType<NightGossipService>();
+                so.ApplyModifiedProperties();
+            }
 
             // 3) Tag Player al jugador
             string playerInfo = "no encontrado";

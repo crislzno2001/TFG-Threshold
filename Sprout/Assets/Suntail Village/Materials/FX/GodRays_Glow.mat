@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: GodRays_Glow
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 3ac7f6f69133e0449b766db4d446ec48, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -20,8 +20,7 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses:
   - ALWAYS
   - MOTIONVECTORS
@@ -29,6 +28,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Albedo:
+        m_Texture: {fileID: 2800000, guid: 3d4dcf1e1d7453046a32fef78abd2449, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 3d4dcf1e1d7453046a32fef78abd2449, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -66,6 +69,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicSmoothness:
+        m_Texture: {fileID: 2800000, guid: 2678ca4f38e4ac84a8c463a97b53440f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -133,6 +144,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _ColorMode: 0
     - _Cull: 0
+    - _CurveStrength: 0
     - _Cutoff: 0
     - _Density: 15
     - _DetailAlbedoMapScale: 1
@@ -159,6 +171,7 @@ Material:
     - _Mode: 4
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SF_Blend: 0
@@ -185,16 +198,19 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color0: {r: 0.015686274, g: 1, b: 0, a: 0}
     - _ColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
+    - _CurveOrigin: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EndColor: {r: 0, g: 1, b: 0, a: 0}
     - _FarColor: {r: 0.21226376, g: 0.5812036, b: 1, a: 0.4}
     - _GlowColor: {r: 0.24705872, g: 0.11763454, b: 0, a: 0}
     - _NearColor: {r: 1, g: 0.31687284, b: 0, a: 0}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _SF_NoiseSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _SF_NoiseTiling: {r: 1, g: 1, b: 1, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 1.6949153, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _StartColor: {r: 1, g: 0, b: 0, a: 0}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -813,9 +813,72 @@ El sistema distingue dos necesidades de persistencia. La configuración ---ajust
 
 \section{Pipeline de renderizado}
 
-El renderizado de Sprout se construye sobre el Universal Render Pipeline (URP) de Unity 6, configurado para aprovechar el SRP Batcher y minimizar draw calls. La iluminación combina luces direccionales bakeadas para iluminación global con luces puntuales en tiempo real en los hubs interactivos, buscando un equilibrio entre rendimiento y estética cute coherente con la referencia visual del juego.
+El renderizado de Sprout se construye sobre el Universal Render Pipeline (URP) de Unity 6, configurado para aprovechar el SRP Batcher y minimizar draw calls. La iluminación se resuelve en tiempo real: una luz direccional principal proporciona la iluminación general de la escena, complementada con luces puntuales en los hubs interactivos. Se optó por iluminación en tiempo real ---sin horneado de mapas de luz--- por el carácter iterativo del desarrollo y la presencia de elementos dinámicos, asumiendo su mayor coste a cambio de flexibilidad, dentro de una estética cute coherente con la referencia visual del juego.
 
-\textcolor{gray}{\textit{[Desarrollar: URP y SRP Batcher; estrategia de iluminación cute; referencias técnicas Unity Technologies 2024.]}}
+\subsection{Shader de mundo curvado (Curved World)}
+
+Uno de los objetivos de dirección artística era transmitir la sensación de un mundo pequeño y acogedor, coherente con la naturaleza cozy del juego. Los títulos que persiguen ese efecto ---\textit{Animal Crossing} es el referente más claro--- curvan el suelo de modo que el horizonte se dobla hacia abajo y desaparece, ocultando la lejanía y generando la lectura subconsciente de estar sobre un pequeño planeta o una maqueta. En lugar de modelar un terreno físicamente curvo, se optó por un shader que deforma la geometría en tiempo de render: la malla permanece plana en disco ---de modo que las colisiones, la navegación y las posiciones de juego siguen operando sobre el mundo «real»--- y es el material el que la curva visualmente.
+
+La curvatura se implementa íntegramente en la etapa de vértices. Antes de proyectar cada vértice a pantalla, el shader lo desplaza hacia abajo en función de su distancia a un punto de referencia ---el jugador---, con un crecimiento no lineal: los objetos cercanos apenas se mueven y los lejanos caen de forma pronunciada, dibujando una parábola que imita la convexidad de un horizonte cercano. El grafo, construido con Shader Graph sobre URP, obtiene la posición del vértice (nodo \texttt{Position}), le resta el origen \texttt{\_CurveOrigin} (nodo \texttt{Subtract}), extrae la componente de profundidad (nodo \texttt{Split}), la eleva al cuadrado para obtener la caída parabólica, la escala por la propiedad \texttt{\_CurveStrength} (nodo \texttt{Multiply}), invierte su signo (nodo \texttt{Negate}) para que el desplazamiento sea hacia abajo y la reinyecta en la posición del vértice. Coherente con el referente, el efecto se aplica fundamentalmente sobre el eje de profundidad y no sobre el desplazamiento lateral, reproduciendo el comportamiento real de \textit{Animal Crossing}, cuyo mundo no es una esfera perfecta sino un cilindro que se dobla hacia delante y hacia atrás manteniendo al jugador en el vértice de la curva (Figura~\ref{fig:curvatura_vertices}).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.2\textwidth]{esquemas/01_curvatura_vertices.pdf}
+  \caption{Encadenamiento de nodos que produce la curvatura del mundo en la etapa de vértices: la posición de cada vértice se desplaza hacia abajo en función del cuadrado de su distancia al jugador, escalado por \texttt{\_CurveStrength}.}
+  \label{fig:curvatura_vertices}
+\end{figure}
+
+La técnica base de curvatura no es original de este trabajo: parte de un enfoque ampliamente documentado en la comunidad de Unity, tomándose como punto de partida un tutorial divulgativo\footnote{Tutorial de referencia: «Let's learn how to make a curved Shader graph like Animal Crossing in Unity», disponible en \texttt{https://www.youtube.com/watch?v=GF0\_1-8NWBs}.} que, a su vez, se apoya en shaders previos de la comunidad. Sobre esa base, Sprout incorpora aportaciones propias que extienden el shader original ---limitado al color base--- hasta convertirlo en un sistema completo: un modelo de materiales PBR (mapa de normales, mapa metallic/smoothness empaquetado y tinte de color), una familia de cinco variantes especializadas que cubren todos los tipos de superficie del escenario (Tabla~\ref{tab:variantes_curved}) y un sistema de gestión centralizado y autogestionado.
+
+\begin{table}[h]
+  \centering
+  \caption{Familia de variantes del shader de mundo curvado.}
+  \label{tab:variantes_curved}
+  \begin{footnotesize}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{p{3.2cm}p{10cm}}
+    \hline
+    \textbf{Variante} & \textbf{Función} \\
+    \hline
+    CurvedWorld & Variante completa y opaca, con sombreado PBR íntegro (color base, normales, metallic/smoothness y tinte). Referencia para superficies sólidas con detalle, como edificios y props. \\
+    \hline
+    CurvedWorld\_Albedo & Variante opaca simplificada que solo expone color base, para materiales planos sin texturas de detalle (por ejemplo, la floristería modelada con colores planos). \\
+    \hline
+    CurvedWorld\_Cutout & Añade recorte por alfa y doble cara. Imprescindible para la vegetación: las hojas son planos cuyo canal alfa define su silueta real; sin recorte se verían como rectángulos sólidos. \\
+    \hline
+    CurvedWorld\_Terrain & Adaptación al sistema de Terrain de Unity, basado en splatmaps, para que el suelo pintado se curve conservando su pintado. \\
+    \hline
+    CurvedWorld\_Water & Variante transparente con mezcla por alfa para el agua, combinando la curvatura con color translúcido, normal de oleaje y alta suavidad. \\
+    \hline
+  \end{tabular}
+  \end{footnotesize}
+\end{table}
+
+Que la familia se componga de cinco shaders y no de uno solo no es un capricho, sino una necesidad impuesta por el motor de render: la lógica de curvatura es idéntica en todos, pero cada tipo de superficie exige un modo de render distinto ---opaco, con recorte por alfa, transparente o de terreno--- que debe declararse por separado en el shader, sin que uno solo pueda combinarlos. Por eso las variantes de la Tabla~\ref{tab:variantes_curved} comparten la deformación de vértices y se diferencian únicamente en cómo tratan la superficie: la transparencia (opaca, recortada o translúcida) y el sistema de materiales (geometría convencional o el esquema de splatmaps del Terrain). El caso de la vegetación lo ilustra la Figura~\ref{fig:material_pbr}: el recorte por alfa de la variante Cutout es lo que convierte un plano rectangular en la silueta real de una hoja.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.2\textwidth]{esquemas/02_material_pbr.pdf}
+  \caption{Encaminamiento de los materiales PBR en la etapa de fragmento: el albedo se multiplica por el tinte de color, el mapa de normales y el mapa metallic/smoothness (canales R y A) alimentan sus salidas. En rojo, los elementos exclusivos de la variante con recorte alfa para la vegetación.}
+  \label{fig:material_pbr}
+\end{figure}
+
+
+Para que el efecto sea coherente, el centro de la curvatura debe seguir continuamente al jugador, de modo que este permanezca siempre en la cima de la pequeña esfera. De ello se encarga el componente \texttt{CurvedWorldOriginSetter}, cuyo diseño evolucionó de forma significativa durante el desarrollo, ilustrando un principio de ingeniería relevante: eliminar el mantenimiento manual propenso a errores. En una primera versión, el componente mantenía una lista de materiales asignada a mano en el inspector, que había que recordar actualizar cada vez que un objeto pasaba a usar el shader. La versión final automatiza el proceso combinando dos mecanismos: por un lado, declara \texttt{\_CurveOrigin} y \texttt{\_CurveStrength} con ámbito global y los fija una sola vez por fotograma mediante \texttt{Shader.SetGlobalVector} y \texttt{Shader.SetGlobalFloat}, de modo que alcanzan a cualquier material sin mantener referencias; por otro, recolecta al cargar la escena los materiales que usan un shader de la familia y se los aplica directamente. Como ese conjunto de materiales no cambia durante la partida, el escaneo se realiza una sola vez en ejecución; únicamente en el editor se repite de forma periódica, como comodidad de autoría para recoger los materiales que se vayan convirtiendo al shader mientras se compone la escena. El componente, marcado con \texttt{[ExecuteAlways]}, actualiza la curvatura también en el editor, permitiendo previsualizar el efecto al componer la escena. La Figura~\ref{fig:sistema_curvado} resume esta gestión centralizada.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.2\textwidth]{esquemas/03_sistema_manager.pdf}
+  \caption{Gestión centralizada de la curvatura: el componente \texttt{CurvedWorldOriginSetter} fija las propiedades globales y recolecta automáticamente los materiales de la familia de shaders, eliminando el mantenimiento manual.}
+  \label{fig:sistema_curvado}
+\end{figure}
+
+
+\subsection{Post-procesado cozy}
+
+Sprout combina un escenario de estilo pintado con personajes chibi de sombreado más liso. Sin un tratamiento común, esa diferencia de estilos podía leerse como una mezcla incoherente. El post-procesado se introdujo para unificar ambos registros bajo una misma atmósfera y reforzar el tono cálido y acogedor del juego, partiendo del principio de que la cohesión visual de una escena depende menos del estilo concreto de cada elemento que de que todos compartan la misma iluminación y el mismo tratamiento de color.
+
+El efecto se construyó con el sistema de Volúmenes de URP: un \textit{Volume} global aplica a toda la escena un perfil compuesto por \textit{tonemapping} neutro (que equilibra el rango de color evitando zonas quemadas o lavadas), \textit{color adjustments} (un filtro cálido con un leve aumento de saturación y contraste), \textit{white balance} templado (que aporta la sensación de luz cálida), \textit{bloom} suave (un resplandor amable y de ensueño) y una \textit{vignette} sutil (que centra la atención en el personaje). Cada efecto responde a una intención concreta ---fijar la temperatura emocional, aportar calidez y dirigir la mirada---, y en conjunto «abrazan» a personajes y escenario bajo una misma capa de color e iluminación, de modo que el contraste de estilos deja de percibirse como un error y pasa a leerse como una elección estética. Al tratarse de un \textit{Volume} global con un perfil editable, todos los parámetros se afinan de forma centralizada y no destructiva, lo que facilitó la iteración artística.
 
 \chapter{Evaluación}
 

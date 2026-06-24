@@ -51,9 +51,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CurveStrength: 0
+    - _CurveStrength: 0.01
     m_Colors:
-    - _CurveOrigin: {r: -9.617547, g: 0.036783636, b: 0.08855911, a: 0}
+    - _CurveOrigin: {r: -29.067486, g: -0.010001123, b: -9.207647, a: 0}
     - _Tiling: {r: 4, g: 4, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

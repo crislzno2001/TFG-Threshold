@@ -1,0 +1,72 @@
+<svg viewBox="0 0 1000 410" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="ah2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#2b3a55"/>
+    </marker>
+    <style>
+      .box{fill:#eef2f7;stroke:#2b3a55;stroke-width:1.6;}
+      .inp{fill:#fdeccb;stroke:#9a6b1f;stroke-width:1.6;}
+      .frag{fill:#e9eefc;stroke:#2b3a55;stroke-width:1.8;}
+      .cut{fill:#fbe2e2;stroke:#9a3030;stroke-width:1.6;}
+      .t{fill:#1a2030;font-size:13.5px;text-anchor:middle;}
+      .ts{fill:#1a2030;font-size:11.5px;text-anchor:middle;}
+      .tl{fill:#1a2030;font-size:13px;text-anchor:start;}
+      .lbl{fill:#5a6577;font-size:11px;text-anchor:middle;font-style:italic;}
+      .arr{stroke:#2b3a55;stroke-width:1.5;fill:none;marker-end:url(#ah2);}
+      .arrc{stroke:#9a3030;stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah2);}
+    </style>
+  </defs>
+
+  <text x="500" y="26" font-size="17" font-weight="bold" text-anchor="middle" fill="#1a2030">Etapa de fragmento: materiales PBR</text>
+
+  <!-- properties -->
+  <rect class="inp" x="18" y="66"  width="150" height="40" rx="8"/><text class="t" x="93" y="91">_Albedo</text>
+  <rect class="inp" x="18" y="135" width="150" height="40" rx="8"/><text class="t" x="93" y="160">_BaseColor</text>
+  <rect class="inp" x="18" y="210" width="150" height="40" rx="8"/><text class="t" x="93" y="235">_Normal</text>
+  <rect class="inp" x="18" y="285" width="150" height="40" rx="8"/><text class="t" x="93" y="306">_MetallicSmoothness</text>
+  <rect class="inp" x="18" y="352" width="150" height="40" rx="8"/><text class="t" x="93" y="377">_Tiling / _Offset</text>
+
+  <!-- sample nodes -->
+  <rect class="box" x="222" y="60"  width="140" height="46" rx="8"/><text class="t" x="292" y="80">Sample 2D</text><text class="ts" x="292" y="96">Type: Default</text>
+  <rect class="box" x="222" y="204" width="140" height="46" rx="8"/><text class="t" x="292" y="224">Sample 2D</text><text class="ts" x="292" y="240">Type: Normal</text>
+  <rect class="box" x="222" y="282" width="140" height="46" rx="8"/><text class="t" x="292" y="302">Sample 2D</text><text class="ts" x="292" y="318">Type: Default</text>
+  <rect class="box" x="222" y="352" width="140" height="40" rx="8"/><text class="t" x="292" y="377">Tiling And Offset</text>
+
+  <!-- ops -->
+  <rect class="box" x="430" y="86" width="120" height="46" rx="8"/><text class="t" x="490" y="106">Multiply</text><text class="ts" x="490" y="122">RGBA × color</text>
+  <rect class="cut" x="430" y="352" width="90" height="40" rx="8"/><text class="t" x="475" y="377">0.4</text>
+
+  <!-- fragment block -->
+  <rect class="frag" x="700" y="55" width="220" height="330" rx="10"/>
+  <text x="810" y="80" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a2030">Fragment</text>
+  <line x1="712" y1="92" x2="908" y2="92" stroke="#9aa6bd" stroke-width="1"/>
+  <text class="tl" x="724" y="120">Base Color</text>
+  <text class="tl" x="724" y="160">Normal (Tangent Space)</text>
+  <text class="tl" x="724" y="200">Metallic</text>
+  <text class="tl" x="724" y="235">Smoothness</text>
+  <text class="tl" x="724" y="305" fill="#9a3030">Alpha</text>
+  <text class="tl" x="724" y="345" fill="#9a3030">Alpha Clip Threshold</text>
+
+  <!-- arrows: albedo -->
+  <path class="arr" d="M168,86 L220,83"/>
+  <path class="arr" d="M168,372 C190,372 200,90 220,84"/>
+  <path class="arr" d="M362,83 L428,103"/>
+  <path class="arr" d="M168,155 C300,155 360,130 428,118"/>
+  <path class="arr" d="M550,109 C620,109 660,114 698,116"/>
+  <!-- albedo A -> Alpha (cutout) -->
+  <path class="arrc" d="M362,98 C480,140 560,260 698,300"/>
+  <path class="arrc" d="M520,372 C600,372 660,355 698,342"/>
+
+  <!-- normal -->
+  <path class="arr" d="M168,230 L220,227"/>
+  <path class="arr" d="M362,227 C520,227 620,170 698,156"/>
+
+  <!-- metallic -->
+  <path class="arr" d="M168,305 L220,305"/>
+  <path class="arr" d="M362,300 C480,300 600,205 698,196"/>
+  <path class="arr" d="M362,312 C480,312 600,235 698,231"/>
+  <text class="lbl" x="540" y="200">canal R</text>
+  <text class="lbl" x="540" y="250">canal A</text>
+
+  <text class="lbl" x="475" y="404" fill="#9a3030">los elementos en rojo solo en la variante Cutout (recorte de hojas)</text>
+</svg>

@@ -8,11 +8,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Bush
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: e945b06974d19844f9f679309b9b6adb, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _ALPHATEST_ON
+  m_ValidKeywords: []
   m_InvalidKeywords:
   - _COLOR2ENABLE_ON
   - _ENABLEWIND_ON
@@ -20,9 +19,8 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -66,6 +64,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicSmoothness:
+        m_Texture: {fileID: 2800000, guid: 2678ca4f38e4ac84a8c463a97b53440f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -124,6 +130,7 @@ Material:
     - _Color2Enable: 1
     - _Color3Enable: 0
     - _Cull: 0
+    - _CurveStrength: 0
     - _Cutoff: 0.3
     - _Cutofff: 0.35
     - _DetailAlbedoMapScale: 1
@@ -149,6 +156,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SecondColorFade: -0.06
@@ -185,10 +193,13 @@ Material:
     - _BaseColor: {r: 0.3771805, g: 0.49056602, b: 0.38355047, a: 1}
     - _Color: {r: 0.37718046, g: 0.49056596, b: 0.38355044, a: 1}
     - _Color0: {r: 0.07208968, g: 0.5660378, b: 0.079837896, a: 0}
+    - _CurveOrigin: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 0.08249999, g: 0.275, b: 0.16107143, a: 0}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _SecondColor: {r: 0.58515465, g: 0.66, b: 0.14628865, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4245286417767063955

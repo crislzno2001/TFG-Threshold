@@ -1,0 +1,56 @@
+<svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#2b3a55"/>
+    </marker>
+    <style>
+      .box{fill:#eef2f7;stroke:#2b3a55;stroke-width:1.6;rx:8;}
+      .inp{fill:#fdeccb;stroke:#9a6b1f;stroke-width:1.6;}
+      .out{fill:#d6ead7;stroke:#2e6b34;stroke-width:1.8;}
+      .t{fill:#1a2030;font-size:14px;text-anchor:middle;}
+      .ts{fill:#1a2030;font-size:12px;text-anchor:middle;}
+      .lbl{fill:#5a6577;font-size:11px;text-anchor:middle;font-style:italic;}
+      .arr{stroke:#2b3a55;stroke-width:1.6;fill:none;marker-end:url(#ah);}
+    </style>
+  </defs>
+
+  <text x="500" y="26" font-size="17" font-weight="bold" text-anchor="middle" fill="#1a2030">Etapa de vértices: curvatura del mundo</text>
+
+  <!-- inputs -->
+  <rect class="inp" x="18"  y="60"  width="120" height="44" rx="8"/><text class="t" x="78"  y="87">Position (World)</text>
+  <rect class="inp" x="18"  y="150" width="120" height="44" rx="8"/><text class="t" x="78"  y="177">_CurveOrigin</text>
+
+  <!-- math row -->
+  <rect class="box" x="178" y="105" width="96"  height="44" rx="8"/><text class="t" x="226" y="132">Subtract</text>
+  <rect class="box" x="304" y="105" width="96"  height="44" rx="8"/><text class="t" x="352" y="128">Split</text><text class="ts" x="352" y="143">(eje Z)</text>
+  <rect class="box" x="430" y="105" width="96"  height="44" rx="8"/><text class="t" x="478" y="125">Multiply</text><text class="ts" x="478" y="140">Z × Z  (Z²)</text>
+  <rect class="box" x="556" y="105" width="140" height="44" rx="8"/><text class="t" x="626" y="125">Multiply</text><text class="ts" x="626" y="140">× _CurveStrength</text>
+  <rect class="box" x="726" y="105" width="92"  height="44" rx="8"/><text class="t" x="772" y="132">Negate</text>
+
+  <!-- merge row -->
+  <rect class="box" x="430" y="225" width="120" height="44" rx="8"/><text class="t" x="490" y="247">Vector3</text><text class="ts" x="490" y="262">(0, Y, 0)</text>
+  <rect class="box" x="588" y="225" width="120" height="44" rx="8"/><text class="t" x="648" y="247">Add</text><text class="ts" x="648" y="262">+ posición</text>
+  <rect class="box" x="744" y="225" width="120" height="44" rx="8"/><text class="t" x="804" y="247">Transform</text><text class="ts" x="804" y="262">World → Object</text>
+  <rect class="out" x="882" y="103" width="104" height="48" rx="8"/><text class="t" x="934" y="124">Vertex</text><text class="ts" x="934" y="140">Position</text>
+
+  <!-- arrows top -->
+  <path class="arr" d="M138,82 L176,118"/>
+  <path class="arr" d="M138,172 L176,138"/>
+  <path class="arr" d="M274,127 L302,127"/>
+  <path class="arr" d="M400,127 L428,127"/>
+  <path class="arr" d="M526,127 L554,127"/>
+  <path class="arr" d="M696,127 L724,127"/>
+  <!-- negate down to vector3 -->
+  <path class="arr" d="M772,149 C772,200 560,180 500,223"/>
+  <!-- merge -->
+  <path class="arr" d="M550,247 L586,247"/>
+  <path class="arr" d="M708,247 L742,247"/>
+  <!-- transform up to vertex -->
+  <path class="arr" d="M864,235 C920,210 934,180 934,153"/>
+  <!-- position also into Add -->
+  <path class="arr" d="M78,104 C78,247 480,300 588,255"/>
+  <text class="lbl" x="300" y="293">posición original del vértice</text>
+
+  <text class="lbl" x="478" y="100">distancia² (parábola)</text>
+  <text class="lbl" x="772" y="98">hacia abajo</text>
+</svg>

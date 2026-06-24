@@ -8,23 +8,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Bark
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 3ac7f6f69133e0449b766db4d446ec48, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _ALPHATEST_ON
-  - _NORMALMAP
-  m_InvalidKeywords:
-  - _BLENDNORMALS_ON
-  - _COVERAGEOVERLAYMETHOD_VERTEX_POSITION
-  - _COVERAGEOVERLAYTYPE_VERTEX_POSITION
-  - _SMOOTHNESSSOURCE_METALLIC_ALPHA
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -88,7 +81,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicSmoothness:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2678ca4f38e4ac84a8c463a97b53440f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
@@ -118,6 +111,10 @@ Material:
     - _SurfaceNormal:
         m_Texture: {fileID: 2800000, guid: 4d3696225e0ca5041b7e477bb0b1c9de, type: 3}
         m_Scale: {x: 1, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TextureSample1:
         m_Texture: {fileID: 0}
@@ -163,6 +160,7 @@ Material:
     - _CoverageThicknessLevel: 0
     - _Cull: 0
     - _CullMode: 2
+    - _CurveStrength: 0
     - _Cutoff: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -182,6 +180,7 @@ Material:
     - _NormalScale: 2
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SNOW: 0
@@ -206,9 +205,12 @@ Material:
     - _BaseColor: {r: 0.71800005, g: 0.5075517, b: 0.46628737, a: 1}
     - _Color: {r: 0.71800005, g: 0.50755167, b: 0.46628737, a: 1}
     - _CoverageColor: {r: 0.182825, g: 0.515, b: 0.27075368, a: 0}
+    - _CurveOrigin: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SurfaceColor: {r: 0.7647059, g: 0.5882353, b: 0.52156866, a: 0}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &3696764013361505235
