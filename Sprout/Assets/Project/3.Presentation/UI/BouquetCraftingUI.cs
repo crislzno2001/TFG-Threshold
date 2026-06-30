@@ -40,8 +40,8 @@ namespace Sprout.Presentation.UI
             _selection = root.Q<Label>("selection");
             _result = root.Q<Label>("result");
 
-            BuildRow(root.Q<VisualElement>("row-a"), _aButtons, k => { _a = k; Highlight(_aButtons, k); Refresh(); });
-            BuildRow(root.Q<VisualElement>("row-b"), _bButtons, k => { _b = k; Highlight(_bButtons, k); Refresh(); });
+            BuildRow(root.Q<VisualElement>("row-a"), _aButtons, k => { _a = k; RefreshHighlights(); Refresh(); });
+            BuildRow(root.Q<VisualElement>("row-b"), _bButtons, k => { _b = k; RefreshHighlights(); Refresh(); });
 
             var craft = root.Q<Button>("craft");
             if (craft != null) { craft.clicked -= Craft; craft.clicked += Craft; }
@@ -50,8 +50,7 @@ namespace Sprout.Presentation.UI
 
             _a = _b = FlowerKind.None;
             if (_result != null) _result.text = "";
-            Highlight(_aButtons, FlowerKind.None);
-            Highlight(_bButtons, FlowerKind.None);
+            RefreshHighlights();
             Refresh();
         }
 
@@ -64,13 +63,15 @@ namespace Sprout.Presentation.UI
             {
                 var k = (FlowerKind)(i + 1);
                 var b = new Button(() => onPick(k)) { text = Names[i] };
-                Style(b, false);
+                Style(b, BtnState.Normal);
                 row.Add(b);
                 store.Add(b);
             }
         }
 
-        private static void Style(Button b, bool selected)
+        private enum BtnState { Normal, Selected, Possible }
+
+        private static void Style(Button b, BtnState state)
         {
             b.style.width = 96; b.style.height = 38;
             b.style.marginLeft = 4; b.style.marginRight = 4; b.style.marginTop = 4; b.style.marginBottom = 4;
@@ -78,15 +79,45 @@ namespace Sprout.Presentation.UI
             float r = 12;
             b.style.borderTopLeftRadius = r; b.style.borderTopRightRadius = r;
             b.style.borderBottomLeftRadius = r; b.style.borderBottomRightRadius = r;
-            b.style.borderLeftWidth = 0; b.style.borderRightWidth = 0; b.style.borderTopWidth = 0; b.style.borderBottomWidth = 0;
-            b.style.backgroundColor = selected ? new Color(0.84f, 0.55f, 0.62f) : new Color(0.96f, 0.86f, 0.72f);
-            b.style.color = selected ? Color.white : new Color(0.23f, 0.18f, 0.16f);
+
+            // Borde verde para las flores que SÍ forman un ramo con la otra seleccionada.
+            float bw = state == BtnState.Possible ? 3f : 0f;
+            b.style.borderLeftWidth = bw; b.style.borderRightWidth = bw; b.style.borderTopWidth = bw; b.style.borderBottomWidth = bw;
+            var green = new Color(0.36f, 0.62f, 0.42f);
+            b.style.borderLeftColor = green; b.style.borderRightColor = green; b.style.borderTopColor = green; b.style.borderBottomColor = green;
+
+            switch (state)
+            {
+                case BtnState.Selected:
+                    b.style.backgroundColor = new Color(0.84f, 0.55f, 0.62f);
+                    b.style.color = Color.white;
+                    break;
+                case BtnState.Possible:
+                    b.style.backgroundColor = new Color(0.80f, 0.91f, 0.78f);
+                    b.style.color = new Color(0.18f, 0.30f, 0.20f);
+                    break;
+                default:
+                    b.style.backgroundColor = new Color(0.96f, 0.86f, 0.72f);
+                    b.style.color = new Color(0.23f, 0.18f, 0.16f);
+                    break;
+            }
         }
 
-        private void Highlight(List<Button> store, FlowerKind selected)
+        /// <summary>Re-pinta ambas filas: la flor elegida se marca, y en la fila contraria se resaltan
+        /// (borde verde) las que formarían un ramo con ella.</summary>
+        private void RefreshHighlights()
         {
-            for (int i = 0; i < store.Count; i++)
-                Style(store[i], (FlowerKind)(i + 1) == selected);
+            for (int i = 0; i < _aButtons.Count; i++)
+                Style(_aButtons[i], StateFor((FlowerKind)(i + 1), _a, _b));
+            for (int i = 0; i < _bButtons.Count; i++)
+                Style(_bButtons[i], StateFor((FlowerKind)(i + 1), _b, _a));
+        }
+
+        private static BtnState StateFor(FlowerKind k, FlowerKind mine, FlowerKind other)
+        {
+            if (k == mine && mine != FlowerKind.None) return BtnState.Selected;
+            if (other != FlowerKind.None && BouquetResolver.IsValidCombination(k, other)) return BtnState.Possible;
+            return BtnState.Normal;
         }
 
         private void Refresh()

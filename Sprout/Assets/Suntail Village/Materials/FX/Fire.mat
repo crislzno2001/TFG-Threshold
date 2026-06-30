@@ -111,7 +111,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _ColorMode: 0
     - _Cull: 2
-    - _CurveStrength: 0.01
+    - _CurveStrength: 0
     - _Cutoff: 0.1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -153,7 +153,7 @@ Material:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 2.996079, g: 1.6934505, b: 1.063608, a: 1}
     - _ColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
-    - _CurveOrigin: {r: -29.067486, g: -0.010001123, b: -9.207647, a: 0}
+    - _CurveOrigin: {r: 0, g: 0, b: -0.885, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 5, b: 0, a: 0}

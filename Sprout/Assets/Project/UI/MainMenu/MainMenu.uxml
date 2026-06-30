@@ -3,7 +3,7 @@
     <ui:VisualElement name="root" class="root">
         <ui:VisualElement name="background" class="background"/>
         <ui:VisualElement name="content" class="content">
-            <ui:Label name="title" text="THRESHOLD" class="title"/>
+            <ui:Label name="title" text="Sprout" class="title"/>
             <ui:Label name="subtitle" text="Una prueba de imaginación" class="subtitle"/>
             <ui:VisualElement name="buttons" class="buttons">
                 <ui:Button name="btn-new-game" text="Nueva partida" class="menu-button"/>

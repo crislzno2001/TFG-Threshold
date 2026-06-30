@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using Sprout.Application;
 using Sprout.Domain.DayCycle;
 using Sprout.Domain.Narrative;
+using Sprout.Domain.Flowers;
 
 namespace Sprout.Presentation
 {
@@ -32,10 +33,17 @@ namespace Sprout.Presentation
 
         private void Update()
         {
-            if (seedGossipKey != Key.None && Keyboard.current[seedGossipKey].wasPressedThisFrame)
-                SeedTestGossip();
-            if (sleepKey != Key.None && !_busy && Keyboard.current[sleepKey].wasPressedThisFrame)
-                StartCoroutine(SleepRoutine());
+            var kb = Keyboard.current;
+            if (kb == null) return;
+
+            // Atajos FIJOS: funcionan aunque el cursor esté bloqueado y no puedas clicar los botones.
+            if (kb.digit3Key.wasPressedThisFrame) GiveTestFlowers();
+            if (kb.digit1Key.wasPressedThisFrame) SeedTestGossip();
+            if (kb.digit2Key.wasPressedThisFrame && !_busy) StartCoroutine(SleepRoutine());
+
+            // Teclas opcionales configurables en el inspector.
+            if (seedGossipKey != Key.None && kb[seedGossipKey].wasPressedThisFrame) SeedTestGossip();
+            if (sleepKey != Key.None && !_busy && kb[sleepKey].wasPressedThisFrame) StartCoroutine(SleepRoutine());
         }
 
         /// <summary>Activa flags reales que disparan cotilleos en el GossipRuleEngine (para probar el recap).</summary>
@@ -49,6 +57,16 @@ namespace Sprout.Presentation
             f.SetFlag("gave_comforting_bouquet", true);           // -> "una pequeña bondad floreciendo"
             _seeded = true;
             Debug.Log("[DailyLoopDebugger] Cotilleos de prueba sembrados. Pulsa Dormir para verlos.");
+        }
+
+        /// <summary>Mete 3 de CADA flor en el inventario para poder probar todos los ramos.</summary>
+        private void GiveTestFlowers()
+        {
+            var D = SproutGameDirector.Instance;
+            if (D == null || D.Inventory == null) { Debug.LogWarning("[DailyLoopDebugger] No hay Inventory (SproutGameDirector)."); return; }
+            foreach (FlowerKind k in System.Enum.GetValues(typeof(FlowerKind)))
+                if (k != FlowerKind.None) D.Inventory.AddFlower(k, 3);
+            Debug.Log("[DailyLoopDebugger] +3 de cada flor. Pulsa C para crear ramos.");
         }
 
         private IEnumerator SleepRoutine()
@@ -92,7 +110,7 @@ namespace Sprout.Presentation
             }
 
             var D = SproutGameDirector.Instance;
-            int h = 132 + (_lastSummary != null ? _lastSummary.Count * 18 + 22 : 0);
+            int h = 164 + (_lastSummary != null ? _lastSummary.Count * 18 + 22 : 0);
             GUI.color = new Color(0f, 0f, 0f, 0.65f);
             GUI.Box(new Rect(10, 10, 340, h), GUIContent.none);
             GUI.color = Color.white;
@@ -103,16 +121,18 @@ namespace Sprout.Presentation
                 : "⚠ SproutGameDirector NO encontrado";
             GUI.Label(new Rect(22, 38, 320, 22), estado, _line);
 
-            if (GUI.Button(new Rect(22, 62, 300, 26), "Sembrar cotilleos de prueba" + (_seeded ? "   ✓" : "")))
+            if (GUI.Button(new Rect(22, 62, 300, 26), "Sembrar cotilleos (tecla 1)" + (_seeded ? "   ✓" : "")))
                 SeedTestGossip();
-            if (GUI.Button(new Rect(22, 94, 300, 26), _busy ? "..." : "Dormir  →  día siguiente") && !_busy)
+            if (GUI.Button(new Rect(22, 94, 300, 26), "Dar 3 de cada flor (tecla 3)"))
+                GiveTestFlowers();
+            if (GUI.Button(new Rect(22, 126, 300, 26), _busy ? "..." : "Dormir → día siguiente (tecla 2)") && !_busy)
                 StartCoroutine(SleepRoutine());
 
             if (_lastSummary != null && _lastSummary.Count > 0)
             {
-                GUI.Label(new Rect(22, 128, 320, 20), "Último resumen nocturno:", _line);
+                GUI.Label(new Rect(22, 160, 320, 20), "Último resumen nocturno:", _line);
                 for (int i = 0; i < _lastSummary.Count; i++)
-                    GUI.Label(new Rect(28, 148 + i * 18, 312, 18), "· " + _lastSummary[i], _line);
+                    GUI.Label(new Rect(28, 180 + i * 18, 312, 18), "· " + _lastSummary[i], _line);
             }
         }
     }

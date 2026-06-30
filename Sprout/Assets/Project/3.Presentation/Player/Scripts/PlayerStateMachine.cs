@@ -104,6 +104,24 @@ namespace ThresholdGame.Presentation.Player
             _stateBeforePause = null;
         }
 
+        /// <summary>
+        /// Activa/desactiva TODO el movimiento del jugador: el ILocomotionProvider y cualquier otro
+        /// controller que tenga SetControlEnabled (p. ej. el ThirdPersonController de StarterAssets). Así
+        /// no se mueve durante el diálogo aunque haya más de un script de movimiento en el Player.
+        /// </summary>
+        public void SetMovementEnabled(bool enabled)
+        {
+            // Desactiva CUALQUIER componente con SetControlEnabled (AnimalCrossingLocomotion, ThirdPersonController,
+            // etc.), aunque la referencia 'Locomotion' esté sin asignar. Y para en seco los que puedan.
+            foreach (var mb in GetComponentsInChildren<MonoBehaviour>(true))
+            {
+                if (mb == null || mb == this) continue;
+                var m = mb.GetType().GetMethod("SetControlEnabled", new[] { typeof(bool) });
+                if (m != null) m.Invoke(mb, new object[] { enabled });
+                if (!enabled && mb is ILocomotionProvider loco) loco.ForceStop();
+            }
+        }
+
         // ── Transición interna ─────────────────────────────────────────────
 
         private void TransitionTo(PlayerBaseState newState)

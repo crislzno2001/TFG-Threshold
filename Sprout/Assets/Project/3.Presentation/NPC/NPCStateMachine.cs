@@ -119,20 +119,20 @@ namespace ThresholdGame.Presentation.NPC
 
     internal sealed class NPCIdleState : INPCState
     {
-        public void Enter(NavMeshAgent a, Transform t, Transform p) { a.isStopped = true; a.ResetPath(); }
+        public void Enter(NavMeshAgent a, Transform t, Transform p) { if (a == null || !a.isOnNavMesh) return; a.isStopped = true; a.ResetPath(); }
         public void Tick(NavMeshAgent a, Transform t, Transform p) { }
-        public void Exit(NavMeshAgent a) { a.isStopped = false; }
+        public void Exit(NavMeshAgent a) { if (a == null || !a.isOnNavMesh) return; a.isStopped = false; }
     }
 
     internal sealed class NPCFollowState : INPCState
     {
         private const float StopDistance = 1.5f;
 
-        public void Enter(NavMeshAgent a, Transform t, Transform p) { a.isStopped = false; }
+        public void Enter(NavMeshAgent a, Transform t, Transform p) { if (a == null || !a.isOnNavMesh) return; a.isStopped = false; }
 
         public void Tick(NavMeshAgent a, Transform t, Transform p)
         {
-            if (p == null) return;
+            if (p == null || a == null || !a.isOnNavMesh) return;
             float dist = Vector3.Distance(t.position, p.position);
             if (dist > StopDistance)
                 a.SetDestination(p.position);
@@ -140,14 +140,14 @@ namespace ThresholdGame.Presentation.NPC
                 a.ResetPath();
         }
 
-        public void Exit(NavMeshAgent a) { a.ResetPath(); }
+        public void Exit(NavMeshAgent a) { if (a == null || !a.isOnNavMesh) return; a.ResetPath(); }
     }
 
     internal sealed class NPCStopState : INPCState
     {
-        public void Enter(NavMeshAgent a, Transform t, Transform p) { a.isStopped = true; a.ResetPath(); }
+        public void Enter(NavMeshAgent a, Transform t, Transform p) { if (a == null || !a.isOnNavMesh) return; a.isStopped = true; a.ResetPath(); }
         public void Tick(NavMeshAgent a, Transform t, Transform p) { }
-        public void Exit(NavMeshAgent a) { a.isStopped = false; }
+        public void Exit(NavMeshAgent a) { if (a == null || !a.isOnNavMesh) return; a.isStopped = false; }
     }
 
     internal sealed class NPCMoveToState : INPCState
@@ -166,12 +166,14 @@ namespace ThresholdGame.Presentation.NPC
 
         public void Enter(NavMeshAgent a, Transform t, Transform p)
         {
+            if (a == null || !a.isOnNavMesh) return;
             a.isStopped = false;
             a.SetDestination(_destination);
         }
 
         public void Tick(NavMeshAgent a, Transform t, Transform p)
         {
+            if (a == null || !a.isOnNavMesh) return;
             if (a.pathPending) return;
             if (a.remainingDistance <= _threshold)
             {

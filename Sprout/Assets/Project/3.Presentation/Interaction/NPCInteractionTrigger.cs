@@ -56,6 +56,10 @@ namespace ThresholdGame.Presentation.Interaction
 
         public void CancelInteraction()
         {
+            // NO cerramos el diálogo solo por salir del trigger: durante la conversación el jugador está
+            // bloqueado, y cerrarlo aquí (en un callback de física) hace que TMP pete al desactivar el panel.
+            // El diálogo se cierra con el botón de cerrar o al despedirse.
+            if (dialogueUI != null && dialogueUI.IsOpen) return;
             CloseDialogue();
         }
 

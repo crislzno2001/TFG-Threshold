@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using Sprout.Application;
 using Sprout.Domain.DayCycle;
 
@@ -41,7 +42,8 @@ namespace Sprout.Presentation
 
         private void Update()
         {
-            if (_inside && !_busy && Input.GetKeyDown(interactKey))
+            var kb = Keyboard.current;
+            if (_inside && !_busy && kb != null && kb.eKey.wasPressedThisFrame)
                 StartCoroutine(SleepRoutine());
         }
 

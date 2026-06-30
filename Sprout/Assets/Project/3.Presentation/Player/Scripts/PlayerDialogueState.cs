@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ThresholdGame.Presentation.Player
 {
     /// <summary>
-    /// Estado activo durante el diálogo con un NPC.
+    /// Estado activo durante el diï¿½logo con un NPC.
     /// La salida la gestiona NPCInteractionTrigger.CloseDialogue().
     /// </summary>
     public sealed class PlayerDialogueState : PlayerBaseState
@@ -12,7 +12,7 @@ namespace ThresholdGame.Presentation.Player
 
         public override void Enter()
         {
-            StateMachine.Locomotion?.SetControlEnabled(false);
+            StateMachine.SetMovementEnabled(false);   // bloquea TODO el movimiento (AnimalCrossing + ThirdPerson)
             StateMachine.AnimationDriver?.ForceIdle();
 
             Cursor.lockState = CursorLockMode.None;

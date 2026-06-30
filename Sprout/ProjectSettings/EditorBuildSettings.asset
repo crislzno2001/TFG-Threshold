@@ -15,10 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/GameScene.unity
     guid: e9017d5f96b9f09489b4b37e1d6eb914
   - enabled: 1
-    path: Assets/Scenes/Sprout_Main.unity
-    guid: 9f6cc44d9712b01498cf8ea703b98778
-  - enabled: 1
-    path: Assets/Project/Scenes/Interiors/Interior_Plantilla.unity
-    guid: c5e2c241134031049862faa775ca1914
+    path: Assets/Scenes/Flowershop.unity
+    guid: 08ca794460c44934daff822d5f95fdfe
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

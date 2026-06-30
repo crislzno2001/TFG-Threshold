@@ -8,6 +8,9 @@ using UnityEngine.Events;
 using TMPro;
 using UnityEngine.InputSystem;
 using ThresholdGame.Presentation.Interaction;
+using Sprout.Application;
+using Sprout.Domain.Flowers;
+using Sprout.Domain.Narrative;
 
 namespace OpenAI.Dialogue
 {
@@ -49,6 +52,10 @@ namespace OpenAI.Dialogue
         [SerializeField] private int blipEveryChars = 2;
         [SerializeField] private float blipVolume = 0.5f;
 
+        [Header("Regalar ramo (durante el diálogo)")]
+        [SerializeField] private FlowerService flowerService;
+        private Button _giftButton;
+
         private NPCBrain currentNPC;
         private bool isWaiting = false;
         private DialogueRunner _runner;
@@ -63,6 +70,9 @@ namespace OpenAI.Dialogue
             if (sendButton != null) sendButton.onClick.AddListener(OnSendClicked);
             if (closeButton != null) closeButton.onClick.AddListener(OnCloseClicked);
             if (inputField != null) inputField.onSubmit.AddListener(_ => OnSendClicked());
+            if (inputField != null) inputField.onValueChanged.AddListener(_ => LastInputChangeTime = Time.unscaledTime);
+
+            if (flowerService == null) flowerService = FindFirstObjectByType<FlowerService>();
 
             SetStatus("");
             SetDialogueText("");
@@ -92,6 +102,9 @@ namespace OpenAI.Dialogue
 
             SetStatus("");
             SetInputInteractable(true);
+
+            EnsureGiftButton();
+            if (_giftButton != null) _giftButton.gameObject.SetActive(true);
 
             _runner = npc.GetComponent<DialogueRunner>();
             if (_runner == null)
@@ -123,9 +136,19 @@ namespace OpenAI.Dialogue
         /// <summary>True while the dialogue panel is visible.</summary>
         public bool IsOpen => dialoguePanel != null && dialoguePanel.activeSelf;
 
+        /// <summary>True mientras el NPC "piensa" o está tecleando una respuesta (no se puede enviar otra).</summary>
+        public bool IsBusy => isWaiting;
+
+        /// <summary>Última vez (unscaled) que el jugador tocó el input. Para mover la boca al escribir.</summary>
+        public float LastInputChangeTime { get; private set; }
+
+        /// <summary>True si el jugador ha escrito algo en los últimos instantes (está "hablando").</summary>
+        public bool IsTyping => IsOpen && (Time.unscaledTime - LastInputChangeTime) < 0.3f;
+
         public void Close()
         {
             if (_typing != null) { StopCoroutine(_typing); _typing = null; }
+            if (_giftButton != null) _giftButton.gameObject.SetActive(false);
             dialoguePanel.SetActive(false);
             if (Active == this) Active = null;
             currentNPC = null;
@@ -180,7 +203,7 @@ namespace OpenAI.Dialogue
             else
                 displayReply = string.IsNullOrWhiteSpace(reply) ? "..." : reply;
             _lastNode = node;
-            _closeAfterType = IsTerminal(node); // nodo de despedida -> cerrar al acabar de teclear
+            _closeAfterType = IsTerminal(node) || IsGoodbye(userText); // despedida (nodo terminal o el jugador se despide) -> cerrar
 
             // 🔔 Notificar respuesta del NPC
             onNPCReplied?.Invoke(displayReply);
@@ -257,6 +280,22 @@ namespace OpenAI.Dialogue
             return true;
         }
 
+        private static readonly string[] _byeWords =
+        {
+            "adios", "adiós", "hasta luego", "hasta pronto", "me voy", "me marcho", "me tengo que ir",
+            "nos vemos", "chao", "chau", "bye", "hasta la próxima", "hasta la proxima",
+            "hasta mañana", "hasta manana", "cuídate", "cuidate", "hasta otra"
+        };
+
+        /// <summary>True si el mensaje del jugador es una despedida clara, para poder salir siempre del diálogo.</summary>
+        private static bool IsGoodbye(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return false;
+            string t = text.ToLowerInvariant().Trim();
+            foreach (var w in _byeWords) if (t.Contains(w)) return true;
+            return false;
+        }
+
         private void PlayBlip()
         {
             if (voiceSource == null || blipClip == null) return;
@@ -296,7 +335,82 @@ namespace OpenAI.Dialogue
         {
             if (inputField != null) inputField.interactable = value;
             if (sendButton != null) sendButton.interactable = value;
+            if (_giftButton != null) _giftButton.interactable = value;
         }
+
+        // ── Regalar ramo durante el diálogo ─────────────────────────────────────
+
+        private void EnsureGiftButton()
+        {
+            if (_giftButton != null || dialoguePanel == null) return;
+            var panelRT = dialoguePanel.GetComponent<RectTransform>();
+            if (panelRT == null) return;
+
+            var go = new GameObject("GiftBouquetButton",
+                typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button));
+            var rt = go.GetComponent<RectTransform>();
+            rt.SetParent(panelRT, false);
+            rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(1f, 1f);
+            rt.anchoredPosition = new Vector2(-14f, -14f);
+            rt.sizeDelta = new Vector2(150f, 42f);
+
+            go.GetComponent<Image>().color = new Color(0.84f, 0.55f, 0.62f, 1f);
+            _giftButton = go.GetComponent<Button>();
+            _giftButton.onClick.AddListener(GiveActiveBouquet);
+
+            var txtGo = new GameObject("Label", typeof(RectTransform));
+            var trt = txtGo.GetComponent<RectTransform>();
+            trt.SetParent(rt, false);
+            trt.anchorMin = Vector2.zero; trt.anchorMax = Vector2.one;
+            trt.offsetMin = Vector2.zero; trt.offsetMax = Vector2.zero;
+            var label = txtGo.AddComponent<TextMeshProUGUI>();
+            label.text = "Dar ramo";
+            label.alignment = TextAlignmentOptions.Center;
+            label.fontSize = 18;
+            label.color = Color.white;
+        }
+
+        /// <summary>Regala el primer ramo del inventario al NPC con el que hablas; reacciona en la conversación.</summary>
+        public async void GiveActiveBouquet()
+        {
+            if (isWaiting || currentNPC == null || _runner == null) return;
+            if (flowerService == null) flowerService = FindFirstObjectByType<FlowerService>();
+
+            var D = SproutGameDirector.Instance;
+            if (D == null || flowerService == null) { SetStatus("Falta el sistema de flores en la escena."); return; }
+
+            if (!System.Enum.TryParse(currentNPC.npcName.Trim(), true, out NpcId npc))
+            { SetStatus($"No reconozco a {currentNPC.npcName} como vecino (Mochi/Aster/Moth/Rix)."); return; }
+
+            BouquetKind bouquet = BouquetKind.None;
+            foreach (var kv in D.Inventory.Bouquets) if (kv.Value > 0) { bouquet = kv.Key; break; }
+            if (bouquet == BouquetKind.None) { SetStatus("No tienes ningún ramo. Crea uno con C."); return; }
+
+            string ctx = flowerService.GiveBouquetTo(bouquet, npc);
+            string giftText = $"*Te doy un {PrettyBouquet(bouquet)}.* {ctx}";
+
+            try { await ProcessUserInput(giftText); }
+            catch (System.Exception ex)
+            {
+                Debug.LogException(ex);
+                SetStatus("Ha ocurrido un error.");
+                isWaiting = false;
+                SetInputInteractable(true);
+            }
+        }
+
+        private static string PrettyBouquet(BouquetKind k) => k switch
+        {
+            BouquetKind.Peace        => "Ramo de Paz",
+            BouquetKind.HiddenDesire => "Ramo de Deseo Oculto",
+            BouquetKind.Comfort      => "Ramo de Consuelo",
+            BouquetKind.Obsession    => "Ramo de Obsesión",
+            BouquetKind.Promise      => "Ramo de Promesa",
+            BouquetKind.Confession   => "Ramo de Confesión",
+            BouquetKind.Farewell     => "Ramo de Despedida",
+            BouquetKind.Suspicion    => "Ramo de Sospecha",
+            _ => "ramo"
+        };
 
         private void OnCloseClicked()
         {

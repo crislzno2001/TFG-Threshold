@@ -19,60 +19,62 @@ public class CurvedWorldOriginSetter : MonoBehaviour
     [SerializeField] private Transform player;
 
     [Header("Curve")]
-    [SerializeField] private float curveStrength = 0.01f;
+    [Tooltip("Curvatura en el EDITOR (déjala en 0 para colocar casas/props en plano).")]
+    [SerializeField] private float editModeCurveStrength = 0f;
+    [Tooltip("Curvatura en PLAY (p. ej. 0.01 para el efecto curvado).")]
+    [SerializeField] private float playModeCurveStrength = 0.01f;
 
-    [Tooltip("Recoge automáticamente todos los materiales CurvedWorld de la escena (sin lista a mano).")]
-    [SerializeField] private bool autoCollect = true;
+    [Tooltip("Materiales curvados GUARDADOS. Se rellenan SOLOS al aplicar el shader con " +
+             "'Tools/Sprout/Apply Curved World to Objects'. NO se escanea la escena al arrancar (cargaba lento).")]
+    [SerializeField] private List<Material> curvedWorldMaterials = new();
 
     private static readonly int CurveOriginID = Shader.PropertyToID("_CurveOrigin");
     private static readonly int CurveStrengthID = Shader.PropertyToID("_CurveStrength");
-
-    private readonly List<Material> _materials = new();
-    private float _refreshTimer;
-
-    private void OnEnable() => Collect();
 
     private void LateUpdate()
     {
         if (player == null) return;
         Vector3 origin = player.position;
 
-        // 1) Global: llega a todo material con _CurveOrigin/_CurveStrength en Scope = Global.
+        // Curvatura según el modo: en el editor usa Edit Mode (0 = plano para colocar), en Play usa Play Mode.
+        float strength = UnityEngine.Application.isPlaying ? playModeCurveStrength : editModeCurveStrength;
+
+        // Global: llega a todo material con _CurveOrigin/_CurveStrength en Scope = Global.
         Shader.SetGlobalVector(CurveOriginID, origin);
-        Shader.SetGlobalFloat(CurveStrengthID, curveStrength);
+        Shader.SetGlobalFloat(CurveStrengthID, strength);
 
-        // 2) Per-material: en EJECUCIÓN el conjunto de materiales curvados no cambia, así que se recoge
-        //    una sola vez (en OnEnable) y no se vuelve a escanear. El re-escaneo periódico se limita al
-        //    EDITOR, como comodidad para recoger los materiales que vas convirtiendo al componer la escena.
-        if (autoCollect && !Application.isPlaying)
+        // Per-material (los que sean Per Material). La lista está GUARDADA: se rellena sola al aplicar el
+        // shader con la herramienta. Ya NO se escanea la escena (ni al arrancar ni en bucle).
+        for (int i = 0; i < curvedWorldMaterials.Count; i++)
         {
-            _refreshTimer += 0.05f;
-            if (_refreshTimer >= 1f) { _refreshTimer = 0f; Collect(); }
-        }
-
-        for (int i = 0; i < _materials.Count; i++)
-        {
-            var m = _materials[i];
+            var m = curvedWorldMaterials[i];
             if (m == null) continue;
             m.SetVector(CurveOriginID, origin);
-            m.SetFloat(CurveStrengthID, curveStrength);
+            m.SetFloat(CurveStrengthID, strength);
         }
     }
 
-    /// <summary>Busca en la escena todos los materiales que usan un shader CurvedWorld.</summary>
-    [ContextMenu("Recolectar materiales curved")]
+    /// <summary>
+    /// Botón MANUAL de emergencia (clic derecho en el componente). Normalmente NO hace falta: la lista se
+    /// rellena sola al aplicar el shader con la herramienta. Úsalo solo si quieres re-escanear toda la escena.
+    /// </summary>
+    [ContextMenu("Recolectar materiales curved (manual)")]
     public void Collect()
     {
-        _materials.Clear();
+        curvedWorldMaterials.Clear();
         var seen = new HashSet<Material>();
 
         foreach (var r in FindObjectsByType<Renderer>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             foreach (var m in r.sharedMaterials)
-                if (IsCurved(m) && seen.Add(m)) _materials.Add(m);
+                if (IsCurved(m) && seen.Add(m)) curvedWorldMaterials.Add(m);
 
         foreach (var t in FindObjectsByType<Terrain>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             if (t.materialTemplate != null && IsCurved(t.materialTemplate) && seen.Add(t.materialTemplate))
-                _materials.Add(t.materialTemplate);
+                curvedWorldMaterials.Add(t.materialTemplate);
+
+#if UNITY_EDITOR
+        if (!UnityEngine.Application.isPlaying) UnityEditor.EditorUtility.SetDirty(this);
+#endif
     }
 
     private static bool IsCurved(Material m)

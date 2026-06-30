@@ -6,8 +6,8 @@ namespace ThresholdGame.Presentation.Player
 {
     /// <summary>
     /// Estado normal del jugador en el mundo.
-    /// Único responsable de leer el input de interacción (E).
-    /// No sabe qué hay en rango — delega en IInteractable.Interact().
+    /// ï¿½nico responsable de leer el input de interacciï¿½n (E).
+    /// No sabe quï¿½ hay en rango ï¿½ delega en IInteractable.Interact().
     /// </summary>
     public sealed class PlayerFreeRoamState : PlayerBaseState
     {
@@ -20,7 +20,7 @@ namespace ThresholdGame.Presentation.Player
 
         public override void Enter()
         {
-            StateMachine.Locomotion?.SetControlEnabled(true);
+            StateMachine.SetMovementEnabled(true);   // reactiva TODO el movimiento al volver al mundo
             StateMachine.AnimationDriver?.ResumeAutomaticAnimation();
 
             Cursor.lockState = CursorLockMode.Locked;

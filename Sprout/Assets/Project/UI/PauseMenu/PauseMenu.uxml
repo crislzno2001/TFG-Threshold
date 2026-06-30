@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/UI/PauseMenu/PauseMenu.uss?fileID=7433441132597879392&amp;guid=38e13d315fcd28b438a321d0c07a886b&amp;type=3#PauseMenu" />
     <ui:VisualElement name="root" class="pause-root">
         <ui:VisualElement name="overlay" class="pause-overlay" />
 
