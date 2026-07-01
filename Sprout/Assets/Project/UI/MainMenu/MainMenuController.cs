@@ -47,6 +47,10 @@ namespace ThresholdGame.Presentation.UI.MainMenu
             _btnCredits.clicked += OnCreditsClicked;
             _btnQuit.clicked += OnQuitClicked;
 
+            // El click se engancha siempre; la visibilidad/estado se re-comprueba en RefreshContinueButton.
+            if (_btnContinue != null) _btnContinue.clicked += OnContinueClicked;
+            RefreshContinueButton();
+
             if (settingsMenu != null)
                 settingsMenu.OnCloseRequested = ShowMainMenu;
         }
@@ -54,6 +58,7 @@ namespace ThresholdGame.Presentation.UI.MainMenu
         private void OnDisable()
         {
             if (_btnNewGame != null) _btnNewGame.clicked -= OnNewGameClicked;
+            if (_btnContinue != null) _btnContinue.clicked -= OnContinueClicked;
             if (_btnSettings != null) _btnSettings.clicked -= OnSettingsClicked;
             if (_btnCredits != null) _btnCredits.clicked -= OnCreditsClicked;
             if (_btnQuit != null) _btnQuit.clicked -= OnQuitClicked;
@@ -69,12 +74,30 @@ namespace ThresholdGame.Presentation.UI.MainMenu
         private void ShowMainMenu()
         {
             if (_root != null) _root.style.display = DisplayStyle.Flex;
+            RefreshContinueButton(); // re-comprobar por si se guardó partida mientras
+        }
+
+        /// <summary>Muestra "Continuar" solo si existe una partida guardada.</summary>
+        private void RefreshContinueButton()
+        {
+            if (_btnContinue == null) return;
+            bool hasSave = System.IO.File.Exists(
+                System.IO.Path.Combine(UnityEngine.Application.persistentDataPath, "sprout_save.json"));
+            _btnContinue.style.display = hasSave ? DisplayStyle.Flex : DisplayStyle.None;
+            _btnContinue.SetEnabled(hasSave);
         }
 
         // ── Handlers ─────────────────────────────────────────────────────────
 
         private void OnNewGameClicked()
         {
+            Sprout.Persistence.SaveSystem.ContinueRequested = false; // partida nueva: no cargar
+            GameStateMachine.Instance?.StartGame();
+        }
+
+        private void OnContinueClicked()
+        {
+            Sprout.Persistence.SaveSystem.ContinueRequested = true;  // que la GameScene cargue la partida
             GameStateMachine.Instance?.StartGame();
         }
 

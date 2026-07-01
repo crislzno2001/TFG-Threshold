@@ -17,6 +17,15 @@ namespace Sprout.Presentation
         [SerializeField] private DayCycleService dayCycle;
         [Tooltip("If set, hotkeys are ignored while this dialogue is open.")]
         [SerializeField] private DialogueUI dialogueUI;
+        [SerializeField] private string playerTag = "Player";
+
+        private Transform _player;
+
+        private Transform Player()
+        {
+            if (_player == null) { var p = GameObject.FindGameObjectWithTag(playerTag); if (p != null) _player = p.transform; }
+            return _player;
+        }
 
         private void Update()
         {
@@ -24,8 +33,16 @@ namespace Sprout.Presentation
             if (kb == null) return;
             if (dialogueUI != null && dialogueUI.IsOpen) return;
 
+            // C abre/cierra el crafteo. Si hay mesas de crafteo en la escena, solo cerca de una.
             if (kb.cKey.wasPressedThisFrame && craftingPanel != null)
-                craftingPanel.SetActive(!craftingPanel.activeSelf);
+            {
+                bool allowed = !CraftingStation.Any || CraftingStation.AnyNear(Player());
+                if (allowed) craftingPanel.SetActive(!craftingPanel.activeSelf);
+            }
+
+            // Si te alejas de la mesa con el panel abierto, se cierra solo.
+            if (craftingPanel != null && craftingPanel.activeSelf && CraftingStation.Any && !CraftingStation.AnyNear(Player()))
+                craftingPanel.SetActive(false);
 
             if (kb.rKey.wasPressedThisFrame && dayCycle != null)
                 dayCycle.AdvancePhase();

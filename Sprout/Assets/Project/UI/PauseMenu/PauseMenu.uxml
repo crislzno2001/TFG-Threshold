@@ -8,6 +8,7 @@
 
             <ui:VisualElement name="buttons" class="pause-buttons">
                 <ui:Button name="btn-resume"     text="Reanudar"            class="pause-button" />
+                <ui:Button name="btn-save"       text="Guardar"             class="pause-button" />
                 <ui:Button name="btn-settings"   text="Configuración"       class="pause-button" />
                 <ui:Button name="btn-main-menu"  text="Salir al menú principal" class="pause-button" />
             </ui:VisualElement>

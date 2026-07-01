@@ -8,26 +8,34 @@
 
 .settings-overlay {
     position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
+    /* Fondo OPACO: tapa por completo la escena (antes era semitransparente y se veía todo). */
+    background-color: rgb(224, 235, 214);
+    /* --- Estampado de hojas (cuando tengas el PNG de Gemini, descomenta estas 3 líneas) --- */
+    /* background-image: url("project://database/Assets/Project/UI/SettingsMenu/leaves_pattern.png"); */
+    /* background-repeat: repeat; */
+    /* background-size: 256px 256px; */
 }
 
 .settings-panel {
-    width: 600px;
-    padding: 40px;
-    background-color: rgba(15, 20, 28, 0.95);
-    border-width: 1px;
-    border-color: rgb(60, 75, 95);
-    border-radius: 4px;
+    width: 720px;
+    padding: 46px;
+    background-color: rgb(247, 242, 231);
+    border-width: 3px;
+    border-color: rgb(214, 203, 180);
+    border-radius: 32px;
 }
 
 .settings-title {
-    font-size: 36px;
-    color: rgb(220, 230, 240);
+    font-size: 40px;
+    color: rgb(86, 125, 92);
     -unity-font-style: bold;
-    letter-spacing: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 34px;
     -unity-text-align: middle-center;
 }
 
@@ -38,57 +46,57 @@
 .settings-row {
     flex-direction: row;
     align-items: center;
-    margin: 8px 0;
+    margin-top: 7px;
+    margin-bottom: 7px;
 }
 
 .settings-label {
-    width: 160px;
-    color: rgb(180, 200, 220);
-    font-size: 14px;
-    letter-spacing: 1px;
+    width: 170px;
+    color: rgb(74, 64, 54);
+    font-size: 15px;
 }
 
 .settings-slider {
     flex-grow: 1;
-    margin: 0 12px;
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
 .settings-value {
-    width: 60px;
-    color: rgb(200, 210, 220);
+    width: 56px;
+    color: rgb(124, 110, 92);
     font-size: 14px;
     -unity-text-align: middle-right;
 }
 
 .settings-buttons {
     flex-direction: row;
-    justify-content: space-between;
-    margin-top: 24px;
+    justify-content: center;
+    margin-top: 28px;
 }
 
 .settings-button {
     flex-grow: 1;
     height: 44px;
-    margin: 0 5px;
-    background-color: rgba(20, 25, 35, 0.85);
-    border-width: 1px;
-    border-color: rgb(60, 75, 95);
-    color: rgb(200, 210, 220);
-    font-size: 15px;
-    letter-spacing: 2px;
-    transition-property: background-color, border-color, scale;
+    margin-left: 8px;
+    margin-right: 8px;
+    background-color: rgb(255, 251, 243);
+    border-width: 2px;
+    border-color: rgb(124, 169, 130);
+    color: rgb(86, 125, 92);
+    font-size: 16px;
+    -unity-font-style: bold;
+    border-radius: 14px;
+    transition-property: background-color, color, scale;
     transition-duration: 0.15s;
-    border-radius: 2px;
 }
 
 .settings-button:hover {
-    background-color: rgba(40, 60, 90, 0.95);
-    border-color: rgb(140, 180, 220);
-    color: rgb(240, 250, 255);
+    background-color: rgb(124, 169, 130);
+    color: rgb(255, 255, 255);
     scale: 1.02 1.02;
 }
 
 .settings-button:active {
-    background-color: rgba(70, 100, 140, 1);
     scale: 0.98 0.98;
 }

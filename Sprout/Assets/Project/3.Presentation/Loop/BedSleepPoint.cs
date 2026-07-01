@@ -79,6 +79,9 @@ namespace Sprout.Presentation
             // Pasar a la mañana del día siguiente (Noche -> roll over).
             dayCycle?.AdvancePhase();
 
+            // Guardar SOLO al dormir (queda guardado en la MAÑANA del día siguiente, nunca de noche).
+            FindFirstObjectByType<Sprout.Persistence.SaveSystem>()?.Save();
+
             yield return recap.FadeOut();
             SetPlayerControl(true);
             _busy = false;

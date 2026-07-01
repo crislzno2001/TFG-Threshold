@@ -36,7 +36,8 @@ namespace Sprout.Application
         private void Update()
         {
             var settings = D != null ? D.DaySettings : null;
-            if (settings == null || !settings.autoAdvancePhases || D.Day.IsFinished) return;
+            // Avanza solo hasta la NOCHE; al llegar la noche se para y hay que ir a dormir para pasar de día.
+            if (settings == null || !settings.autoAdvancePhases || D.Day.IsFinished || D.Day.Phase == DayPhase.Night) return;
 
             _phaseTimer += Time.deltaTime;
             if (_phaseTimer >= settings.secondsPerPhase)

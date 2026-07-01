@@ -445,6 +445,59 @@ namespace OpenAI.Dialogue
             return reply;
         }
 
+        /// <summary>
+        /// Genera VARIAS respuestas posibles de la FLORISTA (el jugador) para el momento actual de la
+        /// conversación, variando enfoque/creatividad. El jugador elige una (no escribe). Devuelve la
+        /// lista de opciones en español.
+        /// </summary>
+        public async System.Threading.Tasks.Task<List<string>> GeneratePlayerOptions(int count = 3)
+        {
+            var transcript = new StringBuilder();
+            foreach (var m in history)
+            {
+                if (m.role == "system") continue;
+                string who = m.role == "assistant" ? npcName : "Florista";
+                transcript.AppendLine($"{who}: {m.content}");
+            }
+
+            string prompt =
+                $"Eres guionista de un juego. La FLORISTA (la jugadora) está hablando con {npcName}.\n" +
+                $"Conversación hasta ahora:\n{transcript}\n\n" +
+                $"Propón {count} cosas DISTINTAS y breves (máx 12 palabras cada una) que la florista podría " +
+                $"decir AHORA, variando el enfoque: una más obvia/sencilla y otra(s) más original o elaborada. " +
+                $"Responde SOLO con una lista numerada, una opción por línea, sin nada más, en español.";
+
+            var req = new CreateChatCompletionRequest
+            {
+                model = model,
+                messages = new List<ChatMessage> { new ChatMessage { role = "user", content = prompt } },
+                temperature = 0.9f,
+                max_tokens = 140
+            };
+
+            var options = new List<string>();
+            try
+            {
+                var response = await openai.CreateChatCompletion(req);
+                if (response?.choices != null && response.choices.Count > 0)
+                {
+                    string raw = response.choices[0].message.content ?? "";
+                    foreach (var line in raw.Split('\n'))
+                    {
+                        string t = Regex.Replace(line.Trim(), @"^\s*([0-9]+[\.\)]|[-•*])\s*", "").Trim().Trim('"');
+                        if (t.Length > 0) options.Add(t);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[OpenAI] Error generando opciones: {ex.Message}");
+            }
+
+            if (options.Count == 0) options.Add("...");
+            return options;
+        }
+
         private async System.Threading.Tasks.Task<int> EvaluateTransition(
             string userMessage,
             List<(string condition, DialogueNodeSO target)> options)

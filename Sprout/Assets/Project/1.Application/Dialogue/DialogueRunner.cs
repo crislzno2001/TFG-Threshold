@@ -35,12 +35,13 @@ namespace OpenAI.Dialogue
 
         // ── Diálogo ────────────────────────────────────────────────────────────
 
+        /// <summary>True si al abrir el diálogo se RETOMÓ una conversación a medias (para saludar de vuelta).</summary>
+        public bool Resumed { get; private set; }
+
         public void StartDialogue()
         {
             if (_brain == null || _brain.dialogueGraph == null || _brain.dialogueGraph.entryNode == null)
                 return;
-
-            _brain.ResetHistory();
 
             // Si hay un enrutador de entrada, empezamos por el nodo del día actual; si no, el de siempre.
             var router = GetComponent<DialogueEntryRouter>();
@@ -48,7 +49,18 @@ namespace OpenAI.Dialogue
                 ? router.ResolveEntry(_brain.dialogueGraph.entryNode)
                 : _brain.dialogueGraph.entryNode;
 
-            AdvanceTo(entry);
+            // Si te fuiste a medias, RETOMA donde lo dejaste (y mantén el hilo: el vecino "se acuerda").
+            if (_current != null && _current != entry)
+            {
+                Resumed = true;
+                _brain.SetNode(_current);
+            }
+            else
+            {
+                Resumed = false;
+                _brain.ResetHistory();
+                AdvanceTo(entry);
+            }
         }
 
         public void AdvanceTo(DialogueNodeSO node)
@@ -104,6 +116,9 @@ namespace OpenAI.Dialogue
         }
 
         public DialogueNodeSO Current => _current;
+
+        /// <summary>Restaura el nodo actual al cargar partida (para retomar la conversación donde quedó).</summary>
+        public void RestoreCurrent(DialogueNodeSO node) => _current = node;
 
         // ── Respuestas de confirmación ─────────────────────────────────────────
 

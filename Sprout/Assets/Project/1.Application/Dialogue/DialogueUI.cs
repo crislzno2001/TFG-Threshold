@@ -56,12 +56,17 @@ namespace OpenAI.Dialogue
         [SerializeField] private FlowerService flowerService;
         private Button _giftButton;
 
+        // Elecciones a mano (ChoiceNode): botones que sustituyen al campo de escribir.
+        private readonly List<Button> _choiceButtons = new();
+        private RectTransform _choiceArea;
+
         private NPCBrain currentNPC;
         private bool isWaiting = false;
         private DialogueRunner _runner;
         private Coroutine _typing;
         private DialogueNodeSO _lastNode; // último nodo cuya frase inicial ya mostramos
         private bool _closeAfterType;     // cerrar el diálogo al acabar de teclear (nodo de despedida)
+        private float _baseChatSize, _baseNameSize; // tamaños base para aplicar el TextScale de la config
 
         private void Awake()
         {
@@ -74,8 +79,19 @@ namespace OpenAI.Dialogue
 
             if (flowerService == null) flowerService = FindFirstObjectByType<FlowerService>();
 
+            if (chatDisplay != null) _baseChatSize = chatDisplay.fontSize;
+            if (npcNameText != null) _baseNameSize = npcNameText.fontSize;
+
             SetStatus("");
             SetDialogueText("");
+        }
+
+        /// <summary>Aplica el tamaño de letra de la configuración al texto del diálogo.</summary>
+        private void ApplyTextScale()
+        {
+            float s = Sprout.Presentation.SproutTextScale.Get();
+            if (chatDisplay != null && _baseChatSize > 0f) chatDisplay.fontSize = _baseChatSize * s;
+            if (npcNameText != null && _baseNameSize > 0f) npcNameText.fontSize = _baseNameSize * s;
         }
 
         /// <summary>The currently-open dialogue, if any (so Esc can close it).</summary>
@@ -92,6 +108,9 @@ namespace OpenAI.Dialogue
             currentNPC = npc;
             Active = this;
             dialoguePanel.SetActive(true);
+            ApplyTextScale();
+            ClearChoices();
+            SetInputVisible(true);
 
             npcNameText.text = npc.npcName;
             SetDialogueText("");
@@ -117,6 +136,9 @@ namespace OpenAI.Dialogue
 
             _lastNode = _runner.Current;
             string opening = OpeningLineOf(_runner.Current);
+            // Si retomamos una conversación a medias y el nodo tiene 'resumeLine', saluda de vuelta.
+            if (_runner.Resumed && _runner.Current != null && !string.IsNullOrWhiteSpace(_runner.Current.resumeLine))
+                opening = _runner.Current.resumeLine;
             if (!string.IsNullOrEmpty(opening))
                 ShowNPCMessage(opening);
         }
@@ -129,6 +151,7 @@ namespace OpenAI.Dialogue
                 case SpeechNodeSO s:       return s.openingLine;
                 case ConversationNodeSO c: return c.openingLine;
                 case ChoiceNodeSO ch:      return ch.openingLine;
+                case OptionsNodeSO o:      return o.openingLine;
                 default:                   return null;
             }
         }
@@ -149,6 +172,8 @@ namespace OpenAI.Dialogue
         {
             if (_typing != null) { StopCoroutine(_typing); _typing = null; }
             if (_giftButton != null) _giftButton.gameObject.SetActive(false);
+            ClearChoices();
+            SetInputVisible(true);
             dialoguePanel.SetActive(false);
             if (Active == this) Active = null;
             currentNPC = null;
@@ -266,8 +291,19 @@ namespace OpenAI.Dialogue
                 yield break;
             }
 
-            SetInputInteractable(true);
-            if (inputField != null) { inputField.Select(); inputField.ActivateInputField(); }
+            // ¿El nodo actual es de OPCIONES DEFINIDAS? -> botones a mano, no el campo de escribir.
+            // (El ChoiceNode normal sigue con texto libre + IA, sin tocar.)
+            if (_runner != null && _runner.Current is OptionsNodeSO optionsNode &&
+                optionsNode.options != null && optionsNode.options.Count > 0)
+            {
+                ShowOptions(optionsNode);
+            }
+            else
+            {
+                SetInputVisible(true);
+                SetInputInteractable(true);
+                if (inputField != null) { inputField.Select(); inputField.ActivateInputField(); }
+            }
         }
 
         /// <summary>True si el nodo no tiene salidas (es una despedida / final de rama).</summary>
@@ -276,6 +312,7 @@ namespace OpenAI.Dialogue
             if (node == null) return false;
             if (node.nextNodes != null && node.nextNodes.Count > 0) return false;
             if (node is ChoiceNodeSO c && c.choices != null && c.choices.Count > 0) return false;
+            if (node is OptionsNodeSO o && o.options != null && o.options.Count > 0) return false;
             if (node is SpeechNodeSO s && s.transitions != null && s.transitions.Count > 0) return false;
             return true;
         }
@@ -411,6 +448,111 @@ namespace OpenAI.Dialogue
             BouquetKind.Suspicion    => "Ramo de Sospecha",
             _ => "ramo"
         };
+
+        // ── Elecciones a mano (ChoiceNode) ──────────────────────────────────────
+
+        private void SetInputVisible(bool visible)
+        {
+            if (inputField != null) inputField.gameObject.SetActive(visible);
+            if (sendButton != null) sendButton.gameObject.SetActive(visible);
+        }
+
+        private void ShowOptions(OptionsNodeSO node)
+        {
+            ClearChoices();
+            SetInputVisible(false);   // sin escribir: solo botones
+            EnsureChoiceArea();
+            if (_choiceArea == null) return;
+
+            foreach (var option in node.options)
+            {
+                if (option == null || option.nextNode == null) continue;
+                var o = option; // captura para el listener
+                var btn = CreateChoiceButton(string.IsNullOrWhiteSpace(o.text) ? "..." : o.text);
+                btn.onClick.AddListener(() => OnOptionPicked(o));
+            }
+        }
+
+        private void OnOptionPicked(OptionData option)
+        {
+            if (currentNPC == null || _runner == null || option == null) return;
+            ClearChoices();
+
+            string label = string.IsNullOrWhiteSpace(option.text) ? "" : option.text;
+            onPlayerMessageSent?.Invoke(label);   // Torrance: cuenta la opción elegida
+
+            var target = option.nextNode;
+
+            // Gate: si no cumple requisitos, mensaje de bloqueo y se vuelven a mostrar las opciones.
+            if (target != null && !currentNPC.MeetsRequirements(target))
+            {
+                string locked = !string.IsNullOrWhiteSpace(target.lockedReply) ? target.lockedReply : "Aún no puedes por aquí.";
+                onNPCReplied?.Invoke(locked);
+                _closeAfterType = false;
+                ShowNPCMessage(locked);   // al acabar, como seguimos en el ChoiceNode, re-aparecen las opciones
+                return;
+            }
+
+            _runner.AdvanceTo(target);
+            _lastNode = _runner.Current;
+            _closeAfterType = IsTerminal(_runner.Current);
+
+            string opening = OpeningLineOf(_runner.Current);
+            onNPCReplied?.Invoke(opening ?? "...");
+            ShowNPCMessage(string.IsNullOrEmpty(opening) ? "..." : opening);
+        }
+
+        private void EnsureChoiceArea()
+        {
+            if (_choiceArea != null || dialoguePanel == null) return;
+            var panelRT = dialoguePanel.GetComponent<RectTransform>();
+            if (panelRT == null) return;
+
+            var go = new GameObject("ChoiceArea", typeof(RectTransform), typeof(VerticalLayoutGroup));
+            _choiceArea = go.GetComponent<RectTransform>();
+            _choiceArea.SetParent(panelRT, false);
+            _choiceArea.anchorMin = new Vector2(0.04f, 0.06f);
+            _choiceArea.anchorMax = new Vector2(0.74f, 0.64f);
+            _choiceArea.offsetMin = Vector2.zero; _choiceArea.offsetMax = Vector2.zero;
+
+            var vlg = go.GetComponent<VerticalLayoutGroup>();
+            vlg.spacing = 6;
+            vlg.padding = new RectOffset(0, 0, 0, 0);
+            vlg.childAlignment = TextAnchor.LowerLeft;
+            vlg.childControlWidth = true; vlg.childControlHeight = true;
+            vlg.childForceExpandWidth = true; vlg.childForceExpandHeight = false;
+        }
+
+        private Button CreateChoiceButton(string text)
+        {
+            var go = new GameObject("Choice",
+                typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button), typeof(LayoutElement));
+            go.transform.SetParent(_choiceArea, false);
+            go.GetComponent<Image>().color = new Color(0.96f, 0.86f, 0.72f, 1f);
+            go.GetComponent<LayoutElement>().minHeight = 38;
+            var btn = go.GetComponent<Button>();
+
+            var txtGo = new GameObject("Label", typeof(RectTransform));
+            var trt = txtGo.GetComponent<RectTransform>();
+            trt.SetParent(go.transform, false);
+            trt.anchorMin = Vector2.zero; trt.anchorMax = Vector2.one;
+            trt.offsetMin = new Vector2(12, 4); trt.offsetMax = new Vector2(-12, -4);
+            var label = txtGo.AddComponent<TextMeshProUGUI>();
+            label.text = "▸ " + text;
+            label.alignment = TextAlignmentOptions.MidlineLeft;
+            label.fontSize = 16;
+            label.color = new Color(0.23f, 0.18f, 0.16f);
+            label.enableWordWrapping = true;
+
+            _choiceButtons.Add(btn);
+            return btn;
+        }
+
+        private void ClearChoices()
+        {
+            foreach (var b in _choiceButtons) if (b != null) Destroy(b.gameObject);
+            _choiceButtons.Clear();
+        }
 
         private void OnCloseClicked()
         {

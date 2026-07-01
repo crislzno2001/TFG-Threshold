@@ -20,12 +20,13 @@ namespace Sprout.Persistence
     {
         [SerializeField] private List<NPCBrain> npcBrains = new();
         [SerializeField] private DayCycleService dayCycle;
-        [SerializeField] private bool autoSaveAtNight = true;
+        [Tooltip("Cargar la última partida al arrancar (continuar). El guardado se hace SOLO al dormir.")]
         [SerializeField] private bool loadOnStart = false;
 
         [Serializable] private class Pair { public string k; public int v; }
         [Serializable] private class FlagPair { public string k; public bool v; }
         [Serializable] private class MemEntry { public string npc; public string key; public string val; }
+        [Serializable] private class NodeEntry { public string npc; public string guid; }
 
         [Serializable]
         private class SaveData
@@ -38,6 +39,7 @@ namespace Sprout.Persistence
             public List<Pair> bouquets = new();
             public List<Pair> relationships = new();
             public List<MemEntry> memories = new();
+            public List<NodeEntry> currentNodes = new();
         }
 
         public string SavePath => Path.Combine(UnityEngine.Application.persistentDataPath, "sprout_save.json");
@@ -46,9 +48,13 @@ namespace Sprout.Persistence
 
         public bool HasSave => File.Exists(SavePath);
 
+        /// <summary>Lo activa el botón "Continuar" del menú principal para que la GameScene cargue la partida.</summary>
+        public static bool ContinueRequested;
+
         private void Start()
         {
-            if (loadOnStart && HasSave) Load();
+            if ((loadOnStart || ContinueRequested) && HasSave) Load();
+            ContinueRequested = false;
             if (dayCycle != null) dayCycle.onPhaseChanged.AddListener(OnPhase);
         }
 
@@ -59,7 +65,7 @@ namespace Sprout.Persistence
 
         private void OnPhase(int day, string phase)
         {
-            if (autoSaveAtNight && phase == "Night") Save();
+            // Ya NO se autoguarda de noche: el guardado se hace SOLO al dormir (BedSleepPoint llama a Save()).
         }
 
         public void Save()
@@ -79,6 +85,16 @@ namespace Sprout.Persistence
                 if (brain == null) continue;
                 foreach (var kv in brain.ExportMemory())
                     data.memories.Add(new MemEntry { npc = brain.npcName, key = kv.Key, val = kv.Value });
+            }
+
+            // Nodo actual de cada conversación (para retomar donde lo dejaste al cargar).
+            foreach (var brain in npcBrains)
+            {
+                if (brain == null) continue;
+                var runner = brain.GetComponent<DialogueRunner>();
+                var cur = runner != null ? runner.Current : null;
+                if (cur != null && !string.IsNullOrEmpty(cur.nodeGuid))
+                    data.currentNodes.Add(new NodeEntry { npc = brain.npcName, guid = cur.nodeGuid });
             }
 
             try
@@ -130,6 +146,17 @@ namespace Sprout.Persistence
                     if (brain == null) continue;
                     if (byNpc.TryGetValue(brain.npcName, out var mem)) brain.ImportMemory(mem);
                 }
+
+                // Restaurar el nodo actual de cada conversación (retomar donde lo dejaste).
+                if (data.currentNodes != null)
+                    foreach (var ne in data.currentNodes)
+                    {
+                        var brain = npcBrains.Find(b => b != null && b.npcName == ne.npc);
+                        if (brain == null || brain.dialogueGraph == null) continue;
+                        var node = brain.dialogueGraph.nodes.Find(n => n != null && n.nodeGuid == ne.guid);
+                        var runner = brain.GetComponent<DialogueRunner>();
+                        if (node != null && runner != null) runner.RestoreCurrent(node);
+                    }
 
                 Debug.Log("[SaveSystem] Loaded (with NPC memory).");
                 return true;

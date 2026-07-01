@@ -31,11 +31,16 @@ namespace OpenAI.Dialogue
         public List<DialogueFlagRequirement> prerequisiteFlags = new();
 
         [TextArea(1, 3)]
-        [Tooltip("Respuesta opcional si el jugador intenta entrar aquí sin cumplir los requisitos")]
-        public string lockedReply = "Aún no puedes avanzar por aquí.";
+        [Tooltip("Respuesta opcional si el jugador intenta entrar aquï¿½ sin cumplir los requisitos")]
+        public string lockedReply = "Aï¿½n no puedes avanzar por aquï¿½.";
+
+        [TextArea(1, 3)]
+        [Tooltip("Frase de 'bienvenida de vuelta' si el jugador RE-ENTRA en este nodo tras irse a medias " +
+                 "(ej: 'Â¡Anda! EstÃ¡bamos con las recetas y te largaste...'). VacÃ­o = usa la frase normal.")]
+        public string resumeLine;
 
         [Header("Flags al entrar")]
-        [Tooltip("Flags que se activan automáticamente al entrar en este nodo")]
+        [Tooltip("Flags que se activan automï¿½ticamente al entrar en este nodo")]
         public List<DialogueFlagChange> flagsOnEnter = new();
 
         public List<DialogueNodeSO> nextNodes = new();

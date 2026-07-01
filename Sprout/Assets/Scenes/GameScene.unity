@@ -2275,7 +2275,7 @@ MonoBehaviour:
   brain: {fileID: 189986788}
   dialogueUI: {fileID: 448172085}
   runner: {fileID: 189986784}
-  ideasNode: {fileID: 3835125810585759081, guid: d2e2ff34e47a07448bec0c1cbcbeec24, type: 2}
+  ideasNode: {fileID: -4958594043159226877, guid: d2e2ff34e47a07448bec0c1cbcbeec24, type: 2}
   counterKey: mochi_ideas_count
   ideaDomain: 'a concrete culinary idea: ingredients, a technique, a dish, or plating.'
   aiSettings: {fileID: 11400000, guid: 284854a17c1391b40afd69e802a1d60e, type: 2}
@@ -2830,7 +2830,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1622098016}
   - {fileID: 1530197790}
   - {fileID: 189986774}
   - {fileID: 600370076}
@@ -2839,6 +2838,56 @@ Transform:
   - {fileID: 1180972279}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &309891323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 309891324}
+  - component: {fileID: 309891325}
+  m_Layer: 0
+  m_Name: Compass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &309891324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309891323}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1523062566}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &309891325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309891323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0ebf098c12889b48a85df22881c26c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.ObjectiveCompass
+  cam: {fileID: 1445352574}
+  target: {fileID: 0}
+  label: Objetivo
+  worldYOffset: 2.4
+  playerTag: Player
+  showDistance: 1
 --- !u!1 &321318319
 GameObject:
   m_ObjectHideFlags: 0
@@ -14319,6 +14368,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.SceneFlow.PersistAcrossScenes
   key: PlayerRig
+  destroyOnScenes:
+  - MainMenu
 --- !u!114 &1445352573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14342,6 +14393,11 @@ MonoBehaviour:
   flipY: 1
   startExpression: 0
   previewPhonemes: 0
+--- !u!20 &1445352574 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7165287132041779481, guid: c7646eb14bb046c4b99678bd6be28af6, type: 3}
+  m_PrefabInstance: {fileID: 1445352569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1445352586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15349,90 +15405,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1622098016}
   - {fileID: 8421642711670879093}
   - {fileID: 7796555497590537654}
   - {fileID: 113143567}
   - {fileID: 1936805004}
   - {fileID: 757355561}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1526575589
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1526575593}
-  - component: {fileID: 1526575592}
-  - component: {fileID: 1526575591}
-  - component: {fileID: 1526575590}
-  m_Layer: 0
-  m_Name: DemoUI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1526575590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526575589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9b139bd0fec2cb4db0b70063804b728, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.ObjectiveTrackerUI
-  objective: Conoce a los vecinos del pueblo
-  doneText: "\xA1Has conocido a todo el pueblo!"
---- !u!114 &1526575591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526575589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af36e974862b70e4d8f7317b455e552c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.EscPauseToggle
---- !u!114 &1526575592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526575589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 473928f3f28756f42ab2814503f783bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.IntroLetterUI
-  playerTag: Player
-  title: Sprout
-  letter: "Querida nieta:\n\nSi est\xE1s leyendo esto, la florister\xEDa ya es tuya.
-    Cuida de las flores... y de los vecinos.\n\nAlgunos cargan m\xE1s de lo que cuentan.
-    Esc\xFAchalos. Sabr\xE1s qu\xE9 darles.\n\nCon cari\xF1o,\nla abuela."
-  fadeDuration: 0.8
-  minReadTime: 1.5
---- !u!4 &1526575593
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526575589}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.27314, y: -0.00001, z: 11.28363}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
+  - {fileID: 309891324}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1530197789
@@ -16136,6 +16115,8 @@ GameObject:
   - component: {fileID: 1622098007}
   - component: {fileID: 1622098006}
   - component: {fileID: 1622098005}
+  - component: {fileID: 1622098017}
+  - component: {fileID: 1622098018}
   m_Layer: 0
   m_Name: SproutGame
   m_TagString: Untagged
@@ -16198,6 +16179,7 @@ MonoBehaviour:
   craftingPanel: {fileID: 1946760592}
   dayCycle: {fileID: 1622098012}
   dialogueUI: {fileID: 448172085}
+  playerTag: Player
 --- !u!114 &1622098007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16246,7 +16228,6 @@ MonoBehaviour:
   - {fileID: 490618957}
   - {fileID: 90324455}
   dayCycle: {fileID: 1622098012}
-  autoSaveAtNight: 1
   loadOnStart: 0
 --- !u!114 &1622098010
 MonoBehaviour:
@@ -16370,12 +16351,39 @@ Transform:
   m_GameObject: {fileID: 1622098003}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -150, y: -9.72044, z: -149.99997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 291816478}
+  m_Father: {fileID: 1523062566}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1622098017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622098003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af36e974862b70e4d8f7317b455e552c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.EscPauseToggle
+--- !u!114 &1622098018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622098003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65225b9ef6c8c8a46bbc496922d64d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.SceneFlow.PersistAcrossScenes
+  key: PlayerRig
+  destroyOnScenes:
+  - MainMenu
 --- !u!1 &1624669929
 GameObject:
   m_ObjectHideFlags: 0
@@ -21195,6 +21203,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
+--- !u!1001 &6913626420648245995
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4903583900460114282, guid: 4d442cc9d6de0044ca9f1d59a47f9ab5, type: 3}
+      propertyPath: m_Name
+      value: cartaabuela
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712489844485110736, guid: 4d442cc9d6de0044ca9f1d59a47f9ab5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0289537
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712489844485110736, guid: 4d442cc9d6de0044ca9f1d59a47f9ab5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.24336629
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712489844485110736, guid: 4d442cc9d6de0044ca9f1d59a47f9ab5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.042398043
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712489844485110736, guid: 4d442cc9d6de0044ca9f1d59a47f9ab5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712489844485110736, guid: 4d442cc9d6de0044ca9f1d59a47f9ab5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712489844485110736, guid: 4d442cc9d6de0044ca9f1d59a47f9ab5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712489844485110736, guid: 4d442cc9d6de0044ca9f1d59a47f9ab5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712489844485110736, guid: 4d442cc9d6de0044ca9f1d59a47f9ab5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712489844485110736, guid: 4d442cc9d6de0044ca9f1d59a47f9ab5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712489844485110736, guid: 4d442cc9d6de0044ca9f1d59a47f9ab5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4d442cc9d6de0044ca9f1d59a47f9ab5, type: 3}
 --- !u!1001 &7796555497590537653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21399,5 +21464,5 @@ SceneRoots:
   - {fileID: 1445352569}
   - {fileID: 321318321}
   - {fileID: 243877132}
-  - {fileID: 1526575593}
   - {fileID: 181900548}
+  - {fileID: 6913626420648245995}
