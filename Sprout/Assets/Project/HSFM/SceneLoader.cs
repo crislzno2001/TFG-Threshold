@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 namespace ThresholdGame.Core.GameFlow
 {
     /// <summary>
-    /// Implementación con SceneManager.
-    /// Garantiza una duración mínima visible para la pantalla de carga,
+    /// Implementaciï¿½n con SceneManager.
+    /// Garantiza una duraciï¿½n mï¿½nima visible para la pantalla de carga,
     /// evitando flashes en escenas que se cargan en milisegundos.
     /// </summary>
     public sealed class SceneLoader : ISceneLoader
     {
-        // Tiempo mínimo que la pantalla de carga estará visible (en segundos).
-        // Suficiente para que el usuario vea la transición sin que sea molesto.
-        private const float MinDisplayTime = 1.2f;
+        // Tiempo mï¿½nimo que la pantalla de carga estarï¿½ visible (en segundos).
+        // Suficiente para que el usuario vea la transiciï¿½n sin que sea molesto.
+        private const float MinDisplayTime = 3.0f;
 
         public void LoadScene(string sceneName)
         {
@@ -26,6 +26,11 @@ namespace ThresholdGame.Core.GameFlow
             Action<float> onProgress,
             Action onCompleted)
         {
+            // Cargar con prioridad BAJA reparte el trabajo de carga en mÃ¡s frames,
+            // dejando la animaciÃ³n de la pantalla de carga fluida (sin tirones).
+            ThreadPriority prevPriority = UnityEngine.Application.backgroundLoadingPriority;
+            UnityEngine.Application.backgroundLoadingPriority = ThreadPriority.Low;
+
             AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
             op.allowSceneActivation = false;
 
@@ -39,8 +44,8 @@ namespace ThresholdGame.Core.GameFlow
                 yield return null;
             }
 
-            // Fase 2: esperar a que pase el tiempo mínimo de display
-            // y simular el último 10% del progreso suavemente
+            // Fase 2: esperar a que pase el tiempo mï¿½nimo de display
+            // y simular el ï¿½ltimo 10% del progreso suavemente
             float elapsed;
             while ((elapsed = Time.unscaledTime - startTime) < MinDisplayTime)
             {
@@ -54,6 +59,15 @@ namespace ThresholdGame.Core.GameFlow
 
             op.allowSceneActivation = true;
             yield return op;
+
+            // Tras activar, la escena ejecuta todos sus Awake/Start (el parÃ³n). Mantenemos
+            // la pantalla de carga tapando unos frames mÃ¡s para esconder ese tirÃ³n inicial
+            // y dejar que la escena nueva se estabilice antes de mostrarla.
+            for (int i = 0; i < 5; i++) yield return null;
+            yield return new WaitForSecondsRealtime(0.1f);
+
+            // Restaurar la prioridad normal una vez cargada la escena.
+            UnityEngine.Application.backgroundLoadingPriority = prevPriority;
 
             onCompleted?.Invoke();
         }

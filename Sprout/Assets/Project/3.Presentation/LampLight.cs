@@ -32,7 +32,7 @@ namespace Sprout.Presentation
             if (lamp == null) return;
 
             var d = SproutGameDirector.Instance;
-            bool on = d != null && (d.Day.Phase == DayPhase.Evening || d.Day.Phase == DayPhase.Night);
+            bool on = d != null && (d.Day.Phase == DayPhase.Afternoon || d.Day.Phase == DayPhase.Night);
 
             float wobble = 1f + (Mathf.PerlinNoise(Time.time * 2.2f, _seed) - 0.5f) * 2f * flicker;
             float target = on ? nightIntensity * wobble : 0f;

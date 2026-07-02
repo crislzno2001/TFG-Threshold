@@ -45,7 +45,7 @@ namespace Sprout.Presentation
 
         private void Apply(DayPhase phase)
         {
-            bool on = phase == DayPhase.Evening || phase == DayPhase.Night;
+            bool on = phase == DayPhase.Afternoon || phase == DayPhase.Night;
             foreach (var l in _lamps)
                 if (l != null) l.enabled = on;
         }

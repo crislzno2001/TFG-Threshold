@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ThresholdGame.Core.Interaction;
+using ThresholdGame.Presentation.NPC;
 using OpenAI.Dialogue;
 
 namespace ThresholdGame.Presentation.Interaction
@@ -49,6 +50,7 @@ namespace ThresholdGame.Presentation.Interaction
             }
 
             npcBrain.isInteracting = true;
+            GetComponent<NPCStateMachine>()?.SuspendAutonomy(); // que se pare mientras hablas
             dialogueUI.Open(npcBrain);
 
             player.EnterDialogue();
@@ -68,6 +70,11 @@ namespace ThresholdGame.Presentation.Interaction
         public void CloseDialogue()
         {
             if (npcBrain != null) npcBrain.isInteracting = false;
+            GetComponent<NPCStateMachine>()?.ResumeAutonomy(); // vuelve a pasear al cerrar
+
+            // Progreso de fase (modo simple): hablar cuenta como hito, si está activado en DayCycleService.
+            if (npcBrain != null)
+                FindFirstObjectByType<Sprout.Application.DayCycleService>()?.RegisterPhaseGoalFromTalk(npcBrain.npcName);
             dialogueUI?.Close();
             _player?.EnterFreeRoam();
             _player = null;

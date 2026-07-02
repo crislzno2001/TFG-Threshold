@@ -14,9 +14,13 @@ namespace ThresholdGame.Presentation.UI.Loading
     {
         [SerializeField] private UIDocument uiDocument;
 
+        [Tooltip("Velocidad a la que sube la barra (fracción por segundo). 0.35 = tarda ~3s en llenarse, acorde con la duración del loading.")]
+        [SerializeField] private float fillSpeed = 0.35f;
+
         private VisualElement _root;
         private VisualElement _progressFill;
         private Label _percentageLabel;
+        private float _shown;   // valor mostrado, se acerca suavemente al real
 
         private void Reset() => uiDocument = GetComponent<UIDocument>();
 
@@ -40,7 +44,12 @@ namespace ThresholdGame.Presentation.UI.Loading
         private void Update()
         {
             if (GameStateMachine.Instance == null) return;
-            SetProgress(GameStateMachine.Instance.CurrentLoadProgress);
+
+            // La barra sube SUAVE: en vez del valor real (que salta de 0 a 90 de golpe),
+            // acercamos el valor mostrado poco a poco al objetivo.
+            float target = Mathf.Clamp01(GameStateMachine.Instance.CurrentLoadProgress);
+            _shown = Mathf.MoveTowards(_shown, target, Time.unscaledDeltaTime * fillSpeed);
+            SetProgress(_shown);
         }
 
         // ── API pública (llamada por GameEventListener mediante UnityEvents) ─
@@ -53,6 +62,7 @@ namespace ThresholdGame.Presentation.UI.Loading
                 Debug.LogWarning("[LoadingScreen] _root es null!");
                 return;
             }
+            _shown = 0f;   // cada carga empieza la barra desde 0
             _root.style.display = DisplayStyle.Flex;
         }
 

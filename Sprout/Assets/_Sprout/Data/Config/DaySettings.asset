@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: DaySettings
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Data.DaySettingsSO
   totalDays: 3
-  autoAdvancePhases: 1
+  npcsToAdvancePhase: 4
+  autoAdvancePhases: 0
   secondsPerPhase: 225
+  secondsMorning: 300
+  secondsMidday: 240
+  secondsAfternoon: 240
+  secondsNight: 120
   startingSeedFlowers: 0

@@ -63,8 +63,8 @@ namespace Sprout.Presentation
             switch (phase)
             {
                 case "Morning":   Set(new Color(1f, 0.95f, 0.84f), 1.00f, new Vector3(52, -20, 0), new Color(0.50f, 0.50f, 0.46f), new Color(0.80f, 0.84f, 0.78f), 0.006f); SetSky(1.05f, new Color(0.50f, 0.51f, 0.52f)); break;
-                case "Afternoon": Set(new Color(1f, 0.97f, 0.89f), 1.10f, new Vector3(70, 10, 0),  new Color(0.56f, 0.56f, 0.53f), new Color(0.84f, 0.87f, 0.82f), 0.005f); SetSky(1.20f, new Color(0.52f, 0.53f, 0.55f)); break;
-                case "Evening":   Set(new Color(1f, 0.70f, 0.44f), 0.80f, new Vector3(40, 40, 0),  new Color(0.40f, 0.35f, 0.33f), new Color(0.78f, 0.58f, 0.42f), 0.009f); SetSky(0.70f, new Color(0.55f, 0.40f, 0.32f)); break;
+                case "Midday":    Set(new Color(1f, 0.99f, 0.92f), 1.15f, new Vector3(85, 0, 0),   new Color(0.58f, 0.58f, 0.55f), new Color(0.86f, 0.89f, 0.85f), 0.004f); SetSky(1.25f, new Color(0.53f, 0.54f, 0.56f)); break;
+                case "Afternoon": Set(new Color(1f, 0.70f, 0.44f), 0.80f, new Vector3(40, 40, 0),  new Color(0.40f, 0.35f, 0.33f), new Color(0.78f, 0.58f, 0.42f), 0.009f); SetSky(0.70f, new Color(0.55f, 0.40f, 0.32f)); break;
                 case "Night":     Set(new Color(0.40f, 0.48f, 0.82f), 0.28f, new Vector3(45, -30, 0), new Color(0.14f, 0.16f, 0.26f), new Color(0.09f, 0.12f, 0.22f), 0.014f); SetSky(0.22f, new Color(0.22f, 0.27f, 0.45f)); break;
             }
         }

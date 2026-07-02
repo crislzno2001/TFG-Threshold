@@ -1,12 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Project/UI/LoadingScreen/LoadingScreen.uss?fileID=7433441132597879392&amp;guid=8ba4145ddefbbe14d857969a6da96805&amp;type=3#LoadingScreen"/>
     <ui:VisualElement name="root" class="loading-root">
-        <ui:VisualElement name="content" class="loading-content" style="width: 296px;">
+        <ui:VisualElement name="sky" class="layer sky"/>
+        <ui:VisualElement name="mountains" class="layer mountains" style="top: -33px; left: -2px;"/>
+        <ui:VisualElement name="trees" class="layer trees" style="top: 94px; left: 1px;"/>
+        <ui:VisualElement name="content" class="loading-content" style="width: 670px; flex-direction: column; position: absolute; top: 378px; left: 607px; right: 644px;">
             <ui:Label name="title" text="CARGANDO" class="loading-title"/>
             <ui:VisualElement name="progress-track" class="progress-track">
                 <ui:VisualElement name="progress-fill" class="progress-fill"/>
             </ui:VisualElement>
             <ui:Label name="percentage" text="0%" class="loading-percentage"/>
         </ui:VisualElement>
+        <ui:VisualElement name="ground" class="layer ground" style="top: 148px; left: 2px;"/>
     </ui:VisualElement>
 </ui:UXML>

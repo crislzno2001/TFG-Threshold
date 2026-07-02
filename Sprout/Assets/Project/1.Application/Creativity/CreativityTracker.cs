@@ -12,14 +12,13 @@ using Sprout.Domain.Narrative;
 namespace Sprout.Application.Creativity
 {
     /// <summary>
-    /// Generalised Torrance-style creativity tracker for any NPC (Mochi, Aster,
-    /// Moth, Rix). When the conversation sits in a designated "ideas" node, each
-    /// player message is scored by AI for: is-it-an-idea (fluency), originality,
-    /// elaboration, and category (flexibility). Scores are stored invisibly in the
-    /// director's CreativityProfile and drive counters, flags and flower generation.
+    /// Medidor de creatividad (estilo Torrance ampliado) para cualquier NPC. Puntúa CADA mensaje
+    /// libre del jugador durante la conversación en 7 dimensiones: originalidad, detalle, coherencia,
+    /// empatía, uso del mundo, riesgo y adaptación (mejorar una idea tras una objeción). Los mensajes
+    /// enviados en un nodo de "reto creativo" pesan más (challengeWeight). Todo es invisible: se
+    /// acumula en el CreativityProfile del director y dispara contadores, flags y flores.
     ///
-    /// Wire:  DialogueUI.onPlayerMessageSent → RegisterPlayerMessage
-    ///        DialogueRunner.onStepCompleted → OnDialogueStepCompleted
+    /// Se auto-suscribe a DialogueUI.onPlayerMessageSent y DialogueRunner.onStepCompleted.
     /// </summary>
     public class CreativityTracker : MonoBehaviour
     {
@@ -27,21 +26,25 @@ namespace Sprout.Application.Creativity
         [SerializeField] private NpcId npc = NpcId.Mochi;
         [SerializeField] private NPCBrain brain;
 
-        [Header("Auto-subscribe sources (optional)")]
-        [Tooltip("If set, this tracker subscribes itself to these at Start, so no " +
-                 "manual UnityEvent wiring is needed.")]
+        [Header("Fuentes (auto-suscripción)")]
         [SerializeField] private DialogueUI dialogueUI;
         [SerializeField] private DialogueRunner runner;
 
-        [Header("Ideas node")]
-        [Tooltip("The brainstorm node. Messages sent while parked here are scored.")]
+        [Header("Reto creativo")]
+        [Tooltip("Nodo principal de ideas/reto. Los mensajes aquí pesan 'challengeWeight'.")]
         [SerializeField] private DialogueNodeSO ideasNode;
+        [Tooltip("Nodos EXTRA de reto (p. ej. la revisión de noche). También pesan más.")]
+        [SerializeField] private List<DialogueNodeSO> extraChallengeNodes = new();
+        [Tooltip("Si está activo, puntúa en TODA conversación. Si no, solo en los nodos de reto.")]
+        [SerializeField] private bool scoreEverywhere = true;
+        [SerializeField] private float normalWeight = 1f;
+        [SerializeField] private float challengeWeight = 2f;
 
-        [Header("Counter flag this tracker increments")]
+        [Header("Contador que incrementa este tracker")]
         [Tooltip("e.g. mochi_ideas_count, aster_ideas_count, moth_friendship")]
         [SerializeField] private string counterKey = NarrativeFlagKeys.MochiIdeasCount;
 
-        [Header("Domain of valid ideas (for the classifier prompt)")]
+        [Header("Dominio de idea válida (para el prompt)")]
         [TextArea(2, 5)]
         [SerializeField] private string ideaDomain =
             "a concrete culinary idea: combining ingredients, a cooking technique, " +
@@ -51,15 +54,15 @@ namespace Sprout.Application.Creativity
         [SerializeField] private AISettingsSO aiSettings;
         [SerializeField] private int highFluencyThreshold = 4;
 
-        [Header("Optional flower generation")]
+        [Header("Generación de flores (opcional)")]
         [SerializeField] private FlowerService flowerService;
 
-        [Header("Events")]
+        [Header("Eventos")]
         public UnityEvent<int> onIdeaCountChanged;
 
         private OpenAIApi _openai;
-        private DialogueNodeSO _previousNode;
-        private string _lastMessage = "";
+        private DialogueNodeSO _lastNode;   // fallback si runner.Current no está disponible
+        private string _previousMessage = ""; // para medir ADAPTACIÓN (mejora sobre la idea anterior)
         private bool _busy;
 
         private void Awake() => _openai = new OpenAIApi();
@@ -71,63 +74,102 @@ namespace Sprout.Application.Creativity
             if (runner != null) runner.onStepCompleted.AddListener(OnDialogueStepCompleted);
         }
 
-        public void RegisterPlayerMessage(string message) => _lastMessage = message ?? "";
-
-        public async void OnDialogueStepCompleted(DialogueNodeSO currentNode)
+        /// <summary>Sigue el nodo actual (por si runner.Current no estuviera disponible).</summary>
+        public void OnDialogueStepCompleted(DialogueNodeSO currentNode)
         {
-            if (ideasNode == null || currentNode == null || _busy) return;
+            if (currentNode != null) _lastNode = currentNode;
+        }
 
-            bool wasInIdeas = _previousNode == ideasNode;
-            bool stillInIdeas = currentNode == ideasNode;
-            _previousNode = currentNode;
+        /// <summary>Cada mensaje libre del jugador se evalúa aquí (lo llama DialogueUI.onPlayerMessageSent).</summary>
+        public async void RegisterPlayerMessage(string message)
+        {
+            if (string.IsNullOrWhiteSpace(message) || _busy) return;
 
-            if (!wasInIdeas || !stillInIdeas) return;
-            if (string.IsNullOrWhiteSpace(_lastMessage)) return;
+            DialogueNodeSO node = CurrentNode();
+            bool isChallenge = IsChallenge(node);
+            if (!scoreEverywhere && !isChallenge) return;   // modo "solo retos"
 
-            string msg = _lastMessage;
+            float weight = isChallenge ? challengeWeight : normalWeight;
+
             _busy = true;
-            var eval = await EvaluateIdea(msg);
+            var eval = await Evaluate(message, _previousMessage, node);
             _busy = false;
 
-            if (!eval.isIdea) return;
+            _previousMessage = message;
 
             var director = SproutGameDirector.Instance;
             var profile = director != null ? director.CreativityFor(npc) : null;
-            profile?.AddIdea(eval.originality, eval.elaboration, eval.category);
+            profile?.AddEvaluation(eval.isIdea, eval.originality, eval.detail, eval.coherence,
+                                   eval.empathy, eval.worldUse, eval.risk, eval.adaptation,
+                                   eval.category, weight);
 
-            int count = director != null
-                ? director.Flags.IncrementCounter(counterKey)
-                : 0;
-
-            if (brain != null) brain.SetFlag($"{counterKey}_value_{count}", true);
-            if (count >= highFluencyThreshold && brain != null)
-                brain.SetFlag($"{npc.ToString().ToLowerInvariant()}_fluency_high", true);
-
-            // Flower generation hooks (rules in FlowerService).
-            if (flowerService != null)
+            // Fluidez: solo las ideas CONCRETAS cuentan para el contador.
+            if (eval.isIdea && director != null)
             {
-                if (profile != null && profile.HighOriginality()) flowerService.OnHighOriginality();
-                if (count >= highFluencyThreshold) flowerService.OnHighFluency();
+                int count = director.Flags.IncrementCounter(counterKey);
+                if (brain != null) brain.SetFlag($"{counterKey}_value_{count}", true);
+                if (count >= highFluencyThreshold && brain != null)
+                    brain.SetFlag($"{npc.ToString().ToLowerInvariant()}_fluency_high", true);
+
+                if (flowerService != null)
+                {
+                    if (profile != null && profile.HighOriginality()) flowerService.OnHighOriginality();
+                    if (count >= highFluencyThreshold) flowerService.OnHighFluency();
+                }
+                onIdeaCountChanged?.Invoke(count);
             }
 
-            onIdeaCountChanged?.Invoke(count);
-            Debug.Log($"[Creativity:{npc}] idea #{count} — orig {eval.originality:0.0} elab {eval.elaboration:0.0} cat '{eval.category}'");
+            Debug.Log($"[Creativity:{npc}] w{weight:0.#} idea={eval.isIdea} " +
+                      $"orig{eval.originality:0.0} det{eval.detail:0.0} coh{eval.coherence:0.0} " +
+                      $"emp{eval.empathy:0.0} world{eval.worldUse:0.0} risk{eval.risk:0.0} adapt{eval.adaptation:0.0}");
         }
 
-        private struct IdeaEval { public bool isIdea; public float originality; public float elaboration; public string category; }
+        // ── Ayudas ────────────────────────────────────────────────────────────
 
-        private async Task<IdeaEval> EvaluateIdea(string message)
+        private DialogueNodeSO CurrentNode()
         {
-            var def = new IdeaEval { isIdea = false, originality = 0, elaboration = 0, category = "" };
+            if (runner != null && runner.Current != null) return runner.Current;
+            return _lastNode;
+        }
+
+        private bool IsChallenge(DialogueNodeSO node)
+            => node != null && (node == ideasNode || extraChallengeNodes.Contains(node));
+
+        // ── Evaluación por IA ────────────────────────────────────────────────
+
+        private struct Eval
+        {
+            public bool isIdea;
+            public float originality, detail, coherence, empathy, worldUse, risk, adaptation;
+            public string category;
+        }
+
+        private async Task<Eval> Evaluate(string message, string previous, DialogueNodeSO node)
+        {
+            var def = new Eval { category = "" };
             if (string.IsNullOrWhiteSpace(message)) return def;
 
+            string situation = node != null && !string.IsNullOrWhiteSpace(node.contextForAI)
+                ? node.contextForAI : "casual conversation with a neighbour.";
+
             var sb = new StringBuilder();
-            sb.AppendLine("You score a player's message during a brainstorming moment in a game.");
-            sb.AppendLine($"A valid idea is: {ideaDomain}");
+            sb.AppendLine("You invisibly score a player's message in a cozy narrative game, for a");
+            sb.AppendLine("Torrance-style creativity profile. Be strict: use the FULL 0-10 range.");
+            sb.AppendLine($"Character/situation right now: {situation}");
+            sb.AppendLine($"What counts as a concrete idea for this character: {ideaDomain}");
+            sb.AppendLine("World elements the player could weave in: flowers, bouquets, cooking/food, the");
+            sb.AppendLine("village, the neighbours, the day/night cycle, rumours, and emotions.");
+            sb.AppendLine($"Previous player idea (only for ADAPTATION): \"{(string.IsNullOrWhiteSpace(previous) ? "(none)" : previous)}\"");
+            sb.AppendLine();
+            sb.AppendLine("Score the CURRENT message 0-10 on each dimension:");
+            sb.AppendLine("ORIGINALITY = rare/unexpected. DETAIL = concrete/specific. COHERENCE = fits the");
+            sb.AppendLine("problem and world. EMPATHY = considers the character's feelings. WORLDUSE = uses");
+            sb.AppendLine("world elements. RISK = dares something odd but sensible. ADAPTATION = improves or");
+            sb.AppendLine("revises the previous idea after pushback (0 if unrelated or no previous idea).");
+            sb.AppendLine("IDEA=yes only if it's a concrete idea/proposal (no for greetings/questions/filler).");
+            sb.AppendLine("CATEGORY = one short word for the kind of idea.");
             sb.AppendLine("Reply in EXACTLY this pipe format, nothing else:");
-            sb.AppendLine("IDEA=yes|no ; ORIGINALITY=0-10 ; ELABORATION=0-10 ; CATEGORY=one_short_word");
-            sb.AppendLine("IDEA=no means it is a greeting/question/comment, not a concrete idea (other fields 0).");
-            sb.AppendLine("ORIGINALITY: how rare/unexpected. ELABORATION: how detailed/specific.");
+            sb.AppendLine("IDEA=yes|no ; ORIGINALITY=0-10 ; DETAIL=0-10 ; COHERENCE=0-10 ; EMPATHY=0-10 ; WORLDUSE=0-10 ; RISK=0-10 ; ADAPTATION=0-10 ; CATEGORY=word");
             sb.AppendLine();
             sb.AppendLine($"Player message: \"{message}\"");
 
@@ -141,7 +183,7 @@ namespace Sprout.Application.Creativity
                     new ChatMessage { role = "user", content = sb.ToString() }
                 },
                 temperature = 0f,
-                max_tokens = 40
+                max_tokens = 70
             };
 
             try
@@ -158,24 +200,35 @@ namespace Sprout.Application.Creativity
             }
         }
 
-        private static IdeaEval Parse(string raw)
+        private static Eval Parse(string raw)
         {
-            var e = new IdeaEval { isIdea = false, originality = 0, elaboration = 0, category = "" };
+            var e = new Eval { category = "" };
             if (string.IsNullOrWhiteSpace(raw)) return e;
             string lower = raw.ToLowerInvariant();
 
             e.isIdea = Regex.IsMatch(lower, @"idea\s*=\s*yes");
+            e.originality = Score(lower, "originality");
+            e.detail      = Score(lower, "detail");
+            e.coherence   = Score(lower, "coherence");
+            e.empathy     = Score(lower, "empathy");
+            e.worldUse    = Score(lower, "worlduse");
+            e.risk        = Score(lower, "risk");
+            e.adaptation  = Score(lower, "adaptation");
 
-            var orig = Regex.Match(lower, @"originality\s*=\s*(\d+(\.\d+)?)");
-            var elab = Regex.Match(lower, @"elaboration\s*=\s*(\d+(\.\d+)?)");
             var cat = Regex.Match(lower, @"category\s*=\s*([a-z_\- ]+)");
-
-            if (orig.Success && float.TryParse(orig.Groups[1].Value, System.Globalization.NumberStyles.Float,
-                System.Globalization.CultureInfo.InvariantCulture, out float o)) e.originality = Mathf.Clamp01(o / 10f);
-            if (elab.Success && float.TryParse(elab.Groups[1].Value, System.Globalization.NumberStyles.Float,
-                System.Globalization.CultureInfo.InvariantCulture, out float el)) e.elaboration = Mathf.Clamp01(el / 10f);
             if (cat.Success) e.category = cat.Groups[1].Value.Trim();
             return e;
+        }
+
+        /// <summary>Extrae una dimensión 0-10 y la normaliza a [0,1].</summary>
+        private static float Score(string lower, string key)
+        {
+            var m = Regex.Match(lower, key + @"\s*=\s*(\d+(\.\d+)?)");
+            if (m.Success && float.TryParse(m.Groups[1].Value,
+                System.Globalization.NumberStyles.Float,
+                System.Globalization.CultureInfo.InvariantCulture, out float v))
+                return Mathf.Clamp01(v / 10f);
+            return 0f;
         }
     }
 }

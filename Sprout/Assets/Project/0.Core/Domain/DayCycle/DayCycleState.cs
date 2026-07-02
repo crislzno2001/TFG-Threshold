@@ -4,10 +4,10 @@ namespace Sprout.Domain.DayCycle
 {
     public enum DayPhase
     {
-        Morning,
-        Afternoon,
-        Evening,
-        Night   // gossip happens during Night, then the day rolls over
+        Morning,    // mañana
+        Midday,     // mediodía
+        Afternoon,  // tarde
+        Night       // noche — hay cotilleo y luego pasa el día
     }
 
     /// <summary>
@@ -40,9 +40,9 @@ namespace Sprout.Domain.DayCycle
 
             switch (Phase)
             {
-                case DayPhase.Morning:   SetPhase(DayPhase.Afternoon); break;
-                case DayPhase.Afternoon: SetPhase(DayPhase.Evening); break;
-                case DayPhase.Evening:   SetPhase(DayPhase.Night); break;
+                case DayPhase.Morning:   SetPhase(DayPhase.Midday); break;
+                case DayPhase.Midday:    SetPhase(DayPhase.Afternoon); break;
+                case DayPhase.Afternoon: SetPhase(DayPhase.Night); break;
                 case DayPhase.Night:     RollOverDay(); break;
             }
         }

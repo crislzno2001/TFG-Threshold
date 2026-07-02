@@ -40,6 +40,7 @@ namespace Sprout.Persistence
             public List<Pair> relationships = new();
             public List<MemEntry> memories = new();
             public List<NodeEntry> currentNodes = new();
+            public List<string> phaseGoals = new();   // NPCs ya hablados en la fase actual
         }
 
         public string SavePath => Path.Combine(UnityEngine.Application.persistentDataPath, "sprout_save.json");
@@ -72,6 +73,9 @@ namespace Sprout.Persistence
         {
             if (D == null) return;
             var data = new SaveData { day = D.Day.Day, phase = D.Day.Phase.ToString() };
+
+            // Progreso de la fase actual (qué NPCs ya has hablado), para continuar sin reiniciarlo.
+            if (dayCycle != null) data.phaseGoals.AddRange(dayCycle.ExportPhaseGoals());
 
             foreach (var kv in D.Flags.AllFlags) data.flags.Add(new FlagPair { k = kv.Key, v = kv.Value });
             foreach (var kv in D.Flags.AllCounters) data.counters.Add(new Pair { k = kv.Key, v = kv.Value });
@@ -133,6 +137,9 @@ namespace Sprout.Persistence
 
                 if (Enum.TryParse(data.phase, out DayPhase phase))
                     D.Day.Load(data.day, phase);
+
+                // Restaurar el progreso de la fase (DESPUÉS de Load, que dispara el clear).
+                if (dayCycle != null) dayCycle.ImportPhaseGoals(data.phaseGoals);
 
                 // Restore each NPC's memory.
                 var byNpc = new Dictionary<string, Dictionary<string, string>>();

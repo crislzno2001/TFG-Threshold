@@ -2,17 +2,20 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sprout.Application;
+using Sprout.Domain.DayCycle;
 
 namespace OpenAI.Dialogue
 {
     /// <summary>
     /// Enrutador de ENTRADA del diálogo. Va en el mismo GameObject que el NPCBrain/DialogueRunner.
-    /// Cuando el jugador habla con el NPC, en vez de arrancar siempre por el mismo nodo de entrada,
-    /// arranca por el nodo correspondiente al DÍA actual (la "reacción" del día 2, el desenlace del 3…).
+    /// Al hablar con el NPC, en vez de arrancar siempre por el mismo nodo, arranca por el nodo que
+    /// corresponde al DÍA y la FASE actuales (mañana / mediodía / tarde / noche).
     ///
-    /// Configúralo en el inspector: por cada día, el nodo por el que debe empezar la conversación.
-    /// Si no hay nodo para el día exacto, usa el del día más cercano por debajo; si no hay ninguno,
-    /// usa el entryNode normal del grafo.
+    /// Prioridad al resolver:
+    ///   1. Entrada que coincide con DÍA + FASE exactos (entriesByPhase).
+    ///   2. Entrada de FASE del mismo día "a esta hora o antes" (la más avanzada que ya toca).
+    ///   3. Entrada por DÍA (entriesByDay), el del día exacto o el más cercano por debajo.
+    ///   4. entryNode normal del grafo (fallback).
     /// </summary>
     public sealed class DialogueEntryRouter : MonoBehaviour
     {
@@ -23,27 +26,60 @@ namespace OpenAI.Dialogue
             public DialogueNodeSO node;
         }
 
-        [Tooltip("Nodo de entrada por día. Al hablar, se empieza por el del día actual.")]
+        [Serializable]
+        public class PhaseEntry
+        {
+            [Min(1)] public int day = 1;
+            public DayPhase phase = DayPhase.Morning;
+            public DialogueNodeSO node;
+        }
+
+        [Tooltip("Nodo de entrada por DÍA (sin distinguir fase). Se usa si no hay match por fase.")]
         public List<DayEntry> entriesByDay = new();
 
-        /// <summary>Devuelve el nodo de entrada para el día actual (o el fallback del grafo).</summary>
+        [Tooltip("Nodo de entrada por DÍA + FASE (mañana/mediodía/tarde/noche). Tiene prioridad.")]
+        public List<PhaseEntry> entriesByPhase = new();
+
+        /// <summary>Devuelve el nodo de entrada para el día y la fase actuales (o el fallback del grafo).</summary>
         public DialogueNodeSO ResolveEntry(DialogueNodeSO fallback)
         {
-            int day = (SproutGameDirector.Instance != null && SproutGameDirector.Instance.Day != null)
-                ? SproutGameDirector.Instance.Day.Day
-                : 1;
+            int day = 1;
+            DayPhase phase = DayPhase.Morning;
+            var dir = SproutGameDirector.Instance;
+            if (dir != null && dir.Day != null)
+            {
+                day = dir.Day.Day;
+                phase = dir.Day.Phase;
+            }
 
-            DialogueNodeSO exact = null, bestLower = null;
+            // 1 y 2: por fase.
+            DialogueNodeSO exactPhase = null, bestPhase = null;
+            int bestPhaseValue = int.MinValue;
+            foreach (var e in entriesByPhase)
+            {
+                if (e == null || e.node == null || e.day != day) continue;
+                if (e.phase == phase) exactPhase = e.node;
+                // la fase "más avanzada que ya toca" (a esta hora o antes)
+                if ((int)e.phase <= (int)phase && (int)e.phase > bestPhaseValue)
+                {
+                    bestPhaseValue = (int)e.phase;
+                    bestPhase = e.node;
+                }
+            }
+            if (exactPhase != null) return exactPhase;
+            if (bestPhase != null) return bestPhase;
+
+            // 3: por día (día exacto o el más cercano por debajo).
+            DialogueNodeSO exactDay = null, bestLower = null;
             int bestLowerDay = int.MinValue;
-
             foreach (var e in entriesByDay)
             {
                 if (e == null || e.node == null) continue;
-                if (e.day == day) exact = e.node;
+                if (e.day == day) exactDay = e.node;
                 if (e.day <= day && e.day > bestLowerDay) { bestLowerDay = e.day; bestLower = e.node; }
             }
 
-            return exact ?? bestLower ?? fallback;
+            return exactDay ?? bestLower ?? fallback;
         }
     }
 }

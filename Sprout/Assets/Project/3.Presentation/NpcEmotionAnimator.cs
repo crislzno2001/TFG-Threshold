@@ -12,11 +12,13 @@ namespace Sprout.Presentation
     /// Brings an NPC to life during dialogue: plays the "talking" wobble while the
     /// NPC is thinking/replying, and reacts emotionally (happy / offended / sad)
     /// based on a tiny AI classification of each reply. Only reacts when THIS npc is
-    /// the one being talked to. Drives ProceduralNpcAnimator.
+    /// the one being talked to. Drives the real Animator via triggers (Talking/Happy/Offended/Sad).
     /// </summary>
     public class NpcEmotionAnimator : MonoBehaviour
     {
-        [SerializeField] private ProceduralNpcAnimator animator;
+        [Tooltip("Animator del NPC (el del hijo con la malla). Reacciona con triggers: Talking/Happy/Offended/Sad, " +
+                 "si el Animator Controller los tiene. Si no, simplemente no reacciona (no da error).")]
+        [SerializeField] private Animator animator;
         [SerializeField] private NPCBrain brain;
         [SerializeField] private DialogueUI dialogueUI;
         [SerializeField] private AISettingsSO aiSettings;
@@ -27,8 +29,17 @@ namespace Sprout.Presentation
         private void Awake()
         {
             _openai = new OpenAIApi();
-            if (animator == null) animator = GetComponent<ProceduralNpcAnimator>();
+            if (animator == null) animator = GetComponentInChildren<Animator>();
             if (brain == null) brain = GetComponent<NPCBrain>();
+        }
+
+        /// <summary>Dispara un trigger SOLO si el Animator Controller lo tiene (evita warnings y errores).</summary>
+        private void SafeTrigger(string paramName)
+        {
+            if (animator == null || string.IsNullOrEmpty(paramName)) return;
+            foreach (var p in animator.parameters)
+                if (p.type == AnimatorControllerParameterType.Trigger && p.name == paramName)
+                { animator.SetTrigger(paramName); return; }
         }
 
         private void Start()
@@ -42,13 +53,13 @@ namespace Sprout.Presentation
 
         private void OnThinking()
         {
-            if (IsActive) animator.PlayTalking();
+            if (IsActive) SafeTrigger("Talking");
         }
 
         private async void OnReplied(string reply)
         {
             if (!IsActive) return;
-            if (_busy || string.IsNullOrWhiteSpace(reply)) { animator.PlayIdle(); return; }
+            if (_busy || string.IsNullOrWhiteSpace(reply)) return;
 
             _busy = true;
             string mood = await Classify(reply);
@@ -57,10 +68,10 @@ namespace Sprout.Presentation
             if (!IsActive) return;
             switch (mood)
             {
-                case "feliz":    animator.PlayHappy(); break;
-                case "ofendido": animator.PlayOffended(); break;
-                case "triste":   animator.PlaySad(); break;
-                default:         animator.PlayIdle(); break;
+                case "feliz":    SafeTrigger("Happy"); break;
+                case "ofendido": SafeTrigger("Offended"); break;
+                case "triste":   SafeTrigger("Sad"); break;
+                default:         break; // neutral: se queda en Idle
             }
         }
 

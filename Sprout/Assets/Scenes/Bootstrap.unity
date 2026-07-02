@@ -272,6 +272,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6289711751662067544, guid: 19f8acdc0469ac54f870f45d71f3f32c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2143013526}
+    - targetCorrespondingSourceObject: {fileID: 6289711751662067544, guid: 19f8acdc0469ac54f870f45d71f3f32c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2143013529}
   m_SourcePrefab: {fileID: 100100000, guid: 19f8acdc0469ac54f870f45d71f3f32c, type: 3}
 --- !u!4 &2143013524 stripped
 Transform:
@@ -352,6 +355,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e2bd9b0d83ee54fa65afaf729c1172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThresholdGame.Presentation.UI.Loading.LoadingScreenController
+--- !u!114 &2143013529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143013525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daaf48be9ee5042498535f857d2a1d68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThresholdGame.Presentation.UI.Loading.ParallaxScroller
+  layers:
+  - elementName: sky2
+    speed: 6
+  - elementName: mountains
+    speed: 15
+  - elementName: trees
+    speed: 20
+  - elementName: ground
+    speed: 30
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
