@@ -1,0 +1,553 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7977870181552368155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Aster_meet
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: 18880413-4dc9-434d-8ab9-9aea07070b6e
+  contextForAI: "PRIMER ENCUENTRO (ma\xF1ana). Aster, conejo cient\xEDfico t\xEDmido
+    y nervioso, ve por primera vez a la florista reci\xE9n mudada; no se conocen
+    de nada. Se presenta atropellado, se contradice, suelta alg\xFAn dato absurdo
+    para llenar silencios. Solo se conocen. NO menciona su invento, ni su ex, ni
+    el concurso; nada de eso todav\xEDa."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_met
+    value: 1
+  - flag: glow_aster_strong
+    value: 1
+  nextNodes:
+  - {fileID: 2899640397050108034}
+  openingLine: "Hola, perdona\u2026 \xBFt\xFA eres quien se ha mudado? Yo soy Aster.
+    Encantado. Perdona, no esperaba cara nueva hoy. \xBFHa sido raro esto? Un poco
+    raro."
+  conversationTopics:
+  - presentarse
+  - el pueblo
+  - "la florister\xEDa"
+  exitCondition: El jugador saluda, se presenta o charla un poco.
+--- !u!114 &-6298581324874706954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_free
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 5eb4df3b-7ffe-4bdc-bae6-09e78a33e229
+  contextForAI: "Aster decide encender la m\xE1quina para s\xED mismo y el pueblo:
+    aprende a soltar. Final de crecimiento."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_libre
+    value: 1
+  nextNodes:
+  - {fileID: 86409384787902630}
+  openingLine: "Para m\xED. Y para quien quiera mirar. Si ella viene, viene. Pero
+    ya no la construyo por eso. Gracias por ayudarme a verlo."
+  transitions: []
+--- !u!114 &-5274884250548804147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Aster_react
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: 82bbc7d6-14c7-4d8c-8234-c6355e44e69d
+  contextForAI: "Aster acaba de confesar que la m\xE1quina es para su ex y espera
+    una reacci\xF3n, expuesto."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "\u2026Ya est\xE1. Lo he dicho. Di algo. Lo que sea. Tu cara me est\xE1
+    poniendo nervioso."
+  choices:
+  - condition: "el jugador responde con empat\xEDa y tacto"
+    nextNode: {fileID: 1331234359555558396}
+  - condition: "el jugador ignora la confesi\xF3n, es fr\xEDo, cruel o reacciona
+      demasiado"
+    nextNode: {fileID: 2100819033525793679}
+--- !u!114 &-3604319553219389071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_refine
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 6d1e0939-e265-412e-815d-99f54ae147f8
+  contextForAI: "El jugador le ayud\xF3 a SIMPLIFICAR con criterio. Aster gana confianza
+    y aprende algo."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_idea_mejorada
+    value: 1
+  - flag: player_helped_aster_good
+    value: 1
+  nextNodes:
+  - {fileID: -1186919018910481802}
+  openingLine: "\xBFQuitar\u2026 para que respire? No se me hab\xEDa ocurrido. Menos
+    es m\xE1s. Gracias, de verdad."
+  transitions: []
+--- !u!114 &-3421547741519525877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_insist
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 03fe3770-ec64-4123-8ba9-32b780ae05ae
+  contextForAI: Aster decide encenderla para reconquistar a la ex. Puede salir bien
+    o doler.
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_insiste
+    value: 1
+  nextNodes:
+  - {fileID: 86409384787902630}
+  openingLine: "Para ella. Tengo que intentarlo. Si no, me preguntar\xE9 siempre\u2026
+    \xBFy si hubiera funcionado?"
+  transitions: []
+--- !u!114 &-2210879052678133248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_bye_md
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: d61aecb4-e9c2-4f75-a455-09c49b2c8e14
+  contextForAI: "Fin del mediod\xEDa, tras el reto de ideas. Necesita procesar antes
+    de que su cerebro haga chispas. Terminal."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: glow_aster_none
+    value: 1
+  nextNodes: []
+  openingLine: "Uf. Necesito probar esto antes de que mi cerebro lo arruine. \xA1Gracias!
+    Luego sigo."
+  transitions: []
+--- !u!114 &-1962502040498880017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Aster_attempt
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: 15265c1a-0bc2-41ae-afb8-fafdee556dbb
+  contextForAI: "TARDE. Aster ense\xF1a un intento saturado de estrellas (una bombilla
+    que ciega). Momento vulnerable. Decisi\xF3n: ayudarle a simplificar con criterio,
+    o decirle con honestidad que se esconde en el invento."
+  prerequisiteFlags:
+  - flag: aster_met
+    expectedValue: 1
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "Yo ya prob\xE9 algo\u2026 le met\xED TODAS las estrellas que pude.
+    Ahora en vez de un cielo es una bombilla que ciega. Me he pasado, \xBFverdad?"
+  choices:
+  - condition: el jugador le ayuda a simplificar con criterio
+    nextNode: {fileID: -3604319553219389071}
+  - condition: el jugador le dice con honestidad que se esconde en el invento
+    nextNode: {fileID: 999368403964384811}
+--- !u!114 &-1547431832801670680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Aster_gossip
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: 04b33c2e-0e19-4291-9a1a-fefd3b083c4a
+  contextForAI: "Aster sabe que la florista le cont\xF3 a Mochi lo de su ex. Herido
+    pero fingiendo frialdad, confronta: \xBFse lo contaste t\xFA? Seg\xFAn responda,
+    perdona o se cierra."
+  prerequisiteFlags:
+  - flag: aster_angry
+    expectedValue: 1
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_sabe_que_cotilleaste
+    value: 1
+  nextNodes: []
+  openingLine: "Mochi me ha preguntado por mi ex. Con esa voz de 'yo no s\xE9 nada',
+    que es justo la voz de quien sabe algo. \u2026\xBFSe lo contaste t\xFA?"
+  choices:
+  - condition: el jugador lo admite y se disculpa con sinceridad
+    nextNode: {fileID: 321616645109206622}
+  - condition: el jugador lo niega, culpa a Mochi o se burla
+    nextNode: {fileID: 3655288832653200241}
+--- !u!114 &-1186919018910481802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Aster_confess
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: e888529c-fbe0-4f8e-b273-178a36d33781
+  contextForAI: "Aster confiesa que la m\xE1quina de estrellas es para reconquistar
+    a su ex (cortaron hace meses; ella se cans\xF3 de que se refugiara en sus inventos).
+    El concurso es la excusa."
+  prerequisiteFlags:
+  - flag: aster_idea_mejorada
+    expectedValue: 1
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_secret_known
+    value: 1
+  nextNodes:
+  - {fileID: -5274884250548804147}
+  openingLine: "Vale. Te lo digo. La m\xE1quina es para mi ex. Para recrear el cielo
+    de la noche en que nos conocimos. Pens\xE9 que si ganaba el concurso, tendr\xEDa
+    excusa para llamarla."
+  conversationTopics: []
+  exitCondition: "El jugador reacciona a la confesi\xF3n."
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb61de17a0d8834c8344f4ab533f2da, type: 3}
+  m_Name: Aster_Biblia
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueGraphSO
+  nodes:
+  - {fileID: 2899640397050108034}
+  - {fileID: -2210879052678133248}
+  - {fileID: 86409384787902630}
+  - {fileID: -7977870181552368155}
+  - {fileID: 331902338726115905}
+  - {fileID: -3604319553219389071}
+  - {fileID: 999368403964384811}
+  - {fileID: -1962502040498880017}
+  - {fileID: 2100819033525793679}
+  - {fileID: -6298581324874706954}
+  - {fileID: -3421547741519525877}
+  - {fileID: 1331234359555558396}
+  - {fileID: -5274884250548804147}
+  - {fileID: -1186919018910481802}
+  - {fileID: 321616645109206622}
+  - {fileID: 3655288832653200241}
+  - {fileID: -1547431832801670680}
+  entryNode: {fileID: -7977870181552368155}
+  nodePositions:
+  - nodeId: 833ccaca-098f-4510-b3db-f135fa88952f
+    position: {x: 260, y: 0}
+  - nodeId: d61aecb4-e9c2-4f75-a455-09c49b2c8e14
+    position: {x: 260, y: 220}
+  - nodeId: e011feb9-1b5c-4f2e-a4f4-917cc0c7dbe3
+    position: {x: 260, y: 440}
+  - nodeId: 18880413-4dc9-434d-8ab9-9aea07070b6e
+    position: {x: 260, y: 660}
+  - nodeId: 0de76f03-4657-4420-a4f9-8e4e2c6d0421
+    position: {x: 260, y: 880}
+  - nodeId: 6d1e0939-e265-412e-815d-99f54ae147f8
+    position: {x: 260, y: 1100}
+  - nodeId: 581a21f0-5d64-4966-bd40-510e7f6fca2f
+    position: {x: 260, y: 1320}
+  - nodeId: 15265c1a-0bc2-41ae-afb8-fafdee556dbb
+    position: {x: 260, y: 1540}
+  - nodeId: 83fe9b9c-c469-45dc-879f-bf9071813fde
+    position: {x: 260, y: 1760}
+  - nodeId: 5eb4df3b-7ffe-4bdc-bae6-09e78a33e229
+    position: {x: 260, y: 1980}
+  - nodeId: 03fe3770-ec64-4123-8ba9-32b780ae05ae
+    position: {x: 260, y: 2200}
+  - nodeId: b0433615-2c96-4894-a232-cc4a502a017a
+    position: {x: 260, y: 2420}
+  - nodeId: 82bbc7d6-14c7-4d8c-8234-c6355e44e69d
+    position: {x: 260, y: 2640}
+  - nodeId: e888529c-fbe0-4f8e-b273-178a36d33781
+    position: {x: 260, y: 2860}
+  - nodeId: afe75e19-deff-423d-aca7-d8c3d3c8afd5
+    position: {x: 260, y: 3080}
+  - nodeId: 1f49ae62-6f62-45d2-b36a-ff769e7266f4
+    position: {x: 260, y: 3300}
+  - nodeId: 04b33c2e-0e19-4291-9a1a-fefd3b083c4a
+    position: {x: 260, y: 3520}
+--- !u!114 &86409384787902630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_bye
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: e011feb9-1b5c-4f2e-a4f4-917cc0c7dbe3
+  contextForAI: "Despedida final del d\xEDa. Antes de irse te sugiere hablar con
+    Moth sobre la luz. Terminal."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: recommend_moth
+    value: 1
+  - flag: glow_aster_none
+    value: 1
+  nextNodes: []
+  openingLine: "Me vuelvo al taller. Oye\u2026 preg\xFAntale a Moth sobre la luz.
+    Habla como si desayunara imposibles. Gracias por escuchar."
+  transitions: []
+--- !u!114 &321616645109206622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_forgive
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: afe75e19-deff-423d-aca7-d8c3d3c8afd5
+  contextForAI: "El jugador admiti\xF3 y se disculp\xF3. Aster no lo pone f\xE1cil,
+    pero puede perdonar. Sigue dolido, pero valora la honestidad."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_forgives
+    value: 1
+  - flag: glow_aster_none
+    value: 1
+  nextNodes:
+  - {fileID: 86409384787902630}
+  openingLine: "Gracias por no mentir. No arregla la grieta, pero al menos no le
+    has puesto pintura encima. La pr\xF3xima vez, preg\xFAntame antes de convertirme
+    en noticia."
+  transitions: []
+--- !u!114 &331902338726115905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Aster_challenge
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: 0de76f03-4657-4420-a4f9-8e4e2c6d0421
+  contextForAI: "MEDIOD\xCDA. Aster ense\xF1a su m\xE1quina de estrellas: proyecta
+    el cielo de una noche concreta, pero se ve plano y sin emoci\xF3n. Pide IDEAS
+    para que EVOQUE un recuerdo (un sonido, un olor, una estrella fugaz en el momento
+    justo, que reaccione a quien mira\u2026). Mide ORIGINALIDAD. Reacciona con drama:
+    si es rara y buena se entusiasma; si es vaga la pincha; si es cruel se duele.
+    A\xDAN no dice para qui\xE9n es."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_metido
+    value: 1
+  nextNodes:
+  - {fileID: -2210879052678133248}
+  openingLine: "He construido una m\xE1quina que proyecta el cielo de una noche concreta.
+    Pero est\xE1\u2026 muerto. No parece aquella noche. \xBFC\xF3mo hago que EMOCIONE?
+    Dime ideas, por raras que sean."
+  conversationTopics:
+  - el invento
+  - el concurso
+  - ideas para emocionar
+  exitCondition: El jugador propone al menos una idea concreta.
+--- !u!114 &999368403964384811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_mirror
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 581a21f0-5d64-4966-bd40-510e7f6fca2f
+  contextForAI: 'El jugador fue honesto: Aster se esconde en el invento para no enfrentarse
+    a lo de verdad. Le duele pero le toca.'
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_idea_mejorada
+    value: 1
+  - flag: player_was_honest
+    value: 1
+  nextNodes:
+  - {fileID: -1186919018910481802}
+  openingLine: "\u2026Auch. No me escondo en el invento. Yo no\u2026 vale. Puede.
+    Puede que s\xED. No me mires as\xED."
+  transitions: []
+--- !u!114 &1331234359555558396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Aster_decide
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: b0433615-2c96-4894-a232-cc4a502a017a
+  contextForAI: "Decisi\xF3n final que el jugador inclina: encender la m\xE1quina
+    para la ex (a ver si viene), o para s\xED mismo y soltar."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "Entonces\u2026 \xBFla enciendo para ella, a ver si viene? \xBFO la
+    enciendo para m\xED, y ya est\xE1?"
+  choices:
+  - condition: "le anima a encenderla para s\xED mismo y soltar a su ex"
+    nextNode: {fileID: -6298581324874706954}
+  - condition: le anima a intentar reconquistar a su ex
+    nextNode: {fileID: -3421547741519525877}
+--- !u!114 &2100819033525793679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_offended
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 83fe9b9c-c469-45dc-879f-bf9071813fde
+  contextForAI: "El jugador ignor\xF3 la confesi\xF3n o fue fr\xEDo/cruel. Aster
+    se cierra y vuelve al invento para protegerse. Dolido pero disimulando."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_incomodo
+    value: 1
+  nextNodes:
+  - {fileID: 86409384787902630}
+  openingLine: "Claro. S\xED. Volvamos a las estrellas. Las estrellas no tienen ex,
+    eso ayuda. \u2026No pasa nada. De verdad."
+  transitions: []
+--- !u!114 &2899640397050108034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_bye_am
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 833ccaca-098f-4510-b3db-f135fa88952f
+  contextForAI: "Fin del primer encuentro de la ma\xF1ana. Se despide nervioso y
+    majo, sin mencionar a\xFAn su invento. Terminal."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: glow_aster_none
+    value: 1
+  nextNodes: []
+  openingLine: "Bueno\u2026 un placer, vecina. Me vuelvo a lo m\xEDo antes de que
+    se me olvide. Adi\xF3s, adi\xF3s."
+  transitions: []
+--- !u!114 &3655288832653200241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_grudge
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 1f49ae62-6f62-45d2-b36a-ff769e7266f4
+  contextForAI: "El jugador lo neg\xF3 o culp\xF3 a Mochi. Aster se enfada m\xE1s
+    y se cierra, fr\xEDo y defensivo."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_angry
+    value: 1
+  nextNodes:
+  - {fileID: 86409384787902630}
+  openingLine: "Vale. Entonces, adem\xE1s de hablar, tambi\xE9n desaparecen palabras
+    de tu boca por arte de magia. Fascinante. D\xE9jame con mis estrellas."
+  transitions: []

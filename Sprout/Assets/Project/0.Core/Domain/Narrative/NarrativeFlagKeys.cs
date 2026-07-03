@@ -47,6 +47,15 @@ namespace Sprout.Domain.Narrative
         public const string PlayerWasHonest = "player_was_honest";
         public const string PlayerLiedKindly = "player_lied_kindly";
         public const string UnresolvedArgument = "unresolved_argument";
+
+        // ── Cotilleo cruzado (nuevos) ─────────────────────────────────────────
+        public const string PlayerHelpedAsterGood = "player_helped_aster_good";
+        public const string MochiRespectsDiscretion = "mochi_respects_discretion";
+        public const string MothDependency = "moth_dependency";            // counter
+        public const string MothKnowsYouTalkedToRix = "moth_knows_you_talked_rix";
+        public const string MothFeelsExposed = "moth_feels_exposed";
+        public const string RefusedMothLie = "refused_moth_lie";
+        public const string FloristSincereRep = "florist_sincere_rep";     // counter
     }
 
     /// <summary>The four neighbours, used as keys across systems.</summary>

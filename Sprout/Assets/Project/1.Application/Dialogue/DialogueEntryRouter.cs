@@ -34,6 +34,18 @@ namespace OpenAI.Dialogue
             public DialogueNodeSO node;
         }
 
+        [Serializable]
+        public class FlagEntry
+        {
+            public string flag;
+            public bool expectedValue = true;
+            public DialogueNodeSO node;
+        }
+
+        [Tooltip("Entrada por FLAG (MÁXIMA prioridad): si el flag coincide, empieza por este nodo. " +
+                 "Ej: aster_angry → nodo de confrontación de cotilleo.")]
+        public List<FlagEntry> entriesByFlag = new();
+
         [Tooltip("Nodo de entrada por DÍA (sin distinguir fase). Se usa si no hay match por fase.")]
         public List<DayEntry> entriesByDay = new();
 
@@ -51,6 +63,14 @@ namespace OpenAI.Dialogue
                 day = dir.Day.Day;
                 phase = dir.Day.Phase;
             }
+
+            // 0: por FLAG (máxima prioridad). Ej: si aster_angry, entra por la confrontación.
+            if (dir != null && dir.Flags != null)
+                foreach (var e in entriesByFlag)
+                {
+                    if (e == null || e.node == null || string.IsNullOrEmpty(e.flag)) continue;
+                    if (dir.Flags.GetFlag(e.flag) == e.expectedValue) return e.node;
+                }
 
             // 1 y 2: por fase.
             DialogueNodeSO exactPhase = null, bestPhase = null;

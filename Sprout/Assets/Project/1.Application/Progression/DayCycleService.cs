@@ -109,6 +109,12 @@ namespace Sprout.Application
         {
             _phaseTimer = 0f;
             _phaseGoals.Clear();   // empieza fase nueva → objetivo de progreso reiniciado
+
+            // Al cambiar de fase, cada NPC empieza por el nodo de entrada de la fase nueva
+            // (en vez de retomar la despedida de la fase anterior).
+            foreach (var r in FindObjectsByType<OpenAI.Dialogue.DialogueRunner>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                if (r != null) r.ResetForNewPhase();
+
             onPhaseChanged?.Invoke(day, phase.ToString());
 
             if (phase == DayPhase.Night && gossip != null)

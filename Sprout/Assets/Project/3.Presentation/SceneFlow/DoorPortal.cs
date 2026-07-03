@@ -1,41 +1,32 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Sprout.SceneFlow
 {
     /// <summary>
-    /// Puerta que lleva a otra escena (estilo Animal Crossing). Detecta al jugador por DISTANCIA (no por
-    /// collider, así no falla): cuando te acercas, suena la puerta y cambia de escena con el iris circular.
+    /// Puerta que lleva a otra escena estilo Animal Crossing.
+    /// Detecta al jugador por distancia usando una esfera virtual, no necesita Collider.
     ///
-    /// Ponlo en un objeto vacío en la puerta. NO necesita Collider. Si el objeto tenía un Box Collider
-    /// sólido que te bloqueaba, quítalo o márcalo Is Trigger.
-    ///
-    /// Configura: targetScene, targetSpawnId, doorSound (Door_Squeak_1). autoEnter = entrar al acercarse.
+    /// Ponlo en un objeto vacío colocado delante de la puerta.
+    /// Configura targetScene, targetSpawnId y triggerRadius.
     /// </summary>
     public sealed class DoorPortal : MonoBehaviour
     {
         [Header("Destino")]
-        public string targetScene = "FlowerShop";
-        public string targetSpawnId = "Entrada";
+        [SerializeField] private string targetScene = "FlowerShop";
+        [SerializeField] private string targetSpawnId = "Entrada";
 
-        [Header("Activación (por distancia, fiable)")]
-        public string playerTag = "Player";
+        [Header("Activación por distancia")]
+        [SerializeField] private string playerTag = "Player";
+
         [Tooltip("Radio alrededor de la puerta para activarse.")]
-        public float triggerRadius = 2.5f;
-        [Tooltip("Si está marcado, entra solo al acercarse (sin pulsar E). Recomendado.")]
-        public bool autoEnter = true;
-        [Tooltip("Tecla para entrar si autoEnter está desmarcado.")]
-        public Key interactKey = Key.E;
+        [SerializeField] private float triggerRadius = 2.5f;
 
-        [Header("Sonido + animación")]
-        [Tooltip("Sonido de puerta (Suntail: Door_Squeak_1..4). Suena siempre al entrar.")]
-        public AudioClip doorSound;
-        [Range(0f, 1f)] public float volume = 0.9f;
-        [Tooltip("Opcional: componente Door de Suntail (se llamará a PlayDoorAnimation).")]
-        public MonoBehaviour suntailDoor;
-        [Tooltip("Espera tras abrir antes de cambiar de escena.")]
-        public float waitAfterOpen = 0.45f;
+        [Tooltip("Si está marcado, entra solo al acercarse.")]
+        [SerializeField] private bool autoEnter = true;
+
+        [Tooltip("Tecla para entrar si autoEnter está desmarcado.")]
+        [SerializeField] private Key interactKey = Key.E;
 
         private Transform _player;
         private bool _busy;
@@ -43,51 +34,53 @@ namespace Sprout.SceneFlow
 
         private void Update()
         {
-            if (_busy) return;
+            if (_busy)
+                return;
+
+            CachePlayerIfNeeded();
 
             if (_player == null)
-            {
-                var p = GameObject.FindGameObjectWithTag(playerTag);
-                if (p == null) return;
-                _player = p.transform;
-            }
+                return;
 
             bool inside = Vector3.Distance(_player.position, transform.position) <= triggerRadius;
 
             if (inside && !_wasInside && autoEnter)
+            {
                 Enter();
-            else if (inside && !autoEnter && interactKey != Key.None &&
-                     Keyboard.current != null && Keyboard.current[interactKey].wasPressedThisFrame)
+            }
+            else if (inside && !autoEnter && WasInteractPressed())
+            {
                 Enter();
+            }
 
             _wasInside = inside;
         }
 
-        private void Enter()
+        private void CachePlayerIfNeeded()
         {
-            if (_busy) return;
-            StartCoroutine(OpenAndGo());
+            if (_player != null)
+                return;
+
+            GameObject playerObject = GameObject.FindGameObjectWithTag(playerTag);
+
+            if (playerObject != null)
+                _player = playerObject.transform;
         }
 
-        private IEnumerator OpenAndGo()
+        private bool WasInteractPressed()
         {
+            return interactKey != Key.None
+                   && Keyboard.current != null
+                   && Keyboard.current[interactKey].wasPressedThisFrame;
+        }
+
+        private void Enter()
+        {
+            if (_busy)
+                return;
+
             _busy = true;
-
-            // Sonido SIEMPRE (fiable, no depende del Animator de Suntail).
-            if (doorSound != null)
-                AudioSource.PlayClipAtPoint(doorSound, transform.position, volume);
-
-            // Animación de Suntail si la has asignado.
-            if (suntailDoor != null)
-            {
-                var m = suntailDoor.GetType().GetMethod("PlayDoorAnimation");
-                if (m != null) m.Invoke(suntailDoor, null);
-            }
-
-            if (waitAfterOpen > 0f) yield return new WaitForSeconds(waitAfterOpen);
-
             SceneTransitionManager.GetOrCreate().Go(targetScene, targetSpawnId);
-            _busy = false;
         }
 
         private void OnDrawGizmosSelected()

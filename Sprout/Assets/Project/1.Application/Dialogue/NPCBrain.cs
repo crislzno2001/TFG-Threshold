@@ -129,6 +129,19 @@ namespace OpenAI.Dialogue
             return true;
         }
 
+        /// <summary>
+        /// Selector por flags: devuelve el PRIMER nodo de la lista cuyos prerequisiteFlags se cumplan.
+        /// Así un nodo puede llevar a varios sitios y el runner elige según el estado (A si flag, si no B).
+        /// Pon las opciones con gate primero y una sin gate al final como "else". Si ninguna pasa, null.
+        /// </summary>
+        private DialogueNodeSO FirstAvailable(System.Collections.Generic.List<DialogueNodeSO> candidates)
+        {
+            if (candidates == null) return null;
+            foreach (var n in candidates)
+                if (n != null && MeetsRequirements(n)) return n;
+            return null;
+        }
+
         private void ApplyFlagsOnEnter(DialogueNodeSO node)
         {
             if (node?.flagsOnEnter == null) return;
@@ -241,7 +254,8 @@ namespace OpenAI.Dialogue
                 if (speechNode.nextNodes == null || speechNode.nextNodes.Count == 0)
                     return false;
 
-                DialogueNodeSO candidate = speechNode.nextNodes[0];
+                DialogueNodeSO candidate = FirstAvailable(speechNode.nextNodes);
+                if (candidate == null) return false;
 
                 if (candidate is ChoiceNodeSO nextChoice &&
                     nextChoice.choices != null &&
@@ -312,11 +326,10 @@ namespace OpenAI.Dialogue
                     conversationNode
                 );
 
-                if (shouldExit &&
-                    conversationNode.nextNodes != null &&
-                    conversationNode.nextNodes.Count > 0)
+                if (shouldExit)
                 {
-                    return conversationNode.nextNodes[0];
+                    var nx = FirstAvailable(conversationNode.nextNodes);
+                    if (nx != null) return nx;
                 }
 
                 return currentNode;
@@ -345,7 +358,8 @@ namespace OpenAI.Dialogue
                 speechNode.nextNodes != null &&
                 speechNode.nextNodes.Count > 0)
             {
-                DialogueNodeSO nextNode = speechNode.nextNodes[0];
+                DialogueNodeSO nextNode = FirstAvailable(speechNode.nextNodes);
+                if (nextNode == null) return currentNode;
 
                 if (nextNode is ChoiceNodeSO nextChoice &&
                     nextChoice.choices != null &&

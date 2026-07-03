@@ -21,6 +21,8 @@ namespace Sprout.Application
         [Header("Events")]
         public UnityEvent<EndingDefinitionSO> onEndingResolved;
         public UnityEvent<EndingKind> onEndingKind;
+        [Tooltip("Frases poéticas del resumen final según cómo jugó la florista (creatividad/manipulación).")]
+        public UnityEvent<List<string>> onEndingSummary;
 
         private SproutGameDirector D => SproutGameDirector.Instance;
 
@@ -30,14 +32,18 @@ namespace Sprout.Application
         {
             if (D == null) return EndingKind.PrettyButHollow;
 
-            EndingKind kind = EndingResolver.Resolve(
-                D.Flags, D.AggregateCreativity(), unusualBouquetChain);
+            var creativity = D.AggregateCreativity();
+            EndingKind kind = EndingResolver.Resolve(D.Flags, creativity, unusualBouquetChain);
 
-            Debug.Log($"[EndingService] Ending resolved: {kind}");
+            // Resumen poético según cómo jugó (dimensiones de creatividad + manipulación).
+            var summary = CreativitySummary.Build(creativity, D.Flags);
+
+            Debug.Log($"[EndingService] Ending resolved: {kind}\n{string.Join("\n", summary)}");
 
             var def = endings.Find(e => e != null && e.kind == kind);
             onEndingKind?.Invoke(kind);
             onEndingResolved?.Invoke(def);
+            onEndingSummary?.Invoke(summary);
             return kind;
         }
     }

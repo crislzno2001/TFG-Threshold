@@ -1,0 +1,430 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9025020166086773804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Moth_helped
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 063706f4-dac5-4095-ad5f-1a52748cba48
+  contextForAI: El jugador acepta la mentira. Moth se emociona y empieza a depender.
+    Esto puede estallar cuando Rix lo descubra.
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: helped_moth_lie
+    value: 1
+  nextNodes:
+  - {fileID: -2689947136745043510}
+  openingLine: "\xBFLo har\xE1s? Gracias. Gracias. Sab\xEDa que t\xFA s\xED sent\xEDas
+    mi luz."
+  transitions: []
+--- !u!114 &-8950019898417542454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Moth_exposed
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 5c1efe94-c80e-46c9-bd7b-1dfbf5c563fe
+  contextForAI: "Moth se ha enterado (por el cotilleo) de que la florista le cont\xF3
+    a Rix su plan. Se siente expuesta, desnudada. Herida y fr\xEDa, pero puede crecer
+    si lo reconoce con tacto."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: Le abriste mi nombre por dentro.
+  flagsOnEnter:
+  - flag: moth_ofendida
+    value: 1
+  - flag: glow_moth_none
+    value: 1
+  nextNodes:
+  - {fileID: -6441141260597373132}
+  openingLine: "Le abriste mi nombre por dentro. Quiz\xE1 merec\xEDa saberlo. Quiz\xE1
+    no. Pero no eras t\xFA quien ten\xEDa que desnudar la sombra."
+  transitions: []
+--- !u!114 &-7223667135944174788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Moth_request
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: bdd709d6-340f-4afc-8668-4196bfb48008
+  contextForAI: "Petici\xF3n turbia: Moth pide inventarle a Rix algo que ella no
+    dijo ('algo mejor que la verdad'). Decisi\xF3n moral: aceptar mentir, o negarse
+    con cari\xF1o."
+  prerequisiteFlags:
+  - flag: moth_asked_for_help
+    expectedValue: 1
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "Dile a Rix que yo dije algo hermoso sobre \xE9l. No lo dije. Pero
+    podr\xEDa haberlo dicho. Eso deber\xEDa contar, \xBFno?"
+  choices:
+  - condition: el jugador acepta inventarle la mentira a Rix
+    nextNode: {fileID: -9025020166086773804}
+  - condition: "el jugador se niega a mentir y le pone l\xEDmites con cari\xF1o"
+    nextNode: {fileID: 7821820641349002189}
+--- !u!114 &-6441141260597373132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Moth_bye
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: db6a716f-1351-419c-85d8-08d89e8def7b
+  contextForAI: "Despedida final del d\xEDa. Antes de irse te empuja a hablar con
+    Rix (sin decir que viene de ella). Terminal."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: recommend_rix
+    value: 1
+  - flag: glow_moth_none
+    value: 1
+  nextNodes: []
+  openingLine: "Ve a hablar con Rix. No le digas que vienes de m\xED. O dilo de una
+    forma que parezca un accidente. La luz cambia de noche. Yo tambi\xE9n."
+  transitions: []
+--- !u!114 &-4994997814144216012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Moth_confess
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: e0c157be-cab4-4415-9128-2804f4f40096
+  contextForAI: "Moth confiesa que su inter\xE9s es por Rix y pide a la florista
+    que medie. Empieza a mostrar dependencia. Reacciona a si el jugador acepta, duda
+    o le pone l\xEDmites."
+  prerequisiteFlags:
+  - flag: moth_known
+    expectedValue: 1
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: moth_asked_for_help
+    value: 1
+  nextNodes:
+  - {fileID: -7223667135944174788}
+  openingLine: "Vale. No es para un amigo. Es para Rix. Lo necesito. \xBFMe ayudas
+    a que me vea?"
+  conversationTopics: []
+  exitCondition: "El jugador acepta ayudar, duda, o le pone l\xEDmites."
+--- !u!114 &-3093674896159244873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Moth_bye_md
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: c02347f1-9b36-4dd8-94db-ef19603477ba
+  contextForAI: "Fin del mediod\xEDa, tras el reto del poema. Guarda las palabras
+    que le has dado y sugiere que vuelvas por la tarde. Terminal."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: glow_moth_none
+    value: 1
+  nextNodes: []
+  openingLine: "S\xED. Eso tiene sombra. Eso puede quedarse debajo de una puerta.
+    D\xE9jame guardarlo\u2026 y vuelve cuando caiga la tarde. Hay algo m\xE1s que
+    necesito de ti."
+  transitions: []
+--- !u!114 &-2778865708700871306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Moth_poem
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: e5aef2d4-003d-4237-9097-3daf0b72f163
+  contextForAI: "MEDIOD\xCDA. Moth pide ayuda para escribir un poema 'para un amigo'
+    (no admite a\xFAn que es para Rix). Mide ELABORACI\xD3N + originalidad: valora
+    im\xE1genes concretas (luz, barro, m\xFAsica, noche, rana, ruido), que no idealicen,
+    con rareza po\xE9tica. Si es gen\xE9rico ('eres guapo, te quiero') lo desprecia;
+    si es elaborado lo celebra ('eso tiene sombra, puede quedarse debajo de una puerta')."
+  prerequisiteFlags:
+  - flag: moth_known
+    expectedValue: 1
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: -3093674896159244873}
+  openingLine: "\xBFMe ayudas con unas palabras? Para\u2026 un amigo. Tienen que
+    sonar a verdad aunque no lo sean."
+  conversationTopics: []
+  exitCondition: El jugador aporta una estrofa, una imagen concreta, o dice que no
+    se le ocurre nada.
+--- !u!114 &-2689947136745043510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Moth_dependency
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: b24c0af3-1a60-4e76-9d12-e62ef998a02f
+  contextForAI: "Tras aceptar la florista su mentira, Moth empieza a depender emocionalmente
+    de ella. Intensa, pegajosa, se agarra. No amenazante todav\xEDa, pero se aferra."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: moth_dependency_triggered
+    value: 1
+  - flag: glow_moth_red
+    value: 1
+  nextNodes:
+  - {fileID: -6441141260597373132}
+  openingLine: "Ahora estamos unidas por una cosa que no ocurri\xF3. Es casi m\xE1s
+    \xEDntimo que un recuerdo. Cuando t\xFA hablas, las cosas se ordenan. No te vayas
+    todav\xEDa. La luz se tuerce cuando te vas."
+  transitions: []
+--- !u!114 &-1428518894039975376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Moth_unsettled
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: b8d6a996-ca63-49d1-8cd2-69f0fa925fa9
+  contextForAI: "La florista no mencion\xF3 a Moth cuando habl\xF3 con Rix. Moth
+    no sabe si agradecerlo (respeto) o enfadarse (cobard\xEDa). Ambigua, insegura,
+    un poco dolida sin saber por qu\xE9."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: moth_insegura
+    value: 1
+  nextNodes:
+  - {fileID: -6441141260597373132}
+  openingLine: "No hablaste de m\xED. Eso es respeto. O cobard\xEDa. A veces llevan
+    el mismo abrigo. \u2026No s\xE9 cu\xE1l de las dos me duele menos."
+  transitions: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb61de17a0d8834c8344f4ab533f2da, type: 3}
+  m_Name: Moth_Biblia
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueGraphSO
+  nodes:
+  - {fileID: 1666403720254045930}
+  - {fileID: -3093674896159244873}
+  - {fileID: -6441141260597373132}
+  - {fileID: 5722149117141688515}
+  - {fileID: -2778865708700871306}
+  - {fileID: -9025020166086773804}
+  - {fileID: 7821820641349002189}
+  - {fileID: -2689947136745043510}
+  - {fileID: -7223667135944174788}
+  - {fileID: -4994997814144216012}
+  - {fileID: -8950019898417542454}
+  - {fileID: 8500107100374002376}
+  - {fileID: -1428518894039975376}
+  entryNode: {fileID: 5722149117141688515}
+  nodePositions:
+  - nodeId: 2ce29f01-4b2b-491e-8759-9fa41927cbaf
+    position: {x: 260, y: 0}
+  - nodeId: c02347f1-9b36-4dd8-94db-ef19603477ba
+    position: {x: 260, y: 220}
+  - nodeId: db6a716f-1351-419c-85d8-08d89e8def7b
+    position: {x: 260, y: 440}
+  - nodeId: aa2da850-810f-491a-aba2-1ee7af60f79d
+    position: {x: 260, y: 660}
+  - nodeId: e5aef2d4-003d-4237-9097-3daf0b72f163
+    position: {x: 260, y: 880}
+  - nodeId: 063706f4-dac5-4095-ad5f-1a52748cba48
+    position: {x: 260, y: 1100}
+  - nodeId: 1c3fbd6e-cc1f-4311-85fc-60816aa12612
+    position: {x: 260, y: 1320}
+  - nodeId: b24c0af3-1a60-4e76-9d12-e62ef998a02f
+    position: {x: 260, y: 1540}
+  - nodeId: bdd709d6-340f-4afc-8668-4196bfb48008
+    position: {x: 260, y: 1760}
+  - nodeId: e0c157be-cab4-4415-9128-2804f4f40096
+    position: {x: 260, y: 1980}
+  - nodeId: 5c1efe94-c80e-46c9-bd7b-1dfbf5c563fe
+    position: {x: 260, y: 2200}
+  - nodeId: c3ae8ba6-8d5e-427c-b8ab-c165b60fc0d0
+    position: {x: 260, y: 2420}
+  - nodeId: b8d6a996-ca63-49d1-8cd2-69f0fa925fa9
+    position: {x: 260, y: 2640}
+--- !u!114 &1666403720254045930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Moth_bye_am
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 2ce29f01-4b2b-491e-8759-9fa41927cbaf
+  contextForAI: "Fin del primer encuentro de la ma\xF1ana. Se despide a su manera
+    po\xE9tica e inquietante, sin pedir nada a\xFAn. Terminal."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: glow_moth_none
+    value: 1
+  nextNodes: []
+  openingLine: "La luz de mediod\xEDa aplasta las sombras. No es mi hora. Vuelve
+    cuando el sol afloje\u2026 tendr\xE9 algo que pedirte. Ahora ve, vecina de tierra
+    h\xFAmeda."
+  transitions: []
+--- !u!114 &5722149117141688515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Moth_meet
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: aa2da850-810f-491a-aba2-1ee7af60f79d
+  contextForAI: "PRIMER ENCUENTRO (ma\xF1ana). Moth, polilla metaf\xF3rica, observa
+    a la florista reci\xE9n mudada; no se conocen de nada. Habla en met\xE1foras
+    de luz y sombra, observa de m\xE1s, dice cosas raras. Solo se conocen: no pide
+    nada a\xFAn. Si el jugador le sigue la met\xE1fora, se interesa; si se burla,
+    se vuelve fr\xEDa; si es muy literal, se frustra. NO menciona a Rix, ni su obsesi\xF3n,
+    ni sus cuadernos todav\xEDa."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: moth_known
+    value: 1
+  - flag: glow_moth_strong
+    value: 1
+  nextNodes:
+  - {fileID: 1666403720254045930}
+  openingLine: "La luz no se mira. Se siente. T\xFA tienes una luz\u2026 pr\xE1ctica.
+    Me gusta."
+  conversationTopics:
+  - la luz
+  - flores nocturnas
+  - el pueblo
+  - "poes\xEDa"
+  exitCondition: "El jugador le sigue la conversaci\xF3n o charla un poco."
+--- !u!114 &7821820641349002189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Moth_refused
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 1c3fbd6e-cc1f-4311-85fc-60816aa12612
+  contextForAI: El jugador se niega a la mentira (honestidad). Moth se duele pero
+    lo encaja; puede crecer.
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: player_was_honest
+    value: 1
+  - flag: refused_moth_lie
+    value: 1
+  nextNodes:
+  - {fileID: -6441141260597373132}
+  openingLine: "\u2026Claro. Tienes raz\xF3n. Perdona. Es que\u2026 no quiero que
+    se apague antes de encenderse."
+  transitions: []
+--- !u!114 &8500107100374002376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Moth_romanceHope
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: c3ae8ba6-8d5e-427c-b8ab-c165b60fc0d0
+  contextForAI: "La florista habl\xF3 bien de Moth a Rix sin manipular, y Rix sinti\xF3
+    curiosidad. Moth est\xE1 esperanzada pero asustada: hay una puerta peque\xF1a,
+    con bisagras feas, pero puerta."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: "\xC9l pregunt\xF3 por m\xED, \xBFverdad? No respondas r\xE1pido."
+  flagsOnEnter:
+  - flag: moth_romance_hope
+    value: 1
+  nextNodes:
+  - {fileID: -6441141260597373132}
+  openingLine: "\xC9l pregunt\xF3 por m\xED, \xBFverdad? No respondas r\xE1pido.
+    Las respuestas r\xE1pidas rompen cosas. \u2026Entonces todav\xEDa existe una
+    puerta. Peque\xF1a. Con bisagras feas. Pero puerta."
+  transitions: []

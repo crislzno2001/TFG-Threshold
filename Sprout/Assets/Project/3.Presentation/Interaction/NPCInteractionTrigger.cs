@@ -51,6 +51,10 @@ namespace ThresholdGame.Presentation.Interaction
 
             npcBrain.isInteracting = true;
             GetComponent<NPCStateMachine>()?.SuspendAutonomy(); // que se pare mientras hablas
+
+            // Si este NPC era el "recomendado", apaga su brillo de referral (ya has venido).
+            if (System.Enum.TryParse(npcBrain.npcName, true, out Sprout.Domain.Narrative.NpcId sid))
+                Sprout.Presentation.NpcSpotlight.Instance?.ClearRecommend(sid);
             dialogueUI.Open(npcBrain);
 
             player.EnterDialogue();

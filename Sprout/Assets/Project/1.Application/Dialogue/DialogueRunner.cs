@@ -120,6 +120,14 @@ namespace OpenAI.Dialogue
         /// <summary>Restaura el nodo actual al cargar partida (para retomar la conversación donde quedó).</summary>
         public void RestoreCurrent(DialogueNodeSO node) => _current = node;
 
+        /// <summary>
+        /// Al cambiar de FASE (mañana→mediodía→…), olvida el nodo actual para que la próxima
+        /// charla empiece por el nodo de ENTRADA de la fase nueva (el router lo resuelve), en vez
+        /// de retomar la despedida de la fase anterior. Si vuelves a hablar DENTRO de la misma fase,
+        /// como el nodo no se resetea, retomas la despedida = charla libre sin avanzar.
+        /// </summary>
+        public void ResetForNewPhase() => _current = null;
+
         // ── Respuestas de confirmación ─────────────────────────────────────────
 
         private static string ConfirmationFor(NPCOrder order) => order.Type switch

@@ -29,6 +29,9 @@ namespace Sprout.Application
                     D.Flags.SetFlag(flag, value);
                 foreach (var (npc, delta) in r.RelationshipChanges)
                     D.Relationships.Add(npc, delta);
+                if (r.CounterChanges != null)
+                    foreach (var (counter, delta) in r.CounterChanges)
+                        D.Flags.IncrementCounter(counter, delta);
                 if (!string.IsNullOrWhiteSpace(r.SummaryText))
                     lines.Add(r.SummaryText);
             }
