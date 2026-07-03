@@ -957,8 +957,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00d01eec2a3ef4248b9c0567890415cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThresholdGame.Presentation.NPC.NpcPhaseDoneReporter
-  brain: {fileID: 0}
-  runner: {fileID: 0}
+  brain: {fileID: 90324455}
+  runner: {fileID: 90324465}
   phaseDoneNodes:
   - {fileID: 6877696559681354848, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
   - {fileID: 5109782059043281432, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
@@ -1437,7 +1437,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 24, y: -32}
   m_SizeDelta: {x: -28, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &138743782
@@ -1469,7 +1469,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4280954426
   m_fontColor: {r: 0.22745098, g: 0.18039216, b: 0.16470589, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &341758706
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 206620af966ac7d4aace98aa2b0f080d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 216.60315
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 206620af966ac7d4aace98aa2b0f080d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1025.8816
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 206620af966ac7d4aace98aa2b0f080d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.2914
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 206620af966ac7d4aace98aa2b0f080d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 206620af966ac7d4aace98aa2b0f080d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 206620af966ac7d4aace98aa2b0f080d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 206620af966ac7d4aace98aa2b0f080d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 206620af966ac7d4aace98aa2b0f080d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 206620af966ac7d4aace98aa2b0f080d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 206620af966ac7d4aace98aa2b0f080d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 206620af966ac7d4aace98aa2b0f080d, type: 3}
+      propertyPath: m_Name
+      value: Fluttershys Cottage with Props
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 206620af966ac7d4aace98aa2b0f080d, type: 3}
 --- !u!1 &621112887
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,3 +401,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 782888565}
   - {fileID: 621112889}
+  - {fileID: 341758706}
