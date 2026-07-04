@@ -108,7 +108,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _CoastOpacity: 0.4
     - _Cull: 2
-    - _CurveStrength: 0
+    - _CurveStrength: 0.01
     - _Cutoff: 0.5
     - _DepthDistance: 1.7
     - _DetailAlbedoMapScale: 1

@@ -4,7 +4,10 @@
     flex-grow: 1;
     align-items: center;
     justify-content: center;
-    background-color: rgb(243, 237, 223);
+    /* Transparente para que se vea el parallax 3D que renderiza la cámara por detrás. */
+    background-color: rgba(0, 0, 0, 0);
+    /* Tipografía cozy Fredoka para todo el menú (se hereda a botones y subtítulo). */
+    -unity-font-definition: url("project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf");
 }
 
 .background {
@@ -21,6 +24,19 @@
     padding: 40px;
 }
 
+/* Logo del juego (imagen). Asigna tu PNG aquí de una de estas 2 formas:
+   A) UI Builder: selecciona 'title-logo' → Background → Image → arrastra tu logo.
+   B) USS: descomenta la línea background-image de abajo y ajusta la ruta a tu archivo.
+   El tamaño se ajusta solo manteniendo proporción (scale-to-fit). Ajusta width/height a tu logo. */
+.title-logo {
+    width: 460px;
+    height: 200px;
+    margin-bottom: 8px;
+    -unity-background-scale-mode: scale-to-fit;
+    /* background-image: url("project://database/Assets/Project/UI/MainMenu/sprout_logo.png"); */
+}
+
+/* (Antiguo título de texto, ya no se usa) */
 .title {
     font-size: 80px;
     color: rgb(86, 125, 92);
@@ -41,32 +57,69 @@
     align-items: stretch;
 }
 
+/* Botón "caramelo": pastilla con borde inferior grueso (efecto 3D). */
 .menu-button {
-    height: 56px;
-    margin: 7px 0;
-    background-color: rgb(255, 251, 243);
-    border-width: 2px;
-    border-color: rgb(124, 169, 130);
-    color: rgb(74, 62, 54);
-    font-size: 18px;
+    height: 60px;
+    margin: 8px 0;
+    padding: 0 20px;
+    background-color: rgb(255, 252, 246);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 5px;
+    border-left-color: rgb(163, 199, 152);
+    border-right-color: rgb(163, 199, 152);
+    border-top-color: rgb(163, 199, 152);
+    border-bottom-color: rgb(126, 168, 116);
+    border-radius: 28px;
+    color: rgb(92, 128, 84);
+    font-size: 20px;
+    -unity-font-style: bold;
     letter-spacing: 1px;
-    transition-property: background-color, border-color, scale, color;
-    transition-duration: 0.12s;
-    border-radius: 16px;
+    transition-property: background-color, border-color, scale, translate, color;
+    transition-duration: 0.1s;
 }
 
 .menu-button:hover {
-    background-color: rgb(124, 169, 130);
-    border-color: rgb(86, 125, 92);
-    color: rgb(255, 252, 245);
-    scale: 1.03 1.03;
+    background-color: rgb(197, 223, 183);
+    border-left-color: rgb(126, 168, 116);
+    border-right-color: rgb(126, 168, 116);
+    border-top-color: rgb(126, 168, 116);
+    border-bottom-color: rgb(106, 148, 96);
+    color: rgb(70, 104, 62);
+    scale: 1.02 1.02;
 }
 
+/* Al pulsar se "hunde": baja 3px y el borde inferior se afina. */
 .menu-button:active {
-    background-color: rgb(86, 125, 92);
-    scale: 0.97 0.97;
+    background-color: rgb(170, 205, 155);
+    translate: 0 3px;
+    border-bottom-width: 2px;
+    scale: 1 1;
+}
+
+/* Botón principal (verde relleno). Añade la clase 'menu-button--primary' a "Nueva partida". */
+.menu-button--primary {
+    background-color: rgb(151, 199, 126);
+    border-left-color: rgb(124, 172, 100);
+    border-right-color: rgb(124, 172, 100);
+    border-top-color: rgb(124, 172, 100);
+    border-bottom-color: rgb(101, 147, 80);
+    color: rgb(255, 253, 246);
+}
+
+.menu-button--primary:hover {
+    background-color: rgb(166, 212, 140);
+    color: rgb(255, 255, 250);
 }
 
 .menu-button--disabled {
-    opacity: 0.4;
+    opacity: 0.45;
+}
+
+/* El botón deshabilitado no reacciona al ratón. */
+.menu-button--disabled:hover {
+    background-color: rgb(255, 252, 246);
+    color: rgb(92, 128, 84);
+    scale: 1 1;
 }

@@ -39,8 +39,13 @@ namespace Sprout.Presentation
 
         private void Awake() => Preview();
 
-        // Previsualización en el editor al cambiar valores en el inspector.
-        private void OnValidate() => Preview();
+        // Previsualización SOLO en el editor al cambiar valores en el inspector.
+        private void OnValidate()
+        {
+            if (UnityEngine.Application.isPlaying) return;   // en Play ya lo hace Awake()
+            if (!gameObject.scene.IsValid()) return;         // no tocar el asset de prefab
+            Preview();
+        }
 
         private void Preview()
         {
@@ -88,9 +93,13 @@ namespace Sprout.Presentation
         {
             if (faceRenderer == null) faceRenderer = GetComponentInChildren<Renderer>();
             if (faceRenderer == null) return null;
-            // En Play usamos la instancia; en el editor el sharedMaterial (para no instanciar/leak).
-            var mats = UnityEngine.Application.isPlaying ? faceRenderer.materials : faceRenderer.sharedMaterials;
-            return (materialIndex >= 0 && materialIndex < mats.Length) ? mats[materialIndex] : null;
+            // Solo instanciamos (.materials) sobre una INSTANCIA de escena en Play. En cualquier otro caso
+            // (editor, o prefab durante la carga) usamos sharedMaterials — acceder a .materials en un prefab
+            // está prohibido y devolvía null → NullReference.
+            bool instanced = UnityEngine.Application.isPlaying && gameObject.scene.IsValid();
+            var mats = instanced ? faceRenderer.materials : faceRenderer.sharedMaterials;
+            if (mats == null || materialIndex < 0 || materialIndex >= mats.Length) return null;
+            return mats[materialIndex];
         }
     }
 }

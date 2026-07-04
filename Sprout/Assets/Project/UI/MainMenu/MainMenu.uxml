@@ -3,14 +3,14 @@
     <ui:VisualElement name="root" class="root">
         <ui:VisualElement name="background" class="background"/>
         <ui:VisualElement name="content" class="content">
-            <ui:Label name="title" text="Sprout" class="title"/>
-            <ui:Label name="subtitle" text="Una prueba de imaginación" class="subtitle"/>
+            <ui:Image source="project://database/Assets/Project/UI/MainMenu/Sprout_logo.png?fileID=2800000&amp;guid=e0d1229ebf506024cbc995af64857609&amp;type=3#Sprout_logo" uv="0,0,1,1" scale-mode="ScaleAndCrop" style="height: 423px; width: 921px; min-width: auto; min-height: auto; position: absolute; top: 61px; left: -199px;"/>
+            <ui:VisualElement name="title-logo" class="title-logo" style="height: 400px;"/>
             <ui:VisualElement name="buttons" class="buttons">
-                <ui:Button name="btn-new-game" text="Nueva partida" class="menu-button"/>
-                <ui:Button name="btn-continue" text="Continuar" class="menu-button menu-button--disabled"/>
-                <ui:Button name="btn-settings" text="Configuración" class="menu-button"/>
-                <ui:Button name="btn-credits" text="Créditos" class="menu-button"/>
-                <ui:Button name="btn-quit" text="Salir" class="menu-button"/>
+                <ui:Button name="btn-new-game" text="Nueva partida" class="menu-button" style="font-size: 25px;"/>
+                <ui:Button name="btn-continue" text="Continuar" class="menu-button menu-button--disabled" style="font-size: 25px;"/>
+                <ui:Button name="btn-settings" text="Configuración" class="menu-button" style="font-size: 25px;"/>
+                <ui:Button name="btn-credits" text="Créditos" class="menu-button" style="font-size: 25px;"/>
+                <ui:Button name="btn-quit" text="Salir" class="menu-button" style="font-size: 25px;"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

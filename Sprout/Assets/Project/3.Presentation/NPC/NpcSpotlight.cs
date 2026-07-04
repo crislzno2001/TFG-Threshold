@@ -49,6 +49,10 @@ namespace Sprout.Presentation
         {
             if (_instance != null && _instance != this) { Destroy(this); return; }
             _instance = this;
+
+            // Auto-instala el encendedor de glow por fases si no hay ninguno en la escena.
+            if (FindFirstObjectByType<PhaseGlowLighter>() == null)
+                gameObject.AddComponent<PhaseGlowLighter>();
         }
 
         private void OnDestroy() { if (_instance == this) _instance = null; }
@@ -59,7 +63,6 @@ namespace Sprout.Presentation
         {
             if (GetGlow(npc) == state) return;
             _glow[npc] = state;
-            Debug.Log($"[Spotlight] {npc} → {state}  (oyentes: {(OnGlowChanged != null)})");
             OnGlowChanged?.Invoke(npc, state);
         }
 

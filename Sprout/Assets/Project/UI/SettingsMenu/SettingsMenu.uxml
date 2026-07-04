@@ -1,34 +1,33 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Project/UI/SettingsMenu/SettingsMenu.uss?fileID=7433441132597879392&amp;guid=06b5d561e81303843896fca9f9a44ede&amp;type=3#SettingsMenu"/>
     <ui:VisualElement name="root" class="settings-root">
-        <ui:VisualElement name="overlay" class="settings-overlay"/>
-        <ui:VisualElement name="panel" class="settings-panel">
-            <ui:Label name="title" text="CONFIGURACIÓN" class="settings-title"/>
+        <ui:VisualElement name="panel" class="settings-panel" style="justify-content: flex-end; align-content: stretch; position: absolute; top: 261px; left: 561px;">
+            <ui:Label name="title" text="CONFIGURACIÓN" class="settings-title" style="-unity-font-definition: url(&quot;project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka_Condensed-Medium.ttf?fileID=12800000&amp;guid=5fe4adeab083f284f9ffe64681f24f69&amp;type=3#Fredoka_Condensed-Medium&quot;); font-size: 50px;"/>
             <ui:VisualElement name="rows" class="settings-rows">
                 <ui:VisualElement class="settings-row">
-                    <ui:Label text="Volumen general" class="settings-label"/>
+                    <ui:Label text="Volumen general" class="settings-label" style="font-size: 20px; -unity-font-definition: url(&quot;project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf?fileID=12800000&amp;guid=e0377ed22b88db745ac079fa22826b69&amp;type=3#Fredoka-Medium&quot;);"/>
                     <ui:Slider name="slider-master" low-value="0" high-value="1" value="1" class="settings-slider"/>
-                    <ui:Label name="value-master" text="100%" class="settings-value"/>
+                    <ui:Label name="value-master" text="100%" class="settings-value" style="-unity-font-definition: url(&quot;project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf?fileID=12800000&amp;guid=e0377ed22b88db745ac079fa22826b69&amp;type=3#Fredoka-Medium&quot;); font-size: 20px;"/>
                 </ui:VisualElement>
                 <ui:VisualElement class="settings-row">
-                    <ui:Label text="Música" class="settings-label"/>
+                    <ui:Label text="Música" class="settings-label" style="-unity-font-definition: url(&quot;project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf?fileID=12800000&amp;guid=e0377ed22b88db745ac079fa22826b69&amp;type=3#Fredoka-Medium&quot;); font-size: 20px; position: relative;"/>
                     <ui:Slider name="slider-music" low-value="0" high-value="1" value="1" class="settings-slider"/>
-                    <ui:Label name="value-music" text="100%" class="settings-value"/>
+                    <ui:Label name="value-music" text="100%" class="settings-value" style="font-size: 20px; -unity-font-definition: url(&quot;project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf?fileID=12800000&amp;guid=e0377ed22b88db745ac079fa22826b69&amp;type=3#Fredoka-Medium&quot;);"/>
                 </ui:VisualElement>
                 <ui:VisualElement class="settings-row">
-                    <ui:Label text="Efectos (SFX)" class="settings-label"/>
+                    <ui:Label text="Efectos (SFX)" class="settings-label" style="-unity-font-definition: url(&quot;project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf?fileID=12800000&amp;guid=e0377ed22b88db745ac079fa22826b69&amp;type=3#Fredoka-Medium&quot;); font-size: 20px;"/>
                     <ui:Slider name="slider-sfx" low-value="0" high-value="1" value="1" class="settings-slider"/>
-                    <ui:Label name="value-sfx" text="100%" class="settings-value"/>
+                    <ui:Label name="value-sfx" text="100%" class="settings-value" style="font-size: 20px; -unity-font-definition: url(&quot;project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf?fileID=12800000&amp;guid=e0377ed22b88db745ac079fa22826b69&amp;type=3#Fredoka-Medium&quot;);"/>
                 </ui:VisualElement>
                 <ui:VisualElement class="settings-row">
-                    <ui:Label text="Voz IA" class="settings-label"/>
+                    <ui:Label text="Voz IA" class="settings-label" style="font-size: 20px; -unity-font-definition: url(&quot;project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf?fileID=12800000&amp;guid=e0377ed22b88db745ac079fa22826b69&amp;type=3#Fredoka-Medium&quot;);"/>
                     <ui:Slider name="slider-aivoice" low-value="0" high-value="1" value="1" class="settings-slider"/>
-                    <ui:Label name="value-aivoice" text="100%" class="settings-value"/>
+                    <ui:Label name="value-aivoice" text="100%" class="settings-value" style="-unity-font-definition: url(&quot;project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf?fileID=12800000&amp;guid=e0377ed22b88db745ac079fa22826b69&amp;type=3#Fredoka-Medium&quot;); font-size: 20px;"/>
                 </ui:VisualElement>
                 <ui:VisualElement class="settings-row">
-                    <ui:Label text="Tamaño de texto" class="settings-label"/>
+                    <ui:Label text="Tamaño de texto" class="settings-label" style="-unity-font-definition: url(&quot;project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf?fileID=12800000&amp;guid=e0377ed22b88db745ac079fa22826b69&amp;type=3#Fredoka-Medium&quot;); font-size: 20px;"/>
                     <ui:Slider name="slider-text" low-value="0.75" high-value="1.5" value="1" class="settings-slider"/>
-                    <ui:Label name="value-text" text="100%" class="settings-value"/>
+                    <ui:Label name="value-text" text="100%" class="settings-value" style="-unity-font-definition: url(&quot;project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf?fileID=12800000&amp;guid=e0377ed22b88db745ac079fa22826b69&amp;type=3#Fredoka-Medium&quot;); font-size: 20px;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="buttons" class="settings-buttons">
@@ -37,4 +36,5 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="root" class="settings-root"/>
 </ui:UXML>
