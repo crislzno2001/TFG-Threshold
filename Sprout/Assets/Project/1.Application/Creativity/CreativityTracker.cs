@@ -12,11 +12,11 @@ using Sprout.Domain.Narrative;
 namespace Sprout.Application.Creativity
 {
     /// <summary>
-    /// Medidor de creatividad (estilo Torrance ampliado) para cualquier NPC. Puntúa CADA mensaje
-    /// libre del jugador durante la conversación en 7 dimensiones: originalidad, detalle, coherencia,
-    /// empatía, uso del mundo, riesgo y adaptación (mejorar una idea tras una objeción). Los mensajes
-    /// enviados en un nodo de "reto creativo" pesan más (challengeWeight). Todo es invisible: se
-    /// acumula en el CreativityProfile del director y dispara contadores, flags y flores.
+    /// Medidor de creatividad (estilo Torrance ampliado) para cualquier NPC. Puntúa los mensajes del
+    /// jugador SOLO en los nodos de "reto creativo" (ideasNode + extraChallengeNodes), en 7 dimensiones:
+    /// originalidad, detalle, coherencia, empatía, uso del mundo, riesgo y adaptación (mejorar una idea
+    /// tras una objeción). Los saludos y la charla normal NO se miden. Todo es invisible: se acumula en
+    /// el CreativityProfile del director y dispara contadores, flags y flores.
     ///
     /// Se auto-suscribe a DialogueUI.onPlayerMessageSent y DialogueRunner.onStepCompleted.
     /// </summary>
@@ -30,14 +30,12 @@ namespace Sprout.Application.Creativity
         [SerializeField] private DialogueUI dialogueUI;
         [SerializeField] private DialogueRunner runner;
 
-        [Header("Reto creativo")]
-        [Tooltip("Nodo principal de ideas/reto. Los mensajes aquí pesan 'challengeWeight'.")]
+        [Header("Reto creativo (solo aquí se mide)")]
+        [Tooltip("Nodo principal de ideas/reto donde se puntúa la creatividad del jugador.")]
         [SerializeField] private DialogueNodeSO ideasNode;
-        [Tooltip("Nodos EXTRA de reto (p. ej. la revisión de noche). También pesan más.")]
+        [Tooltip("Nodos EXTRA de reto (p. ej. la revisión de noche). También se puntúan.")]
         [SerializeField] private List<DialogueNodeSO> extraChallengeNodes = new();
-        [Tooltip("Si está activo, puntúa en TODA conversación. Si no, solo en los nodos de reto.")]
-        [SerializeField] private bool scoreEverywhere = true;
-        [SerializeField] private float normalWeight = 1f;
+        [Tooltip("Peso que se aplica a la evaluación en los nodos de reto.")]
         [SerializeField] private float challengeWeight = 2f;
 
         [Header("Contador que incrementa este tracker")]
@@ -70,6 +68,8 @@ namespace Sprout.Application.Creativity
         private void Start()
         {
             if (runner == null) runner = GetComponent<DialogueRunner>();
+            if (brain == null) brain = GetComponent<NPCBrain>();
+            if (dialogueUI == null) dialogueUI = FindFirstObjectByType<DialogueUI>(FindObjectsInactive.Include);
             if (dialogueUI != null) dialogueUI.onPlayerMessageSent.AddListener(RegisterPlayerMessage);
             if (runner != null) runner.onStepCompleted.AddListener(OnDialogueStepCompleted);
         }
@@ -85,11 +85,15 @@ namespace Sprout.Application.Creativity
         {
             if (string.IsNullOrWhiteSpace(message) || _busy) return;
 
-            DialogueNodeSO node = CurrentNode();
-            bool isChallenge = IsChallenge(node);
-            if (!scoreEverywhere && !isChallenge) return;   // modo "solo retos"
+            // Solo puntúa el tracker del NPC con el que se está hablando AHORA. El DialogueUI es único y
+            // compartido: sin esto, un mensaje a Mochi lo evaluarían los 4 NPCs a la vez.
+            if (dialogueUI != null && brain != null && dialogueUI.CurrentNPC != brain) return;
 
-            float weight = isChallenge ? challengeWeight : normalWeight;
+            // La creatividad SOLO se mide en los nodos de reto. Saludos y charla normal no cuentan.
+            DialogueNodeSO node = CurrentNode();
+            if (!IsChallenge(node)) return;
+
+            float weight = challengeWeight;
 
             _busy = true;
             var eval = await Evaluate(message, _previousMessage, node);

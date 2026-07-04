@@ -90,7 +90,10 @@ namespace OpenAI.Dialogue
             flag = flag.Trim();
             bool had = progressionFlags.TryGetValue(flag, out bool old);
             progressionFlags[flag] = value;
-            if (!had || old != value) OnFlagSet?.Invoke(flag, value);
+            bool changed = !had || old != value;
+            if (flag.StartsWith("glow_") || flag.StartsWith("recommend_"))
+                Debug.Log($"[Brain:{npcName}] SetFlag {flag}={value} (dispara evento: {changed}, oyentes: {(OnFlagSet != null)})");
+            if (changed) OnFlagSet?.Invoke(flag, value);
         }
 
         public bool GetFlag(string flag)

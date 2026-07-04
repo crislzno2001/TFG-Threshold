@@ -1,45 +1,42 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using OpenAI.Dialogue;
+using Sprout.Application;
 using Sprout.Domain.Narrative;
 
 namespace Sprout.Presentation
 {
     /// <summary>
-    /// Traduce FLAGS que ponen los grafos (con flagsOnEnter) al NpcSpotlight. Convención:
+    /// Traduce flags del STORE central (glow_*, recommend_*) al NpcSpotlight. Se usa sobre todo para el
+    /// glow que provoca el COTILLEO nocturno (glow_X_red), que se escribe directamente en el store.
     ///
-    ///   recommend_&lt;npc&gt;      → "ve a hablar con &lt;npc&gt;" (glow referral).
-    ///   glow_&lt;npc&gt;_strong    → brilla fuerte (tiene nodo principal ahora).
-    ///   glow_&lt;npc&gt;_soft      → brillo suave (reacción corta opcional).
-    ///   glow_&lt;npc&gt;_red       → confrontación / consecuencia incómoda.
-    ///   glow_&lt;npc&gt;_none      → apaga su brillo.
-    ///
-    /// &lt;npc&gt; = mochi / aster / moth / rix. Ponlo en la escena junto al NpcSpotlight.
+    /// Escucha al STORE (persistente, siempre existe vía el director) — NO a los brains — así evita el
+    /// problema de timing que tenía antes. El glow del DIÁLOGO lo gestiona NpcGlow sobre cada NPC.
+    /// Ponlo junto al NpcSpotlight.
     /// </summary>
     public sealed class SpotlightFlagBridge : MonoBehaviour
     {
-        private readonly List<NPCBrain> _brains = new();
+        private NarrativeFlagStore _flags;
 
-        private void Start()
+        private void Update()
         {
-            foreach (var brain in FindObjectsByType<NPCBrain>(FindObjectsInactive.Include, FindObjectsSortMode.None))
-            {
-                brain.OnFlagSet += OnFlagSet;
-                _brains.Add(brain);
-            }
+            // Enganche perezoso: en cuanto el director exista, nos suscribimos una sola vez.
+            if (_flags != null) return;
+            var d = SproutGameDirector.Instance;
+            if (d == null) return;
+            _flags = d.Flags;
+            _flags.OnChanged += OnChanged;
         }
 
         private void OnDestroy()
         {
-            foreach (var b in _brains)
-                if (b != null) b.OnFlagSet -= OnFlagSet;
+            if (_flags != null) _flags.OnChanged -= OnChanged;
         }
 
-        private void OnFlagSet(string flag, bool value)
+        private void OnChanged(string key)
         {
-            if (!value || string.IsNullOrEmpty(flag) || NpcSpotlight.Instance == null) return;
-            flag = flag.Trim().ToLowerInvariant();
+            if (string.IsNullOrEmpty(key) || NpcSpotlight.Instance == null) return;
+            if (!_flags.GetFlag(key)) return;   // solo cuando el flag se ENCIENDE
+            string flag = key.Trim().ToLowerInvariant();
 
             if (flag.StartsWith("recommend_"))
             {
@@ -47,13 +44,11 @@ namespace Sprout.Presentation
                     NpcSpotlight.Instance.Recommend(npc);
                 return;
             }
-
             if (flag.StartsWith("glow_"))
             {
                 string rest = flag.Substring("glow_".Length);   // "<npc>_<estado>"
                 int us = rest.LastIndexOf('_');
                 if (us <= 0) return;
-
                 if (!TryNpc(rest.Substring(0, us), out var npc)) return;
                 switch (rest.Substring(us + 1))
                 {

@@ -63,6 +63,9 @@ namespace OpenAI.Dialogue
         private NPCBrain currentNPC;
         private bool isWaiting = false;
         private DialogueRunner _runner;
+
+        /// <summary>NPC con el que se está hablando ahora mismo (null si no hay diálogo abierto).</summary>
+        public NPCBrain CurrentNPC => currentNPC;
         private Coroutine _typing;
         private DialogueNodeSO _lastNode; // último nodo cuya frase inicial ya mostramos
         private bool _closeAfterType;     // cerrar el diálogo al acabar de teclear (nodo de despedida)
@@ -228,7 +231,8 @@ namespace OpenAI.Dialogue
             else
                 displayReply = string.IsNullOrWhiteSpace(reply) ? "..." : reply;
             _lastNode = node;
-            _closeAfterType = IsTerminal(node) || IsGoodbye(userText); // despedida (nodo terminal o el jugador se despide) -> cerrar
+            // Cierra si: el nodo es terminal (bye), el jugador se despide, o el propio NPC se despide.
+            _closeAfterType = IsTerminal(node) || IsGoodbye(userText) || IsGoodbye(displayReply);
 
             // 🔔 Notificar respuesta del NPC
             onNPCReplied?.Invoke(displayReply);
@@ -286,7 +290,8 @@ namespace OpenAI.Dialogue
             if (_closeAfterType)
             {
                 _closeAfterType = false;
-                yield return new WaitForSeconds(1.4f);
+                SetInputInteractable(false);                  // que no siga escribiendo mientras se cierra
+                yield return new WaitForSecondsRealtime(1.4f); // tiempo REAL (funciona aunque el juego esté pausado)
                 RequestClose();
                 yield break;
             }

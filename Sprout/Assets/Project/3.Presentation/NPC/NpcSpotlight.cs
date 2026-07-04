@@ -15,7 +15,27 @@ namespace Sprout.Presentation
     /// </summary>
     public sealed class NpcSpotlight : MonoBehaviour
     {
-        public static NpcSpotlight Instance { get; private set; }
+        private static NpcSpotlight _instance;
+
+        /// <summary>
+        /// Singleton AUTO-SANADOR: si no hay instancia (porque el objeto está inactivo, aún no arrancó,
+        /// o se destruyó al cambiar de escena) se busca en la escena o se crea una al vuelo. Así nunca
+        /// devuelve null y el glow no depende de que el objeto exista/esté activo en el momento justo.
+        /// </summary>
+        public static NpcSpotlight Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindFirstObjectByType<NpcSpotlight>();
+                    if (_instance == null)
+                        _instance = new GameObject("NpcSpotlight (auto)").AddComponent<NpcSpotlight>();
+                }
+                return _instance;
+            }
+            private set => _instance = value;
+        }
 
         private readonly Dictionary<NpcId, GlowState> _glow = new();
 
@@ -27,11 +47,11 @@ namespace Sprout.Presentation
 
         private void Awake()
         {
-            if (Instance != null && Instance != this) { Destroy(this); return; }
-            Instance = this;
+            if (_instance != null && _instance != this) { Destroy(this); return; }
+            _instance = this;
         }
 
-        private void OnDestroy() { if (Instance == this) Instance = null; }
+        private void OnDestroy() { if (_instance == this) _instance = null; }
 
         public GlowState GetGlow(NpcId npc) => _glow.TryGetValue(npc, out var s) ? s : GlowState.None;
 
@@ -39,6 +59,7 @@ namespace Sprout.Presentation
         {
             if (GetGlow(npc) == state) return;
             _glow[npc] = state;
+            Debug.Log($"[Spotlight] {npc} → {state}  (oyentes: {(OnGlowChanged != null)})");
             OnGlowChanged?.Invoke(npc, state);
         }
 
