@@ -106,7 +106,7 @@ namespace Sprout.Presentation
             float bob = Mathf.Sin(Time.unscaledTime * 3f) * 5f;
 
             var prev = GUI.color;
-            var bg = new Color(0.14f, 0.12f, 0.11f, 0.80f); // pastilla oscura translúcida
+            var bg = new Color(SproutPalette.Cream.r, SproutPalette.Cream.g, SproutPalette.Cream.b, 0.95f); // pastilla crema (estilo menú)
 
             // Estrellita con su pastilla redondeada.
             var starRect = new Rect(gx - 22, gy - 40 + bob, 44, 40);
@@ -126,9 +126,9 @@ namespace Sprout.Presentation
         {
             if (_spark != null) return;
             _spark = new GUIStyle(GUI.skin.label) { fontSize = 30, alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold };
-            _spark.normal.textColor = new Color(1f, 0.92f, 0.6f); // dorado
+            _spark.normal.textColor = SproutPalette.GreenDark;  // estrellita verde salvia (estilo menú)
             _promptStyle = new GUIStyle(GUI.skin.label) { fontSize = 16, alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold };
-            _promptStyle.normal.textColor = new Color(0.98f, 0.96f, 0.90f);
+            _promptStyle.normal.textColor = SproutPalette.TextDark;
             _pill = new GUIStyle { border = new RectOffset(14, 14, 14, 14) };
             _pill.normal.background = RoundedRect(48, 14, Color.white);
         }

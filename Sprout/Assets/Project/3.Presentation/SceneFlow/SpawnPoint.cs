@@ -14,7 +14,7 @@ namespace Sprout.SceneFlow
     public sealed class SpawnPoint : MonoBehaviour
     {
         [Tooltip("Identificador único dentro de la escena. La puerta pide este id.")]
-        public string id = "Entrada";
+        public string id;
 
         private void OnDrawGizmos()
         {

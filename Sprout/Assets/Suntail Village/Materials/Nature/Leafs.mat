@@ -132,7 +132,7 @@ Material:
     - _Color2Enable: 1
     - _Color3Enable: 0
     - _Cull: 0
-    - _CurveStrength: 0.01
+    - _CurveStrength: 0
     - _Cutoff: 0.4
     - _Cutofff: 0.35
     - _DetailAlbedoMapScale: 1
@@ -205,7 +205,7 @@ Material:
     - _BaseColor: {r: 0.2, g: 0.5, b: 0.42, a: 1}
     - _Color: {r: 0.25511748, g: 0.46226412, b: 0.2839416, a: 1}
     - _Color0: {r: 0, g: 0.5110004, b: 1, a: 0}
-    - _CurveOrigin: {r: 16.175966, g: 0.80989915, b: 17.987461, a: 0}
+    - _CurveOrigin: {r: 0, g: 0, b: -0.885, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 0.03684211, g: 0.35, b: 0.22565785, a: 0}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}

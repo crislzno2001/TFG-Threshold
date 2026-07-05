@@ -13,14 +13,14 @@ namespace Sprout.SceneFlow
     public sealed class DoorPortal : MonoBehaviour
     {
         [Header("Destino")]
-        [SerializeField] private string targetScene = "FlowerShop";
-        [SerializeField] private string targetSpawnId = "Entrada";
+        [SerializeField] private string targetScene;
+        [SerializeField] private string targetSpawnId;
 
         [Header("Activación por distancia")]
         [SerializeField] private string playerTag = "Player";
 
         [Tooltip("Radio alrededor de la puerta para activarse.")]
-        [SerializeField] private float triggerRadius = 2.5f;
+        [SerializeField] private float triggerRadius = 10f;
 
         [Tooltip("Si está marcado, entra solo al acercarse.")]
         [SerializeField] private bool autoEnter = true;
@@ -28,7 +28,6 @@ namespace Sprout.SceneFlow
         [Tooltip("Tecla para entrar si autoEnter está desmarcado.")]
         [SerializeField] private Key interactKey = Key.E;
 
-        private Transform _player;
         private bool _busy;
         private bool _wasInside;
 
@@ -37,34 +36,35 @@ namespace Sprout.SceneFlow
             if (_busy)
                 return;
 
-            CachePlayerIfNeeded();
-
-            if (_player == null)
+            // Busca al player MÁS CERCANO entre todos los que tengan el tag. Así, aunque
+            // (temporalmente) haya un duplicado, se usa el que de verdad se acerca a la puerta.
+            float dist;
+            Transform player = NearestPlayer(out dist);
+            if (player == null)
                 return;
 
-            bool inside = Vector3.Distance(_player.position, transform.position) <= triggerRadius;
+            bool inside = dist <= triggerRadius;
+            bool ePressed = WasInteractPressed();
 
             if (inside && !_wasInside && autoEnter)
-            {
                 Enter();
-            }
-            else if (inside && !autoEnter && WasInteractPressed())
-            {
+            else if (inside && !autoEnter && ePressed)
                 Enter();
-            }
 
             _wasInside = inside;
         }
 
-        private void CachePlayerIfNeeded()
+        private Transform NearestPlayer(out float dist)
         {
-            if (_player != null)
-                return;
-
-            GameObject playerObject = GameObject.FindGameObjectWithTag(playerTag);
-
-            if (playerObject != null)
-                _player = playerObject.transform;
+            dist = float.MaxValue;
+            Transform best = null;
+            foreach (var go in GameObject.FindGameObjectsWithTag(playerTag))
+            {
+                if (go == null || !go.activeInHierarchy) continue;
+                float d = Vector3.Distance(go.transform.position, transform.position);
+                if (d < dist) { dist = d; best = go.transform; }
+            }
+            return best;
         }
 
         private bool WasInteractPressed()

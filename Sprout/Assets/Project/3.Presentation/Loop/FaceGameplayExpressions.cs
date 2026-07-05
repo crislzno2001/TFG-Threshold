@@ -65,9 +65,10 @@ namespace Sprout.Presentation
         private int _currentBase = -1;
         private NarrativeFlagStore _flags;
 
-        // Reacción manual (tocar la foto) y temporización de fonemas.
-        private float _reactTimer;
-        private int _reactIndex;
+        // Expresión ELEGIDA por la jugadora (tocando su foto): persiste hasta que elija otra.
+        private int _heldExpression = -1;   // -1 = ninguna (cara automática)
+        private string _heldMood = "";
+        // Temporización de fonemas.
         private float _phonemeTimer;
         private int _phonemeIdx;
 
@@ -104,7 +105,6 @@ namespace Sprout.Presentation
             if (_flags == null) TryHookFlags(); // el director puede crearse después que nosotros
 
             if (_sadTimer > 0f) _sadTimer -= Time.deltaTime;
-            if (_reactTimer > 0f) _reactTimer -= Time.deltaTime;
 
             _scanTimer -= Time.deltaTime;
             if (_scanTimer <= 0f)
@@ -124,10 +124,7 @@ namespace Sprout.Presentation
         /// </summary>
         private void DriveFace()
         {
-            // 1) Reacción manual elegida por la jugadora.
-            if (_reactTimer > 0f) { SetExpr(_reactIndex); return; }
-
-            // 2) Boca moviéndose mientras escribes (en diálogo).
+            // 1) Boca moviéndose mientras escribes (en diálogo). Se mueve aunque haya expresión elegida.
             var dlg = DialogueUI.Active;
             if (mouthWhileTyping && phonemeCells != null && phonemeCells.Length > 0 && dlg != null && dlg.IsTyping)
             {
@@ -142,7 +139,10 @@ namespace Sprout.Presentation
                 return;
             }
 
-            // 3) Cara base automática: triste manda; si no, neutral (o sonríe cerca si lo activas).
+            // 2) Expresión ELEGIDA por la jugadora: persiste hasta que elija otra.
+            if (_heldExpression >= 0) { SetExpr(_heldExpression); return; }
+
+            // 3) Cara base automática: triste (evento) manda; si no, neutral (o sonríe cerca si lo activas).
             SetExpr(_sadTimer > 0f ? sadIndex : ((smileNearNpc && _nearNpc) ? happyIndex : neutralIndex));
         }
 
@@ -187,12 +187,22 @@ namespace Sprout.Presentation
         /// <summary>Forzar tristeza desde fuera (eventos, reacción a un ramo, etc.).</summary>
         public void ReactSad(float seconds) => _sadTimer = Mathf.Max(_sadTimer, seconds);
 
-        /// <summary>Mostrar una expresión concreta un rato (la llama la face cam al tocar tu foto).</summary>
-        public void ReactWithExpression(int expressionIndex, float seconds)
+        /// <summary>
+        /// Expresión ELEGIDA por la jugadora (tocando su foto): se mantiene HASTA que elija otra.
+        /// 'mood' es la etiqueta que leerá la IA al responder (p. ej. "enfadada", "ilusionada");
+        /// vacío o "neutral" = sin nota especial para la IA. Elegir la celda neutral vuelve a la normalidad.
+        /// </summary>
+        public void SetHeldExpression(int cell, string mood)
         {
-            _reactIndex = expressionIndex;
-            _reactTimer = Mathf.Max(_reactTimer, seconds);
+            _heldExpression = cell;
+            _heldMood = mood ?? "";
+            bool neutral = string.IsNullOrWhiteSpace(mood) || mood.Trim().ToLowerInvariant() == "neutral";
+            Sprout.Application.PlayerMoodState.Current = neutral ? "" : mood.Trim();
+            _currentBase = -1; // aplica la nueva cara ya
         }
+
+        /// <summary>Compat: elegir una expresión ahora también persiste (ignora 'seconds').</summary>
+        public void ReactWithExpression(int expressionIndex, float seconds) => SetHeldExpression(expressionIndex, "");
 
         /// <summary>Miniatura (textura + UV) de una celda de expresión, para el picker de la face cam.</summary>
         public bool TryGetExpressionCellUV(int index, out Texture sheet, out Rect uv)
@@ -209,7 +219,7 @@ namespace Sprout.Presentation
                 yield return new WaitForSeconds(Random.Range(blinkEverySeconds.x, blinkEverySeconds.y));
                 // no parpadea sin celda de parpadeo, ni triste, ni reaccionando, ni escribiendo
                 bool typing = mouthWhileTyping && DialogueUI.Active != null && DialogueUI.Active.IsTyping;
-                if (!enableBlink || face == null || _sadTimer > 0f || _reactTimer > 0f || typing) continue;
+                if (!enableBlink || face == null || _sadTimer > 0f || typing) continue;
                 face.SetExpression(blinkIndex);
                 yield return new WaitForSeconds(blinkDuration);
                 _currentBase = -1; // fuerza re-aplicar la cara base

@@ -55,6 +55,14 @@ namespace Sprout.Presentation
         private Vector3 _camVel;
         private GameObject _playerCamGo;   // la cámara del player que apagamos
 
+        private void Awake()
+        {
+            // Nos marcamos como MainCamera: el movimiento del player usa Camera.main para saber "hacia
+            // dónde es adelante". Como el rig apaga la cámara del player al entrar, Camera.main pasa a ser
+            // ESTA cámara → WASD se mueve relativo a la vista de la Casa (y no en ejes del mundo).
+            if (!CompareTag("MainCamera")) tag = "MainCamera";
+        }
+
         private void LateUpdate()
         {
             if (target == null)

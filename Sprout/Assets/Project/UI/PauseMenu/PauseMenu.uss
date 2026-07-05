@@ -4,6 +4,8 @@
     flex-grow: 1;
     align-items: center;
     justify-content: center;
+    /* Fuente cozy Fredoka para todo el menú de pausa (se hereda). */
+    -unity-font-definition: url("project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf");
 }
 
 .pause-overlay {

@@ -23,6 +23,10 @@ namespace Sprout.SceneFlow
                  "jugador no se queda colgado en el menú (ni su AudioListener). Pon el nombre EXACTO de tu escena de menú.")]
         [SerializeField] private string[] destroyOnScenes = { "MainMenu" };
 
+        [Tooltip("Al cargar una escena, destruye OTROS objetos con el mismo Tag que este (p. ej. un Player " +
+                 "colocado dentro de una escena). Actívalo SOLO en el player persistente para eliminar duplicados.")]
+        [SerializeField] private bool removeSceneDuplicatesByTag = false;
+
         private static readonly System.Collections.Generic.HashSet<string> _alive = new();
 
         private void Awake()
@@ -48,6 +52,14 @@ namespace Sprout.SceneFlow
                     Destroy(gameObject);
                     return;
                 }
+
+            // Elimina duplicados colocados en la escena (mismo tag) que NO sean este objeto persistente.
+            if (removeSceneDuplicatesByTag && !CompareTag("Untagged"))
+            {
+                foreach (var go in GameObject.FindGameObjectsWithTag(tag))
+                    if (go != null && go != gameObject)
+                        Destroy(go);
+            }
         }
 
         private void OnDestroy()

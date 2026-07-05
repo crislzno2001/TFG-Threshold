@@ -411,10 +411,17 @@ namespace OpenAI.Dialogue
         {
             RebuildSystemPromptForNode(nodeForReply);
 
+            // Si la jugadora ha elegido una expresión (cara enfadada, ilusionada…), se la contamos a la IA
+            // como CONTEXTO de cómo se lo dice, para que su expresión afecte a la respuesta del vecino.
+            string userContent = userMessage ?? "";
+            if (Sprout.Application.PlayerMoodState.HasMood)
+                userContent += $"\n\n[Contexto: la florista te dice esto con expresión/tono {Sprout.Application.PlayerMoodState.Current}. " +
+                               "Reacciona teniendo en cuenta su gesto, como haría cualquiera al notarlo.]";
+
             history.Add(new ChatMessage
             {
                 role = "user",
-                content = userMessage ?? ""
+                content = userContent
             });
 
             TrimHistory();

@@ -393,8 +393,9 @@ namespace OpenAI.Dialogue
             var rt = go.GetComponent<RectTransform>();
             rt.SetParent(panelRT, false);
             rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(1f, 1f);
-            rt.anchoredPosition = new Vector2(-14f, -14f);
-            rt.sizeDelta = new Vector2(150f, 42f);
+            // A la izquierda de la X (que está en la esquina superior derecha), con hueco para no taparla.
+            rt.anchoredPosition = new Vector2(-72f, -12f);
+            rt.sizeDelta = new Vector2(140f, 40f);
 
             go.GetComponent<Image>().color = new Color(0.84f, 0.55f, 0.62f, 1f);
             _giftButton = go.GetComponent<Button>();

@@ -97,6 +97,10 @@ namespace ThresholdGame.Presentation.Player.Locomotion
 
         private void Move()
         {
+            // Si el CharacterController está desactivado (p. ej. sentada/tumbada, o en un teletransporte),
+            // no lo movemos: llamar a Move() sobre un controller inactivo lanza un error.
+            if (_controller == null || !_controller.enabled) return;
+
             Vector2 moveInput = _movementEnabled && characterInputs != null
                 ? characterInputs.move
                 : Vector2.zero;
@@ -137,9 +141,14 @@ namespace ThresholdGame.Presentation.Player.Locomotion
             );
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
-            // Dirección relativa a la cámara fija
+            // Dirección relativa a la CÁMARA ACTIVA que esté renderizando (Camera.main). Así funciona
+            // igual con la cámara fija de fuera y con la de tercera persona de la Casa, sin cambiar nada
+            // más: adelante = hacia donde mira la cámara. Fallback al controlador fijo si no hay main.
             Vector3 inputDirection = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
-            float cameraYaw = cameraController != null ? cameraController.CurrentYaw : 0f;
+            var mainCam = UnityEngine.Camera.main;
+            float cameraYaw = mainCam != null
+                ? mainCam.transform.eulerAngles.y
+                : (cameraController != null ? cameraController.CurrentYaw : 0f);
 
             if (moveInput != Vector2.zero)
             {

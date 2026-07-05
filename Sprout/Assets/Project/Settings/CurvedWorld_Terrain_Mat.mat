@@ -75,11 +75,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CurveStrength: 0.01
+    - _CurveStrength: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _CurveOrigin: {r: 16.175966, g: 0.80989915, b: 17.987461, a: 0}
+    - _CurveOrigin: {r: 0, g: 0, b: -0.885, a: 0}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _Tiling: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -65,7 +65,8 @@ namespace Sprout.Presentation
             public int cell;
             [Tooltip("Icono/emoji (PNG con fondo transparente) que se muestra en el picker.")]
             public Texture icon;
-            [Tooltip("Opcional, no se muestra.")]
+            [Tooltip("ÁNIMO que lee la IA al elegir esta emoción (p. ej. 'enfadada', 'ilusionada', 'triste', " +
+                     "'coqueta'). Déjalo vacío o pon 'neutral' para que no le diga nada especial a la IA.")]
             public string label;
         }
 
@@ -194,7 +195,8 @@ namespace Sprout.Presentation
 
                         if (GUI.Button(r, GUIContent.none, GUIStyle.none))
                         {
-                            faceController.ReactWithExpression(emotions[i].cell, reactSeconds);
+                            // Persiste hasta que elija otra, y pasa la etiqueta (label) como ánimo para la IA.
+                            faceController.SetHeldExpression(emotions[i].cell, emotions[i].label);
                             _pickerOpen = false;
                         }
                     }

@@ -5,6 +5,8 @@
     align-items: center;
     justify-content: flex-end;   /* título + barra abajo, para que se vea el paisaje */
     background-color: rgb(243, 237, 223);
+    /* Fuente cozy Fredoka para el texto de la carga (se hereda). */
+    -unity-font-definition: url("project://database/Assets/Project/UI/Fonts/Fredoka/static/Fredoka-Medium.ttf");
 }
 
 /* ── Capas de parallax (se repiten en horizontal y las mueve ParallaxScroller) ── */

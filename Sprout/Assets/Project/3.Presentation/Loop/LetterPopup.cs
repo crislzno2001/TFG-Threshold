@@ -20,6 +20,8 @@ namespace Sprout.Presentation
             "Mi queridísima florecita:\n\nEsta floristería ahora es tuya.\n\nCon cariño,\nla abuela.";
         [SerializeField] private Color textColor = new Color(0.30f, 0.22f, 0.18f);
         [SerializeField] private int fontSize = 20;
+        [Tooltip("Fuente de la carta (arrastra Fredoka-Medium.ttf). Vacío = fuente por defecto.")]
+        [SerializeField] private Font font;
         [Tooltip("Velocidad a la que aparecen las letras (caracteres por segundo).")]
         [SerializeField] private float revealSpeed = 45f;
 
@@ -152,6 +154,9 @@ namespace Sprout.Presentation
             _txt.normal.textColor = textColor;
             _hint = new GUIStyle(GUI.skin.label) { fontSize = 14, alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Italic };
             _hint.normal.textColor = new Color(0.96f, 0.93f, 0.86f);
+
+            // Fuente cozy (Fredoka) si la has asignado en el inspector.
+            if (font != null) { _txt.font = font; _hint.font = font; }
         }
 
         private void SetPlayerControl(bool enabled)
