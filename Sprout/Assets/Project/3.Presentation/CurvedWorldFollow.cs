@@ -11,6 +11,8 @@ namespace Sprout.Presentation
     {
         [Tooltip("Ajuste fino: si el nombre queda un pelín alto/bajo, sube/baja esto (1 = igual que la malla).")]
         [SerializeField] private float multiplier = 1f;
+        [Tooltip("Radio (metros) cerca de la florista donde NO se compensa, para que de cerca no sobre. Prueba 3-5.")]
+        [SerializeField] private float flatRadius = 0f;
         [Tooltip("DEBUG: muestra en pantalla los valores de la curva de ESTE objeto (para diagnosticar).")]
         [SerializeField] private bool debugOnScreen = false;
 
@@ -25,7 +27,7 @@ namespace Sprout.Presentation
             if (!_has) return;
             // Usamos su PROPIA posición horizontal (x,z) para la distancia a la florista: robusto aunque
             // el nombre esté anidado. Solo movemos la Y, así que x,z no cambian (sin realimentación).
-            float curveY = CurvedWorldCompensation.OffsetY(transform.position, multiplier);
+            float curveY = CurvedWorldCompensation.OffsetY(transform.position, multiplier, flatRadius);
             transform.localPosition = _baseLocal + Vector3.up * curveY;
 
             if (debugOnScreen && Time.time > _nextLog)

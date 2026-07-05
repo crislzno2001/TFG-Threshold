@@ -13,14 +13,16 @@ namespace Sprout.Presentation
         private static readonly int OriginId = Shader.PropertyToID("_CurveOrigin");
         private static readonly int StrengthId = Shader.PropertyToID("_CurveStrength");
 
-        /// <summary>Desplazamiento en Y que la curva del mundo aplica en 'worldPos' (normalmente negativo).</summary>
-        public static float OffsetY(Vector3 worldPos, float multiplier = 1f)
+        /// <summary>Desplazamiento en Y que la curva del mundo aplica en 'worldPos' (normalmente negativo).
+        /// 'flatRadius' = radio cerca de la florista donde NO compensa (para que de cerca no sobre).</summary>
+        public static float OffsetY(Vector3 worldPos, float multiplier = 1f, float flatRadius = 0f)
         {
             Vector4 origin = Shader.GetGlobalVector(OriginId);
             float strength = Shader.GetGlobalFloat(StrengthId);
             float dx = worldPos.x - origin.x;
             float dz = worldPos.z - origin.z;
-            return -strength * (dx * dx + dz * dz) * multiplier;
+            float d2 = Mathf.Max(0f, (dx * dx + dz * dz) - flatRadius * flatRadius);
+            return -strength * d2 * multiplier;
         }
     }
 }
