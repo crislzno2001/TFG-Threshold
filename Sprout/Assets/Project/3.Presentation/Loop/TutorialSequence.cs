@@ -25,6 +25,11 @@ namespace Sprout.Presentation
 
         [SerializeField] private List<Step> steps = new();
         [SerializeField] private bool playOnStart = false;
+        [Tooltip("Si está activo, el tutorial se reproduce SOLO la primera vez (se recuerda con PlayerPrefs). " +
+                 "Así no vuelve a salir cada vez que regresas al pueblo.")]
+        [SerializeField] private bool playOnce = true;
+        [Tooltip("Clave para recordar que ya se vio. Pon una distinta por tutorial (pueblo, casa…).")]
+        [SerializeField] private string saveKey = "tutorial_pueblo";
         [SerializeField] private Camera cam;
         [SerializeField] private bool lockPlayer = true;
         [SerializeField] private string playerTag = "Player";
@@ -41,7 +46,7 @@ namespace Sprout.Presentation
         private int _i = -1;
         private bool _active;
         private int _playFrame = -1;
-        private GUIStyle _body, _hint, _arrow;
+        private GUIStyle _body, _hint, _arrow, _panel;
 
         private void Start() { if (playOnStart) Play(); }
 
@@ -49,6 +54,7 @@ namespace Sprout.Presentation
         public void Play()
         {
             if (_active || steps == null || steps.Count == 0) return;
+            if (playOnce && PlayerPrefs.GetInt(saveKey, 0) == 1) return; // ya se vio una vez
             _active = true;
             _i = 0;
             _playFrame = Time.frameCount; // para ignorar el clic que lanzó el tutorial
@@ -74,6 +80,7 @@ namespace Sprout.Presentation
         {
             _active = false;
             _i = -1;
+            if (playOnce) { PlayerPrefs.SetInt(saveKey, 1); PlayerPrefs.Save(); }
             if (lockPlayer) SetPlayerControl(true);
             onFinished?.Invoke();
         }
@@ -118,10 +125,10 @@ namespace Sprout.Presentation
             }
 
             var prev = GUI.color;
-            GUI.color = new Color(0.10f, 0.09f, 0.08f, 0.35f);
-            GUI.DrawTexture(new Rect(x + 5, y + 6, w, h), Texture2D.whiteTexture);
-            GUI.color = new Color(0.98f, 0.95f, 0.88f, 0.98f);
-            GUI.DrawTexture(new Rect(x, y, w, h), Texture2D.whiteTexture);
+            GUI.color = new Color(0f, 0f, 0f, 0.22f);                       // sombra
+            GUI.Box(new Rect(x + 5, y + 6, w, h), GUIContent.none, _panel);
+            GUI.color = SproutPalette.Cream;                                 // panel crema redondeado
+            GUI.Box(new Rect(x, y, w, h), GUIContent.none, _panel);
             GUI.color = prev;
 
             _body.fontSize = Mathf.RoundToInt(18 * SproutTextScale.Get()); // tamaño de letra de la config
@@ -134,11 +141,13 @@ namespace Sprout.Presentation
         {
             if (_body != null) return;
             _body = new GUIStyle(GUI.skin.label) { fontSize = 18, wordWrap = true, alignment = TextAnchor.UpperLeft };
-            _body.normal.textColor = new Color(0.27f, 0.21f, 0.17f);
+            _body.normal.textColor = SproutPalette.TextDark;
             _hint = new GUIStyle(GUI.skin.label) { fontSize = 13, alignment = TextAnchor.MiddleRight, fontStyle = FontStyle.Italic };
-            _hint.normal.textColor = new Color(0.5f, 0.44f, 0.38f);
+            _hint.normal.textColor = SproutPalette.GreenText;
             _arrow = new GUIStyle(GUI.skin.label) { fontSize = 44, alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold };
-            _arrow.normal.textColor = new Color(0.84f, 0.36f, 0.45f); // rosa cozy
+            _arrow.normal.textColor = new Color(0.84f, 0.36f, 0.45f); // rosa cozy (acento de la flecha)
+            _panel = new GUIStyle { border = new RectOffset(14, 14, 14, 14) };
+            _panel.normal.background = SproutPalette.RoundedRect;
         }
 
         private void SetPlayerControl(bool enabled)

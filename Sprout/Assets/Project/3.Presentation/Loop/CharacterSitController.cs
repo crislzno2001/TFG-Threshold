@@ -17,18 +17,33 @@ namespace Sprout.Presentation
         [Tooltip("Script de movimiento con SetControlEnabled(bool) (AnimalCrossingLocomotion). Se autodetecta.")]
         [SerializeField] private MonoBehaviour locomotion;
 
+        [Header("Sentarse al arrancar (para NPCs SIEMPRE sentados, p. ej. el conductor)")]
+        [Tooltip("Si está activo, este personaje se sienta solo al empezar (y NO se levanta con WASD).")]
+        [SerializeField] private bool sitOnStart = false;
+        [SerializeField] private bool sitOnStartLying = false;
+        [Tooltip("Opcional: dónde se sienta al arrancar. Vacío = donde ya está posado.")]
+        [SerializeField] private Transform sitOnStartAnchor;
+
         private static readonly int SitId = Animator.StringToHash("Sit");
         private static readonly int LieId = Animator.StringToHash("Lie");
 
         private bool _seated;
         private bool _lying;
+        private bool _lockStand;   // sentado "bloqueado": no se levanta con WASD (conductor, viaje en coche)
 
         public bool IsSeated => _seated;
+
+        private void Start()
+        {
+            if (sitOnStart)
+                SitAt(sitOnStartAnchor != null ? sitOnStartAnchor : transform, sitOnStartLying, true);
+        }
 
         private void Update()
         {
             // Si está sentada/tumbada y la jugadora pulsa una dirección (WASD/flechas), se levanta y anda.
-            if (!_seated) return;
+            // Salvo si es un sentado bloqueado (conductor / viaje en coche).
+            if (!_seated || _lockStand) return;
             var kb = Keyboard.current;
             if (kb == null) return;
             if (kb.wKey.isPressed || kb.aKey.isPressed || kb.sKey.isPressed || kb.dKey.isPressed ||
@@ -47,15 +62,18 @@ namespace Sprout.Presentation
                     { locomotion = mb; break; }
         }
 
-        /// <summary>Sienta (lie=false) o tumba (lie=true) al personaje en el punto 'anchor'.</summary>
-        public void SitAt(Transform anchor, bool lie)
+        /// <summary>Sienta (lie=false) o tumba (lie=true) al personaje en el punto 'anchor'.
+        /// lockStand = true → no se levantará con WASD (para el conductor o el viaje en coche).</summary>
+        public void SitAt(Transform anchor, bool lie, bool lockStand = false)
         {
             if (_seated || animator == null) return;
             _seated = true;
             _lying = lie;
+            _lockStand = lockStand;
 
             SetControl(false);                                   // bloquea el movimiento
-            if (controller != null) controller.enabled = false;  // congela la posición (sin gravedad/deslizar)
+            // Solo desactiva el CharacterController si es el de ESTE objeto (no el del player si está mal asignado).
+            if (controller != null && controller.gameObject == gameObject) controller.enabled = false;
             if (anchor != null) transform.SetPositionAndRotation(anchor.position, anchor.rotation);
 
             // Exactamente UNO en true: si están los dos, el Animator se queda tieso.
@@ -71,9 +89,10 @@ namespace Sprout.Presentation
                 animator.SetBool(SitId, false);   // los dos a false al levantarse
                 animator.SetBool(LieId, false);
             }
-            if (controller != null) controller.enabled = true;
+            if (controller != null && controller.gameObject == gameObject) controller.enabled = true;
             SetControl(true);
             _seated = false;
+            _lockStand = false;
         }
 
         /// <summary>Sienta si está de pie; levanta si ya está sentado (para usar con la misma tecla).</summary>

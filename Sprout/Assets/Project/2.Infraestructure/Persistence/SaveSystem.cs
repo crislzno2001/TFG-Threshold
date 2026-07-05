@@ -20,6 +20,7 @@ namespace Sprout.Persistence
     {
         [SerializeField] private List<NPCBrain> npcBrains = new();
         [SerializeField] private DayCycleService dayCycle;
+        [SerializeField] private string playerTag = "Player";
         [Tooltip("Cargar la última partida al arrancar (continuar). El guardado se hace SOLO al dormir.")]
         [SerializeField] private bool loadOnStart = false;
 
@@ -41,6 +42,10 @@ namespace Sprout.Persistence
             public List<MemEntry> memories = new();
             public List<NodeEntry> currentNodes = new();
             public List<string> phaseGoals = new();   // NPCs ya hablados en la fase actual
+
+            public bool hasPlayer;                     // posición del jugador al guardar
+            public Vector3 playerPos;
+            public Quaternion playerRot = Quaternion.identity;
         }
 
         public string SavePath => Path.Combine(UnityEngine.Application.persistentDataPath, "sprout_save.json");
@@ -76,6 +81,15 @@ namespace Sprout.Persistence
 
             // Progreso de la fase actual (qué NPCs ya has hablado), para continuar sin reiniciarlo.
             if (dayCycle != null) data.phaseGoals.AddRange(dayCycle.ExportPhaseGoals());
+
+            // Posición del jugador, para retomar donde lo dejaste (y no reaparecer en el coche).
+            var playerGo = GameObject.FindGameObjectWithTag(playerTag);
+            if (playerGo != null)
+            {
+                data.hasPlayer = true;
+                data.playerPos = playerGo.transform.position;
+                data.playerRot = playerGo.transform.rotation;
+            }
 
             foreach (var kv in D.Flags.AllFlags) data.flags.Add(new FlagPair { k = kv.Key, v = kv.Value });
             foreach (var kv in D.Flags.AllCounters) data.counters.Add(new Pair { k = kv.Key, v = kv.Value });
@@ -164,6 +178,19 @@ namespace Sprout.Persistence
                         var runner = brain.GetComponent<DialogueRunner>();
                         if (node != null && runner != null) runner.RestoreCurrent(node);
                     }
+
+                // Restaurar la posición del jugador (desactivando el CharacterController para no colisionar).
+                if (data.hasPlayer)
+                {
+                    var playerGo = GameObject.FindGameObjectWithTag(playerTag);
+                    if (playerGo != null)
+                    {
+                        var cc = playerGo.GetComponent<CharacterController>();
+                        if (cc != null) cc.enabled = false;
+                        playerGo.transform.SetPositionAndRotation(data.playerPos, data.playerRot);
+                        if (cc != null) cc.enabled = true;
+                    }
+                }
 
                 Debug.Log("[SaveSystem] Loaded (with NPC memory).");
                 return true;

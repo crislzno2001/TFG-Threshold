@@ -205,7 +205,7 @@ Material:
     - _BaseColor: {r: 0.2, g: 0.5, b: 0.42, a: 1}
     - _Color: {r: 0.25511748, g: 0.46226412, b: 0.2839416, a: 1}
     - _Color0: {r: 0, g: 0.5110004, b: 1, a: 0}
-    - _CurveOrigin: {r: 0, g: 0, b: -0.885, a: 0}
+    - _CurveOrigin: {r: -15.522728, g: 1.75, b: -103.95874, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainColor: {r: 0.03684211, g: 0.35, b: 0.22565785, a: 0}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}

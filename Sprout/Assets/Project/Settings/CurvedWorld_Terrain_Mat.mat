@@ -79,7 +79,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _CurveOrigin: {r: 0, g: 0, b: -0.885, a: 0}
+    - _CurveOrigin: {r: -15.522728, g: 1.75, b: -103.95874, a: 0}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _Tiling: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

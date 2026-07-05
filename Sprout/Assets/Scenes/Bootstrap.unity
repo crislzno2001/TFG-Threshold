@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1420072210}
   - component: {fileID: 1420072212}
-  - component: {fileID: 1420072211}
   - component: {fileID: 1420072213}
   m_Layer: 0
   m_Name: GameManager
@@ -154,18 +153,6 @@ Transform:
   - {fileID: 2143013524}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1420072211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1420072209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38701bb0e9b121e499af990e905fb664, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ThresholdGame.Core.GameFlow.PauseInputHandler
 --- !u!114 &1420072212
 MonoBehaviour:
   m_ObjectHideFlags: 0

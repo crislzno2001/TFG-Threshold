@@ -15,6 +15,8 @@ namespace ThresholdGame.Presentation.UI.Pause
     public sealed class PauseMenuController : MonoBehaviour
     {
         [SerializeField] private UIDocument uiDocument;
+        [Tooltip("Arrastra aquí tu SaveSystem. Si lo dejas vacío, se busca solo en la escena.")]
+        [SerializeField] private Sprout.Persistence.SaveSystem saveSystem;
 
         private VisualElement _root;
         private Button _btnResume;
@@ -78,7 +80,11 @@ namespace ThresholdGame.Presentation.UI.Pause
 
         private void OnSaveClicked()
         {
-            var save = Object.FindFirstObjectByType<Sprout.Persistence.SaveSystem>();
+            // 1) el asignado en el inspector; 2) si no, se busca (incluyendo inactivos, porque al pausar
+            // los objetos de gameplay pueden quedar desactivados y la búsqueda por defecto los ignora).
+            var save = saveSystem != null
+                ? saveSystem
+                : Object.FindFirstObjectByType<Sprout.Persistence.SaveSystem>(FindObjectsInactive.Include);
             if (save != null)
             {
                 save.Save();

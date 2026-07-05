@@ -22,6 +22,7 @@ namespace Sprout.Presentation
         {
             bool open =
                 DialogueUI.Active != null ||
+                ScriptedDialogue.AnyActive ||   // intro del coche / tutoriales guionizados con opciones
                 (craftingPanel != null && craftingPanel.activeInHierarchy) ||
                 (endingPanel != null && endingPanel.activeInHierarchy) ||
                 (nightPanel != null && nightPanel.activeInHierarchy);

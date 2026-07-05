@@ -1044,14 +1044,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5523012492520086688, guid: 364182150bdb1124ca2c761466bc4315, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 501377463}
+      addedObject: {fileID: 501377465}
   m_SourcePrefab: {fileID: 100100000, guid: 364182150bdb1124ca2c761466bc4315, type: 3}
 --- !u!1 &501377462 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5523012492520086688, guid: 364182150bdb1124ca2c761466bc4315, type: 3}
   m_PrefabInstance: {fileID: 501377461}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &501377463
+--- !u!4 &501377464 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5183218987517085210, guid: 364182150bdb1124ca2c761466bc4315, type: 3}
+  m_PrefabInstance: {fileID: 501377461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &501377465
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1060,20 +1065,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 501377462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 221404905b920234c938ba2e539c1212, type: 3}
+  m_Script: {fileID: 11500000, guid: d66f74a34ecc25d4fae6aa70acc14e6d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.SceneFlow.DoorPortal
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.SceneFlow.PortalInteractable
   targetScene: GameScene
   targetSpawnId: EntradaCasa
-  playerTag: Player
-  triggerRadius: 2.5
-  autoEnter: 1
-  interactKey: 19
---- !u!4 &501377464 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5183218987517085210, guid: 364182150bdb1124ca2c761466bc4315, type: 3}
-  m_PrefabInstance: {fileID: 501377461}
-  m_PrefabAsset: {fileID: 0}
+  label: Salir
 --- !u!64 &533972388
 MeshCollider:
   m_ObjectHideFlags: 0

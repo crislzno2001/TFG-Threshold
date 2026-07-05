@@ -15,8 +15,8 @@ MonoBehaviour:
   kind: 2
   displayName: Brasa
   emotion: passion
-  description: An ember-red flower, warm to the touch.
+  description: 
   icon: {fileID: 21300000, guid: 2f8b0500931164f488f709b12aaacba2, type: 3}
   model: {fileID: 0}
   color: {r: 0.9, g: 0.25, b: 0.2, a: 1}
-  gameplayMeaning: "Grows from passion \u2014 and from helping Moth's dark request."
+  gameplayMeaning: c

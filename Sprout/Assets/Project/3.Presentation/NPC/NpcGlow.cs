@@ -21,6 +21,8 @@ namespace Sprout.Presentation
         [SerializeField] private NpcId npc;
         [SerializeField] private float height = 2.4f;
         [SerializeField] private float size = 0.28f;
+        [Tooltip("Compensa la curva del mundo para que la bola siga sobre la cabeza aunque el NPC esté lejos.")]
+        [SerializeField] private float curveCompensation = 1f;
 
         [Header("Colores por estado")]
         [SerializeField] private Color soft = new Color(1f, 0.98f, 0.85f, 1f);
@@ -158,7 +160,8 @@ namespace Sprout.Presentation
             if (_orb == null || !_orb.gameObject.activeSelf) return;
 
             _t += Time.deltaTime;
-            _orb.localPosition = new Vector3(0, height + Mathf.Sin(_t * 2f) * 0.08f, 0);      // flotar
+            float curveY = CurvedWorldCompensation.OffsetY(transform.position, curveCompensation); // sigue la curva del mundo
+            _orb.localPosition = new Vector3(0, height + Mathf.Sin(_t * 2f) * 0.08f + curveY, 0); // flotar + compensar curva
             _orb.localScale = Vector3.one * size * (1f + Mathf.Sin(_t * 4f) * 0.12f);          // pulso
 
             if (_cam == null) _cam = Camera.main;
