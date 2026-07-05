@@ -15437,7 +15437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5038e7bfe1b1da94e96a900faeb22969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.CurvedWorldFollow
-  multiplier: 0.01
+  multiplier: 1
+  debugOnScreen: 0
 --- !u!1 &781359409 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8342c3f6b27fa694f99f783b4a9bb2bc, type: 3}
@@ -17882,7 +17883,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5038e7bfe1b1da94e96a900faeb22969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.CurvedWorldFollow
-  multiplier: 0.01
+  multiplier: 1
+  debugOnScreen: 0
 --- !u!1 &1011878163
 GameObject:
   m_ObjectHideFlags: 0
@@ -24258,7 +24260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5038e7bfe1b1da94e96a900faeb22969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.CurvedWorldFollow
-  multiplier: 0.01
+  multiplier: 1
+  debugOnScreen: 0
 --- !u!1 &1497458291
 GameObject:
   m_ObjectHideFlags: 0
@@ -29566,7 +29569,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5038e7bfe1b1da94e96a900faeb22969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.CurvedWorldFollow
-  multiplier: 0
+  multiplier: 1
+  debugOnScreen: 0
 --- !u!1 &1886286428
 GameObject:
   m_ObjectHideFlags: 0
