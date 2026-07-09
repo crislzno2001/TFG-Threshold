@@ -21,6 +21,7 @@ namespace Sprout.Presentation.UI
         private static readonly string[] Names = { "Acuariana", "Brasa", "Velada", "Sol", "Inquieta", "Crisálida", "Ánima" };
 
         private Label _selection, _result;
+        private Image _resultIcon;
         private readonly List<Button> _aButtons = new();
         private readonly List<Button> _bButtons = new();
         private FlowerKind _a = FlowerKind.None, _b = FlowerKind.None;
@@ -39,6 +40,8 @@ namespace Sprout.Presentation.UI
 
             _selection = root.Q<Label>("selection");
             _result = root.Q<Label>("result");
+            _resultIcon = root.Q<Image>("result-icon");
+            if (_resultIcon != null) _resultIcon.style.display = DisplayStyle.None;
 
             BuildRow(root.Q<VisualElement>("row-a"), _aButtons, k => { _a = k; RefreshHighlights(); Refresh(); });
             BuildRow(root.Q<VisualElement>("row-b"), _bButtons, k => { _b = k; RefreshHighlights(); Refresh(); });
@@ -50,9 +53,12 @@ namespace Sprout.Presentation.UI
 
             _a = _b = FlowerKind.None;
             if (_result != null) _result.text = "";
+            if (_resultIcon != null) _resultIcon.style.display = DisplayStyle.None;
             RefreshHighlights();
             Refresh();
         }
+
+        private Sprite IconFor(FlowerKind k) => flowerService != null ? flowerService.DefOf(k)?.icon : null;
 
         private void BuildRow(VisualElement row, List<Button> store, Action<FlowerKind> onPick)
         {
@@ -62,7 +68,22 @@ namespace Sprout.Presentation.UI
             for (int i = 0; i < Names.Length; i++)
             {
                 var k = (FlowerKind)(i + 1);
-                var b = new Button(() => onPick(k)) { text = Names[i] };
+                var b = new Button(() => onPick(k));
+                b.Clear(); // el ctor de Button mete un Label interno para el texto; lo quitamos, ponemos foto + nombre nosotras.
+
+                var icon = new Image
+                {
+                    sprite = IconFor(k),
+                    scaleMode = ScaleMode.ScaleToFit
+                };
+                icon.style.width = 48;
+                icon.style.height = 48;
+                icon.style.alignSelf = Align.Center;
+                b.Add(icon);
+
+                var label = new Label(Names[i]) { style = { fontSize = 11, unityTextAlign = TextAnchor.MiddleCenter, marginTop = 2 } };
+                b.Add(label);
+
                 Style(b, BtnState.Normal);
                 row.Add(b);
                 store.Add(b);
@@ -73,8 +94,10 @@ namespace Sprout.Presentation.UI
 
         private static void Style(Button b, BtnState state)
         {
-            b.style.width = 96; b.style.height = 38;
+            b.style.width = 84; b.style.height = 84;
             b.style.marginLeft = 4; b.style.marginRight = 4; b.style.marginTop = 4; b.style.marginBottom = 4;
+            b.style.justifyContent = Justify.Center;
+            b.style.alignItems = Align.Center;
             b.style.fontSize = 14;
             float r = 12;
             b.style.borderTopLeftRadius = r; b.style.borderTopRightRadius = r;
@@ -137,6 +160,20 @@ namespace Sprout.Presentation.UI
                 _result.text = result != BouquetKind.None
                     ? $"¡Has hecho un ramo: {result}!"
                     : "Esas flores no forman un ramo, o no las tienes.";
+
+            if (_resultIcon != null)
+            {
+                var sprite = result != BouquetKind.None ? flowerService.DefOf(result)?.icon : null;
+                if (sprite != null)
+                {
+                    _resultIcon.sprite = sprite;
+                    _resultIcon.style.display = DisplayStyle.Flex;
+                }
+                else
+                {
+                    _resultIcon.style.display = DisplayStyle.None;
+                }
+            }
             Refresh();
         }
 

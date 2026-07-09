@@ -17,7 +17,7 @@ MonoBehaviour:
   emotionalMeaning: Calm joy. A wish for things to be simple.
   ingredientA: 4
   ingredientB: 1
-  icon: {fileID: 21300000, guid: 5a60ea494ae0bab4fab4d75da34ca3f3, type: 3}
+  icon: {fileID: 21300000, guid: c4570276ff55da94cb6803541bc405a1, type: 3}
   model: {fileID: 4513319192800167014, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
   reactions:
   - npc: 0

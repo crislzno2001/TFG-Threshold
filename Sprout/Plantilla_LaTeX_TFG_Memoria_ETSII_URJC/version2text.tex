@@ -104,6 +104,7 @@
 %%%%%%%%%%%%%%%%%%%%%%% Estilo de código %%%%%%%%%%%%%%%%%%%%%%%
 
 \definecolor{bg}{rgb}{0.95,0.95,0.95}
+\definecolor{codeframe}{rgb}{0.75,0.75,0.75}
 \definecolor{mydeepteal}{rgb}{0.16,0.22,0.23}
 \definecolor{myteal}{rgb}{0.31,0.44,0.46}
 \definecolor{mymediumteal}{rgb}{0.41,0.58,0.60}
@@ -119,7 +120,8 @@
 basicstyle=\ttfamily\small,
 showstringspaces=false,
 backgroundcolor=\color{bg},
-rulecolor=\color{bg},
+rulecolor=\color{codeframe},
+frameround=fttt,
 breaklines=true,
 numbers=left,
 numbersep=5pt,
@@ -127,7 +129,8 @@ numberstyle=\tiny,
 tabsize=4,
 xleftmargin=1em,
 frame=single,
-framesep=3pt,
+framesep=4pt,
+framerule=0.8pt,
 upquote=true,
 literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{\~n}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1 {¡}{{!`}}1
 }
@@ -286,11 +289,11 @@ Breves agradecimientos o dedicatoria.
 
 \chapter*{Resumen}
 
-La evaluación del pensamiento divergente mediante instrumentos como los Tests de Torrance (TTCT) suele realizarse en contextos de examen que el propio carácter evaluativo puede condicionar. Este Trabajo Fin de Grado presenta \textit{Sprout}, un prototipo de videojuego narrativo en el que la jugadora regenta una floristería en un pequeño pueblo y conversa con cuatro personajes gobernados por un modelo de lenguaje a gran escala. Mientras conversa con naturalidad, el juego estima de forma implícita cuatro dimensiones del pensamiento divergente inspiradas en las subpruebas verbales del TTCT ---fluidez, flexibilidad, originalidad y elaboración---, sin que la jugadora perciba contexto evaluativo alguno.
+La evaluación del pensamiento divergente mediante instrumentos como los Tests de Torrance (TTCT) suele realizarse en contextos de examen que el propio carácter evaluativo puede condicionar. Este Trabajo Fin de Grado presenta \textit{Sprout}, un prototipo de videojuego narrativo en el que la jugadora regenta una floristería en un pequeño pueblo y conversa con cuatro personajes gobernados por un modelo de lenguaje a gran escala. Mientras conversa con naturalidad, el juego \textbf{estima de forma implícita} cuatro dimensiones del pensamiento divergente inspiradas en las subpruebas verbales del TTCT ---\textbf{fluidez, flexibilidad, originalidad y elaboración}---, sin que la jugadora perciba contexto evaluativo alguno.
 
-El sistema se sustenta sobre una arquitectura en capas con un dominio de lógica pura, independiente del motor, y sobre una herramienta propia: un editor visual de grafos de diálogo construido sobre la API GraphView del editor de Unity, que constituye el eje técnico del proyecto. El modelo de lenguaje desempeña un triple papel ---generación de diálogo en personaje, clasificación de la intención del jugador y evaluación de las ideas---, y las medidas resultantes se materializan en mecánicas jugables (flores emocionales, cotilleo nocturno y finales múltiples) en lugar de mostrarse como puntuaciones numéricas.
+El sistema se sustenta sobre una \textbf{arquitectura en capas} con un dominio de lógica pura, independiente del motor, y sobre una herramienta propia: un \textbf{editor visual de grafos de diálogo} construido sobre la API GraphView del editor de Unity, que constituye el eje técnico del proyecto. El modelo de lenguaje desempeña un \textbf{triple papel} ---generación de diálogo en personaje, clasificación de la intención del jugador y evaluación de las ideas---, y las medidas resultantes se materializan en mecánicas jugables (flores emocionales, cotilleo nocturno y finales múltiples) en lugar de mostrarse como puntuaciones numéricas.
 
-El alcance del trabajo es el de un prototipo funcional: se documenta el comportamiento del sistema, pero su validación psicométrica queda explícitamente fuera de alcance y se plantea como principal línea de trabajo futuro. La memoria detalla el diseño, la implementación técnica y el protocolo de evaluación de usabilidad y experiencia diseñado para el prototipo, cuya ejecución con participantes se plantea igualmente como trabajo futuro.
+El alcance del trabajo es el de un \textbf{prototipo funcional}: se documenta el comportamiento del sistema, pero su \textbf{validación psicométrica queda explícitamente fuera de alcance} y se plantea como principal línea de trabajo futuro. La memoria detalla el diseño, la implementación técnica y el protocolo de evaluación de usabilidad y experiencia diseñado para el prototipo, cuya ejecución con participantes se plantea igualmente como trabajo futuro.
 
 \mbox{} \bigskip
 
@@ -380,9 +383,9 @@ El alcance del trabajo es el de un prototipo funcional: se documenta el comporta
 
 \section{Motivación}
 
-Este Trabajo Fin de Grado nace de una pregunta que rara vez se hace en la intersección entre videojuegos e investigación psicológica: ¿puede un videojuego evaluar habilidades cognitivas sin que el jugador perciba que está siendo evaluado? La hipótesis de la que parte Sprout es que sí, y que el medio idóneo para hacerlo es una experiencia narrativa conversacional con personajes gobernados por inteligencia artificial. El motivo es estructural: el propio Torrance, creador del instrumento más utilizado para medir la creatividad, advertía ya en 1972 que la palabra ``test'' debía evitarse delante del participante para no inhibir las respuestas creativas. Sprout lleva ese principio hasta su consecuencia última: la evaluación no se disfraza de juego, es un juego.
+Este Trabajo Fin de Grado nace de una pregunta que rara vez se hace en la intersección entre videojuegos e investigación psicológica: \textbf{¿puede un videojuego evaluar habilidades cognitivas sin que el jugador perciba que está siendo evaluado?} La hipótesis de la que parte Sprout es que sí, y que el medio idóneo para hacerlo es una experiencia narrativa conversacional con personajes gobernados por inteligencia artificial. El motivo es estructural: el propio Torrance, creador del instrumento más utilizado para medir la creatividad, advertía ya en 1972 que la palabra ``test'' debía evitarse delante del participante para no inhibir las respuestas creativas. Sprout lleva ese principio hasta su consecuencia última: \textbf{la evaluación no se disfraza de juego, es un juego}.
 
-Para responder a esa pregunta, el proyecto se sitúa deliberadamente en el cruce de tres campos que rara vez coinciden en un mismo trabajo. La psicología de la creatividad aporta el constructo a medir ---el pensamiento divergente--- y un instrumento de referencia con casi sesenta años de vigencia, cuyas prescripciones de aplicación resultan sorprendentemente compatibles con el diseño de juegos. El diseño de videojuegos aporta el medio: un espacio donde el participante actúa motivado por la propia experiencia, sin la presión de rendimiento que caracteriza a la situación de examen. Y los modelos de lenguaje a gran escala aportan la pieza que hasta hace muy poco faltaba para unir los dos anteriores: la capacidad de sostener una conversación abierta en lenguaje natural y, al mismo tiempo, de analizar semánticamente lo que la jugadora escribe.
+Para responder a esa pregunta, el proyecto se sitúa deliberadamente en el cruce de tres campos que rara vez coinciden en un mismo trabajo. La \textbf{psicología de la creatividad} aporta el constructo a medir ---el pensamiento divergente--- y un instrumento de referencia con casi sesenta años de vigencia, cuyas prescripciones de aplicación resultan sorprendentemente compatibles con el diseño de juegos. El \textbf{diseño de videojuegos} aporta el medio: un espacio donde el participante actúa motivado por la propia experiencia, sin la presión de rendimiento que caracteriza a la situación de examen. Y los \textbf{modelos de lenguaje a gran escala} aportan la pieza que hasta hace muy poco faltaba para unir los dos anteriores: la capacidad de sostener una conversación abierta en lenguaje natural y, al mismo tiempo, de analizar semánticamente lo que la jugadora escribe.
 
 La elección de la creatividad como objeto de medida no es casual. Nace de una inquietud personal de la autora ante el auge de la inteligencia artificial y su posible efecto sobre la creatividad infantil: los juegos simbólicos de toda la vida —jugar a las maestras, a los leones, a las muñecas— compiten hoy con el móvil y la televisión, y con ellos parece retroceder el espacio donde antes se ejercitaba la imaginación. Frente a ese diagnóstico, Sprout no rechaza la tecnología que lo motiva, sino que la pone a su servicio: el mismo LLM que interpreta a los personajes y sostiene la conversación es también el que, de forma discreta, plantea a la jugadora preguntas que abren el pensamiento divergente. Puesto que la inteligencia artificial no parece que vaya a desaparecer, la apuesta del proyecto es que puede convivir con la creatividad humana e incluso ejercitarla de vez en cuando, en lugar de sustituirla por completo.
 
@@ -394,7 +397,7 @@ A la motivación académica se suma una personal: el deseo de cerrar el Grado co
 
 \subsection{Objetivo general}
 
-Diseñar e implementar un prototipo funcional de videojuego narrativo en Unity que estime de forma implícita indicadores de pensamiento divergente de la jugadora ---inspirados en las subpruebas verbales del Torrance Tests of Creative Thinking (Torrance, 1966/1974), sin pretensión de equivalencia con el instrumento--- a través de conversaciones con personajes no jugadores gobernados por un modelo de lenguaje conversacional con memoria persistente.
+Diseñar e implementar un \textbf{prototipo funcional} de videojuego narrativo en Unity que \textbf{estime de forma implícita} indicadores de pensamiento divergente de la jugadora ---inspirados en las subpruebas verbales del Torrance Tests of Creative Thinking (Torrance, 1966/1974), \textbf{sin pretensión de equivalencia con el instrumento}--- a través de conversaciones con personajes no jugadores gobernados por un modelo de lenguaje conversacional con memoria persistente.
 
 \subsection{Objetivos específicos}
 
@@ -424,7 +427,7 @@ El presente capítulo establece el marco teórico y referencial sobre el que se 
 
 \section{Videojuegos como herramienta de evaluación y experiencia interactiva}
 
-Los videojuegos ofrecen un contexto especialmente adecuado para observar la conducta del jugador sin interrumpir la experiencia. A diferencia de una prueba tradicional, en la que el participante sabe que está siendo evaluado, el videojuego permite integrar las tareas dentro de la ficción y convertirlas en acciones naturales del mundo de juego.
+Los videojuegos ofrecen un contexto especialmente adecuado para \textbf{observar la conducta del jugador sin interrumpir la experiencia}. A diferencia de una prueba tradicional, en la que el participante sabe que está siendo evaluado, el videojuego permite integrar las tareas dentro de la ficción y convertirlas en acciones naturales del mundo de juego.
 
 Esta idea resulta central en \textit{Sprout}. El objetivo no es presentar al jugador una prueba explícita de creatividad, sino esconder la estimación dentro de conversaciones narrativas con los vecinos. Así, una consigna propia de una tarea verbal del TTCT ---por ejemplo, imaginar usos alternativos para un objeto o proponer mejoras para un producto--- se transforma en la petición cotidiana de un personaje. La jugadora responde motivada por la historia, no por obtener una puntuación.
 
@@ -513,7 +516,7 @@ El reto real de la inyección no es técnico sino de selección: no cabe todo el
 
 La integración de IA conversacional en contextos donde se recogen respuestas cognitivas de los usuarios exige un posicionamiento ético claro y explícito. Sprout no es ---ni se presenta como--- herramienta terapéutica, herramienta de diagnóstico psicológico, ni instrumento de selección de personal. Es un prototipo de entretenimiento con un componente experimental de evaluación implícita, con fines exclusivamente de investigación y demostración técnica en el contexto de este TFG.
 
-El segundo frente ético es el tratamiento de datos. Las conversaciones de la jugadora se envían a la API de OpenAI para su procesamiento, hecho que se declara de forma explícita; el guardado de partida ---incluidos los recuerdos de los NPCs, que pueden contener información que la jugadora decidió compartir--- se almacena únicamente de forma local en su equipo, y la clave de API nunca se incrusta en el proyecto (sección 5.4). En el protocolo de playtesting diseñado para el prototipo (Cap. VI) se establece que los participantes serán informados del funcionamiento del sistema y de la finalidad académica del estudio, darán su consentimiento y sus datos se registrarán de forma anonimizada, sin recopilar información personal identificable.
+El segundo frente ético es el tratamiento de datos. Las conversaciones de la jugadora se envían a la API de OpenAI para su procesamiento, hecho que se declara de forma explícita; el guardado de partida ---incluidos los recuerdos de los NPCs, que pueden contener información que la jugadora decidió compartir--- se almacena únicamente de forma local en su equipo, y la clave de API nunca se incrusta en el proyecto (sección 5.4). En el protocolo de playtesting diseñado para el prototipo (Cap. VII) se establece que los participantes serán informados del funcionamiento del sistema y de la finalidad académica del estudio, darán su consentimiento y sus datos se registrarán de forma anonimizada, sin recopilar información personal identificable.
 
 
 
@@ -525,21 +528,15 @@ Este capítulo recoge la metodología y la gestión del proyecto en cuatro frent
 
 El desarrollo de Sprout no ha seguido un marco ágil formal como Scrum: al ser un Trabajo Fin de Grado desarrollado por una sola persona, roles como \textit{Product Owner} o ceremonias como el \textit{daily scrum} no tienen sentido si no hay a quién sincronizar cada mañana. La caracterización correcta es la de un desarrollo \textbf{incremental e iterativo con gestión del riesgo en espiral} (Boehm, 1988): el sistema se entregó en sucesivos incrementos que añaden funcionalidad sobre el anterior, revisando y refinando lo ya construido a la luz de lo aprendido en cada uno.
 
-El rasgo distintivo es la orientación al riesgo propia del modelo en espiral: cada ciclo ataca primero el mayor riesgo pendiente. En Sprout, los mayores riesgos técnicos ---que la conversación con el LLM no funcionase con la latencia y coherencia necesarias, y que el grafo de diálogo no pudiera integrarse con la conversación libre--- se resolvieron primero, con prototipos desechables, antes de invertir esfuerzo en arte, interfaz o contenido narrativo.
+El rasgo distintivo es la orientación al riesgo del modelo en espiral: cada ciclo ataca primero el mayor riesgo pendiente. En Sprout, los mayores riesgos técnicos ---que la conversación con el LLM no funcionase con la latencia y coherencia necesarias, y que el grafo de diálogo no pudiera integrarse con la conversación libre--- se resolvieron primero, con prototipos desechables, antes de invertir esfuerzo en arte, interfaz o contenido narrativo.
 
 El trabajo se organizó en incrementos sucesivos, cada uno centrado en un subsistema aislado. \textcolor{gray}{\textit{[Ajustar a los hitos reales; ejemplo orientativo:] (1) esqueleto de arquitectura por capas y máquinas de estado; (2) editor visual de grafos de diálogo; (3) integración del LLM conversacional con memoria; (4) evaluación implícita de creatividad; (5) floristería emocional y macetero; (6) sistema de guardado, menús y onboarding; (7) mundo curvado y pulido visual.}} Lo que hace el proceso iterativo, y no en cascada, es la revisión de decisiones anteriores a la luz de lo que exigen los incrementos siguientes: un ejemplo documentado es el componente \texttt{CurvedWorldOriginSetter} (Cap. V), cuya primera versión mantenía una lista de materiales asignada a mano y una iteración posterior sustituyó por propiedades globales autogestionadas. Esa capacidad de refinar sin arrastrar al resto del sistema se apoya en la arquitectura por capas y el desacoplamiento por eventos del Capítulo V.
-
-\section{Planificación temporal}
-
-\textcolor{gray}{\textit{[Redactar con el cronograma real: fases del proyecto (documentación y estado del arte; arquitectura y herramienta de grafos; IA conversacional; evaluación implícita; floristería y mundo; interfaz, guardado y pulido; memoria), fechas de inicio y fin de cada una, y dedicación aproximada.]}}
-
-\textcolor{gray}{\textit{[Figura sugerida: diagrama de Gantt con las fases anteriores sobre los meses del curso, marcando hitos (primer diálogo con LLM funcionando, editor de grafos completo, vertical slice, publicación en itch.io, entrega de la memoria).]}}
 
 \section{Presupuesto}
 
 Aunque Sprout es un prototipo académico sin ánimo de lucro, estimar su coste de desarrollo es un ejercicio de ingeniería pertinente, tanto para dimensionar el esfuerzo invertido como para valorar una hipotética producción. La estimación sigue el enfoque clásico de la economía del software, según el cual el coste se descompone en coste de personal ---la partida dominante en el software--- más costes de material amortizados y costes de servicios.
 
-El coste de personal se deriva del esfuerzo dedicado: 360 horas repartidas a lo largo de 6 meses de desarrollo. Como tarifa de referencia se toma el salario bruto anual medio de un perfil junior de programación de videojuegos en España, unos 22.000 €/año (Indeed, Glassdoor, 2025), que sobre una jornada efectiva de referencia de 1.750 h/año equivale a un coste bruto de aproximadamente 12,6 €/h; aplicando el incremento habitual por cotizaciones sociales a cargo de la empresa (en torno al 30--33 \%), el coste-hora cargado asciende a unos 17 €/h. Con las 360 h dedicadas, el coste de personal estimado es de 360 $\times$ 17 $\approx$ 6.120 €. Los costes de material se amortizan por la fracción de vida útil consumida durante el proyecto, y los costes de servicios recogen el gasto variable por uso de la API del modelo de lenguaje. Las herramientas de desarrollo empleadas (motor Unity bajo licencia gratuita para uso personal/estudiante, editor de código y control de versiones) no supusieron coste de licencia. La Tabla~\ref{tab:presupuesto} resume las partidas; las cifras de hardware y servicios son orientativas y deben ajustarse al equipo real y al consumo real de la API.
+El coste de personal se deriva del esfuerzo dedicado: \textbf{360 horas repartidas a lo largo de 6 meses} de desarrollo. Como tarifa de referencia se toma el salario bruto anual medio de un perfil junior de programación de videojuegos en España, unos 22.000 €/año (Indeed, Glassdoor, 2025), que sobre una jornada efectiva de referencia de 1.750 h/año equivale a un coste bruto de aproximadamente 12,6 €/h; aplicando el incremento habitual por cotizaciones sociales a cargo de la empresa (en torno al 30--33 \%), el coste-hora cargado asciende a unos 17 €/h. Con las 360 h dedicadas, el coste de personal estimado es de 360 $\times$ 17 $\approx$ \textbf{6.120 €}. Los costes de material se amortizan por la fracción de vida útil consumida durante el proyecto, y los costes de servicios recogen el gasto variable por uso de la API del modelo de lenguaje. Las herramientas de desarrollo empleadas (motor Unity bajo licencia gratuita para uso personal/estudiante, editor de código y control de versiones) no supusieron coste de licencia. La Tabla~\ref{tab:presupuesto} resume las partidas; las cifras de hardware y servicios son orientativas y deben ajustarse al equipo real y al consumo real de la API.
 
 \begin{table}[h]
   \centering
@@ -557,9 +554,9 @@ El coste de personal se deriva del esfuerzo dedicado: 360 horas repartidas a lo 
     \hline
     Software y licencias (Unity, editor, control de versiones) & Licencias gratuitas & 0 \\
     \hline
-    Servicios (API del modelo de lenguaje) & Coste variable por uso (tokens), consumo de desarrollo/pruebas & \textcolor{gray}{[ajustar con el gasto real del panel de OpenAI]} \\
+    Servicios (API del modelo de lenguaje) & Coste variable por uso (tokens), consumo de desarrollo/pruebas & $\sim$10--20 \\
     \hline
-    \textbf{Total estimado} & & \textcolor{gray}{$\sim$6.270 + API} \\
+    \textbf{Total estimado} & & \textbf{$\sim$6.280--6.290 €} \\
     \hline
   \end{tabular}
   \end{footnotesize}
@@ -567,11 +564,18 @@ El coste de personal se deriva del esfuerzo dedicado: 360 horas repartidas a lo 
 
 Conviene subrayar una particularidad de este proyecto frente al software convencional: el coste de la API del modelo de lenguaje es un \textit{coste variable por partida}, ya que cada conversación con un vecino consume tokens de entrada y salida. Esta característica, irrelevante en la estimación de un producto tradicional, resulta central en Sprout y condiciona directamente el análisis de negocio de la sección siguiente.
 
+La cifra de la tabla se estima, no se mide directamente. Sprout usa \texttt{gpt-4o-mini}, cuyo precio vigente en 2026 es de 0,15 \$ por millón de tokens de entrada y 0,60 \$ por millón de tokens de salida (OpenAI). Un turno de diálogo típico envía entre 1.000 y 1.300 tokens de entrada (system prompt del personaje, contexto del nodo, memoria y banderas) y recibe entre 100 y 150 de salida; en los nodos de reto se suma además la llamada al evaluador de creatividad (sección 5.5), de coste marginal por su límite de 70 tokens de salida. Con esas cifras, una partida completa de varios días y en torno a 150 turnos de jugador cuesta del orden de 0,03--0,05 \$ (3--5 céntimos). Multiplicado por las decenas de partidas parciales y completas jugadas durante las pruebas de los 6 meses de desarrollo, el gasto total en API se sitúa razonablemente en torno a los \textbf{10--20 €}, una cifra que debe contrastarse con el importe real del panel de facturación de OpenAI antes de cerrar la memoria, ya que esta estimación no sustituye a esa comprobación.
+
 \subsection{Coste realista de completar el proyecto}
 
-El presupuesto anterior refleja el coste del prototipo tal y como existe, desarrollado en solitario como TFG. Otra pregunta, distinta y pertinente, es cuánto costaría llevarlo de \textit{vertical slice} a producto terminado si se encargara en condiciones reales de mercado. Llevarlo a ese punto exigiría, como mínimo: ampliar el contenido narrativo más allá de los tres días y cuatro vecinos actuales; completar el arte, la animación y el sonido a nivel de publicación; una fase de control de calidad (QA) sistemática; y ejecutar el protocolo de evaluación con usuarios diseñado en el Capítulo VI, hoy solo especificado. Ese alcance ya no lo cubre una sola persona: un equipo pequeño y realista sería de dos perfiles, un/a programador/a y un/a artista, ambos junior o semi-senior.
+El presupuesto anterior refleja el coste del prototipo tal y como existe, desarrollado en solitario como TFG. Otra pregunta, distinta y pertinente, es cuánto costaría llevarlo de \textit{vertical slice} a producto terminado si se encargara en condiciones reales de mercado. Aquí conviene distinguir dos escalas de ambición muy distintas, porque el coste no crece linealmente con el contenido.
 
-Asumiendo un desarrollo adicional de unos 4 meses a dedicación completa (unas 640 h por perfil, 1.280 h en total) a un coste-hora cargado similar al anterior (17--20 €/h, algo mayor para el perfil artístico), el coste de personal de esta fase rondaría los 24.000 €. A eso se suma el propio protocolo de evaluación (facilitación de 10--15 sesiones de unos 30 minutos más incentivos a las participantes, del orden de 500--700 €), el consumo de API a mayor escala durante pruebas y publicación (variable, pendiente de medir con tráfico real), y una partida de publicación (comisión de plataforma, p. ej. Steam cobra una cuota única de 100 \$). En conjunto, un rango realista para terminar y publicar Sprout como producto se sitúa en torno a los 25.000--30.000 € adicionales a lo ya invertido, lejos del coste marginal del prototipo académico pero modesto frente a un desarrollo de estudio convencional, precisamente porque la mayor parte del riesgo técnico ---la arquitectura del diálogo con IA y el sistema de evaluación implícita--- ya está resuelta.
+La opción \textbf{mínima} es cerrar el alcance actual como un juego pequeño pero completo: pulir el contenido de los tres días y cuatro vecinos ya diseñados, completar arte y sonido a nivel de publicación, una fase de QA sistemática, y ejecutar el protocolo de evaluación de usabilidad diseñado en el Capítulo VII. Un equipo de dos perfiles (programador/a y artista, junior o semi-senior) durante 4 meses a dedicación completa (1.280 h en total, 17--20 €/h cargado) sitúa el coste de personal en torno a 24.000 €; sumando el protocolo de evaluación (500--700 €), el consumo de API a mayor escala y la cuota de publicación en Steam (100 \$), el rango realista para esta opción es de \textbf{25.000--30.000 € adicionales}.
+
+La opción \textbf{ambiciosa} es la que de verdad reflejaría el potencial de la premisa: un pueblo mucho más grande y personalizable en la línea de \textit{Animal Crossing}, más vecinos, más días de contenido, mecánicas adicionales (decoración, estaciones, eventos recurrentes) y una narrativa tan ramificada como la que se ha empezado a diseñar en las últimas iteraciones del grafo de diálogo. Ese alcance ya exige un equipo pequeño de estudio, no una pareja de freelance: un mínimo razonable serían 5 perfiles (dos programadores, dos artistas y un/a diseñador/a narrativo o de sonido) durante 12--18 meses a dedicación completa. Con una media de 1.700 h/año por perfil y un coste-hora cargado de 18--22 €/h, la partida de personal por sí sola se mueve entre 130.000 y 190.000 €; sumando activos de arte y audio adicionales, marketing, QA extendido y publicación, el rango total razonable para esta escala es de \textbf{180.000--250.000 €}, un orden de magnitud coherente con lo que reportan estudios indie de tamaño similar para un juego \textit{cozy}/life-sim de ambición media (rangos habituales de 50.000 a 500.000 \$ según equipo y alcance).
+
+A cualquiera de las dos escalas se le puede sumar, como partida independiente, la \textbf{validación psicométrica} propiamente dicha (línea de trabajo futuro prioritaria, sección 7.4.2): esto exige la colaboración de un/a psicólogo/a o psicometrista con formación en el TTCT, no solo desarrolladores. Como referencia de tarifas de consultoría psicológica en España (50--80 €/h), y estimando unas 80--120 h de trabajo especializado para diseñar el estudio con el instrumento oficial, administrar el TTCT-Verbal a la muestra y analizar los resultados, esa colaboración rondaría los \textbf{6.000--10.000 €}, a los que se suma el coste de los materiales oficiales del TTCT-Verbal (manual técnico, baremos y corrección estandarizada vía Scholastic Testing Service), cuyo precio no está publicado y requeriría solicitar presupuesto directamente a STS antes de dar una cifra en firme.
+
 
 \section{Modelo de negocio y viabilidad}
 Aunque \textit{Sprout} se ha desarrollado como un Trabajo de Fin de Grado, desde el inicio se ha planteado como una \textit{vertical slice} que podría evolucionar hacia un videojuego independiente. Por ello, resulta útil incluir una reflexión sobre su posible modelo de negocio. 
@@ -580,7 +584,7 @@ Para ordenar este análisis se toma como referencia el \textit{Lean Canvas}, una
 
 \subsection{Propuesta de valor}
 
-La propuesta de valor de \textit{Sprout} nace del contraste entre una apariencia amable y unas relaciones sociales que pueden volverse incómodas. El juego se presenta como una experiencia cozy: una floristería, un pueblo pequeño y vecinos de aspecto adorable. Sin embargo, bajo esa superficie luminosa, los personajes recuerdan lo ocurrido, pueden cambiar su actitud hacia la jugadora y arrastran las conversaciones de un día a otro.
+La propuesta de valor de \textit{Sprout} nace del \textbf{contraste entre una apariencia amable y unas relaciones sociales que pueden volverse incómodas}. El juego se presenta como una experiencia cozy: una floristería, un pueblo pequeño y vecinos de aspecto adorable. Sin embargo, bajo esa superficie luminosa, los personajes recuerdan lo ocurrido, pueden cambiar su actitud hacia la jugadora y arrastran las conversaciones de un día a otro.
 
 Esta idea toma como referencia la incomodidad conversacional de \textit{Façade}, pero trasladada a un entorno más accesible y menos agresivo. El conflicto no aparece mediante combate ni grandes decisiones explícitas, sino a través de pequeños gestos sociales: una mentira dicha para evitar un daño, una confesión ignorada, una ayuda demasiado interesada o un secreto que acaba circulando por el pueblo. Al llegar la noche, los vecinos hablan entre ellos sin la florista, de modo que las conversaciones no quedan aisladas en el momento en que ocurren, sino que pueden transformarse en rumores, cambios de relación o nuevas escenas.
 
@@ -591,13 +595,13 @@ Por último, la floristería convierte esas consecuencias en algo visible. Mient
 
 \subsection{Público objetivo}
 
-El público objetivo principal estaría formado por jugadores de PC interesados en videojuegos independientes, narrativos y cozy. No se trata de un juego orientado a un público masivo, sino a un nicho concreto que valora las experiencias tranquilas, los personajes con personalidad y las decisiones con consecuencias.
+El público objetivo principal estaría formado por jugadores de PC interesados en videojuegos independientes, narrativos y cozy. \textbf{No se trata de un juego orientado a un público masivo}, sino a un nicho concreto que valora las experiencias tranquilas, los personajes con personalidad y las decisiones con consecuencias.
 
 Dentro de ese público pueden distinguirse tres perfiles principales. En primer lugar, jugadores de juegos cozy o life-sim, interesados en pueblos pequeños, rutinas, decoración y relaciones con vecinos. En segundo lugar, jugadores de narrativa interactiva, que buscan personajes complejos y decisiones morales. Por último, usuarios interesados en propuestas experimentales con IA, especialmente si la IA no se usa solo como novedad técnica, sino integrada en una estructura narrativa.
 
 \subsection{Modelo de ingresos}
 
-El modelo de ingresos más adecuado para \textit{Sprout} sería un modelo \textit{premium indie}, basado en una compra única del juego. Esta opción resulta más coherente que un modelo gratuito con anuncios o micropagos, ya que el tono del proyecto depende mucho de la confianza, la calma y la relación emocional con los personajes. Introducir publicidad o monetización agresiva rompería parte de esa experiencia.
+El modelo de ingresos más adecuado para \textit{Sprout} sería un modelo \textbf{\textit{premium indie}}, basado en una compra única del juego. Esta opción resulta más coherente que un modelo gratuito con anuncios o micropagos, ya que el tono del proyecto depende mucho de la confianza, la calma y la relación emocional con los personajes. Introducir publicidad o monetización agresiva rompería parte de esa experiencia.
 
 La estrategia más razonable sería publicar primero una demo gratuita, por ejemplo en itch.io, para comprobar si la propuesta se entiende y genera interés. Posteriormente, una versión más pulida podría lanzarse en Steam. Esta plataforma exige una tasa Steam Direct de 100 dólares por aplicación, recuperable si el producto alcanza 1.000 dólares de ingresos brutos ajustados. itch.io, por su parte, permite publicar proyectos con un reparto flexible de ingresos, con una comisión por defecto del 10 por ciento.
 
@@ -664,7 +668,7 @@ La IA no funciona como un chatbot aislado, sino integrada en un sistema narrativ
 
 \chapter{Diseño del videojuego}
 
-Este capítulo detalla el diseño de Sprout: de la premisa al detalle de la mecánica diferencial. Se estructura siguiendo el camino que cualquier equipo de diseño recorre al definir un videojuego: primero el concepto y los pilares (4.1), después los espacios y el ritmo del juego (4.2), los personajes y su mapeo a las subpruebas del TTCT (4.3), la arquitectura narrativa ramificada (4.4), la operacionalización de la evaluación implícita (4.5), la mecánica diferencial de la floristería emocional (4.6) y, para cerrar, una visión integrada de la experiencia: su estructura por fases, su ritmo y el conjunto completo de mecánicas (4.7).
+Este capítulo detalla el diseño de Sprout: de la premisa al detalle de la mecánica diferencial. Se estructura siguiendo el camino que cualquier equipo de diseño recorre al definir un videojuego: primero el concepto y los pilares (4.1), después los espacios y el ritmo del juego (4.2), los personajes y su mapeo a las subpruebas del TTCT (4.3), la arquitectura narrativa ramificada (4.4), la operacionalización de la evaluación implícita (4.5), la mecánica diferencial de la floristería emocional (4.6), las decisiones de diseño que requieren defensa explícita (4.7) y, para cerrar, una visión integrada de la experiencia: su estructura por fases, su ritmo y el conjunto completo de mecánicas (4.8).
 
 \section{Concepto y premisa}
 
@@ -682,7 +686,7 @@ El espacio de juego de Sprout está deliberadamente acotado: un pueblo pequeño 
 
 La floristería es el hub en un doble sentido. Funcionalmente, es el punto al que la jugadora regresa entre visitas: allí están la estación de crear ramos y el macetero del jardín. Narrativamente, es la herencia que justifica la premisa ---la tienda que la abuela deja a la protagonista--- y el espacio donde el juego cuenta sin hablar: el jardín funciona como narrador silencioso, porque las flores que brotan de conversaciones son  el registro físico y acumulativo de lo que la jugadora ha hecho y de cómo lo ha hecho. 
 
-La estructura del día en cuatro momentos (mañana, mediodía, tarde, noche) ordena el ritmo de visitas: las fases diurnas son de conversación y decisión, y la noche ---no jugable de la misma manera--- es la fase de pago, en la que el pueblo procesa lo ocurrido (sección 4.7).
+La estructura del día en cuatro momentos (mañana, mediodía, tarde, noche) ordena el ritmo de visitas: las fases diurnas son de conversación y decisión, y la noche ---no jugable de la misma manera--- es la fase de pago, en la que el pueblo procesa lo ocurrido (sección 4.8).
 
 \textcolor{gray}{\textit{[Figuras sugeridas: (1) mapa esquemático del pueblo con la floristería como hub y los rincones de los cuatro vecinos; (2) captura del interior de la floristería; (3) captura del macetero con flores brotadas tras una noche.]}}
 
@@ -755,12 +759,12 @@ La partida cierra con cinco desenlaces, resueltos en orden de prioridad según l
     \centering
     \includegraphics[width=0.5\linewidth]{final.png}
     \caption{Enter Caption}
-    \label{fig:placeholder}
+    \label{fig:placeholder2}
 \end{figure}
 
 \section{Diseño de la evaluación implícita}
 
-El núcleo distintivo de Sprout es su sistema de evaluación implícita: el juego mide pensamiento divergente sin que la jugadora perciba el contexto evaluativo. La medición se restringe deliberadamente a los \textit{nodos de reto creativo} de cada trama (Tabla~\ref{tab:mapeo_ttct}) ---los momentos en que un vecino pide ideas---, dejando fuera saludos y charla cotidiana: las subpruebas del TTCT evalúan producción divergente ante una consigna, no conversación espontánea, y puntuar mensajes sin intención ideativa contaminaría las medidas. La operacionalización de las dimensiones (fluidez, flexibilidad, originalidad, elaboración, y una rúbrica ampliada de cinco dimensiones adicionales que alimentan las mecánicas del juego sin formar parte del marco TTCT) se detalla como implementación técnica en la sección 5.5; baste señalar aquí que, deliberadamente, no se calcula ningún índice compuesto normativo ni «fortalezas creativas» al estilo del TTCT figural, pues eso exigiría baremos poblacionales de los que el prototipo carece y sugeriría una robustez psicométrica que el sistema no reclama (sección 2.2.5).
+El núcleo distintivo de Sprout es su sistema de evaluación implícita: \textbf{el juego mide pensamiento divergente sin que la jugadora perciba el contexto evaluativo}. La medición se restringe deliberadamente a los \textit{nodos de reto creativo} de cada trama (Tabla~\ref{tab:mapeo_ttct}) ---los momentos en que un vecino pide ideas---, dejando fuera saludos y charla cotidiana: las subpruebas del TTCT evalúan producción divergente ante una consigna, no conversación espontánea, y puntuar mensajes sin intención ideativa contaminaría las medidas. La operacionalización de las dimensiones (fluidez, flexibilidad, originalidad, elaboración, y una rúbrica ampliada de cinco dimensiones adicionales que alimentan las mecánicas del juego sin formar parte del marco TTCT) se detalla como implementación técnica en la sección 5.5; baste señalar aquí que, deliberadamente, no se calcula ningún índice compuesto normativo ni «fortalezas creativas» al estilo del TTCT figural, pues eso exigiría baremos poblacionales de los que el prototipo carece y sugeriría una robustez psicométrica que el sistema no reclama (sección 2.2.5).
 
 El feedback a la jugadora nunca es numérico: se comunica por canales diegéticos ---las flores que brotan cada noche (sección 4.6), las frases del resumen nocturno, y el resumen poético del final, que describe el estilo de pensamiento de la partida con imágenes en lugar de puntuaciones («No diste respuestas rápidas. Les pusiste textura, sombra y bordes.»)---. La coherencia con la filosofía de aplicación no amenazante de Torrance (sección 2.2.4) es total: ni siquiera en el desenlace el juego confiesa que ha estado midiendo.
 
@@ -800,7 +804,7 @@ El vocabulario de la mecánica son siete flores, cada una asociada a una emoció
   \end{footnotesize}
 \end{table}
 
-Sobre ese vocabulario se construye una gramática de ocho ramos, cada uno resultado de combinar dos flores concretas: \textit{Paz} (Sol + Acuariana), \textit{Consuelo} (Velada + Acuariana), \textit{Promesa} (Sol + Ánima), \textit{Confesión} (Crisálida + Ánima), \textit{Obsesión} (Brasa + Inquieta), \textit{Deseo oculto} (Brasa + Crisálida), \textit{Despedida} (Velada + Brasa) y \textit{Sospecha} (Inquieta + Crisálida). Las combinaciones sin receta no producen nada, lo que convierte el crafteo en un pequeño espacio de experimentación. La tabla completa, junto con las reacciones diferenciales de los cuatro vecinos a cada ramo, se recoge en el Anexo E; baste aquí un ejemplo del principio de diferencialidad: el ramo de \textit{Consuelo} hace llorar de gratitud a Mochi, abre a Aster, es malinterpretado por Moth como lástima y ofende a Rix (``no me tengas lástima''), de modo que regalar exige teoría de la mente, no solo inventario.
+Sobre ese vocabulario se construye una gramática de ocho ramos, cada uno resultado de combinar dos flores concretas: \textit{Paz} (Sol + Acuariana), \textit{Consuelo} (Velada + Acuariana), \textit{Promesa} (Sol + Ánima), \textit{Confesión} (Crisálida + Ánima), \textit{Obsesión} (Brasa + Inquieta), \textit{Deseo oculto} (Brasa + Crisálida), \textit{Despedida} (Velada + Brasa) y \textit{Sospecha} (Inquieta + Crisálida). Las combinaciones sin receta no producen nada, lo que convierte el crafteo en un pequeño espacio de experimentación. La reacción de cada vecino a un ramo se define por personaje en un \texttt{BouquetDefinitionSO}. En el prototipo, dos ramos ---\textit{Consuelo} y \textit{Obsesión}--- tienen ya una reacción y una variación de relación completamente distintas para cada uno de los cuatro vecinos; los seis ramos restantes comparten todavía una reacción base coherente con la personalidad de cada personaje (Mochi dramático, Aster nervioso, Moth sobre-interpretando, Rix indiferente), a falta de contenido narrativo específico por combinación, extensión que queda señalada como trabajo futuro cercano. Baste aquí el ejemplo ya diferenciado del ramo de \textit{Consuelo}: hace llorar de gratitud a Mochi, calma a Aster, lo malinterpreta Moth y ofende a Rix (``no me tengas lástima'', salvo que ya confíe en la florista), de modo que regalar exige ya, al menos en parte del sistema, teoría de la mente y no solo inventario. La tabla completa se recoge en el Anexo E.
 
 La justificación académica del bucle decisión-emoción-consecuencia es doble. Por un lado, materializa el tercer pilar de diseño (consecuencia legible) en un objeto persistente y visible ---el jardín--- sin recurrir a métricas, sosteniendo la invisibilidad de la evaluación. Por otro, cierra el circuito conductual que la evaluación implícita necesita: la conducta creativa y moral genera flores, las flores habilitan decisiones nuevas (qué ramo crear, a quién regalarlo), y esas decisiones vuelven a generar conducta observable. La mecánica diferencial no es un adorno sobre el sistema de medida: es su interfaz.
 
@@ -1074,23 +1078,35 @@ Todos los nodos derivan de la clase abstracta \texttt{DialogueNodeSO}, que reún
 
 La distinción entre el ChoiceNode y el ConversationNode es la que mejor ilustra la filosofía del sistema, y ambos comparten un rasgo clave: en ninguno de los dos elige la jugadora de un menú, sino que escribe libremente y es la IA quien decide, contra un criterio en lenguaje natural definido en el propio nodo, hacia dónde avanza la historia. El ChoiceNode acota ese criterio a un conjunto cerrado de destinos posibles (una condición por rama); el ConversationNode, en cambio, no tiene ramas: solo comprueba, mensaje a mensaje, si ya se puede dar por cerrado el tema y pasar al siguiente nodo.
 
-\revisar{el grafo de mochi no me convence, si lo cambio cambiar este texto}
-Un ejemplo real del proyecto, tomado directamente del nodo \texttt{Mochi\_taste} (\texttt{ChoiceNodeSO}): el contexto que recibe la IA es \textit{``TARDE. Mochi ofrece un risotto experimental amargo y espera reacción. Decisión clave del jugador: honestidad con tacto, mentira amable, crueldad, o evasiva''}, y sus cuatro opciones no llevan texto de botón alguno, solo una condición y un destino, por ejemplo \textit{``el jugador es honesto con tacto (dice que no está bueno sin ser cruel)''} o \textit{``el jugador es cruel o se burla de la comida''}. La jugadora simplemente escribe lo que le diría a Mochi, y la IA decide cuál de las cuatro ramas describe mejor su respuesta.
-\revisar{poner aqui una foto}
+Un ejemplo real del proyecto, tomado directamente del nodo \texttt{Rix\_moth\_or\_flirt} (\texttt{ChoiceNodeSO}, Figura~\ref{fig:rix_moth}): Rix acaba de confesarle a la florista que le gusta, y sus dos opciones no llevan texto de botón alguno, solo una condición y un destino, \textit{``la florista le dice que a ella no le gusta o habla bien de Moth''} y \textit{``la florista tontea con Rix''}. La jugadora simplemente escribe su respuesta, y la IA decide cuál de las dos ramas describe mejor lo que ha dicho. Cada rama lleva a un \texttt{ConversationNode} distinto que fija banderas distintas al entrar ---\texttt{player\_was\_honest} y \texttt{rix\_curiosity} si la florista habla bien de Moth; \texttt{rix\_curiosity} y \texttt{unresolved\_argument} si tontea con Rix---, y ambos convergen en el mismo nodo de despedida, de modo que la ramificación de la conversación deja una consecuencia real sobre el estado narrativo y no solo una réplica distinta.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{rix_moth.png}
+    \caption{Enter Caption}
+    \label{fig:rix_moth}
+\end{figure}
 \subsection{Puertas narrativas y banderas de estado}
 El control del progreso narrativo se realiza mediante banderas (flags) booleanas. Cada nodo puede declarar una lista de requisitos previos, donde cada requisito asocia el nombre de una bandera con el valor esperado. Antes de permitir el acceso a un nodo, el sistema comprueba que todas las banderas requeridas tengan el valor previsto; si no es así, el nodo permanece bloqueado y se devuelve la respuesta definida para ese caso. De manera complementaria, un nodo puede activar banderas al ser alcanzado, lo que permite que la historia registre que la jugadora ha pasado por un determinado momento y desbloquee, en consecuencia, contenidos posteriores.
 
 Esta misma comprobación de banderas es también el mecanismo de ramificación de los SpeechNode: un nodo puede tener más de un nodo siguiente candidato, y el motor recorre la lista en orden y elige el primero cuyas banderas se cumplan (con un último candidato sin requisitos a modo de ``en caso contrario''). Esto permite bifurcar la historia según el estado acumulado del juego, sin necesidad de que la jugadora tome ninguna decisión explícita en ese punto. Este mecanismo convierte el grafo en una máquina narrativa con memoria de estado, cuyas banderas alimentan además el sistema de cotilleos nocturnos y la resolución del final.
-\revisar{poner aqui una foto}
-
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{prerrequisitegates.png}
+    \caption{Enter Caption}
+    \label{fig:placeholder}
+\end{figure}
 \subsection{El editor visual basado en GraphView}
 El editor se materializa en una ventana de editor accesible desde el menú de herramientas de Unity, que ofrece acciones para guardar y cargar grafos. El lienzo proporciona las manipulaciones habituales de un editor de grafos ---zoom, desplazamiento, rejilla de fondo y selección por rectángulo--- y responde a la petición de creación de nodos abriendo un buscador que permite insertar cualquiera de los tres tipos de nodo en la posición del cursor. Cada nodo se dibuja codificando su tipo por color ---azul para Speech, marrón para Choice y verde para Conversation---, lo que facilita la lectura del grafo de un vistazo. Dentro de cada caja se exponen, de forma editable en línea, los campos relevantes del nodo.
 
 Las conexiones se establecen a través de puertos: cada nodo dispone de un puerto de entrada de capacidad múltiple y, salvo los ChoiceNode, de un único puerto de salida que también admite varias conexiones a la vez ---el soporte visual del ramificado por banderas descrito en la sección anterior---. Los ChoiceNode, en cambio, generan un puerto de salida independiente y de conexión única por cada opción, de modo que cada rama de la elección se traza visualmente por separado y queda inequívocamente asociada a su condición.
 
-\textcolor{gray}{\textit{[Figura sugerida (imprescindible): captura del editor de grafos con un diálogo real abierto, donde se aprecien los tres tipos de nodo por color, los puertos y varias conexiones. Es la imagen que mejor demuestra la herramienta propia del proyecto.]}}
-\revisar{poner aqui una foto}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{graphso.png}
+    \caption{Enter Caption}
+    \label{fig:placeholder}
+\end{figure}
 \subsection{Serialización y persistencia}
 
 La persistencia del grafo se resuelve sin definir ningún formato propio, aprovechando que los ScriptableObjects ya son serializados por Unity a ficheros de texto. La responsabilidad del serializador se limita, por tanto, a decidir qué objetos se almacenan y a traducir la representación visual ---nodos y aristas--- al modelo de datos. Durante el guardado, el serializador parte de un estado limpio y, por cada caja presente en el lienzo, incrusta su ScriptableObject dentro del propio fichero del grafo mediante \texttt{AddObjectToAsset}. Esta técnica de sub-activos es la decisión central del mecanismo: permite que un grafo completo, con todos sus nodos, resida en un único fichero, evitando la proliferación de archivos sueltos. A cada nodo se le asigna un identificador único y su posición se registra en una lista paralela emparejada por ese identificador, de manera que al reabrir el grafo cada caja recupere su ubicación. Seguidamente, las aristas se traducen a referencias entre nodos ---por puerto en el caso de los ChoiceNode---, y el nodo de entrada se deduce automáticamente como aquel que no recibe ninguna arista. Un aspecto arquitectónicamente relevante es que el editor y el motor de juego comparten exactamente los mismos ScriptableObjects: lo que se dibuja en el editor es, literalmente, lo que el juego recorre en tiempo de ejecución, lo que elimina una posible fuente de discrepancias entre la herramienta de autoría y el comportamiento real.
@@ -1116,9 +1132,14 @@ Por cada mensaje de la jugadora, el runner delega en el cerebro conversacional l
 Cada NPC de Sprout está gobernado por un módulo conversacional (\texttt{NPCBrain}) que combina un perfil de personalidad estático (definido como ScriptableObject) con una memoria dinámica y el contexto narrativo del momento. El módulo se comunica con la API de OpenAI a través de una capa de abstracción (\texttt{OpenAIApi}, en la capa de infraestructura) que aísla al resto del sistema de los detalles de transporte HTTP, autenticación y formato de respuesta. La clave de API nunca se incrusta en el proyecto: se resuelve en tiempo de ejecución desde una variable de entorno, un fichero en StreamingAssets o la configuración local del usuario, y el resto de parámetros ---modelos empleados, tiempos de espera, modo simulado para pruebas sin red--- residen en un ScriptableObject de configuración (\texttt{AISettingsSO}).
 
 La personalidad de cada vecino se define como un activo \texttt{CharacterProfileSO} con cuatro campos de autoría: la \textit{persona} (quién es y cómo se comporta), el \textit{conocimiento del mundo} (lo que sabe de su rincón del pueblo y de su situación actual), el \textit{estilo de habla} y una lista de \textit{reglas obligatorias} propias, junto con un límite máximo de palabras por réplica que preserva el ritmo de juego. La Tabla~\ref{tab:perfiles} resume los cuatro perfiles; su contenido completo se recoge en el Anexo A.
-\revisar{no me gustan mucho los perfiles si da tiempo los actualizo}
 \begin{table}[h]
-  \centering
+\begin{figure}
+      \centering
+      \includegraphics[width=0.5\linewidth]{profile_mochi.png}
+      \caption{Enter Caption}
+      \label{fig:placeholder}
+  \end{figure}
+    \centering
   \caption{Síntesis de los cuatro perfiles de personaje.}
   \label{tab:perfiles}
   \begin{footnotesize}
@@ -1133,7 +1154,7 @@ La personalidad de cada vecino se define como un activo \texttt{CharacterProfile
     \hline
     Moth & Polilla misteriosa, calladamente obsesionada con Rix; pide ayuda con planes románticos disfrazados de poesía. & Acertijos e imágenes: luz de luna, polvo, llama, anhelo. & 45 \\
     \hline
-    Rix & Rana punk: borde por fuera, sensible y sola por dentro; no sabe que Moth está obsesionada; puede encariñarse, encararse u odiar. & Frases cortas, secas y sarcásticas; esquiva la sinceridad. & 45 \\
+    Rix & Lobo punk: borde por fuera, sensible y solo por dentro; no sabe que Moth está obsesionada; puede encariñarse, encararse u odiar. & Frases cortas, secas y sarcásticas; esquiva la sinceridad. & 45 \\
     \hline
   \end{tabular}
   \end{footnotesize}
@@ -1196,12 +1217,12 @@ Por último, toda respuesta del modelo atraviesa un post-procesador antes de mos
 
 \section{Sistema de evaluación implícita por LLM}
 
-Sprout incorpora un módulo evaluador separado del módulo conversacional. Mientras los NPCs generan diálogo en personaje, un canal evaluador independiente analiza las respuestas de la jugadora y les asigna puntuaciones en las dimensiones operacionalizadas en la sección 4.5. Esta separación arquitectónica es deliberada: aísla la generación narrativa de la evaluación cognitiva, de modo que ninguna instrucción de puntuación contamina la voz de los personajes y ningún requisito dramático sesga al evaluador. Debe subrayarse el alcance de este subsistema: es un prototipo montado sobre el grafo de diálogo, no un instrumento validado; el Capítulo VII documenta cómo se describiría su comportamiento en uso y sitúa su validación psicométrica como la línea de trabajo futuro académicamente prioritaria.
+Sprout incorpora un módulo evaluador separado del módulo conversacional. Mientras los NPCs generan diálogo en personaje, un canal evaluador independiente analiza las respuestas de la jugadora y les asigna puntuaciones en las dimensiones operacionalizadas en la sección 4.5. Esta separación arquitectónica es deliberada: aísla la generación narrativa de la evaluación cognitiva, de modo que ninguna instrucción de puntuación contamina la voz de los personajes y ningún requisito dramático sesga al evaluador. Debe subrayarse el alcance de este subsistema: es un \textbf{prototipo montado sobre el grafo de diálogo, no un instrumento validado}; el Capítulo VII documenta cómo se describiría su comportamiento en uso y sitúa su validación psicométrica como la línea de trabajo futuro académicamente prioritaria.
 
 El componente central es el \texttt{CreativityTracker}, del que existe una instancia por NPC. Cada instancia se suscribe a dos eventos: el envío de mensajes de la jugadora (desde la interfaz de diálogo) y el avance de nodo (desde el \texttt{DialogueRunner}). Con ambos, aplica el filtrado descrito en el diseño: solo evalúa mensajes del NPC activo en la conversación en curso y solo cuando el nodo actual es el nodo de reto designado para ese personaje (o uno de sus nodos de reto adicionales). Los mensajes que superan el filtro se envían al modelo clasificador con un prompt de evaluación que incluye la situación narrativa (el \texttt{contextForAI} del nodo), la definición de qué cuenta como idea concreta en el dominio de ese personaje (culinario para Mochi, inventivo para Aster, poético para Moth), los elementos del mundo que la jugadora podría tejer en sus respuestas y la idea anterior de la jugadora, necesaria para puntuar la dimensión de adaptación.
 
 \begin{sloppypar}
-La respuesta del evaluador es una única línea en formato de tubería estricto ---\texttt{IDEA=yes|no ; ORIGINALITY=0-10 ; DETAIL=0-10 ; COHERENCE=0-10 ; EMPATHY=0-10 ; WORLDUSE=0-10 ; RISK=0-10 ; ADAPTATION=0-10 ; CATEGORY=palabra}--- que el sistema analiza con expresiones regulares, normalizando cada dimensión a $[0,1]$. La llamada se realiza con temperatura cero y un límite de tokens mínimo, y el prompt instruye explícitamente al modelo a usar el rango completo de la escala; el prompt íntegro se reproduce en el Anexo B. \revisar{no esta en el anexo b}
+La respuesta del evaluador es una única línea en formato de tubería estricto ---\texttt{IDEA=yes|no ; ORIGINALITY=0-10 ; DETAIL=0-10 ; COHERENCE=0-10 ; EMPATHY=0-10 ; WORLDUSE=0-10 ; RISK=0-10 ; ADAPTATION=0-10 ; CATEGORY=palabra}--- que el sistema analiza con expresiones regulares, normalizando cada dimensión a $[0,1]$. La llamada se realiza con temperatura cero y un límite de tokens mínimo, y el prompt instruye explícitamente al modelo a usar el rango completo de la escala; el prompt íntegro se reproduce en el Apéndice B. 
 \end{sloppypar}
 
 
@@ -1456,10 +1477,9 @@ El efecto se construyó con el sistema de Volúmenes de URP: un \textit{Volume} 
     \caption{Enter Caption}
     \label{fig:placeholder}
 \end{figure}
-
 \chapter{Resultados}
 
-Este capítulo presenta los resultados tangibles del proyecto: el prototipo funcional entregado como \textit{vertical slice} y su aspecto final (6.1), y su publicación en itch.io como vía de distribución y de recogida informal de impresiones (6.2). La evaluación formal con usuarios no ha llegado a ejecutarse dentro del alcance temporal de este TFG; el protocolo diseñado para ella, junto con su justificación, se documenta en el Capítulo VII como línea de trabajo futuro, para no mezclar en este capítulo resultados obtenidos con trabajo pendiente de ejecutar.
+Este capítulo presenta los resultados tangibles del proyecto: el prototipo funcional entregado como \textit{vertical slice} y su aspecto final (6.1), y su publicación en itch.io como vía de distribución y de recogida informal de impresiones (6.2). \textbf{La evaluación formal con usuarios no ha llegado a ejecutarse} dentro del alcance temporal de este TFG; el protocolo diseñado para ella, junto con su justificación, se documenta en el Capítulo VII como línea de trabajo futuro, para no mezclar en este capítulo resultados obtenidos con trabajo pendiente de ejecutar.
 
 \section{El prototipo resultante: una vertical slice}
 
@@ -1479,13 +1499,13 @@ La vertical slice se ha publicado en itch.io, la plataforma de referencia para l
 
 \section{Conclusiones principales}
 
-Este Trabajo Fin de Grado ha presentado el diseño e implementación de Sprout, un prototipo funcional de videojuego narrativo que estima de forma implícita indicadores inspirados en el pensamiento divergente de la jugadora mediante conversaciones con personajes gobernados por LLM con memoria persistente. Se han alcanzado los ocho objetivos específicos planteados en la introducción: la arquitectura limpia desacoplada está implementada; el sistema de diálogo ramificado con flags y prerequisite gates funciona como base para las cuatro tramas; los cuatro NPCs tienen personalidad, voz y memoria persistente; las seis subpruebas verbales del TTCT vigente están mapeadas a momentos del juego (tres plenamente, tres integradas de forma ligera); la mecánica diferencial de la floristería emocional cierra el bucle decisión-emoción-consecuencia; y el protocolo de evaluación con usuarios reales queda diseñado y documentado, listo para ejecutarse. Tanto esa ejecución como la validación psicométrica quedan como líneas de continuación, detalladas en la sección 7.4.
+Este Trabajo Fin de Grado ha presentado el diseño e implementación de Sprout, un prototipo funcional de videojuego narrativo que estima de forma implícita indicadores inspirados en el pensamiento divergente de la jugadora mediante conversaciones con personajes gobernados por LLM con memoria persistente. \textbf{Se han alcanzado los ocho objetivos específicos} planteados en la introducción: la arquitectura limpia desacoplada está implementada; el sistema de diálogo ramificado con flags y prerequisite gates funciona como base para las cuatro tramas; los cuatro NPCs tienen personalidad, voz y memoria persistente; las seis subpruebas verbales del TTCT vigente están mapeadas a momentos del juego (tres plenamente, tres integradas de forma ligera); la mecánica diferencial de la floristería emocional cierra el bucle decisión-emoción-consecuencia; y el protocolo de evaluación con usuarios reales queda diseñado y documentado, listo para ejecutarse. Tanto esa ejecución como la validación psicométrica quedan como líneas de continuación, detalladas en la sección 7.4.
 
 Debe reiterarse aquí, con la misma claridad que en la introducción, lo que este trabajo no ha hecho: el test de Torrance \textbf{no se ha aplicado}. No se ha adquirido ni administrado el instrumento oficial, no se ha constituido un comité de ética que autorizase un estudio con personas, y no se ha realizado ningún estudio con participantes. El sistema de estimación implícita está \textit{inspirado} en el marco del TTCT, pero ninguna de sus medidas ha sido contrastada con el instrumento ni con evaluadores humanos, por lo que no puede afirmarse que Sprout mida pensamiento divergente en el sentido psicométrico del término. Lo que este TFG demuestra es la viabilidad técnica y de diseño del planteamiento; su validez empírica está, deliberadamente, por establecer.
 
 \section{Limitaciones reconocidas}
 
-Una memoria académica honesta declara con claridad sus limitaciones. Las principales limitaciones de este TFG se agrupan en tres categorías: limitaciones de alcance metodológico, limitaciones técnicas y limitaciones de evaluación.
+Una memoria académica honesta declara con claridad sus limitaciones. Las principales limitaciones de este TFG se agrupan en tres categorías: \textbf{limitaciones de alcance metodológico, limitaciones técnicas y limitaciones de evaluación}.
 
 Subpruebas figurales del TTCT no implementadas por falta de tiempo para una mecánica de dibujo evaluable; la acotación se sostiene en la independencia parcial verbal-figural, pero la literatura considera la figural la forma más completa del instrumento (Alabbasi et al., 2022), por lo que es la extensión natural prioritaria.
 
@@ -1641,28 +1661,28 @@ Los cuatro perfiles limitan la réplica a 45 palabras y añaden reglas obligator
 \chapter{System prompt completo del LLM evaluador}
 \label{anexo:prompt_evaluador}
 
-Prompt del evaluador de creatividad (\texttt{CreativityTracker}), enviado con temperatura 0. Los marcadores \texttt{\{...\}} se sustituyen en tiempo de ejecución: \texttt{\{situation\}} por el contexto del nodo actual, \texttt{\{ideaDomain\}} por la definición de idea válida del personaje, \texttt{\{previous\}} por la idea anterior de la jugadora y \texttt{\{message\}} por el mensaje a evaluar. El mensaje de sistema es: \textit{``You are a precise evaluator. Output only the pipe format.''}
+Prompt del evaluador de creatividad (\texttt{CreativityTracker}), enviado con temperatura 0 y un límite de 70 tokens de respuesta. Los marcadores \texttt{\{...\}} se sustituyen en tiempo de ejecución: \texttt{\{situation\}} por el contexto del nodo actual (\texttt{contextForAI}), \texttt{\{countableUnit\}} por la unidad contable propia de cada personaje (por ejemplo, ``idea'' para Mochi, pero puede ser otra palabra para otros NPCs, lo que adapta el mismo prompt a dominios distintos sin duplicar código), \texttt{\{ideaDomain\}} por la definición de qué cuenta como esa unidad en la situación concreta, \texttt{\{previous\}} por la idea anterior de la jugadora (o \texttt{(none)} si es la primera) y \texttt{\{message\}} por el mensaje a evaluar. El mensaje de sistema es: \textit{``You are a precise evaluator. Output only the pipe format.''}
 
-\begin{lstlisting}[caption={Prompt de evaluación de creatividad (original en inglés).},label={cod:prompt_evaluador}]
+\begin{lstlisting}[caption={Prompt de evaluación de creatividad (original en inglés, transcrito literalmente de \texttt{CreativityTracker.cs}).},label={cod:prompt_evaluador}]
 You invisibly score a player's message in a cozy narrative game, for a
 Torrance-style creativity profile. Be strict: use the FULL 0-10 range.
 Character/situation right now: {situation}
-What counts as a concrete idea for this character: {ideaDomain}
-World elements the player could weave in: flowers, bouquets, cooking/food,
-the village, the neighbours, the day/night cycle, rumours, and emotions.
-Previous player idea (only for ADAPTATION): "{previous}"
+What counts as ONE countable {countableUnit} here: {ideaDomain}
+World elements the player could weave in: flowers, bouquets, cooking/food, the
+village, the neighbours, the day/night cycle, rumours, and emotions.
+Previous player idea (only for ADAPTATION): "{previous, or (none)}"
 
 Score the CURRENT message 0-10 on each dimension:
-ORIGINALITY = rare/unexpected. DETAIL = concrete/specific. COHERENCE = fits
-the problem and world. EMPATHY = considers the character's feelings.
-WORLDUSE = uses world elements. RISK = dares something odd but sensible.
-ADAPTATION = improves or revises the previous idea after pushback (0 if
-unrelated or no previous idea).
-IDEA=yes only if it's a concrete idea/proposal (no for greetings/questions/
-filler). CATEGORY = one short word for the kind of idea.
+ORIGINALITY = rare/unexpected. DETAIL = concrete/specific. COHERENCE = fits the
+problem and world. EMPATHY = considers the character's feelings. WORLDUSE = uses
+world elements. RISK = dares something odd but sensible. ADAPTATION = improves or
+revises the previous idea after pushback (0 if unrelated or no previous idea).
+IDEA=yes only if the message contains a genuine {countableUnit} (no for
+greetings/off-topic/filler). CATEGORY = one short word for the kind of
+{countableUnit}.
 Reply in EXACTLY this pipe format, nothing else:
-IDEA=yes|no ; ORIGINALITY=0-10 ; DETAIL=0-10 ; COHERENCE=0-10 ;
-EMPATHY=0-10 ; WORLDUSE=0-10 ; RISK=0-10 ; ADAPTATION=0-10 ; CATEGORY=word
+IDEA=yes|no ; ORIGINALITY=0-10 ; DETAIL=0-10 ; COHERENCE=0-10 ; EMPATHY=0-10 ;
+WORLDUSE=0-10 ; RISK=0-10 ; ADAPTATION=0-10 ; CATEGORY=word
 
 Player message: "{message}"
 \end{lstlisting}
@@ -1736,28 +1756,29 @@ Junto a este evaluador operan otros tres prompts de clasificación con temperatu
 
 \begin{sidewaystable}
   \centering
-  \caption{Reacciones diferenciales de cada vecino a cada ramo.}
+  \caption{Reacciones de cada vecino a cada ramo, tal y como están implementadas en \texttt{BouquetDefinitionSO}. \textit{Consuelo} y \textit{Obsesión} tienen reacción y variación de relación distintas por vecino; los seis ramos restantes comparten aún una reacción base por personalidad (marcados con \textit{*}), pendiente de contenido narrativo específico por combinación (trabajo futuro).}
+  \label{tab:reacciones_ramos}
   \begin{footnotesize}
   \renewcommand{\arraystretch}{1.4}
   \begin{tabular}{p{2.6cm}p{3.4cm}p{3.4cm}p{3.6cm}p{3.8cm}}
     \hline
     \textbf{Ramo} & \textbf{Mochi} & \textbf{Aster} & \textbf{Moth} & \textbf{Rix} \\
     \hline
-    Paz & Se emociona; se reconcilia. & Se calma; confía. & Indiferente. & Acepta a regañadientes. \\
+    Paz* & Reacciona con dramatismo. & Lo estudia con nerviosismo. & Le busca un significado oculto. & Finge que no le importa. \\
     \hline
-    Consuelo & Llora de gratitud. & Se abre. & Lo malinterpreta como pena. & Se ofende («no me tengas lástima»). \\
+    Consuelo & Llora de gratitud, se siente vista de verdad. & Se calma, se relaja visiblemente. & Lo interpreta de forma demasiado intensa. & Se siente compadecido y se ofende, salvo que ya confíe en la florista. \\
     \hline
-    Promesa & Confía del todo. & Brilla. & Se obsesiona más. & Baja la guardia. \\
+    Promesa* & Reacciona con dramatismo. & Lo estudia con nerviosismo. & Le busca un significado oculto. & Finge que no le importa. \\
     \hline
-    Confesión & Cuenta lo de su madre. & Habla de su ex. & Suelta su secreto. & Enseña el cuaderno de letras. \\
+    Confesión* & Reacciona con dramatismo. & Lo estudia con nerviosismo. & Le busca un significado oculto. & Finge que no le importa. \\
     \hline
-    Obsesión & Incómodo. & Asustado. & Enloquece de alegría. & Alerta; se aleja. \\
+    Obsesión & Reacciona con dramatismo operístico. & Se asusta de la intensidad. & Lo ama de forma peligrosa y voraz. & Se enfada de que le den algo tan cargado. \\
     \hline
-    Deseo oculto & Malinterpreta. & Colapsa de vergüenza. & Cree que es de parte de Rix. & Sospecha. \\
+    Deseo oculto* & Reacciona con dramatismo. & Lo estudia con nerviosismo. & Le busca un significado oculto. & Finge que no le importa. \\
     \hline
-    Despedida & Drama total. & Se hunde. & Pánico a perder a la florista. & «Ya lo sabía.» \\
+    Despedida* & Reacciona con dramatismo. & Lo estudia con nerviosismo. & Le busca un significado oculto. & Finge que no le importa. \\
     \hline
-    Sospecha & A la defensiva. & Se cierra. & Se siente vista. & Acusa de espiar. \\
+    Sospecha* & Reacciona con dramatismo. & Lo estudia con nerviosismo. & Le busca un significado oculto. & Finge que no le importa. \\
     \hline
   \end{tabular}
   \end{footnotesize}

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8384514650307982876
+--- !u!114 &-4871349088466012130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,26 +9,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
-  m_Name: Rix_confront_deny
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
-  nodeGuid: 8ec7d720-513a-4848-b019-68e24f6c6a4f
-  contextForAI: El jugador lo niega, culpa a Moth o insiste en mentir. Rix se harta
-    y lo rechaza.
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Rix_flirt
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: 3f1d03ae-2934-4eba-a6da-8baea39f3208
+  contextForAI: La florista le corresponde pero rix no se lo esperaba en verdad no
+    le gusta tener novia porque tiene miedo al compromiso
   prerequisiteFlags: []
   lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
   resumeLine: 
   flagsOnEnter:
-  - flag: rix_hates_player
+  - flag: 'rix_curiosity '
     value: 1
-  - flag: rix_knows_moth_lie
+  - flag: 'unresolved_argument '
     value: 1
   nextNodes:
-  - {fileID: 868266855998506513}
-  openingLine: "Genial. Dos personas usando mi nombre y ninguna sosteniendo la culpa.
-    Ya est\xE1. No me hables m\xE1s hoy."
-  transitions: []
---- !u!114 &-6970781802703708261
+  - {fileID: 8131912576928680779}
+  openingLine: 
+  conversationTopics: []
+  exitCondition: 'El jugador le dice adios o una respuesta corta o aburrida '
+--- !u!114 &-116249890837716887
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37,115 +37,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
-  m_Name: Rix_neutral
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
-  nodeGuid: 2de28caf-e4a3-4f39-8293-3254bfd045d7
-  contextForAI: "El jugador no mencion\xF3 a Moth ni nada raro. Rix queda neutro,
-    un poco a gusto de que no le vendan nada."
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Rix_meet
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: 637831cf-01b7-4632-98db-0e3267054044
+  contextForAI: "PRIMER ENCUENTRO (ma\xF1ana). Rix, lobo punk, borde y seco por fuera
+    pero sensible por dentro. Ve por primera vez a la florista reci\xE9n mudada;
+    no se conocen de nada. Contesta con sarcasmo defensivo pero sin cortar del todo.
+    Solo se est\xE1n conociendo, nada personal todav\xEDa. "
   prerequisiteFlags: []
   lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
   resumeLine: 
   flagsOnEnter:
-  - flag: rix_neutral
-    value: 1
-  nextNodes:
-  - {fileID: 5109782059043281432}
-  openingLine: "Aj\xE1. Vale. No has intentado venderme nada. Eso es\u2026 raro.
-    Bien raro. No lo conviertas en tradici\xF3n."
-  transitions: []
---- !u!114 &-6618245380671413433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
-  m_Name: Rix_alerta
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
-  nodeGuid: 266f3a68-9869-4020-8499-b20b3dc7e104
-  contextForAI: "El jugador solt\xF3 el plan de Moth (o minti\xF3 por ella) y puso
-    a Rix en alerta. Desconf\xEDa: no quiere ser un proyecto comunitario."
-  prerequisiteFlags: []
-  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
-  resumeLine: 
-  flagsOnEnter:
-  - flag: rix_alert
-    value: 1
-  - flag: moth_knows_you_talked_rix
-    value: 1
-  nextNodes:
-  - {fileID: 5109782059043281432}
-  openingLine: "Espera. \xBFSoy una conversaci\xF3n o un proyecto comunitario? \xBFPara
-    qui\xE9n trabajas? No me f\xEDo."
-  transitions: []
---- !u!114 &-4556138092666785626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
-  m_Name: Rix_aboutMoth
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
-  nodeGuid: 6531cca7-21e2-4e29-811e-605f1956ee21
-  contextForAI: "MEDIOD\xCDA. Rix reacciona a lo que la florista trae sobre Moth.
-    Ramas seg\xFAn c\xF3mo lo plantee: bien sin mentir, confesar el plan/mentir,
-    o no mencionar nada."
-  prerequisiteFlags:
   - flag: rix_known
-    expectedValue: 1
-  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
-  resumeLine: 
-  flagsOnEnter: []
-  nextNodes: []
-  openingLine: "\xBFPor qu\xE9 tienes cara de traerme un mensaje que no quiero? \u2026\xBFLa
-    polilla? S\xED, la conozco. \xBFPor?"
-  choices:
-  - condition: el jugador habla bien de Moth sin presionar ni mentir
-    nextNode: {fileID: 7559058830576558348}
-  - condition: el jugador confiesa el plan de Moth o inventa algo (miente por ella)
-    nextNode: {fileID: -6618245380671413433}
-  - condition: el jugador no menciona a Moth ni nada raro
-    nextNode: {fileID: -6970781802703708261}
---- !u!114 &-4063355454146413566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
-  m_Name: Rix_confront
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
-  nodeGuid: 8d145ff5-1968-495d-b5e4-faa70f7094fc
-  contextForAI: "Rix ha descubierto (por el cotilleo) que la florista le minti\xF3/manipul\xF3
-    el mensaje de Moth. Confronta directamente. Seg\xFAn responda, hay reparaci\xF3n
-    o rechazo."
-  prerequisiteFlags:
-  - flag: helped_moth_lie
-    expectedValue: 1
-  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
-  resumeLine: 
-  flagsOnEnter:
-  - flag: rix_alert
     value: 1
-  nextNodes: []
-  openingLine: "Ya s\xE9 que eso no lo dijo Moth. \xBFMe estabas hablando a m\xED,
-    o movi\xE9ndome como una silla en una habitaci\xF3n que ni siquiera es tuya?"
-  choices:
-  - condition: el jugador admite y se disculpa, reconoce que estuvo mal
-    nextNode: {fileID: 4545566069649210261}
-  - condition: el jugador lo niega, culpa a Moth o insiste en mentir
-    nextNode: {fileID: -8384514650307982876}
+  - flag: glow_rix_strong
+    value: 1
+  nextNodes:
+  - {fileID: 4670483191603341107}
+  openingLine: "\xBFY t\xFA qui\xE9n eres? Cara nueva. Genial, justo lo que necesitaba.
+    \u2026No me mires as\xED, no muerdo. Casi nunca. Rix. Me llamo Rix. Ya nos conocemos,
+    no hagas una cosa grande de esto."
+  conversationTopics:
+  - el pueblo
+  - presentarse
+  - comentarios secos
+  exitCondition: El jugador saluda, se presenta o charla un poco.
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,73 +76,33 @@ MonoBehaviour:
   m_Name: Rix_Biblia
   m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueGraphSO
   nodes:
-  - {fileID: 6877696559681354848}
-  - {fileID: 5109782059043281432}
-  - {fileID: 868266855998506513}
-  - {fileID: 2325204793044691105}
-  - {fileID: 7559058830576558348}
-  - {fileID: -6618245380671413433}
-  - {fileID: -6970781802703708261}
-  - {fileID: -4556138092666785626}
-  - {fileID: 2371194532387160759}
-  - {fileID: 4545566069649210261}
-  - {fileID: -8384514650307982876}
-  - {fileID: -4063355454146413566}
-  entryNode: {fileID: 2325204793044691105}
+  - {fileID: 4670483191603341107}
+  - {fileID: -116249890837716887}
+  - {fileID: 632751994690741884}
+  - {fileID: 5972992952288834814}
+  - {fileID: 9029741455922148525}
+  - {fileID: -4871349088466012130}
+  - {fileID: 3756533469553501389}
+  - {fileID: 8131912576928680779}
+  entryNode: {fileID: -116249890837716887}
   nodePositions:
   - nodeId: a69feff9-44e5-42bb-b045-f8b4f908a073
     position: {x: 260, y: 0}
-  - nodeId: f463e5b7-2671-481d-95f1-d7ae34f559a2
-    position: {x: 260, y: 220}
-  - nodeId: c640c455-caa5-4e6f-8dab-2bf9bd436d2b
-    position: {x: 260, y: 440}
   - nodeId: 637831cf-01b7-4632-98db-0e3267054044
-    position: {x: 260, y: 660}
-  - nodeId: 21be114e-edb7-4a19-83f8-d2cd9626e10a
-    position: {x: 260, y: 880}
-  - nodeId: 266f3a68-9869-4020-8499-b20b3dc7e104
-    position: {x: 260, y: 1100}
-  - nodeId: 2de28caf-e4a3-4f39-8293-3254bfd045d7
-    position: {x: 260, y: 1320}
-  - nodeId: 6531cca7-21e2-4e29-811e-605f1956ee21
-    position: {x: 260, y: 1540}
-  - nodeId: da6bb876-e9ba-474b-9dc5-7673fa620f6d
-    position: {x: 260, y: 1760}
-  - nodeId: 40cadcf8-64d6-4f48-aa07-3ab9fa84319e
-    position: {x: 260, y: 1980}
-  - nodeId: 8ec7d720-513a-4848-b019-68e24f6c6a4f
-    position: {x: 260, y: 2200}
-  - nodeId: 8d145ff5-1968-495d-b5e4-faa70f7094fc
-    position: {x: 260, y: 2420}
---- !u!114 &868266855998506513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
-  m_Name: Rix_bye
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
-  nodeGuid: c640c455-caa5-4e6f-8dab-2bf9bd436d2b
-  contextForAI: "Despedida final del d\xEDa. Antes de irse te manda (a su manera
-    borde) a ver a Aster. Terminal."
-  prerequisiteFlags: []
-  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
-  resumeLine: 
-  flagsOnEnter:
-  - flag: recommend_aster
-    value: 1
-  - flag: glow_rix_none
-    value: 1
-  nextNodes: []
-  openingLine: "Ya est\xE1 bien de hablar. Vete a ver al conejo del laboratorio;
-    al menos \xE9l admite que construye algo inestable. \u2026Pero vuelve. Da igual.
-    Lo que quieras."
-  transitions: []
---- !u!114 &2325204793044691105
+    position: {x: -60, y: -112}
+  - nodeId: ae9751a1-9ae6-4bf8-baa3-d6152f40577e
+    position: {x: 942, y: 119}
+  - nodeId: c6669eda-ebbc-4485-8911-8f749032acef
+    position: {x: 1265, y: 141}
+  - nodeId: e5106cdb-139f-431f-bbf0-a8cbd9abde73
+    position: {x: -199, y: 788}
+  - nodeId: 3f1d03ae-2934-4eba-a6da-8baea39f3208
+    position: {x: 535, y: 1197}
+  - nodeId: 9831778a-d21a-42b2-a047-8303ebe9f2af
+    position: {x: 515, y: 693}
+  - nodeId: 2efa0de7-d5d7-486c-a2e9-5da2d36e0fbd
+    position: {x: 1017, y: 1119}
+--- !u!114 &632751994690741884
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,72 +112,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
-  m_Name: Rix_meet
+  m_Name: ConversationNode
   m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
-  nodeGuid: 637831cf-01b7-4632-98db-0e3267054044
-  contextForAI: "PRIMER ENCUENTRO (ma\xF1ana). Rix, rana punk, borde y seco por fuera
-    pero sensible por dentro. Ve por primera vez a la florista reci\xE9n mudada;
-    no se conocen de nada. Contesta con sarcasmo defensivo pero sin cortar del todo.
-    Solo se est\xE1n conociendo, nada personal todav\xEDa. NO menciones a su padre,
-    ni a Moth, ni su vida: eso sale m\xE1s adelante, cuando haya confianza."
+  nodeGuid: ae9751a1-9ae6-4bf8-baa3-d6152f40577e
+  contextForAI: Rix ha estado pensando en que pasaria si no existiera el dinero y
+    quiere hablar con alguien sobre ell, habla con la florista por casualidad. Si
+    dice cosas muy ingeniesas le empieza a gustar un poco.
   prerequisiteFlags: []
   lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
   resumeLine: 
-  flagsOnEnter:
-  - flag: rix_known
-    value: 1
-  - flag: glow_rix_strong
-    value: 1
+  flagsOnEnter: []
   nextNodes:
-  - {fileID: 6877696559681354848}
-  openingLine: "\xBFY t\xFA qui\xE9n eres? Cara nueva. Genial, justo lo que necesitaba.
-    \u2026No me mires as\xED, no muerdo. Casi nunca. Rix. Me llamo Rix. Ya nos conocemos,
-    no hagas una cosa grande de esto."
-  conversationTopics:
-  - el pueblo
-  - presentarse
-  - comentarios secos
-  exitCondition: El jugador saluda, se presenta o charla un poco.
---- !u!114 &2371194532387160759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
-  m_Name: Rix_open
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
-  nodeGuid: da6bb876-e9ba-474b-9dc5-7673fa620f6d
-  contextForAI: "TARDE. Rix baja la guardia por primera vez y cuenta lo de su padre
-    m\xFAsico (le ense\xF1\xF3 tres acordes y se larg\xF3 con una banda prometiendo
-    volver; nunca volvi\xF3). Solo llega aqu\xED si hubo confianza y NO se le minti\xF3.
-    Se abre m\xE1s si la florista tambi\xE9n se abre; se cierra si hay l\xE1stima
-    o frialdad."
-  prerequisiteFlags:
-  - flag: rix_neutral
-    expectedValue: 1
-  - flag: helped_moth_lie
-    expectedValue: 0
-  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
-  resumeLine: 
-  flagsOnEnter:
-  - flag: rix_trusts_player
-    value: 1
-  - flag: rix_told_about_father
-    value: 1
-  nextNodes:
-  - {fileID: 868266855998506513}
-  openingLine: "No s\xE9 por qu\xE9 te cuento esto. Supongo que hoy me queda poca
-    energ\xEDa para fingir que nada me importa. \u2026Mi padre tocaba. Me ense\xF1\xF3
-    tres acordes y se larg\xF3 con una banda. Dijo que volver\xEDa con 'la canci\xF3n
-    correcta'. Qu\xE9 frase tan bonita para abandonar a alguien."
+  - {fileID: 5972992952288834814}
+  openingLine: "He estado pensando... \xBFQu\xE9 pasar\xEDa si no existiese el dinero?"
   conversationTopics: []
-  exitCondition: "El jugador reacciona a la confidencia (con empat\xEDa, con humor
-    o con frialdad)."
---- !u!114 &4545566069649210261
+  exitCondition: "El jugador deja de hablar de que pasar\xEDa si no existiese el
+    dinero y habla de otra cosa "
+--- !u!114 &3756533469553501389
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -309,50 +137,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
-  m_Name: Rix_confront_admit
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
-  nodeGuid: 40cadcf8-64d6-4f48-aa07-3ab9fa84319e
-  contextForAI: El jugador admite y se disculpa por haber mentido por Moth. Rix no
-    lo perdona del todo, pero valora que no lo envuelva en papel bonito.
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Rix_moth
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: 9831778a-d21a-42b2-a047-8303ebe9f2af
+  contextForAI: La florista ha rechazado la confesion de rix. Le duele a su ego pero
+    en verdad le da igual
   prerequisiteFlags: []
   lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
   resumeLine: 
   flagsOnEnter:
-  - flag: rix_knows_moth_lie
+  - flag: player_was_honest
+    value: 1
+  - flag: rix_curiosity
     value: 1
   nextNodes:
-  - {fileID: 868266855998506513}
-  openingLine: "Vale. Eso sigue siendo una mierda. Pero al menos no la est\xE1s envolviendo
-    en papel bonito. \u2026No me hables de amor. No era amor. Era una silla movida
-    en una habitaci\xF3n que no es tuya."
-  transitions: []
---- !u!114 &5109782059043281432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
-  m_Name: Rix_bye_md
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
-  nodeGuid: f463e5b7-2671-481d-95f1-d7ae34f559a2
-  contextForAI: "Fin del mediod\xEDa. Se despide, cansado de fingir que nada le importa.
-    Terminal."
-  prerequisiteFlags: []
-  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
-  resumeLine: 
-  flagsOnEnter:
-  - flag: glow_rix_none
-    value: 1
-  nextNodes: []
-  openingLine: Suficiente. Me estoy quedando sin formas de fingir que esto no me
-    importa. Vete.
-  transitions: []
---- !u!114 &6877696559681354848
+  - {fileID: 8131912576928680779}
+  openingLine: "Qu\xE9eee pensaba que nuestro amor fluia en los dos sentidos "
+  conversationTopics: []
+  exitCondition: 'El jugador le dice adios o una respuesta corta o aburrida '
+--- !u!114 &4670483191603341107
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -377,7 +181,7 @@ MonoBehaviour:
   openingLine: "Aj\xE1. Ya nos hemos visto. No lo conviertas en tradici\xF3n. \u2026O
     s\xED. Da igual. Vete."
   transitions: []
---- !u!114 &7559058830576558348
+--- !u!114 &5972992952288834814
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -387,19 +191,65 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
-  m_Name: Rix_curioso
+  m_Name: Rix_bye
   m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
-  nodeGuid: 21be114e-edb7-4a19-83f8-d2cd9626e10a
-  contextForAI: "El jugador habl\xF3 bien de Moth sin presionar. Rix despierta curiosidad,
-    aunque lo disimula."
+  nodeGuid: c6669eda-ebbc-4485-8911-8f749032acef
+  contextForAI: 'Rix se queda pensando en un mundo sin dinero y se despide '
   prerequisiteFlags: []
   lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
   resumeLine: 
-  flagsOnEnter:
-  - flag: rix_curiosity
-    value: 1
-  nextNodes:
-  - {fileID: 5109782059043281432}
-  openingLine: "\xBFEn serio? \u2026no, nada. Solo\u2026 curiosidad. C\xE1llate.
-    No he dicho nada. Quiz\xE1 hablar\xE9 con ella. Quiz\xE1."
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "\xA1C\xF3mo me gustar\xEDa un mundo sin dinero! Bueno adios!!"
   transitions: []
+--- !u!114 &8131912576928680779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: SpeechNode
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 2efa0de7-d5d7-486c-a2e9-5da2d36e0fbd
+  contextForAI: 
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: Adiossss, volveremos a vernos.... o no
+  transitions: []
+--- !u!114 &9029741455922148525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Rix_moth_or_flirt
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: e5106cdb-139f-431f-bbf0-a8cbd9abde73
+  contextForAI: "Rix se qued\xF3 enamorado tras la conversaci\xF3n del otro dia.
+    AMA a la florista"
+  prerequisiteFlags:
+  - flag: moth_asked_for_help = true
+    expectedValue: 1
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: "Oye, florista... t\xFA me gustas. \xBFQu\xE9 me dices?"
+  flagsOnEnter:
+  - flag: new_flag
+    value: 1
+  nextNodes: []
+  openingLine: 
+  choices:
+  - condition: 'la florista le dice que a ella no le gusta o habla bien de moth '
+    nextNode: {fileID: 3756533469553501389}
+  - condition: 'la florista tontea con rix '
+    nextNode: {fileID: -4871349088466012130}

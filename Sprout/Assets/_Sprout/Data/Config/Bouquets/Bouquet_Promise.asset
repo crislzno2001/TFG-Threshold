@@ -17,7 +17,7 @@ MonoBehaviour:
   emotionalMeaning: Joy offered honestly, without conditions.
   ingredientA: 4
   ingredientB: 7
-  icon: {fileID: 21300000, guid: eef33cc54e5b62645b17cf13455f80dc, type: 3}
+  icon: {fileID: 21300000, guid: 7328f80181f8a3440afbddd78c571c9a, type: 3}
   model: {fileID: 4513319192800167014, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
   reactions:
   - npc: 0

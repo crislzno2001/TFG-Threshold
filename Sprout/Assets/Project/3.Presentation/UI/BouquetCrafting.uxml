@@ -11,6 +11,7 @@
             <ui:VisualElement name="row-b" style="flex-direction: row; flex-wrap: wrap; justify-content: center;" />
 
             <ui:Label name="result" text="" style="font-size: 18px; color: rgb(70, 120, 70); -unity-text-align: middle-center; white-space: normal; margin-top: 10px; min-height: 24px;" />
+            <ui:Image name="result-icon" style="width: 96px; height: 96px; margin-top: 6px; -unity-background-scale-mode: scale-to-fit;" />
 
             <ui:VisualElement style="flex-direction: row; justify-content: center; margin-top: 8px;">
                 <ui:Button name="craft" text="Crear ramo" style="width: 200px; height: 44px; margin-left: 6px; margin-right: 6px; border-top-left-radius: 14px; border-top-right-radius: 14px; border-bottom-left-radius: 14px; border-bottom-right-radius: 14px; background-color: rgb(150, 200, 150); color: rgb(30, 50, 30); font-size: 17px; -unity-font-style: bold; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />

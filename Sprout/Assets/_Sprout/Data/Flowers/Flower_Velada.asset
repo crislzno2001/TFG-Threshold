@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Velada
   emotion: sadness
   description: A muted, drooping flower the colour of dusk.
-  icon: {fileID: 21300000, guid: 307c1c188d1d4464aa1425372809088e, type: 3}
-  model: {fileID: 0}
+  icon: {fileID: 21300000, guid: 4fd78aea90c8d044182bcb117a8e9ad3, type: 3}
+  model: {fileID: 7066783368634747202, guid: 60988eb0108719343ada91ad2bd21e45, type: 3}
   color: {r: 0.4, g: 0.42, b: 0.55, a: 1}
   gameplayMeaning: Grows from unresolved arguments and quiet sadness.

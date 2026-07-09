@@ -1,230 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8173695239162622984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
-  m_Name: ConversationNode
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
-  nodeGuid: 5847727e-ef69-4be6-b244-61a1446af5e8
-  contextForAI: "Aster est\xE1 enfadado con quien ha roto su invento. Necesita pillarlo
-    sea como sea. Quiere que el jugador le obligue a pillarlo. Cuando el jugador
-    le diga una pregunta le seguir\xE1 pidiendo m\xE1s a ra\xEDz de las preguntas
-    anteriores hasta que el jugador deje de sugerirle preguntas."
-  prerequisiteFlags: []
-  lockedReply: 
-  resumeLine: "Todav\xEDa estoy peensando que preguntarles! Y si me hacen da\xF1o?"
-  flagsOnEnter: []
-  nextNodes:
-  - {fileID: 5328878725179470072}
-  openingLine: "Voy a hablar con quien anduvo anoche por la plaza. Si fueras t\xFA,
-    \xBFqu\xE9 le preguntar\xEDas para pillarlo?"
-  conversationTopics: []
-  exitCondition: El jugador deja de decirle preguntas para el culpable o cambia de
-    tema.
---- !u!114 &-7296741325344720409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
-  m_Name: Aster_challenge_product_improvement
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
-  nodeGuid: 0de76f03-4657-4420-a4f9-8e4e2c6d0421
-  contextForAI: "Aster ha estado pensando que igual que se haya roto su invento es
-    una oportunidad para hacer algo mejor y era una se\xF1al de que no era lo bastante
-    bueno para el concurso. "
-  prerequisiteFlags: []
-  lockedReply: 
-  resumeLine: "Sigo pensando en como mejorar mi invento, \xA1y me quedo sin tiempo!
-    Ayudame"
-  flagsOnEnter:
-  - flag: ' '
-    value: 1
-  nextNodes:
-  - {fileID: -3213482093640519179}
-  openingLine: "He estado pensando... y no hay mal que por bien no venga. Ya que
-    lo abro entero para arreglarlo\u2026 \xBFc\xF3mo lo dejar\xEDas, mejor que antes?"
-  conversationTopics:
-  - el invento
-  - el concurso
-  - ideas para emocionar
-  exitCondition: El jugador propone una idea concreta
---- !u!114 &-5639036016618034391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
-  m_Name: Aster_bye_am
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
-  nodeGuid: 833ccaca-098f-4510-b3db-f135fa88952f
-  contextForAI: "Fin del primer encuentro de la ma\xF1ana. Se despide nervioso y
-    majo, sin mencionar a\xFAn su invento. Terminal."
-  prerequisiteFlags: []
-  lockedReply: 
-  resumeLine: 
-  flagsOnEnter: []
-  nextNodes: []
-  openingLine: "Bueno\u2026 un placer, vecina. Me vuelvo a lo m\xEDo antes de que
-    se me olvide. Adi\xF3s, adi\xF3s."
-  transitions: []
---- !u!114 &-5125252852738559255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
-  m_Name: Introduccion_guessing
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
-  nodeGuid: 1af5e094-ed06-4f5a-9133-c59fd62d88c0
-  contextForAI: "El planeador de semillas de Aster (un aparato que deber\xEDa planear
-    y soltar semillas al  caer, y que Aster iba a presentar al concurso de inventos)
-    amaneci\xF3 boca abajo en el suelo del taller.Pistas: un ala de tela rajada LIMPIA, 
-    como con tijeras, no rota; el dep\xF3sito de semillas VAC\xCDO, y Aster no lo
-    vaci\xF3; la puerta  del taller estaba cerrada POR DENTRO. Aster est\xE1 en p\xE1nico
-    y no entiende qu\xE9 pas\xF3."
-  prerequisiteFlags: []
-  lockedReply: 
-  resumeLine: 
-  flagsOnEnter: []
-  nextNodes:
-  - {fileID: -2550733366878675154}
-  openingLine: No te vas a creer lo que me ha pasado! Mi precioso invento para el
-    concurso se ha roto!
-  transitions: []
---- !u!114 &-3213482093640519179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
-  m_Name: Aster_challenge_2
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
-  nodeGuid: a25218b2-5124-4d26-a5fb-be5f5df8f63e
-  contextForAI: "Aster reaaciona a las ideas del jugador para mejorar su invento
-    (Un planeador de semillas (un aparato que deber\xEDa planear y soltar semillas
-    al  caer), insiste en que le de m\xE1s detalles si las ideas del jugador son
-    vagas, si son interesantes aporta su adici\xF3n a la idea de la jugadora para
-    estimular mas ideas. Cuando el jugador no tenga m\xE1s ideas, agradece y cierra"
-  prerequisiteFlags: []
-  lockedReply: 
-  resumeLine: "Sigo pensando en como mejorar mi invento, \xA1y me quedo sin tiempo!
-    Ayudame"
-  flagsOnEnter: []
-  nextNodes:
-  - {fileID: 5887731017248903554}
-  openingLine: 
-  conversationTopics: []
-  exitCondition: "El jugador deja de dar ideas para el invento, dice que no se le
-    ocurren m\xE1s ideas, que el invento est\xE1 bien as\xED o se despide. "
---- !u!114 &-2550733366878675154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
-  m_Name: GuessingCuases
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
-  nodeGuid: c6c6cafc-0f05-4b2c-995d-82cbd4f7874b
-  contextForAI: "El planeador de semillas de Aster (un aparato que deber\xEDa planear
-    y soltar semillas al  caer, y que Aster iba a presentar al concurso de inventos)
-    amaneci\xF3 boca abajo en el suelo del taller.Pistas: un ala de tela rajada LIMPIA, 
-    como con tijeras, no rota; el dep\xF3sito de semillas VAC\xCDO, y Aster no lo
-    vaci\xF3; la puerta  del taller estaba cerrada POR DENTRO. Aster est\xE1 en p\xE1nico
-    y no entiende qu\xE9 pas\xF3.El concurso es para aumentar la sostenebilidad del
-    pueblo y mejorar la vida de los habitantes y aster no sabe cu\xE1l es el premio
-    pero espera que sea unas placas solares. El jugador le dar\xE1 ideas de qu\xE9
-    ha podido pasar o le preguntar\xE1 por el concurso o por m\xE1s detalles del
-    incidente. Aster responder\xE1 muy nervioso y le dar\xE1 motivos por los cuales
-    si habria podido pasar eso o no para estimular mas ideas."
-  prerequisiteFlags: []
-  lockedReply: 
-  resumeLine: "\xBFDonde estabas? A\xFAn no hemos resuelto el CRIMEN"
-  flagsOnEnter:
-  - flag: aster_sabotaje_sospecha = true
-    value: 1
-  nextNodes:
-  - {fileID: -8173695239162622984}
-  openingLine: "Mi planeador est\xE1 en el suelo, un ala cortada limpia y el dep\xF3sito
-    vac\xEDo\u2026 y la puerta estaba cerrada por dentro. No lo entiendo. \xBFPor
-    qu\xE9 crees que ha pasado? Dame teor\xEDas, TODAS, por locas que sean."
-  conversationTopics:
-  - el invento
-  - el concurso
-  - el incidente
-  exitCondition: "Cuando el jugador deje de dar ideas de que ha podido pasar, cuando
-    no pregunte mas por el concurso o el invento o cuando diga que ya est\xE1 bien
-    o se despida."
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb61de17a0d8834c8344f4ab533f2da, type: 3}
-  m_Name: Aster_Biblia
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueGraphSO
-  nodes:
-  - {fileID: -3213482093640519179}
-  - {fileID: 5887731017248903554}
-  - {fileID: -5125252852738559255}
-  - {fileID: -7296741325344720409}
-  - {fileID: -8173695239162622984}
-  - {fileID: 5328878725179470072}
-  - {fileID: 3645028131383563750}
-  - {fileID: -5639036016618034391}
-  - {fileID: -2550733366878675154}
-  entryNode: {fileID: -5125252852738559255}
-  nodePositions:
-  - nodeId: a25218b2-5124-4d26-a5fb-be5f5df8f63e
-    position: {x: 1619, y: 785}
-  - nodeId: d61aecb4-e9c2-4f75-a455-09c49b2c8e14
-    position: {x: 1944, y: 801}
-  - nodeId: 1af5e094-ed06-4f5a-9133-c59fd62d88c0
-    position: {x: -555, y: 801}
-  - nodeId: 0de76f03-4657-4420-a4f9-8e4e2c6d0421
-    position: {x: 1162, y: 862}
-  - nodeId: 5847727e-ef69-4be6-b244-61a1446af5e8
-    position: {x: 385, y: 832}
-  - nodeId: 22e12eba-207a-466b-9e6f-95154e7f05fc
-    position: {x: 697, y: 916}
-  - nodeId: 18880413-4dc9-434d-8ab9-9aea07070b6e
-    position: {x: -405, y: -58}
-  - nodeId: 833ccaca-098f-4510-b3db-f135fa88952f
-    position: {x: 110, y: -58}
-  - nodeId: c6c6cafc-0f05-4b2c-995d-82cbd4f7874b
-    position: {x: -180, y: 730}
---- !u!114 &3645028131383563750
+--- !u!114 &-7246929440740580379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,7 +24,7 @@ MonoBehaviour:
   - flag: aster_met
     value: 1
   nextNodes:
-  - {fileID: -5639036016618034391}
+  - {fileID: 5172476293423151946}
   openingLine: "Hola, perdona\u2026 \xBFt\xFA eres quien se ha mudado? Yo soy Aster.
     Encantado. Perdona, no esperaba cara nueva hoy. \xBFHa sido raro esto? Un poco
     raro."
@@ -257,7 +33,7 @@ MonoBehaviour:
   - el pueblo
   - "la florister\xEDa"
   exitCondition: El jugador le dice algo que no sea presentarse.
---- !u!114 &5328878725179470072
+--- !u!114 &-5129340733885152794
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,18 +43,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
-  m_Name: Aster_bye_md
+  m_Name: Introduccion_guessing
   m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
-  nodeGuid: 22e12eba-207a-466b-9e6f-95154e7f05fc
-  contextForAI: 
+  nodeGuid: 1af5e094-ed06-4f5a-9133-c59fd62d88c0
+  contextForAI: "El planeador de semillas de Aster (un aparato que deber\xEDa planear
+    y soltar semillas al  caer, y que Aster iba a presentar al concurso de inventos)
+    amaneci\xF3 boca abajo en el suelo del taller.Pistas: un ala de tela rajada LIMPIA, 
+    como con tijeras, no rota; el dep\xF3sito de semillas VAC\xCDO, y Aster no lo
+    vaci\xF3; la puerta  del taller estaba cerrada POR DENTRO. Aster est\xE1 en p\xE1nico
+    y no entiende qu\xE9 pas\xF3."
   prerequisiteFlags: []
-  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  lockedReply: 
   resumeLine: 
   flagsOnEnter: []
-  nextNodes: []
-  openingLine: "Bueno... Me voy a interrogar a todos los sospechosos! Me vengar\xE9!"
+  nextNodes:
+  - {fileID: 7660961428646895183}
+  openingLine: No te vas a creer lo que me ha pasado! Mi precioso invento para el
+    concurso se ha roto!
   transitions: []
---- !u!114 &5887731017248903554
+--- !u!114 &-4000288385878633474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -299,7 +82,258 @@ MonoBehaviour:
   flagsOnEnter:
   - flag: glow_aster_none
     value: 1
+  - flag: 'aster_victory = true '
+    value: 1
   nextNodes: []
   openingLine: "Uf. Necesito probar esto antes de que mi cerebro lo arruine. \xA1Gracias!
     Luego sigo."
   transitions: []
+--- !u!114 &-2480416435457040514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Aster_challenge_2
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: a25218b2-5124-4d26-a5fb-be5f5df8f63e
+  contextForAI: "Aster reaaciona a las ideas del jugador para mejorar su invento
+    (Un planeador de semillas (un aparato que deber\xEDa planear y soltar semillas
+    al  caer), insiste en que le de m\xE1s detalles si las ideas del jugador son
+    vagas, si son interesantes aporta su adici\xF3n a la idea de la jugadora para
+    estimular mas ideas. Cuando el jugador no tenga m\xE1s ideas, agradece y cierra"
+  prerequisiteFlags: []
+  lockedReply: 
+  resumeLine: "Sigo pensando en como mejorar mi invento, \xA1y me quedo sin tiempo!
+    Ayudame"
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: -4000288385878633474}
+  openingLine: 
+  conversationTopics: []
+  exitCondition: "El jugador deja de dar ideas para el invento, dice que no se le
+    ocurren m\xE1s ideas, que el invento est\xE1 bien as\xED o se despide. "
+--- !u!114 &-1761130981045325502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: ASTER_ask
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: 5847727e-ef69-4be6-b244-61a1446af5e8
+  contextForAI: "Aster est\xE1 enfadado con quien ha roto su invento. Necesita pillarlo
+    sea como sea. Quiere que el jugador le obligue a pillarlo. Cuando el jugador
+    le diga una pregunta le seguir\xE1 pidiendo m\xE1s a ra\xEDz de las preguntas
+    anteriores hasta que el jugador deje de sugerirle preguntas."
+  prerequisiteFlags: []
+  lockedReply: 
+  resumeLine: "Todav\xEDa estoy peensando que preguntarles! Y si me hacen da\xF1o?"
+  flagsOnEnter:
+  - flag: aster_angry
+    value: 1
+  nextNodes:
+  - {fileID: 1004730219213791226}
+  openingLine: "Voy a hablar con quien anduvo anoche por la plaza. Si fueras t\xFA,
+    \xBFqu\xE9 le preguntar\xEDas para pillarlo?"
+  conversationTopics: []
+  exitCondition: El jugador deja de decirle preguntas para el culpable o cambia de
+    tema.
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb61de17a0d8834c8344f4ab533f2da, type: 3}
+  m_Name: Aster_Biblia
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueGraphSO
+  nodes:
+  - {fileID: -4000288385878633474}
+  - {fileID: -5129340733885152794}
+  - {fileID: 5407999468533157865}
+  - {fileID: 7660961428646895183}
+  - {fileID: 5171034301682998171}
+  - {fileID: 5172476293423151946}
+  - {fileID: -7246929440740580379}
+  - {fileID: -2480416435457040514}
+  - {fileID: -1761130981045325502}
+  - {fileID: 1004730219213791226}
+  entryNode: {fileID: -5129340733885152794}
+  nodePositions:
+  - nodeId: d61aecb4-e9c2-4f75-a455-09c49b2c8e14
+    position: {x: 1944, y: 801}
+  - nodeId: 1af5e094-ed06-4f5a-9133-c59fd62d88c0
+    position: {x: -555, y: 801}
+  - nodeId: 0de76f03-4657-4420-a4f9-8e4e2c6d0421
+    position: {x: 1162, y: 862}
+  - nodeId: c6c6cafc-0f05-4b2c-995d-82cbd4f7874b
+    position: {x: -180, y: 730}
+  - nodeId: 833ccaca-098f-4510-b3db-f135fa88952f
+    position: {x: 289, y: 16}
+  - nodeId: dc8f0651-b1ca-4d06-a867-2a938eaccc20
+    position: {x: -50, y: -5}
+  - nodeId: 18880413-4dc9-434d-8ab9-9aea07070b6e
+    position: {x: -405, y: -134}
+  - nodeId: a25218b2-5124-4d26-a5fb-be5f5df8f63e
+    position: {x: 1537, y: 801}
+  - nodeId: 5847727e-ef69-4be6-b244-61a1446af5e8
+    position: {x: 191, y: 780}
+  - nodeId: 22e12eba-207a-466b-9e6f-95154e7f05fc
+    position: {x: 621, y: 828}
+--- !u!114 &1004730219213791226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_bye_md
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 22e12eba-207a-466b-9e6f-95154e7f05fc
+  contextForAI: 
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "Bueno... Me voy a interrogar a todos los sospechosos! Me vengar\xE9!"
+  transitions: []
+--- !u!114 &5171034301682998171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_bye_am
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 833ccaca-098f-4510-b3db-f135fa88952f
+  contextForAI: "Fin del primer encuentro de la ma\xF1ana. Se despide nervioso y
+    majo, sin mencionar a\xFAn su invento. Terminal."
+  prerequisiteFlags: []
+  lockedReply: 
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "Bueno\u2026 un placer, vecina. Me vuelvo a lo m\xEDo antes de que
+    se me olvide. Adi\xF3s, adi\xF3s."
+  transitions: []
+--- !u!114 &5172476293423151946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: ConversationNode
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: dc8f0651-b1ca-4d06-a867-2a938eaccc20
+  contextForAI: "Primer encuentro ligero. Aster pregunta cu\xE1l es tu invento favorito
+    y cu\xE1l es el invento que m\xE1s le joder\xEDa que no existiera. Charla de
+    vecinos, sin mencionar a\xFAn el sabotaje ni el planeador roto."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: 5171034301682998171}
+  openingLine: "\xBFCu\xE1l es tu invento favorito? Y m\xE1s importante: \xBFcu\xE1l
+    te joder\xEDa much\xEDsimo que no hubieran inventado nunca?"
+  conversationTopics: []
+  exitCondition: "El jugador ha respondido a al menos una de las dos preguntas (o
+    corta la conversaci\xF3n)"
+--- !u!114 &5407999468533157865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Aster_challenge_product_improvement
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: 0de76f03-4657-4420-a4f9-8e4e2c6d0421
+  contextForAI: "Aster ha estado pensando que igual que se haya roto su invento es
+    una oportunidad para hacer algo mejor y era una se\xF1al de que no era lo bastante
+    bueno para el concurso. "
+  prerequisiteFlags: []
+  lockedReply: 
+  resumeLine: "Sigo pensando en como mejorar mi invento, \xA1y me quedo sin tiempo!
+    Ayudame"
+  flagsOnEnter:
+  - flag: 
+    value: 1
+  nextNodes:
+  - {fileID: -2480416435457040514}
+  openingLine: "He estado pensando... y no hay mal que por bien no venga. Ya que
+    lo abro entero para arreglarlo\u2026 \xBFc\xF3mo lo dejar\xEDas, mejor que antes?"
+  conversationTopics:
+  - el invento
+  - el concurso
+  - ideas para emocionar
+  exitCondition: El jugador propone una idea concreta
+--- !u!114 &7660961428646895183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: ASTER_GuessingCuases
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: c6c6cafc-0f05-4b2c-995d-82cbd4f7874b
+  contextForAI: "El planeador de semillas de Aster (un aparato que deber\xEDa planear
+    y soltar semillas al  caer, y que Aster iba a presentar al concurso de inventos)
+    amaneci\xF3 boca abajo en el suelo del taller.Pistas: un ala de tela rajada LIMPIA, 
+    como con tijeras, no rota; el dep\xF3sito de semillas VAC\xCDO, y Aster no lo
+    vaci\xF3; la puerta  del taller estaba cerrada POR DENTRO. Aster est\xE1 en p\xE1nico
+    y no entiende qu\xE9 pas\xF3.El concurso es para aumentar la sostenebilidad del
+    pueblo y mejorar la vida de los habitantes y aster no sabe cu\xE1l es el premio
+    pero espera que sea unas placas solares. El jugador le dar\xE1 ideas de qu\xE9
+    ha podido pasar o le preguntar\xE1 por el concurso o por m\xE1s detalles del
+    incidente. Aster responder\xE1 muy nervioso y le dar\xE1 motivos por los cuales
+    si habria podido pasar eso o no para estimular mas ideas."
+  prerequisiteFlags: []
+  lockedReply: 
+  resumeLine: "\xBFDonde estabas? A\xFAn no hemos resuelto el CRIMEN"
+  flagsOnEnter:
+  - flag: aster_sabotaje_sospecha
+    value: 1
+  nextNodes:
+  - {fileID: -1761130981045325502}
+  openingLine: "Mi planeador est\xE1 en el suelo, un ala cortada limpia y el dep\xF3sito
+    vac\xEDo\u2026 y la puerta estaba cerrada por dentro. No lo entiendo. \xBFPor
+    qu\xE9 crees que ha pasado? Dame teor\xEDas, TODAS, por locas que sean."
+  conversationTopics:
+  - el invento
+  - el concurso
+  - el incidente
+  exitCondition: "Cuando el jugador deje de dar ideas de que ha podido pasar, cuando
+    no pregunte mas por el concurso o el invento o cuando diga que ya est\xE1 bien
+    o se despida."

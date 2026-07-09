@@ -1,6 +1,103 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7086872860100084655
+--- !u!114 &-8763288353176232448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Mochi_challenge
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: 8e5a8478-4e92-4c80-b91f-e0b03dae372b
+  contextForAI: "Mochi pide un plato usando 3 ingredientes bien conocidos, pero le
+    va cambiando el registro sobre la marcha: primero pide algo DULCE, luego que
+    lo hagas SALADO, luego CASERO, luego ELEGANTE. Eval\xFAa si el jugador consigue
+    adaptar la misma base a cada giro o se queda parado. Los ingredientes son tomate,
+    pimiento y calabacin."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: mochi_metida
+    value: 1
+  nextNodes:
+  - {fileID: -764910619496357934}
+  openingLine: "\xA1Necesito una idea! No una buena, eso ser\xEDa pedir demasiado.
+    Una idea VIVA. \xBFQu\xE9 plato har\xEDas para alguien triste que finge no estarlo?
+    Usa flores, setas, lo que sea, si sabes defenderlo."
+  conversationTopics:
+  - recetas
+  - combinaciones de ingredientes
+  - "para qui\xE9n es el plato"
+  exitCondition: "El jugador ha dado al menos una versi\xF3n del plato para cada
+    registro pedido (o dice que no puede m\xE1s"
+--- !u!114 &-6501727393360439920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Mochi_confess
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: c95842bc-0b6b-4994-8491-1dc09bd80a09
+  contextForAI: "Momento de vulnerabilidad: Mochi confiesa que el cliente importante
+    de esta noche es su MADRE, una cocinera legendaria y demoledora, y que teme no
+    estar a la altura. Solo llega aqu\xED si hay confianza. Reacciona a c\xF3mo el
+    jugador encaje el secreto (con apoyo, con honestidad, o quit\xE1ndole hierro)."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: mochi_secreto
+    value: 1
+  - flag: mochi_trust
+    value: 1
+  nextNodes:
+  - {fileID: 7412097047861232550}
+  openingLine: "Florista\u2026 te confieso algo. El cliente de esta noche\u2026 es
+    mi madre. Donna Funghi."
+  conversationTopics: []
+  exitCondition: "El jugador reacciona a la confesi\xF3n."
+--- !u!114 &-6314898370114174586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Mochi_olla
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: 4fe585bd-4083-4334-b675-3fda97378ce6
+  contextForAI: "A Mochi se le ha roto la olla de cobre gigante de su abuela: enorme,
+    abollada, ya no calienta, con un asa suelta. Se niega a tirarla. Pide usos INESPERADOS
+    para el objeto, cuanto menos culinarios mejor (romper la fijaci\xF3n funcional).
+    Cuantos m\xE1s y m\xE1s raros, mejor. Si no le gusta el uso que le propone el
+    jugador dice que su abuela se revolver\xEDa en su tumba al ver su preciada olla
+    con un uso tan indecente."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: "\xBFY bien? \xBFSe te ha ocurrido algo m\xE1s para la olla?\""
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: 8140957109292240814}
+  openingLine: "Sabes que ? Esta olla ya no cocina, pero no la tiro ni muerta. Dime
+    para qu\xE9 m\xE1s podr\xEDa servir \u2014y cuanto menos tenga que ver con cocinar,
+    m\xE1s me gustas. "
+  conversationTopics: []
+  exitCondition: "El jugador ha dado varios usos inesperados para la olla (o dice
+    que no se le ocurre ninguno m\xE1s)."
+--- !u!114 &-4686380554113933797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25,7 +122,28 @@ MonoBehaviour:
   openingLine: "\xA1Ha sido un placer, vecina! Ahora corre, que tengo cosas que remover
     y oler. Vuelve a mediod\xEDa\u2026 necesitar\xE9 tu cabeza."
   transitions: []
---- !u!114 &-5122445052531971048
+--- !u!114 &-3480962039317674700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Mochi_bye_night
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 933e1b4c-7674-4151-95de-da12759e81c4
+  contextForAI: 
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: Bueno gracias por escucharme! Me voy a remover!
+  transitions: []
+--- !u!114 &-2875608555443414383
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35,28 +153,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
-  m_Name: Mochi_suspectMoth
+  m_Name: Mochi_favourite_food
   m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
-  nodeGuid: c35b46f0-548c-4bd9-a722-e8d60dd981cf
-  contextForAI: "Mochi ha o\xEDdo algo raro sobre Moth y Rix ('una frase que ol\xEDa
-    a mentira con perfume de polilla') y sospecha que la florista anda metiendo cuchara
-    en corazones ajenos. Si admite la mentira, baja confianza pero respeta la honestidad;
-    si miente, sospecha m\xE1s."
-  prerequisiteFlags:
-  - flag: helped_moth_lie
-    expectedValue: 1
+  nodeGuid: bee4efa1-6007-4dea-872a-a1f2fe0e22e2
+  contextForAI: "Primer encuentro. Mochi est\xE1 nervioso, intenta parecer elegante.
+    Charla ligera de vecinos nuevos y le pregunta a la florista cu\xE1l es su comida
+    favorita, reacciona con entusiasmo o drama seg\xFAn la respuesta. "
+  prerequisiteFlags: []
   lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
   resumeLine: 
-  flagsOnEnter:
-  - flag: mochi_sospecha_moth
-    value: 1
+  flagsOnEnter: []
   nextNodes:
-  - {fileID: 2897729196826193434}
-  openingLine: "He o\xEDdo una frase que ol\xEDa a mentira con perfume de polilla.
-    Dime que no est\xE1s metiendo cucharas en corazones ajenos."
+  - {fileID: -4686380554113933797}
+  openingLine: " Antes de que se me olvide preguntar lo importante: \xBFcu\xE1l es
+    tu comida favorita? Necesito saber con qui\xE9n trato."
   conversationTopics: []
-  exitCondition: El jugador responde a la sospecha (admite, lo niega o lo explica).
---- !u!114 &-2775402840853936355
+  exitCondition: El jugador dice una comida
+--- !u!114 &-764910619496357934
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,163 +207,39 @@ MonoBehaviour:
   m_Name: Mochi_Biblia
   m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.DialogueGraphSO
   nodes:
-  - {fileID: -7086872860100084655}
-  - {fileID: 7932753586534857305}
-  - {fileID: -2775402840853936355}
-  - {fileID: 1257161428472214297}
-  - {fileID: 2135797267624687045}
-  - {fileID: -5122445052531971048}
-  - {fileID: 4109579688177938548}
-  - {fileID: 2897729196826193434}
-  entryNode: {fileID: 7932753586534857305}
+  - {fileID: -4686380554113933797}
+  - {fileID: -764910619496357934}
+  - {fileID: 6657396338795518125}
+  - {fileID: -2875608555443414383}
+  - {fileID: -8763288353176232448}
+  - {fileID: 7412097047861232550}
+  - {fileID: -3480962039317674700}
+  - {fileID: -6501727393360439920}
+  - {fileID: -6314898370114174586}
+  - {fileID: 8140957109292240814}
+  entryNode: {fileID: 6657396338795518125}
   nodePositions:
   - nodeId: 89928a63-3b29-48fc-9be6-d05fe664fd6f
     position: {x: 260, y: 0}
-  - nodeId: 293d8c1c-ffc1-4a95-b21b-54dc8f7838bb
-    position: {x: -135, y: 44}
   - nodeId: edff6e04-a19d-451c-9039-7d2538e46a46
     position: {x: 616, y: 504}
+  - nodeId: 293d8c1c-ffc1-4a95-b21b-54dc8f7838bb
+    position: {x: -429, y: -16}
+  - nodeId: bee4efa1-6007-4dea-872a-a1f2fe0e22e2
+    position: {x: -111, y: -16}
   - nodeId: 8e5a8478-4e92-4c80-b91f-e0b03dae372b
-    position: {x: 221, y: 434}
-  - nodeId: 32be9de8-3cb9-4420-8d98-3b189d300286
-    position: {x: 1368, y: 434}
-  - nodeId: c35b46f0-548c-4bd9-a722-e8d60dd981cf
-    position: {x: 1302, y: -637}
+    position: {x: 200, y: 455}
+  - nodeId: a8ecc89a-f00a-4df7-9c7f-29f34cc09e2a
+    position: {x: 1012, y: -772}
+  - nodeId: 933e1b4c-7674-4151-95de-da12759e81c4
+    position: {x: 1375, y: -674}
   - nodeId: c95842bc-0b6b-4994-8491-1dc09bd80a09
-    position: {x: 677, y: -686}
-  - nodeId: e38b5de1-2a93-4d85-8491-9da6bd01d8b1
-    position: {x: 1751, y: 269}
---- !u!114 &1257161428472214297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
-  m_Name: Mochi_challenge
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
-  nodeGuid: 8e5a8478-4e92-4c80-b91f-e0b03dae372b
-  contextForAI: "MEDIOD\xCDA. Mochi est\xE1 en plena crisis: le han tra\xEDdo ingredientes
-    raros y debe cocinar para alguien que dice estar 'perfectamente bien' (o sea,
-    al borde del desastre). Pide IDEAS al jugador y reacciona con drama a cada una.
-    Valora ideas inesperadas, con detalle, que usen elementos del mundo (flores,
-    setas, hierbas, el pueblo) y que piensen en la EMOCI\xD3N de quien va a comer.
-    Si la idea es vaga la pincha ('m\xE1s una nube con hambre que una receta'); si
-    es rara y buena se entusiasma; si es emp\xE1tica lo reconoce ('no solo pensaste
-    en el plato, pensaste en la persona')."
-  prerequisiteFlags: []
-  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
-  resumeLine: 
-  flagsOnEnter:
-  - flag: mochi_metida
-    value: 1
-  nextNodes:
-  - {fileID: -2775402840853936355}
-  openingLine: "\xA1Necesito una idea! No una buena, eso ser\xEDa pedir demasiado.
-    Una idea VIVA. \xBFQu\xE9 plato har\xEDas para alguien triste que finge no estarlo?
-    Usa flores, setas, lo que sea, si sabes defenderlo."
-  conversationTopics:
-  - recetas
-  - combinaciones de ingredientes
-  - flores en la cocina
-  - "para qui\xE9n es el plato"
-  exitCondition: "El jugador ha propuesto al menos una idea/plato concreto (o dice
-    que ya no se le ocurre m\xE1s)."
---- !u!114 &2135797267624687045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
-  m_Name: Mochi_night
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
-  nodeGuid: 32be9de8-3cb9-4420-8d98-3b189d300286
-  contextForAI: "NOCHE. Mochi, m\xE1s calmado y con la m\xE1scara medio ca\xEDda,
-    retoma la idea del jugador (la ha estado pensando aunque finja que no), le se\xF1ala
-    UN defecto concreto y le pide que la MEJORE. Mide ADAPTACI\xD3N (\xBFmejora la
-    idea o solo la repite?). Se comporta seg\xFAn los flags: si player_was_honest,
-    m\xE1s abierto; si player_lied_kindly, medio lo sospecha pero lo agradece; si
-    evadi\xF3, m\xE1s distante."
-  prerequisiteFlags: []
-  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
-  resumeLine: "Anda, has vuelto\u2026 estaba d\xE1ndole vueltas a tu idea, \xBFsabes?"
-  flagsOnEnter:
-  - flag: mochi_revisado
-    value: 1
-  nextNodes:
-  - {fileID: 2897729196826193434}
-  openingLine: "He estado pensando en tu idea. Contra mi voluntad, por supuesto.
-    Pero tiene un defecto\u2026 \xBFc\xF3mo lo arreglar\xEDas?"
-  conversationTopics: []
-  exitCondition: El jugador mejora, ajusta o replantea su idea (no solo la repite
-    igual).
---- !u!114 &2897729196826193434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
-  m_Name: Mochi_bye
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
-  nodeGuid: e38b5de1-2a93-4d85-8491-9da6bd01d8b1
-  contextForAI: "Despedida final del d\xEDa de Mochi. Antes de irse te sugiere hablar
-    con Rix. Terminal."
-  prerequisiteFlags: []
-  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
-  resumeLine: 
-  flagsOnEnter:
-  - flag: recommend_rix
-    value: 1
-  - flag: glow_mochi_none
-    value: 1
-  nextNodes: []
-  openingLine: "\xA1V\xEDa, v\xEDa! Se me quema el risotto. Oye\u2026 habla con Rix,
-    a ver qu\xE9 come alguien que dice que no siente nada. Grazie, florista."
-  transitions: []
---- !u!114 &4109579688177938548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
-  m_Name: Mochi_confess
-  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
-  nodeGuid: c95842bc-0b6b-4994-8491-1dc09bd80a09
-  contextForAI: "Momento de vulnerabilidad: Mochi confiesa que el cliente importante
-    de esta noche es su MADRE, una cocinera legendaria y demoledora, y que teme no
-    estar a la altura. Solo llega aqu\xED si hay confianza. Reacciona a c\xF3mo el
-    jugador encaje el secreto (con apoyo, con honestidad, o quit\xE1ndole hierro)."
-  prerequisiteFlags:
-  - flag: mochi_trust
-    expectedValue: 1
-  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
-  resumeLine: 
-  flagsOnEnter:
-  - flag: mochi_secreto
-    value: 1
-  nextNodes:
-  - {fileID: -5122445052531971048}
-  - {fileID: 2897729196826193434}
-  openingLine: "Florista\u2026 te confieso algo. El cliente de esta noche\u2026 es
-    mi madre. Donna Funghi."
-  conversationTopics: []
-  exitCondition: "El jugador reacciona a la confesi\xF3n."
---- !u!114 &7932753586534857305
+    position: {x: 640, y: -795}
+  - nodeId: 4fe585bd-4083-4334-b675-3fda97378ce6
+    position: {x: 1080, y: 181}
+  - nodeId: ce5dc1fa-1387-4397-b6f3-d86ef3595b0c
+    position: {x: 1569, y: 335}
+--- !u!114 &6657396338795518125
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -278,10 +267,8 @@ MonoBehaviour:
   flagsOnEnter:
   - flag: mochi_met
     value: 1
-  - flag: glow_mochi_strong
-    value: 1
   nextNodes:
-  - {fileID: -7086872860100084655}
+  - {fileID: -2875608555443414383}
   openingLine: "\xA1Oh! Espera. Cara nueva. Respiraci\xF3n normal, Mochi, respiraci\xF3n
     normal. T\xFA eres quien se ha mudado a la florister\xEDa, \xBFverdad?"
   conversationTopics:
@@ -291,3 +278,52 @@ MonoBehaviour:
   - presentarse
   exitCondition: "El jugador se ha presentado, ha saludado o ha charlado un poco
     (o ha sido cortante/agresivo y no hay m\xE1s que hablar)."
+--- !u!114 &7412097047861232550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: 'Mochi_pressure '
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: a8ecc89a-f00a-4df7-9c7f-29f34cc09e2a
+  contextForAI: Mochi confiesa que el cliente de esta noche es su MADRE, una chef
+    legendaria, y que teme no estar a la altura. Le pregunta a la florista si alguna
+    vez se ha sentido presionada a hacer algo por otra persona. Reacciona con calidez
+    si la florista comparte de verdad.
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: -3480962039317674700}
+  openingLine: " \xBFAlguna vez te has sentido presionada a hacer algo por otra persona?
+    Dime que no soy la \xFAnica."
+  conversationTopics: []
+  exitCondition: El jugador le cuenta una situacion en la que se ha sentido presionado,
+    dice que no o responde de manera corta o seca.
+--- !u!114 &8140957109292240814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: MOCHI_BYEBYE
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: ce5dc1fa-1387-4397-b6f3-d86ef3595b0c
+  contextForAI: 
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "Bueno adios! Mi abuela llorar\xEDa si viese su pobre olla."
+  transitions: []

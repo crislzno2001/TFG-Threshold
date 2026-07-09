@@ -82,9 +82,10 @@ namespace Sprout.Presentation
             var model = models.Find(m => m != null && m.kind == kind && m.prefab != null);
             if (model == null || slot == null) return;
 
+            // Usa la rotación del slot tal cual (ya corregida a mano en el macetero para que quede de pie).
+            // Sin giro extra: tus slots están en Z=-90, así que el eje "vertical" de la flor no es el
+            // Y del mundo, y un giro sobre Y mundial la tumbaba. Nace exactamente como está el slot.
             var go = Instantiate(model.prefab, slot.position, slot.rotation, slot);
-            if (randomYRotation)
-                go.transform.Rotate(0f, UnityEngine.Random.Range(0f, 360f), 0f, Space.Self);
 
             Vector3 target = go.transform.localScale * finalScale;
             StartCoroutine(Grow(go.transform, target));

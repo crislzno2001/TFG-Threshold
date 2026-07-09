@@ -52,7 +52,7 @@ MonoBehaviour:
   - flag: mochi_trust
     value: 1
   nextNodes:
-  - {fileID: 4109579688177938548, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  - {fileID: -6501727393360439920, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
   openingLine: "Qu\xE9 respuesta tan dulce. Casi tan dulce que me preocupa que sea
     mentira. \u2026No te culpo. Una mentira amable es una manta peque\xF1a."
   transitions: []
@@ -81,7 +81,7 @@ MonoBehaviour:
   - flag: mochi_trust
     value: 1
   nextNodes:
-  - {fileID: 4109579688177938548, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  - {fileID: -6501727393360439920, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
   openingLine: "\u2026Ah. Dolor. Pero dolor limpio, como cortarse con un cuchillo
     caro. Gracias. Nadie me destruye de frente desde hace mucho."
   transitions: []
@@ -224,7 +224,7 @@ MonoBehaviour:
   - flag: mochi_offended
     value: 1
   nextNodes:
-  - {fileID: 2897729196826193434, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  - {fileID: 6877243468813637303}
   openingLine: "Ah. Ya veo. No era una cr\xEDtica. Era una ejecuci\xF3n p\xFAblica.
     Puedes no querer mi comida, pero no me quedo a que la conviertas en chiste."
   transitions: []
@@ -904,9 +904,141 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 533764893}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 889066455}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2088184239}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1803030748}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1952181199}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1130460179}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2138905783}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 213017032}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1977109163}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2098734861}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 478017576}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1487156961}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1180287552}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1548200045}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 673021964}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1155221260}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1453954495}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1576352616}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1610712431}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 86177881}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 830949894}
+    - targetCorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 772963171}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -2703340554324379380, guid: cde18b330b2699341a002d08c8904297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 44060359}
   m_SourcePrefab: {fileID: 100100000, guid: cde18b330b2699341a002d08c8904297, type: 3}
+--- !u!1 &44060358 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2703340554324379380, guid: cde18b330b2699341a002d08c8904297, type: 3}
+  m_PrefabInstance: {fileID: 44060357}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &44060359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44060358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d08502a4d72ab3142b6c6433f8a103be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.FlowerGarden
+  slots:
+  - {fileID: 673021964}
+  - {fileID: 2088184239}
+  - {fileID: 533764893}
+  - {fileID: 213017032}
+  - {fileID: 1453954495}
+  - {fileID: 889066455}
+  - {fileID: 2098734861}
+  - {fileID: 1180287552}
+  - {fileID: 86177881}
+  - {fileID: 1803030748}
+  - {fileID: 1952181199}
+  - {fileID: 1548200045}
+  - {fileID: 2138905783}
+  - {fileID: 1977109163}
+  - {fileID: 1610712431}
+  - {fileID: 772963171}
+  - {fileID: 478017576}
+  - {fileID: 830949894}
+  - {fileID: 1487156961}
+  - {fileID: 1155221260}
+  - {fileID: 1576352616}
+  - {fileID: 1130460179}
+  models:
+  - kind: 1
+    prefab: {fileID: 306618169187909452, guid: 8afb024dc9cde1c4c9fb725d46035f22, type: 3}
+  - kind: 2
+    prefab: {fileID: 6693878289299929168, guid: a3e773b7a1951554595a20b5cfd51f3a, type: 3}
+  - kind: 3
+    prefab: {fileID: 7066783368634747202, guid: 60988eb0108719343ada91ad2bd21e45, type: 3}
+  - kind: 4
+    prefab: {fileID: 8926064160450691089, guid: 78fa52fb321ca334487bfb7ab4ea6e29, type: 3}
+  - kind: 5
+    prefab: {fileID: 0}
+  - kind: 6
+    prefab: {fileID: 6609798361495065078, guid: 8f761cb27d1630b47b85a048625cb34a, type: 3}
+  - kind: 7
+    prefab: {fileID: 0}
+  growSeconds: 1.2
+  finalScale: 1
+  randomYRotation: 1
+--- !u!4 &44060360 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3189075837528204854, guid: cde18b330b2699341a002d08c8904297, type: 3}
+  m_PrefabInstance: {fileID: 44060357}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &46106314
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,6 +1382,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &86177880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 86177881}
+  m_Layer: 0
+  m_Name: FLOWERPOS (19)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &86177881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86177880}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 5.824338}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &88973635 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8342c3f6b27fa694f99f783b4a9bb2bc, type: 3}
@@ -1378,20 +1541,20 @@ MonoBehaviour:
   entriesByFlag:
   - flag: helped_moth_lie
     expectedValue: 1
-    node: {fileID: -4063355454146413566, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
+    node: {fileID: 6893772088644032450, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
   entriesByDay:
   - day: 1
     node: {fileID: 1418004066992869867, guid: 4795893e11642234ca8a009af86a944e, type: 2}
   entriesByPhase:
   - day: 1
     phase: 0
-    node: {fileID: 2325204793044691105, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
+    node: {fileID: 7119718618599573562, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
   - day: 1
     phase: 1
-    node: {fileID: -4556138092666785626, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
+    node: {fileID: -222139121758368386, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
   - day: 1
     phase: 2
-    node: {fileID: 2371194532387160759, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
+    node: {fileID: -8304203176974288056, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
 --- !u!195 &90324489 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 3221547261648253395, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
@@ -1470,9 +1633,9 @@ MonoBehaviour:
   brain: {fileID: 90324455}
   runner: {fileID: 90324465}
   phaseDoneNodes:
-  - {fileID: 6877696559681354848, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
-  - {fileID: 5109782059043281432, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
-  - {fileID: 868266855998506513, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
+  - {fileID: -5069818241488920794, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
+  - {fileID: -5339405773640723096, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
+  - {fileID: 8532100742842295129, guid: 31d74ac1c068b6247a12cd3960f30b45, type: 2}
 --- !u!1 &99821662
 GameObject:
   m_ObjectHideFlags: 0
@@ -3203,9 +3366,9 @@ MonoBehaviour:
   brain: {fileID: 189986788}
   dialogueUI: {fileID: 448172085}
   runner: {fileID: 189986784}
-  ideasNode: {fileID: 1257161428472214297, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  ideasNode: {fileID: -8763288353176232448, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
   extraChallengeNodes:
-  - {fileID: 2135797267624687045, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  - {fileID: 6767663757369520180}
   challengeWeight: 2
   counterKey: mochi_ideas_count
   ideaDomain: 'a concrete culinary idea: ingredients, a technique, a dish, or plating.'
@@ -3289,16 +3452,16 @@ MonoBehaviour:
   entriesByPhase:
   - day: 1
     phase: 0
-    node: {fileID: 7932753586534857305, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+    node: {fileID: 6657396338795518125, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
   - day: 1
     phase: 1
-    node: {fileID: 1257161428472214297, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+    node: {fileID: -8763288353176232448, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
   - day: 1
     phase: 2
     node: {fileID: -7772422528388462890}
   - day: 1
     phase: 3
-    node: {fileID: 2135797267624687045, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+    node: {fileID: 6767663757369520180}
 --- !u!195 &189986811 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 3221547261648253395, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
@@ -3377,9 +3540,40 @@ MonoBehaviour:
   brain: {fileID: 0}
   runner: {fileID: 0}
   phaseDoneNodes:
-  - {fileID: -7086872860100084655, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
-  - {fileID: -2775402840853936355, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
-  - {fileID: 2897729196826193434, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  - {fileID: -4686380554113933797, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  - {fileID: -764910619496357934, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  - {fileID: 6877243468813637303}
+--- !u!1 &213017031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 213017032}
+  m_Layer: 0
+  m_Name: FLOWERPOS (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &213017032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213017031}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &213953104 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3995411129735620654, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
@@ -4948,7 +5142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &321318320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6624,6 +6818,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 448172084}
   m_CullTransparentMesh: 1
+--- !u!1 &478017575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 478017576}
+  m_Layer: 0
+  m_Name: FLOWERPOS (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &478017576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478017575}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: -3.882892}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &480607715
 GameObject:
   m_ObjectHideFlags: 0
@@ -6949,7 +7174,7 @@ MonoBehaviour:
   brain: {fileID: 490618957}
   dialogueUI: {fileID: 448172085}
   runner: {fileID: 490618953}
-  ideasNode: {fileID: -2778865708700871306, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
+  ideasNode: {fileID: -6857799959712434034, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
   extraChallengeNodes: []
   challengeWeight: 2
   counterKey: moth_friendship
@@ -7030,26 +7255,26 @@ MonoBehaviour:
   entriesByFlag:
   - flag: moth_feels_exposed
     expectedValue: 1
-    node: {fileID: -8950019898417542454, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
+    node: {fileID: 5717012836273198721, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
   - flag: rix_curiosity
     expectedValue: 1
-    node: {fileID: 8500107100374002376, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
+    node: {fileID: 7190269807029380379, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
   - flag: rix_neutral
     expectedValue: 1
-    node: {fileID: -1428518894039975376, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
+    node: {fileID: -1734621271544102200, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
   entriesByDay:
   - day: 1
     node: {fileID: 2653171959398314921, guid: 776eaba00d5e2bb44b6e21a8f465b1e7, type: 2}
   entriesByPhase:
   - day: 1
     phase: 0
-    node: {fileID: 5722149117141688515, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
+    node: {fileID: 2495612067295592134, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
   - day: 1
     phase: 1
-    node: {fileID: -2778865708700871306, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
+    node: {fileID: -6857799959712434034, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
   - day: 1
     phase: 2
-    node: {fileID: -4994997814144216012, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
+    node: {fileID: -3533219568869342457, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
 --- !u!195 &490618980 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 3221547261648253395, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
@@ -7128,9 +7353,9 @@ MonoBehaviour:
   brain: {fileID: 0}
   runner: {fileID: 0}
   phaseDoneNodes:
-  - {fileID: 1666403720254045930, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
-  - {fileID: -3093674896159244873, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
-  - {fileID: -6441141260597373132, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
+  - {fileID: 4576839459780160567, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
+  - {fileID: 3521829153176636826, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
+  - {fileID: 1845681777831230863, guid: a1c90e018e8d2604e9fbc82abed8311d, type: 2}
 --- !u!1 &503461002
 GameObject:
   m_ObjectHideFlags: 0
@@ -7386,11 +7611,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!4 &508102132 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3884732121247309532, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
-  m_PrefabInstance: {fileID: 5067498579107973335}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &508860473
 GameObject:
   m_ObjectHideFlags: 0
@@ -7646,6 +7866,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &533764892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 533764893}
+  m_Layer: 0
+  m_Name: FLOWERPOS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &533764893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533764892}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1001 &537671340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8504,8 +8755,10 @@ MonoBehaviour:
   brain: {fileID: 600370090}
   dialogueUI: {fileID: 448172085}
   runner: {fileID: 600370086}
-  ideasNode: {fileID: 3081679234875518319, guid: a9fb6afaf7e103340852458997a44890, type: 2}
-  extraChallengeNodes: []
+  ideasNode: {fileID: -3213482093640519179, guid: a9fb6afaf7e103340852458997a44890, type: 2}
+  extraChallengeNodes:
+  - {fileID: -3213482093640519179, guid: a9fb6afaf7e103340852458997a44890, type: 2}
+  - {fileID: -2550733366878675154, guid: a9fb6afaf7e103340852458997a44890, type: 2}
   challengeWeight: 2
   counterKey: aster_ideas_count
   ideaDomain: a concrete, original idea for the invention.
@@ -8677,9 +8930,9 @@ MonoBehaviour:
   brain: {fileID: 0}
   runner: {fileID: 0}
   phaseDoneNodes:
-  - {fileID: -7337007657821196720, guid: a9fb6afaf7e103340852458997a44890, type: 2}
-  - {fileID: -2903682809516732080, guid: a9fb6afaf7e103340852458997a44890, type: 2}
-  - {fileID: 5691390254844099713}
+  - {fileID: -5639036016618034391, guid: a9fb6afaf7e103340852458997a44890, type: 2}
+  - {fileID: 5887731017248903554, guid: a9fb6afaf7e103340852458997a44890, type: 2}
+  - {fileID: -5639036016618034391, guid: a9fb6afaf7e103340852458997a44890, type: 2}
 --- !u!1 &606278126
 GameObject:
   m_ObjectHideFlags: 0
@@ -10250,6 +10503,37 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 600370121}
   m_SourcePrefab: {fileID: 100100000, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
+--- !u!1 &673021963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 673021964}
+  m_Layer: 0
+  m_Name: FLOWERPOS (14)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &673021964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673021963}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &673782442
 GameObject:
   m_ObjectHideFlags: 0
@@ -13510,9 +13794,6 @@ PrefabInstance:
       addedObject: {fileID: 2020380199}
     - targetCorrespondingSourceObject: {fileID: 5987954193338691023, guid: 786dd0c8edd997f48b74ccce98159fee, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 508102132}
-    - targetCorrespondingSourceObject: {fileID: 5987954193338691023, guid: 786dd0c8edd997f48b74ccce98159fee, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1061440414}
     - targetCorrespondingSourceObject: {fileID: 5987954193338691023, guid: 786dd0c8edd997f48b74ccce98159fee, type: 3}
       insertIndex: -1
@@ -15319,6 +15600,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &772963170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 772963171}
+  m_Layer: 0
+  m_Name: FLOWERPOS (21)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &772963171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772963170}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 5.824338}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &777801341
 GameObject:
   m_ObjectHideFlags: 0
@@ -16169,6 +16481,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &830949893
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 830949894}
+  m_Layer: 0
+  m_Name: FLOWERPOS (20)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &830949894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830949893}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 3.882892}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &848129964
 GameObject:
   m_ObjectHideFlags: 0
@@ -16937,6 +17280,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8342c3f6b27fa694f99f783b4a9bb2bc, type: 3}
   m_PrefabInstance: {fileID: 887049634}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &889066454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 889066455}
+  m_Layer: 0
+  m_Name: FLOWERPOS (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &889066455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889066454}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: -5.824338}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1001 &890277081
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19453,6 +19827,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1130460178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1130460179}
+  m_Layer: 0
+  m_Name: FLOWERPOS (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1130460179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130460178}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: -1.941446}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &1137361656
 GameObject:
   m_ObjectHideFlags: 0
@@ -19745,6 +20150,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1155221259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1155221260}
+  m_Layer: 0
+  m_Name: FLOWERPOS (15)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1155221260
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155221259}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &1159310168
 GameObject:
   m_ObjectHideFlags: 0
@@ -20009,6 +20445,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1172977108}
   m_CullTransparentMesh: 1
+--- !u!1 &1180287551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1180287552}
+  m_Layer: 0
+  m_Name: FLOWERPOS (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1180287552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180287551}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1001 &1183397287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24095,6 +24562,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1453954494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1453954495}
+  m_Layer: 0
+  m_Name: FLOWERPOS (16)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1453954495
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453954494}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &1463277497
 GameObject:
   m_ObjectHideFlags: 0
@@ -24223,6 +24721,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1487156960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1487156961}
+  m_Layer: 0
+  m_Name: FLOWERPOS (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1487156961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487156960}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &1489364396
 GameObject:
   m_ObjectHideFlags: 0
@@ -25099,6 +25628,88 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1001 &1537018995
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1622098016}
+    m_Modifications:
+    - target: {fileID: 5663350902754019087, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_Name
+      value: BouquetCrafting
+      objectReference: {fileID: 0}
+    - target: {fileID: 5663350902754019087, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.2918243
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 16.454742
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932276290974751260, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+      propertyPath: flowerService
+      value: 
+      objectReference: {fileID: 1622098014}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+--- !u!4 &1537018996 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6277132999171728496, guid: aa3985aaa77264f488f15edca460f506, type: 3}
+  m_PrefabInstance: {fileID: 1537018995}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1544841849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25314,6 +25925,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547534223}
   m_CullTransparentMesh: 1
+--- !u!1 &1548200044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1548200045}
+  m_Layer: 0
+  m_Name: FLOWERPOS (13)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1548200045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548200044}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: -2.912169}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &1550112241
 GameObject:
   m_ObjectHideFlags: 0
@@ -25710,6 +26352,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1576352615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1576352616}
+  m_Layer: 0
+  m_Name: FLOWERPOS (17)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1576352616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576352615}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &1591576726
 GameObject:
   m_ObjectHideFlags: 0
@@ -26295,6 +26968,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1610712430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1610712431}
+  m_Layer: 0
+  m_Name: FLOWERPOS (18)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1610712431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610712430}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &1615158297
 GameObject:
   m_ObjectHideFlags: 0
@@ -28514,6 +29218,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1803030747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1803030748}
+  m_Layer: 0
+  m_Name: FLOWERPOS (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1803030748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803030747}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: -5.824338}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &1814040279
 GameObject:
   m_ObjectHideFlags: 0
@@ -30358,76 +31093,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!1 &1946760592
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1946760595}
-  - component: {fileID: 1946760594}
-  - component: {fileID: 1946760593}
-  m_Layer: 0
-  m_Name: BouquetCrafting
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1946760593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1946760592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1197452e6de7c5468d33a7acfdb5145, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.UI.BouquetCraftingUI
-  flowerService: {fileID: 1622098014}
-  doc: {fileID: 1946760594}
---- !u!114 &1946760594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1946760592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
-  m_PanelSettings: {fileID: 11400000, guid: 17127ec2416dcde4a85dc82b90e8d01b, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 10cdb73d2861fdd4ab6de29c4b7ed705, type: 3}
-  m_SortingOrder: 0
-  m_Position: 0
-  m_WorldSpaceSizeMode: 1
-  m_WorldSpaceWidth: 1920
-  m_WorldSpaceHeight: 1080
-  m_PivotReferenceSize: 0
-  m_Pivot: 0
-  m_WorldSpaceCollider: {fileID: 0}
---- !u!4 &1946760595
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1946760592}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -150, y: -9.72044, z: -149.99997}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2018018105}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1951398442
 GameObject:
   m_ObjectHideFlags: 0
@@ -30556,6 +31221,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1952181198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1952181199}
+  m_Layer: 0
+  m_Name: FLOWERPOS (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1952181199
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952181198}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: -1.941446}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &1963923263
 GameObject:
   m_ObjectHideFlags: 0
@@ -30805,6 +31501,37 @@ RectTransform:
   m_AnchoredPosition: {x: -14, y: -14}
   m_SizeDelta: {x: 56, y: 56}
   m_Pivot: {x: 1, y: 1}
+--- !u!1 &1977109162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1977109163}
+  m_Layer: 0
+  m_Name: FLOWERPOS (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1977109163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977109162}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: -4.853615}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &1979631349 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d57ab7c90c5ac844842605fc51ccb2a, type: 3}
@@ -31766,7 +32493,6 @@ Transform:
   - {fileID: 1912107218}
   - {fileID: 1763760710}
   - {fileID: 607915700}
-  - {fileID: 1946760595}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2020102908 stripped
@@ -33085,6 +33811,68 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &2088184238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2088184239}
+  m_Layer: 0
+  m_Name: FLOWERPOS (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2088184239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088184238}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: -5.824338}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
+--- !u!1 &2098734860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2098734861}
+  m_Layer: 0
+  m_Name: FLOWERPOS (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2098734861
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098734860}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: -4.853615}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &2107128218
 GameObject:
   m_ObjectHideFlags: 0
@@ -33658,6 +34446,37 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &2138905782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2138905783}
+  m_Layer: 0
+  m_Name: FLOWERPOS (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2138905783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138905782}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 2, z: -5.824338}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 44060360}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!1 &2142254815
 GameObject:
   m_ObjectHideFlags: 0
@@ -33999,7 +34818,7 @@ PrefabInstance:
     - target: {fileID: 439834351383949455, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
       propertyPath: craftingPanel
       value: 
-      objectReference: {fileID: 1946760592}
+      objectReference: {fileID: 0}
     - target: {fileID: 2510606174025014516, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
       propertyPath: m_Name
       value: SproutGame
@@ -34083,10 +34902,13 @@ PrefabInstance:
     - target: {fileID: 7810431431807373277, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
       propertyPath: craftingPanel
       value: 
-      objectReference: {fileID: 1946760592}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4326599454882538158, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1537018996}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
 --- !u!114 &3561034632549828475
@@ -34494,63 +35316,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 514480678892743167}
   m_SourcePrefab: {fileID: 100100000, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
---- !u!1001 &5067498579107973335
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 692592875}
-    m_Modifications:
-    - target: {fileID: 3884732121247309532, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 13.178875
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884732121247309532, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.94854665
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884732121247309532, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 19.59663
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884732121247309532, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884732121247309532, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884732121247309532, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884732121247309532, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884732121247309532, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884732121247309532, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3884732121247309532, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4513319192800167014, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
-      propertyPath: m_Name
-      value: orchid
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
 --- !u!114 &5691390254844099713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34578,6 +35343,65 @@ MonoBehaviour:
   openingLine: "Me vuelvo al taller. Oye\u2026 preg\xFAntale a Moth sobre la luz.
     Habla como si desayunara imposibles. Gracias por escuchar."
   transitions: []
+--- !u!114 &6767663757369520180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Mochi_night
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: 32be9de8-3cb9-4420-8d98-3b189d300286
+  contextForAI: "NOCHE. Mochi, m\xE1s calmado y con la m\xE1scara medio ca\xEDda,
+    retoma la idea del jugador (la ha estado pensando aunque finja que no), le se\xF1ala
+    UN defecto concreto y le pide que la MEJORE. Mide ADAPTACI\xD3N (\xBFmejora la
+    idea o solo la repite?). Se comporta seg\xFAn los flags: si player_was_honest,
+    m\xE1s abierto; si player_lied_kindly, medio lo sospecha pero lo agradece; si
+    evadi\xF3, m\xE1s distante."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: "Anda, has vuelto\u2026 estaba d\xE1ndole vueltas a tu idea, \xBFsabes?"
+  flagsOnEnter:
+  - flag: mochi_revisado
+    value: 1
+  nextNodes:
+  - {fileID: 6877243468813637303}
+  openingLine: "He estado pensando en tu idea. Contra mi voluntad, por supuesto.
+    Pero tiene un defecto\u2026 \xBFc\xF3mo lo arreglar\xEDas?"
+  conversationTopics: []
+  exitCondition: El jugador mejora, ajusta o replantea su idea (no solo la repite
+    igual).
+--- !u!114 &6877243468813637303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Mochi_bye
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: e38b5de1-2a93-4d85-8491-9da6bd01d8b1
+  contextForAI: "Despedida final del d\xEDa de Mochi. Antes de irse te sugiere hablar
+    con Rix. Terminal."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: recommend_rix
+    value: 1
+  - flag: glow_mochi_none
+    value: 1
+  nextNodes: []
+  openingLine: "\xA1V\xEDa, v\xEDa! Se me quema el risotto. Oye\u2026 habla con Rix,
+    a ver qu\xE9 come alguien que dice que no siente nada. Grazie, florista."
+  transitions: []
 --- !u!114 &7454747838331076001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34598,7 +35422,7 @@ MonoBehaviour:
   resumeLine: 
   flagsOnEnter: []
   nextNodes:
-  - {fileID: 2897729196826193434, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  - {fileID: 6877243468813637303}
   openingLine: "\xBF\u2026eso es un s\xED o un no? Bah. Da igual. Olv\xEDdalo."
   transitions: []
 --- !u!1001 &7796555497590537653
@@ -34866,4 +35690,3 @@ SceneRoots:
   - {fileID: 321318321}
   - {fileID: 243877132}
   - {fileID: 181900548}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    

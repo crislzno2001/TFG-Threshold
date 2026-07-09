@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\xC1nima"
   emotion: honesty
   description: A clear white flower with nothing hidden inside.
-  icon: {fileID: 21300000, guid: 7ac2cee17a499704e8d2d8adcefa048d, type: 3}
+  icon: {fileID: 21300000, guid: ef39e5edc4219a04d904b88408315a15, type: 3}
   model: {fileID: 0}
   color: {r: 0.95, g: 0.96, b: 0.92, a: 1}
   gameplayMeaning: Grows from painful honesty and from refusing to lie.

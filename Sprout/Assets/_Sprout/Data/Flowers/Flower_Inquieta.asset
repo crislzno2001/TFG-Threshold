@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Inquieta
   emotion: unease
   description: A flower whose petals never quite settle.
-  icon: {fileID: 21300000, guid: 4cb8064d4f5b3c044be48f6de8a2e1e4, type: 3}
+  icon: {fileID: 21300000, guid: 5f0436e900b93674e8480b1b202ca73b, type: 3}
   model: {fileID: 0}
   color: {r: 0.65, g: 0.55, b: 0.3, a: 1}
   gameplayMeaning: Grows from gossip and unease.

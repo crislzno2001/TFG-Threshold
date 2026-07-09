@@ -17,7 +17,7 @@ MonoBehaviour:
   emotionalMeaning: A goodbye that still burns.
   ingredientA: 3
   ingredientB: 2
-  icon: {fileID: 21300000, guid: a6a5b3cd3d08903458f40551df16b184, type: 3}
+  icon: {fileID: 21300000, guid: 0a94b2ebc91cdad4b843a1f2c2cae921, type: 3}
   model: {fileID: 4513319192800167014, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
   reactions:
   - npc: 0

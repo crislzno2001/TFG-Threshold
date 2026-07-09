@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Sol
   emotion: joy
   description: A bright sun-yellow bloom that always faces you.
-  icon: {fileID: 21300000, guid: e092c91773ca70d438689a4079b98404, type: 3}
-  model: {fileID: 0}
+  icon: {fileID: 21300000, guid: 29501edef0bf0c64a8de52cb1fe3c71b, type: 3}
+  model: {fileID: 8926064160450691089, guid: 78fa52fb321ca334487bfb7ab4ea6e29, type: 3}
   color: {r: 1, g: 0.85, b: 0.2, a: 1}
   gameplayMeaning: "Grows from high fluency \u2014 many ideas offered freely."
