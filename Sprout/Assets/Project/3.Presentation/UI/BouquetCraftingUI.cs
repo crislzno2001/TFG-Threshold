@@ -76,12 +76,12 @@ namespace Sprout.Presentation.UI
                     sprite = IconFor(k),
                     scaleMode = ScaleMode.ScaleToFit
                 };
-                icon.style.width = 48;
-                icon.style.height = 48;
+                icon.style.width = 88;
+                icon.style.height = 88;
                 icon.style.alignSelf = Align.Center;
                 b.Add(icon);
 
-                var label = new Label(Names[i]) { style = { fontSize = 11, unityTextAlign = TextAnchor.MiddleCenter, marginTop = 2 } };
+                var label = new Label(Names[i]) { style = { fontSize = 15, unityTextAlign = TextAnchor.MiddleCenter, marginTop = 4 } };
                 b.Add(label);
 
                 Style(b, BtnState.Normal);
@@ -94,8 +94,8 @@ namespace Sprout.Presentation.UI
 
         private static void Style(Button b, BtnState state)
         {
-            b.style.width = 84; b.style.height = 84;
-            b.style.marginLeft = 4; b.style.marginRight = 4; b.style.marginTop = 4; b.style.marginBottom = 4;
+            b.style.width = 130; b.style.height = 130;
+            b.style.marginLeft = 6; b.style.marginRight = 6; b.style.marginTop = 6; b.style.marginBottom = 6;
             b.style.justifyContent = Justify.Center;
             b.style.alignItems = Align.Center;
             b.style.fontSize = 14;

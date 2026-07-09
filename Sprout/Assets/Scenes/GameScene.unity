@@ -34746,22 +34746,6 @@ CharacterController:
   m_CorrespondingSourceObject: {fileID: 7304796836138068397, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
   m_PrefabInstance: {fileID: 4749802022324530721}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &514480678892743184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213953104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65225b9ef6c8c8a46bbc496922d64d4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.SceneFlow.PersistAcrossScenes
-  key: PlayerRig
-  destroyOnScenes:
-  - MainMenu
-  removeSceneDuplicatesByTag: 0
 --- !u!114 &993751090778018318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34839,7 +34823,7 @@ PrefabInstance:
     - target: {fileID: 439834351383949455, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
       propertyPath: craftingPanel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1537018997}
     - target: {fileID: 2510606174025014516, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
       propertyPath: m_Name
       value: SproutGame
@@ -35336,9 +35320,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3995411129735620654, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
       insertIndex: -1
       addedObject: {fileID: 514480678892743167}
-    - targetCorrespondingSourceObject: {fileID: 3995411129735620654, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 514480678892743184}
   m_SourcePrefab: {fileID: 100100000, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
 --- !u!114 &5691390254844099713
 MonoBehaviour:
