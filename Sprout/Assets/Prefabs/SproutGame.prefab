@@ -1,0 +1,354 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2510606174025014516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4326599454882538158}
+  - component: {fileID: 8095853611502732148}
+  - component: {fileID: 3322328614093629050}
+  - component: {fileID: 517510226801919997}
+  - component: {fileID: 4648902688299175745}
+  - component: {fileID: 4662642933082617871}
+  - component: {fileID: 6735248801447879088}
+  - component: {fileID: 8374617709759172455}
+  - component: {fileID: 3011368986301373451}
+  - component: {fileID: 7810431431807373277}
+  - component: {fileID: 439834351383949455}
+  - component: {fileID: 8014352301977623209}
+  - component: {fileID: 2496548007660166332}
+  - component: {fileID: 2580193648749631025}
+  - component: {fileID: 8318914105277539427}
+  - component: {fileID: 8401066502084363396}
+  - component: {fileID: 7600499454761347660}
+  - component: {fileID: 7234134481228267223}
+  - component: {fileID: 3561291560820549733}
+  m_Layer: 0
+  m_Name: SproutGame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4326599454882538158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -150, y: -9.72044, z: -149.99997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8095853611502732148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bdad170f48ef764591c4850f37bab1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.FlowerService
+  flowerDefs:
+  - {fileID: 11400000, guid: d6d38e78bc07cc049813e45f221bf9da, type: 2}
+  - {fileID: 11400000, guid: 4d8a7c490a09569429ec090f90411bea, type: 2}
+  - {fileID: 11400000, guid: 0a491aec1d7725f449c358110f1ceee9, type: 2}
+  - {fileID: 11400000, guid: 368fb2b336483974ca618e06a9b2224e, type: 2}
+  - {fileID: 11400000, guid: 380a3a4c2b887064588995f48bb17a6a, type: 2}
+  - {fileID: 11400000, guid: 51da9468db121a440b1e3352adee1fc3, type: 2}
+  - {fileID: 11400000, guid: cf8f813ba51b46646bd4ff54df9789dc, type: 2}
+  bouquetDefs:
+  - {fileID: 11400000, guid: a0dac83c273db1a4982bb9e7a1623787, type: 2}
+  - {fileID: 11400000, guid: 007e0bd7ccc453a4681ad0570ee238da, type: 2}
+  - {fileID: 11400000, guid: 2c58128b42f1e8042a2a390455ad479e, type: 2}
+  - {fileID: 11400000, guid: ccb05ca3e5eee584e9d63a3c54203e21, type: 2}
+  - {fileID: 11400000, guid: 7ed41380360104549ad52ba08606af88, type: 2}
+  - {fileID: 11400000, guid: 9b40a8698740c2c4d81a49a6020e3f61, type: 2}
+  - {fileID: 11400000, guid: 887f691af3f60ac4caa87c0da3386dda, type: 2}
+  - {fileID: 11400000, guid: ed29744196d797842860c3b23c9c0828, type: 2}
+  onFlowerGenerated:
+    m_PersistentCalls:
+      m_Calls: []
+  onBouquetCrafted:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3322328614093629050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 595e9b5d0fad06a4c88bbd6c91eb23ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.NightGossipService
+  onNightSummary:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &517510226801919997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d972d7ee5cea8b4bb63b922c18b83aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.DayCycleService
+  gossip: {fileID: 3322328614093629050}
+  ending: {fileID: 4648902688299175745}
+  countTalkAsPhaseProgress: 1
+  onPhaseChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onNewDay:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4648902688299175745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3425380275f428642a25d57aba5b1b1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.EndingService
+  endings:
+  - {fileID: 11400000, guid: dbaca2515ef350a478beb1310f86cb91, type: 2}
+  - {fileID: 11400000, guid: 3420921bccebbb8479c6280f0d457f9d, type: 2}
+  - {fileID: 11400000, guid: efa00fb7fae944d4b9bdfaada46b5459, type: 2}
+  - {fileID: 11400000, guid: 86539dbef664b4b49a684c8540756bfa, type: 2}
+  - {fileID: 11400000, guid: e2446971825efcb4d947dbf8a0b7f08c, type: 2}
+  unusualBouquetChain: 0
+  onEndingResolved:
+    m_PersistentCalls:
+      m_Calls: []
+  onEndingKind:
+    m_PersistentCalls:
+      m_Calls: []
+  onEndingSummary:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4662642933082617871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7f4f398c78a9b4c85363a4f86e082f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.NPCBrainFlagBridge
+  npcBrains:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &6735248801447879088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256f34154fd3621438bda88e74aa17d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.CentralFlagWriter
+  flowerService: {fileID: 8095853611502732148}
+--- !u!114 &8374617709759172455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6780ec563a2183e4ca1095ca9e02b43b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.DayNightLighting
+  sun: {fileID: 0}
+  dayCycle: {fileID: 517510226801919997}
+  blendSpeed: 1.2
+  useFog: 1
+  controlSkybox: 1
+--- !u!114 &3011368986301373451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98ebf51ad18b23044ae1d9786990ad69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.FlowerFlagListener
+  flowerService: {fileID: 8095853611502732148}
+--- !u!114 &7810431431807373277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8088612a5c6e74d47a7f1bf69b3fbbf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.SproutHotkeys
+  craftingPanel: {fileID: 0}
+  dayCycle: {fileID: 517510226801919997}
+  dialogueUI: {fileID: 0}
+  playerTag: Player
+--- !u!114 &439834351383949455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 753fc84bec26a914fba5b27f27a09a80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.SproutCursorGuard
+  craftingPanel: {fileID: 0}
+  endingPanel: {fileID: 0}
+  nightPanel: {fileID: 0}
+--- !u!114 &8014352301977623209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65225b9ef6c8c8a46bbc496922d64d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.SceneFlow.PersistAcrossScenes
+  key: Director
+  destroyOnScenes: []
+  removeSceneDuplicatesByTag: 0
+--- !u!114 &2496548007660166332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e57616378647374d8465e90606899b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.NpcSpotlight
+--- !u!114 &2580193648749631025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 079c8dc20163555479edf31e2fac492e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.SpotlightFlagBridge
+--- !u!114 &8318914105277539427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5965e07f2dcf2a445b551f441c2a5a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.UI.NightSleepNotice
+  dayCycle: {fileID: 0}
+  message: "Se hace de noche... deber\xEDas ir a dormir."
+  persistentHint: "Es de noche \u2014 ve a la cama a descansar"
+  toastSeconds: 4
+--- !u!114 &8401066502084363396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eeb6dd2b07b7bf479e986346c3bdb38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.PhaseGlowLighter
+--- !u!114 &7600499454761347660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7583c6b50e01900498e5ddeb648292c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.SproutGameDirector
+  daySettings: {fileID: 11400000, guid: 6875a82e9f8ad854295feda36d3e64fd, type: 2}
+--- !u!114 &7234134481228267223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf09c11bd4b2be846822d40dc901410f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.GlobalGuiFont
+  font: {fileID: 12800000, guid: e0377ed22b88db745ac079fa22826b69, type: 3}
+--- !u!114 &3561291560820549733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510606174025014516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d63cae1eaee3924ca3b9cb2ee03d75d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Persistence.SaveSystem
+  npcBrains:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  dayCycle: {fileID: 517510226801919997}
+  playerTag: Player
+  loadOnStart: 1

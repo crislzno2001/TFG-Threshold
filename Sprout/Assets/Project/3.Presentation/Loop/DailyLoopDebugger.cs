@@ -52,9 +52,11 @@ namespace Sprout.Presentation
             var f = SproutGameDirector.Instance != null ? SproutGameDirector.Instance.Flags : null;
             if (f == null) { Debug.LogWarning("[DailyLoopDebugger] No hay Flags (SproutGameDirector)."); return; }
 
-            // Dos cotilleos positivos que no encadenan enfados:
-            f.SetFlag(NarrativeFlagKeys.PlayerWasHonest, true);   // -> "alguien habló bien de tu sinceridad"
-            f.SetFlag("gave_comforting_bouquet", true);           // -> "una pequeña bondad floreciendo"
+            // Flags que SÍ producen líneas de cotilleo (verificadas en GossipRuleEngine),
+            // para que el recap salga lleno en la foto: 2 positivas + 1 negativa vívida.
+            f.SetFlag("gave_comforting_bouquet", true);                 // "una pequeña bondad floreciendo"
+            f.SetFlag(NarrativeFlagKeys.PlayerHelpedAsterGood, true);   // "Aster te elogió sin darse cuenta..."
+            f.SetFlag(NarrativeFlagKeys.HelpedMothLie, true);           // "Un rumor con perfume de polilla... Rix ha fruncido el ceño."
             _seeded = true;
             Debug.Log("[DailyLoopDebugger] Cotilleos de prueba sembrados. Pulsa Dormir para verlos.");
         }

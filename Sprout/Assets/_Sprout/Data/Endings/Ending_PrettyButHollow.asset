@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Ending_PrettyButHollow
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Data.EndingDefinitionSO
   kind: 1
-  title: Pretty, But Hollow
-  epilogueText: The village stays exactly as cute as the day you arrived. The flowers
-    are lovely. The conversations were fine. No one remembers anything in particular
-    about you, and you remember nothing in particular about them.
+  title: Bonito pero hueco
+  epilogueText: "Fuiste amable con el pueblo, pero te guardaste. Las flores siguen
+    bonitas y los vecinos, corteses. Nada se rompi\xF3; tampoco cambi\xF3 gran cosa."
   backgroundImage: {fileID: 0}
-  tint: {r: 1, g: 1, b: 1, a: 1}
+  tint: {r: 0, g: 0, b: 0, a: 1}

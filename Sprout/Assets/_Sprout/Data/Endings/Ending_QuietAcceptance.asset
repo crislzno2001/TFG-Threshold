@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Ending_QuietAcceptance
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Data.EndingDefinitionSO
   kind: 3
-  title: Quiet Acceptance
-  epilogueText: You told the truth, even when it cost something. Not everyone forgave
-    you, and not everything healed. But you didn't pretend, and the village respects
-    that, quietly. You water the flowers and accept what grew.
+  title: " Aceptaci\xF3n serena"
+  epilogueText: " Fuiste honesta aunque doliera, y no todo sali\xF3 bien. Quedan
+    puertas entornadas y palabras a medias, pero ninguna estaba forrada de mentira.
+    A veces eso basta."
   backgroundImage: {fileID: 0}
-  tint: {r: 1, g: 1, b: 1, a: 1}
+  tint: {r: 0, g: 0, b: 0, a: 1}

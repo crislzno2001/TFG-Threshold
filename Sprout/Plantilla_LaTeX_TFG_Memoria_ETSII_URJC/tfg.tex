@@ -806,10 +806,58 @@ La interfaz de usuario de Sprout está implementada con Unity UI Toolkit (UXML +
 \textcolor{gray}{\textit{[Desarrollar: arquitectura MVP; pantallas (MainMenu, PauseMenu, SettingsMenu, LoadingScreen, DialogueUI, InspectUI) con capturas; PanelSettings y estilos compartidos.]}}
 
 \section{Sistema de guardado y configuración}
+El sistema de persistencia de \textit{Sprout} distingue entre dos tipos de información que cumplen funciones distintas dentro del proyecto. Por un lado se encuentra la configuración de usuario, formada por preferencias sencillas como volumen, idioma o ajustes de presentación. Este tipo de dato encaja con un almacenamiento de clave-valor, por lo que puede resolverse mediante \textit{PlayerPrefs}, mecanismo proporcionado por Unity para conservar valores simples entre sesiones.
+Por otro lado se encuentra el  guardado de partida, que no almacena preferencias, sino el estado completo de una sesión de juego. Esta segunda necesidad requiere una estructura propia, ya que debe reconstruir no solo valores aislados, sino el estado narrativo, conversacional y espacial de la partida.
 
-El sistema distingue dos necesidades de persistencia. La configuración ---ajustes como volumen, idioma o preferencias--- se almacena con Unity PlayerPrefs, adecuado para pares clave-valor sencillos. El guardado de partida, en cambio, persiste el estado completo del juego ---día actual, banderas narrativas, inventario de flores y ramos, relaciones y la memoria de cada NPC--- serializándolo a un fichero JSON mediante JsonUtility. Dado que JsonUtility no serializa diccionarios, la memoria de los NPC se aplana a una lista de entradas (npc, clave, valor) antes de guardarse. El guardado se realiza automáticamente al llegar la noche.
+La diferencia entre ambos sistemas es importante porque evita mezclar datos de naturaleza distinta. La configuración describe cómo quiere jugar la usuaria; el guardado de partida describe qué ha ocurrido dentro del mundo de \textit{Sprout}. Por ello, el progreso del juego se gestiona mediante la clase \texttt{SaveSystem}, que serializa el estado relevante a un fichero JSON local llamado \texttt{sprout\_save.json}, ubicado en \texttt{Application.persistentDataPath}. Para esta serialización se utiliza \texttt{JsonUtility}, la utilidad de Unity para convertir objetos serializables a formato JSON.
 
-\textcolor{gray}{\textit{[Desarrollar: ISettingsRepository + PlayerPrefsSettingsRepository, GameSettings, SettingsService, versionado del formato de guardado.]}}
+El objeto que se escribe en disco es una instancia interna de \texttt{SaveData}. Esta clase agrupa todos los datos necesarios para reconstruir una partida: el día actual, la fase del día, las banderas narrativas, los contadores, el inventario de flores, el inventario de ramos, las relaciones con los NPCs, la memoria conversacional de cada personaje, el nodo actual de cada conversación, los objetivos ya completados en la fase actual y la posición y rotación de la jugadora. De este modo, el guardado no se limita a conservar recursos obtenidos, sino que permite retomar la partida en un estado narrativo y conversacional coherente.
+
+\begin{table}[h]
+\centering
+\caption{Información persistida por el sistema de guardado de partida.}
+\label{tab:save_system_data}
+{\footnotesize
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{p{4cm}p{9.5cm}}
+\hline
+\textbf{Dato guardado} & \textbf{Función dentro de la partida} \\
+\hline
+\texttt{day} y \texttt{phase} & Permiten restaurar el momento del ciclo diario en el que se encontraba la jugadora. \\
+\hline
+\texttt{flags} y \texttt{counters} & Conservan el estado narrativo acumulado: decisiones tomadas, eventos activados y contadores de progreso. \\
+\hline
+\texttt{flowers} y \texttt{bouquets} & Guardan el inventario de flores emocionales y ramos creados. \\
+\hline
+\texttt{relationships} & Mantienen el estado de relación con cada NPC. \\
+\hline
+\texttt{memories} & Guardan los recuerdos persistentes de cada NPC sobre la jugadora. \\
+\hline
+\texttt{currentNodes} & Permiten retomar cada conversación desde el nodo exacto en el que quedó. \\
+\hline
+\texttt{phaseGoals} & Conservan qué objetivos de la fase actual ya se habían completado. \\
+\hline
+\texttt{playerPos} y \texttt{playerRot} & Restauran la posición y orientación de la jugadora al continuar la partida. \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+Una decisión técnica relevante es que el fichero JSON no guarda los grafos de diálogo completos. Los grafos son assets de autoría creados con \texttt{ScriptableObject}: contienen los nodos, sus conexiones, las condiciones narrativas y el contexto para la IA. Esos datos forman parte del proyecto y no deben modificarse como consecuencia de una partida concreta. El guardado, en cambio, almacena únicamente el estado alcanzado por la jugadora dentro de esos grafos. Por esta razón, cuando se guarda una conversación, no se serializa el nodo entero, sino el identificador \texttt{nodeGuid} del nodo actual asociado al nombre del NPC. Al cargar la partida, el sistema busca ese identificador dentro del grafo correspondiente y restaura el \texttt{DialogueRunner} en ese punto.
+
+Esta separación evita dos problemas. En primer lugar, impide que el progreso de una partida modifique accidentalmente los assets de diálogo usados como mapa narrativo. En segundo lugar, reduce la duplicación de datos: el JSON no necesita repetir toda la estructura de los grafos, sino solo recordar en qué punto de cada grafo se encontraba la partida. Así, los grafos funcionan como definición estable de la historia, mientras que el fichero de guardado registra la trayectoria concreta de la jugadora.
+
+El método \texttt{Save()} construye el objeto \texttt{SaveData} a partir del estado actual del juego. Primero recupera el día y la fase desde el director de juego. Después exporta el progreso de fase desde \texttt{DayCycleService}, de modo que al continuar no se reinicien los NPCs ya completados en la fase actual. A continuación almacena la posición de la jugadora, las banderas narrativas, los contadores, las flores, los ramos y las relaciones. Para cada NPC registrado, el sistema exporta además su memoria conversacional mediante \texttt{ExportMemory()} y guarda el nodo actual de su \texttt{DialogueRunner}, siempre que exista un identificador válido.
+
+Dado que parte del estado interno se gestiona mediante diccionarios, el sistema lo transforma antes de serializarlo. En lugar de guardar directamente un diccionario, se utilizan clases auxiliares serializables como \texttt{Pair}, \texttt{FlagPair}, \texttt{MemEntry} y \texttt{NodeEntry}. Por ejemplo, una entrada de memoria se guarda como una terna formada por el nombre del NPC, la clave del recuerdo y su valor. Esta conversión hace explícita la estructura del fichero JSON y evita depender de una serialización directa de colecciones que \texttt{JsonUtility} no maneja de forma general.
+
+El proceso de carga realiza la operación inversa. El método \texttt{Load()} lee el fichero JSON, reconstruye el objeto \texttt{SaveData} y vuelve a convertir las listas serializadas en diccionarios de uso interno. Después restaura las banderas y contadores narrativos, el inventario de flores y ramos, las relaciones con NPCs y el estado del ciclo diario. La memoria conversacional se agrupa por nombre de NPC y se reinyecta en cada \texttt{NPCBrain} mediante \texttt{ImportMemory()}. De esta forma, cada personaje recupera los recuerdos que tenía sobre la jugadora antes de cerrar la partida.
+
+La restauración del nodo actual de conversación sigue el mismo principio. Cada entrada guardada contiene el nombre del NPC y el \texttt{nodeGuid} del nodo en el que se encontraba su conversación. Durante la carga, el sistema localiza el \texttt{NPCBrain} correspondiente, busca dentro de su \texttt{dialogueGraph} el nodo con ese identificador y llama a \texttt{RestoreCurrent()} en el \texttt{DialogueRunner}. Gracias a este mecanismo, una conversación puede reanudarse desde el punto exacto en el que quedó, sin convertir el grafo en parte del fichero de guardado.
+
+Por último, si el fichero contiene posición de la jugadora, el sistema localiza el objeto con la etiqueta configurada, desactiva temporalmente su \texttt{CharacterController}, aplica la posición y rotación guardadas, y vuelve a activar el controlador. Esta operación evita conflictos físicos durante el reposicionamiento y permite que la jugadora continúe desde el lugar donde dejó la partida, en lugar de reaparecer siempre en un punto fijo.
+
+En la versión actual, el guardado no se ejecuta automáticamente al producirse un cambio de fase. Aunque \texttt{SaveSystem} se suscribe al evento de cambio de fase, el método asociado no llama a \texttt{Save()}; el propio código indica que el guardado se realiza cuando otro sistema lo invoca explícitamente, por ejemplo al dormir. Por tanto, la forma más precisa de describirlo no es como un guardado automático al llegar la noche, sino como un guardado de partida ejecutado en el momento de descanso o cierre de ciclo definido por el flujo jugable.
 
 \section{Pipeline de renderizado}
 
@@ -879,6 +927,96 @@ Para que el efecto sea coherente, el centro de la curvatura debe seguir continua
 Sprout combina un escenario de estilo pintado con personajes chibi de sombreado más liso. Sin un tratamiento común, esa diferencia de estilos podía leerse como una mezcla incoherente. El post-procesado se introdujo para unificar ambos registros bajo una misma atmósfera y reforzar el tono cálido y acogedor del juego, partiendo del principio de que la cohesión visual de una escena depende menos del estilo concreto de cada elemento que de que todos compartan la misma iluminación y el mismo tratamiento de color.
 
 El efecto se construyó con el sistema de Volúmenes de URP: un \textit{Volume} global aplica a toda la escena un perfil compuesto por \textit{tonemapping} neutro (que equilibra el rango de color evitando zonas quemadas o lavadas), \textit{color adjustments} (un filtro cálido con un leve aumento de saturación y contraste), \textit{white balance} templado (que aporta la sensación de luz cálida), \textit{bloom} suave (un resplandor amable y de ensueño) y una \textit{vignette} sutil (que centra la atención en el personaje). Cada efecto responde a una intención concreta ---fijar la temperatura emocional, aportar calidez y dirigir la mirada---, y en conjunto «abrazan» a personajes y escenario bajo una misma capa de color e iluminación, de modo que el contraste de estilos deja de percibirse como un error y pasa a leerse como una elección estética. Al tratarse de un \textit{Volume} global con un perfil editable, todos los parámetros se afinan de forma centralizada y no destructiva, lo que facilitó la iteración artística.
+
+\section{Modelo de negocio y viabilidad}
+Aunque \textit{Sprout} se ha desarrollado como un Trabajo de Fin de Grado, desde el inicio se ha planteado como una \textit{vertical slice} que podría evolucionar hacia un videojuego independiente. Por ello, resulta útil incluir una reflexión sobre su posible modelo de negocio. 
+
+Para ordenar este análisis se toma como referencia el \textit{Lean Canvas}, una herramienta pensada para resumir modelos de negocio en fases tempranas mediante bloques como problema, solución, propuesta de valor, segmentos de clientes, canales, costes e ingresos. Este enfoque encaja con \textit{Sprout} porque el proyecto todavía se encuentra en una fase de prototipo y no en una fase de explotación comercial.
+
+\subsection{Propuesta de valor}
+
+La propuesta de valor de \textit{Sprout} nace del contraste entre una apariencia amable y unas relaciones sociales que pueden volverse incómodas. El juego se presenta como una experiencia cozy: una floristería, un pueblo pequeño y vecinos de aspecto adorable. Sin embargo, bajo esa superficie luminosa, los personajes recuerdan lo ocurrido, pueden cambiar su actitud hacia la jugadora y arrastran las conversaciones de un día a otro.
+
+Esta idea toma como referencia la incomodidad conversacional de \textit{Façade}, pero trasladada a un entorno más accesible y menos agresivo. El conflicto no aparece mediante combate ni grandes decisiones explícitas, sino a través de pequeños gestos sociales: una mentira dicha para evitar un daño, una confesión ignorada, una ayuda demasiado interesada o un secreto que acaba circulando por el pueblo. Al llegar la noche, los vecinos hablan entre ellos sin la florista, de modo que las conversaciones no quedan aisladas en el momento en que ocurren, sino que pueden transformarse en rumores, cambios de relación o nuevas escenas.
+
+Otra referencia importante es \textit{Tomodachi Life}, especialmente por la sensación de que el juego devuelve al jugador algo que él mismo ha introducido, pero transformado en una situación inesperada, absurda o extraña. \textit{Sprout} parte de esa misma atracción por personajes que parecen tener vida propia, pero la lleva a un sistema conversacional con memoria y consecuencias narrativas.
+
+Por último, la floristería convierte esas consecuencias en algo visible. Mientras la jugadora conversa, determinadas decisiones pueden hacer brotar flores emocionales en la floristería. Esas flores no aparecen como una recompensa abstracta, sino como una materialización de lo que ha ocurrido en la relación con los vecinos: una mentira, una confesión, una muestra de honestidad, un gesto de cuidado o un secreto que empieza a circular. Después, la jugadora puede combinar esas flores en ramos y regalarlos, devolviendo al sistema social una consecuencia física de sus propias conversaciones. De este modo, lo que se dice no desaparece cuando termina el diálogo: deja una huella en el pueblo, en los personajes y en la propia floristería.
+
+
+\subsection{Público objetivo}
+
+El público objetivo principal estaría formado por jugadores de PC interesados en videojuegos independientes, narrativos y cozy. No se trata de un juego orientado a un público masivo, sino a un nicho concreto que valora las experiencias tranquilas, los personajes con personalidad y las decisiones con consecuencias.
+
+Dentro de ese público pueden distinguirse tres perfiles principales. En primer lugar, jugadores de juegos cozy o life-sim, interesados en pueblos pequeños, rutinas, decoración y relaciones con vecinos. En segundo lugar, jugadores de narrativa interactiva, que buscan personajes complejos y decisiones morales. Por último, usuarios interesados en propuestas experimentales con IA, especialmente si la IA no se usa solo como novedad técnica, sino integrada en una estructura narrativa.
+
+\subsection{Modelo de ingresos}
+
+El modelo de ingresos más adecuado para \textit{Sprout} sería un modelo \textit{premium indie}, basado en una compra única del juego. Esta opción resulta más coherente que un modelo gratuito con anuncios o micropagos, ya que el tono del proyecto depende mucho de la confianza, la calma y la relación emocional con los personajes. Introducir publicidad o monetización agresiva rompería parte de esa experiencia.
+
+La estrategia más razonable sería publicar primero una demo gratuita, por ejemplo en itch.io, para comprobar si la propuesta se entiende y genera interés. Posteriormente, una versión más pulida podría lanzarse en Steam. Esta plataforma exige una tasa Steam Direct de 100 dólares por aplicación, recuperable si el producto alcanza 1.000 dólares de ingresos brutos ajustados. itch.io, por su parte, permite publicar proyectos con un reparto flexible de ingresos, con una comisión por defecto del 10 por ciento.
+
+Como ingresos secundarios, podrían plantearse una banda sonora, un pequeño libro de arte digital o futuras expansiones narrativas. Sin embargo, estos elementos deberían ser complementarios y no sustituir a un juego base cerrado y satisfactorio.
+
+\subsection{Costes principales}
+
+Los costes principales del proyecto se agrupan en desarrollo, arte, audio, publicación, marketing y mantenimiento. En el contexto del TFG, muchos de estos costes se han asumido como tiempo de trabajo personal. Sin embargo, en una posible versión comercial habría que considerar la adquisición o creación de assets, la producción de música y sonido, la preparación de materiales promocionales, la publicación en plataformas y las pruebas con usuarios.
+
+Un coste especialmente importante en \textit{Sprout} es el uso de IA conversacional. Si los NPCs se apoyan en un servicio externo, cada conversación puede generar un coste variable. Por ejemplo, OpenAI publica precios de referencia para modelos como GPT-4o mini en función del número de tokens de entrada y salida. Por ello, una versión comercial debería controlar la longitud de las conversaciones, resumir la memoria de los personajes y disponer de respuestas alternativas cuando no sea posible llamar al modelo.
+
+\subsection{Lean Canvas propuesto}
+
+\begin{table}[h]
+\centering
+\caption{Lean Canvas aplicado a \textit{Sprout}.}
+\label{tab:lean_canvas_sprout}
+\begin{footnotesize}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{0.22\textwidth}|p{0.70\textwidth}|}
+\hline
+\textbf{Bloque} & \textbf{Aplicación a \textit{Sprout}} \\
+\hline
+
+\textbf{Problema} &
+Los juegos \textit{cozy} suelen presentar personajes cercanos y mundos agradables, pero sus diálogos tienden a ser limitados o repetitivos. A la vez, muchas propuestas con IA conversacional funcionan como demostraciones técnicas sin una estructura narrativa clara. \\
+\hline
+
+\textbf{Solución} &
+\textit{Sprout} plantea un juego narrativo \textit{cozy} con cuatro vecinos, memoria conversacional, banderas narrativas, cotilleo nocturno y flores emocionales que aparecen a partir de las decisiones de la jugadora. \\
+\hline
+
+\textbf{Propuesta de valor} &
+Un pueblo bonito que recuerda lo que la jugadora dice y transforma las conversaciones en consecuencias emocionales, narrativas y jugables. \\
+\hline
+
+\textbf{Clientes} &
+Jugadores de PC interesados en juegos \textit{cozy}, narrativa interactiva, personajes con personalidad y propuestas independientes experimentales. \\
+\hline
+
+\textbf{Canales} &
+Publicación inicial en \textit{itch.io} como prototipo o demo, posible lanzamiento comercial en Steam, redes sociales, \textit{devlogs} y festivales de demos independientes. \\
+\hline
+
+\textbf{Ingresos} &
+Compra única del juego, demo gratuita como validación previa y posibles contenidos complementarios, como banda sonora o \textit{artbook}. \\
+\hline
+
+\textbf{Costes} &
+Desarrollo, arte, animaciones, audio, publicación, marketing, pruebas con usuarios y uso de API de IA si se mantiene un sistema conversacional en línea. \\
+\hline
+
+\textbf{Métricas futuras} &
+Descargas de la demo, finalización del primer día, número de conversaciones iniciadas, ramos creados, comentarios cualitativos, listas de deseados y percepción de que los NPCs recuerdan lo ocurrido. \\
+\hline
+
+\textbf{Ventaja} &
+La IA no funciona como un chatbot aislado, sino integrada en un sistema narrativo con memoria, relaciones, cotilleos, flores emocionales y finales condicionados por la experiencia de la jugadora. \\
+\hline
+
+\end{tabular}
+\end{footnotesize}
+\end{table}
+
 
 \chapter{Evaluación}
 

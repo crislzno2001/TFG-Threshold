@@ -1,5 +1,233 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8420217992462988677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Aster_decide
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: b0433615-2c96-4894-a232-cc4a502a017a
+  contextForAI: "Decisi\xF3n final que el jugador inclina: encender la m\xE1quina
+    para la ex (a ver si viene), o para s\xED mismo y soltar."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "Entonces\u2026 \xBFla enciendo para ella, a ver si viene? \xBFO la
+    enciendo para m\xED, y ya est\xE1?"
+  choices:
+  - condition: "le anima a encenderla para s\xED mismo y soltar a su ex"
+    nextNode: {fileID: 4378511989687501086}
+  - condition: le anima a intentar reconquistar a su ex
+    nextNode: {fileID: 501308832602398993}
+--- !u!114 &-7904595336799709970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Mochi_lie
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: e2eecce8-81c5-4164-b352-22e822ac4e98
+  contextForAI: "El jugador MINTI\xD3 con cari\xF1o (dijo que estaba rico para no
+    herirle). Mochi lo nota un poco, pero agradece la intenci\xF3n. Gana algo de
+    confianza."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: player_lied_kindly
+    value: 1
+  - flag: mochi_trust
+    value: 1
+  nextNodes:
+  - {fileID: 4109579688177938548, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  openingLine: "Qu\xE9 respuesta tan dulce. Casi tan dulce que me preocupa que sea
+    mentira. \u2026No te culpo. Una mentira amable es una manta peque\xF1a."
+  transitions: []
+--- !u!114 &-7902218044835067947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Mochi_honest
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: d1fe2228-aace-4e21-af72-9d9cce0a326d
+  contextForAI: "El jugador prob\xF3 el plato y fue HONESTO (dijo que no est\xE1
+    bueno) pero con tacto. Mochi se siente herido y agradecido a la vez; respeta
+    la sinceridad."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: player_was_honest
+    value: 1
+  - flag: mochi_trust
+    value: 1
+  nextNodes:
+  - {fileID: 4109579688177938548, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  openingLine: "\u2026Ah. Dolor. Pero dolor limpio, como cortarse con un cuchillo
+    caro. Gracias. Nadie me destruye de frente desde hace mucho."
+  transitions: []
+--- !u!114 &-7772422528388462890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Mochi_taste
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: 95f4e97b-efc7-4b04-845f-8977368bb12d
+  contextForAI: "TARDE. Mochi ofrece un risotto experimental amargo y espera reacci\xF3n.
+    Decisi\xF3n clave del jugador: honestidad con tacto, mentira amable, crueldad,
+    o evasiva."
+  prerequisiteFlags:
+  - flag: mochi_metida
+    expectedValue: 1
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "Toma. PRU\xC9BALO. Y antes de hablar, recuerda que mi autoestima
+    est\xE1 montada con palillos. \xBF\u2026est\xE1 bueno?"
+  choices:
+  - condition: "el jugador es honesto con tacto (dice que no est\xE1 bueno sin ser
+      cruel)"
+    nextNode: {fileID: -7902218044835067947}
+  - condition: "el jugador miente con cari\xF1o (dice que est\xE1 rico para no herirle)"
+    nextNode: {fileID: -7904595336799709970}
+  - condition: el jugador es cruel o se burla de la comida
+    nextNode: {fileID: -152919930207516124}
+  - condition: el jugador evade o no dice nada claro
+    nextNode: {fileID: 7454747838331076001}
+--- !u!114 &-4310401074370485196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_refine
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 6d1e0939-e265-412e-815d-99f54ae147f8
+  contextForAI: "El jugador le ayud\xF3 a SIMPLIFICAR con criterio. Aster gana confianza
+    y aprende algo."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_idea_mejorada
+    value: 1
+  - flag: player_helped_aster_good
+    value: 1
+  nextNodes:
+  - {fileID: 8346110317872889273}
+  openingLine: "\xBFQuitar\u2026 para que respire? No se me hab\xEDa ocurrido. Menos
+    es m\xE1s. Gracias, de verdad."
+  transitions: []
+--- !u!114 &-3447965769781748127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_grudge
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 1f49ae62-6f62-45d2-b36a-ff769e7266f4
+  contextForAI: "El jugador lo neg\xF3 o culp\xF3 a Mochi. Aster se enfada m\xE1s
+    y se cierra, fr\xEDo y defensivo."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_angry
+    value: 1
+  nextNodes:
+  - {fileID: 5691390254844099713}
+  openingLine: "Vale. Entonces, adem\xE1s de hablar, tambi\xE9n desaparecen palabras
+    de tu boca por arte de magia. Fascinante. D\xE9jame con mis estrellas."
+  transitions: []
+--- !u!114 &-802924246876509574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_mirror
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 581a21f0-5d64-4966-bd40-510e7f6fca2f
+  contextForAI: 'El jugador fue honesto: Aster se esconde en el invento para no enfrentarse
+    a lo de verdad. Le duele pero le toca.'
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_idea_mejorada
+    value: 1
+  - flag: player_was_honest
+    value: 1
+  nextNodes:
+  - {fileID: 8346110317872889273}
+  openingLine: "\u2026Auch. No me escondo en el invento. Yo no\u2026 vale. Puede.
+    Puede que s\xED. No me mires as\xED."
+  transitions: []
+--- !u!114 &-152919930207516124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Mochi_cruel
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: fb3b59b4-9704-4e02-ab22-b23fa0738cd0
+  contextForAI: El jugador fue CRUEL con la comida. Le toca una herida profunda.
+    Se defiende dolido, sin quedarse a que conviertan su trabajo en un chiste.
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: mochi_offended
+    value: 1
+  nextNodes:
+  - {fileID: 2897729196826193434, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  openingLine: "Ah. Ya veo. No era una cr\xEDtica. Era una ejecuci\xF3n p\xFAblica.
+    Puedes no querer mi comida, pero no me quedo a que la conviertas en chiste."
+  transitions: []
 --- !u!29 &1
 OcclusionCullingSettings:
   m_ObjectHideFlags: 0
@@ -736,7 +964,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Return to Menu
+  m_text: "Men\xFA principal"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -885,6 +1113,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8342c3f6b27fa694f99f783b4a9bb2bc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 421673391}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8342c3f6b27fa694f99f783b4a9bb2bc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 421673392}
   m_SourcePrefab: {fileID: 100100000, guid: 8342c3f6b27fa694f99f783b4a9bb2bc, type: 3}
 --- !u!4 &73705174 stripped
 Transform:
@@ -1077,6 +1308,7 @@ MonoBehaviour:
   challengeWeight: 2
   counterKey: rix_friendship
   ideaDomain: a concrete idea or sincere offering.
+  countableUnit: concrete idea/proposal
   aiSettings: {fileID: 11400000, guid: 284854a17c1391b40afd69e802a1d60e, type: 2}
   highFluencyThreshold: 4
   flowerService: {fileID: 1622098014}
@@ -1218,6 +1450,7 @@ MonoBehaviour:
   height: 2.4
   size: 0.28
   curveCompensation: 1
+  curveFlatRadius: 0
   soft: {r: 1, g: 0.98, b: 0.85, a: 1}
   strong: {r: 0.55, g: 0.85, b: 0.55, a: 1}
   referral: {r: 0.5, g: 0.75, b: 1, a: 1}
@@ -2970,12 +3203,13 @@ MonoBehaviour:
   brain: {fileID: 189986788}
   dialogueUI: {fileID: 448172085}
   runner: {fileID: 189986784}
-  ideasNode: {fileID: 4118301813559470845, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  ideasNode: {fileID: 1257161428472214297, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
   extraChallengeNodes:
-  - {fileID: 1233480958880707606, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  - {fileID: 2135797267624687045, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
   challengeWeight: 2
   counterKey: mochi_ideas_count
   ideaDomain: 'a concrete culinary idea: ingredients, a technique, a dish, or plating.'
+  countableUnit: concrete idea/proposal
   aiSettings: {fileID: 11400000, guid: 284854a17c1391b40afd69e802a1d60e, type: 2}
   highFluencyThreshold: 4
   flowerService: {fileID: 1622098014}
@@ -3055,16 +3289,16 @@ MonoBehaviour:
   entriesByPhase:
   - day: 1
     phase: 0
-    node: {fileID: -6529678373832698969, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+    node: {fileID: 7932753586534857305, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
   - day: 1
     phase: 1
-    node: {fileID: 4118301813559470845, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+    node: {fileID: 1257161428472214297, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
   - day: 1
     phase: 2
-    node: {fileID: -7772422528388462890, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+    node: {fileID: -7772422528388462890}
   - day: 1
     phase: 3
-    node: {fileID: 1233480958880707606, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+    node: {fileID: 2135797267624687045, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
 --- !u!195 &189986811 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 3221547261648253395, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
@@ -3123,6 +3357,7 @@ MonoBehaviour:
   height: 2.4
   size: 0.28
   curveCompensation: 1
+  curveFlatRadius: 0
   soft: {r: 1, g: 0.98, b: 0.85, a: 1}
   strong: {r: 0.55, g: 0.85, b: 0.55, a: 1}
   referral: {r: 0.5, g: 0.75, b: 1, a: 1}
@@ -3142,9 +3377,9 @@ MonoBehaviour:
   brain: {fileID: 0}
   runner: {fileID: 0}
   phaseDoneNodes:
-  - {fileID: -3898868621977349946, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
-  - {fileID: 5917831543770704532, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
-  - {fileID: 1485258174564810806, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  - {fileID: -7086872860100084655, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  - {fileID: -2775402840853936355, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  - {fileID: 2897729196826193434, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
 --- !u!1 &213953104 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3995411129735620654, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
@@ -3543,13 +3778,14 @@ GameObject:
   - component: {fileID: 243877132}
   - component: {fileID: 243877131}
   - component: {fileID: 243877133}
+  - component: {fileID: 243877134}
   m_Layer: 0
   m_Name: DebugBucle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &243877131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3594,6 +3830,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.DayPhaseDebugger
   advanceKey: 28
+--- !u!114 &243877134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243877130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ea1bbf1fc9824428e0a555222e587b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.EndingDebugger
+  endingService: {fileID: 0}
 --- !u!1 &251646476
 GameObject:
   m_ObjectHideFlags: 0
@@ -4426,7 +4675,6 @@ Transform:
   - {fileID: 189986774}
   - {fileID: 600370076}
   - {fileID: 490618943}
-  - {fileID: 1180972279}
   - {fileID: 90324469}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4684,56 +4932,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!1 &309891323
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 309891324}
-  - component: {fileID: 309891325}
-  m_Layer: 0
-  m_Name: Compass
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &309891324
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309891323}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1523062566}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &309891325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309891323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0ebf098c12889b48a85df22881c26c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.ObjectiveCompass
-  cam: {fileID: 4550624382483834436}
-  target: {fileID: 0}
-  label: Objetivo
-  worldYOffset: 2.4
-  playerTag: Player
-  showDistance: 1
 --- !u!1 &321318319
 GameObject:
   m_ObjectHideFlags: 0
@@ -5826,13 +6024,28 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4085542598650377539, guid: 8342c3f6b27fa694f99f783b4a9bb2bc, type: 3}
+--- !u!114 &421673392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421673388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d66f74a34ecc25d4fae6aa70acc14e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sprout.SceneFlow.PortalInteractable
+  targetScene: GameScene
+  targetSpawnId: Entrada
+  label: Salir
 --- !u!1 &428304103 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a224b46492aeb5d449095f12981d7eed, type: 3}
@@ -6741,6 +6954,7 @@ MonoBehaviour:
   challengeWeight: 2
   counterKey: moth_friendship
   ideaDomain: a concrete poem, plan, or line Moth could use.
+  countableUnit: concrete idea/proposal
   aiSettings: {fileID: 11400000, guid: 284854a17c1391b40afd69e802a1d60e, type: 2}
   highFluencyThreshold: 4
   flowerService: {fileID: 1622098014}
@@ -6894,6 +7108,7 @@ MonoBehaviour:
   height: 2.4
   size: 0.28
   curveCompensation: 1
+  curveFlatRadius: 0
   soft: {r: 1, g: 0.98, b: 0.85, a: 1}
   strong: {r: 0.55, g: 0.85, b: 0.55, a: 1}
   referral: {r: 0.5, g: 0.75, b: 1, a: 1}
@@ -8289,11 +8504,12 @@ MonoBehaviour:
   brain: {fileID: 600370090}
   dialogueUI: {fileID: 448172085}
   runner: {fileID: 600370086}
-  ideasNode: {fileID: 331902338726115905, guid: a9fb6afaf7e103340852458997a44890, type: 2}
+  ideasNode: {fileID: 3081679234875518319, guid: a9fb6afaf7e103340852458997a44890, type: 2}
   extraChallengeNodes: []
   challengeWeight: 2
   counterKey: aster_ideas_count
   ideaDomain: a concrete, original idea for the invention.
+  countableUnit: concrete idea/proposal
   aiSettings: {fileID: 11400000, guid: 284854a17c1391b40afd69e802a1d60e, type: 2}
   highFluencyThreshold: 4
   flowerService: {fileID: 1622098014}
@@ -8369,20 +8585,20 @@ MonoBehaviour:
   entriesByFlag:
   - flag: aster_angry
     expectedValue: 1
-    node: {fileID: -1547431832801670680, guid: a9fb6afaf7e103340852458997a44890, type: 2}
+    node: {fileID: 3561034632549828475}
   entriesByDay:
   - day: 1
     node: {fileID: 7012311662911996465, guid: ed5d1c4d525cd894a9db7709c2706dc7, type: 2}
   entriesByPhase:
   - day: 1
     phase: 0
-    node: {fileID: -7977870181552368155, guid: a9fb6afaf7e103340852458997a44890, type: 2}
+    node: {fileID: 3385506006205661955, guid: a9fb6afaf7e103340852458997a44890, type: 2}
   - day: 1
     phase: 1
-    node: {fileID: 331902338726115905, guid: a9fb6afaf7e103340852458997a44890, type: 2}
+    node: {fileID: 3081679234875518319, guid: a9fb6afaf7e103340852458997a44890, type: 2}
   - day: 1
     phase: 2
-    node: {fileID: -1962502040498880017, guid: a9fb6afaf7e103340852458997a44890, type: 2}
+    node: {fileID: 993751090778018318}
 --- !u!195 &600370113 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 3221547261648253395, guid: a0612d9d96b802f44847c5902b56706d, type: 3}
@@ -8441,6 +8657,7 @@ MonoBehaviour:
   height: 2.4
   size: 0.28
   curveCompensation: 1
+  curveFlatRadius: 0
   soft: {r: 1, g: 0.98, b: 0.85, a: 1}
   strong: {r: 0.55, g: 0.85, b: 0.55, a: 1}
   referral: {r: 0.5, g: 0.75, b: 1, a: 1}
@@ -8460,9 +8677,9 @@ MonoBehaviour:
   brain: {fileID: 0}
   runner: {fileID: 0}
   phaseDoneNodes:
-  - {fileID: 2899640397050108034, guid: a9fb6afaf7e103340852458997a44890, type: 2}
-  - {fileID: -2210879052678133248, guid: a9fb6afaf7e103340852458997a44890, type: 2}
-  - {fileID: 86409384787902630, guid: a9fb6afaf7e103340852458997a44890, type: 2}
+  - {fileID: -7337007657821196720, guid: a9fb6afaf7e103340852458997a44890, type: 2}
+  - {fileID: -2903682809516732080, guid: a9fb6afaf7e103340852458997a44890, type: 2}
+  - {fileID: 5691390254844099713}
 --- !u!1 &606278126
 GameObject:
   m_ObjectHideFlags: 0
@@ -14501,7 +14718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CurvedWorldOriginSetter
   player: {fileID: 514480678892743149}
   editModeCurveStrength: 0
-  playModeCurveStrength: 0.01
+  playModeCurveStrength: 0
   curvedWorldMaterials:
   - {fileID: 2100000, guid: 524e5cb35d2f2b94ca2b36a4c85a7386, type: 2}
   - {fileID: 2100000, guid: 144a48d7704c2094096e7b84a5f50024, type: 2}
@@ -15438,6 +15655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.CurvedWorldFollow
   multiplier: 1
+  flatRadius: 0
   debugOnScreen: 0
 --- !u!1 &781359409 stripped
 GameObject:
@@ -17884,6 +18102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.CurvedWorldFollow
   multiplier: 1
+  flatRadius: 0
   debugOnScreen: 0
 --- !u!1 &1011878163
 GameObject:
@@ -19790,55 +20009,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1172977108}
   m_CullTransparentMesh: 1
---- !u!1 &1180972278
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1180972279}
-  - component: {fileID: 1180972280}
-  m_Layer: 0
-  m_Name: PostFX (Global Volume)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1180972279
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180972278}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 291816478}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1180972280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180972278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
-  m_IsGlobal: 1
-  priority: 1
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 1d8aa6e60a82d9643a91728948756178, type: 2}
 --- !u!1001 &1183397287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23780,7 +23950,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 248812b5de5e23349b3b885c8d9794bd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4aae33a917d0c83408a9d888cef49549, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -24261,6 +24431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.CurvedWorldFollow
   multiplier: 1
+  flatRadius: 0
   debugOnScreen: 0
 --- !u!1 &1497458291
 GameObject:
@@ -24656,8 +24827,6 @@ Transform:
   - {fileID: 8421642711670879093}
   - {fileID: 7796555497590537654}
   - {fileID: 113143567}
-  - {fileID: 1936805004}
-  - {fileID: 309891324}
   - {fileID: 1567874238}
   - {fileID: 1333576052}
   m_Father: {fileID: 0}
@@ -25252,7 +25421,7 @@ MonoBehaviour:
   fontSize: 24
   textPadding: 26
   playOnStart: 0
-  playOnce: 1
+  playOnce: 0
   saveKey: tour_pueblo
   onFinished:
     m_PersistentCalls:
@@ -26243,358 +26412,66 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4786268301391417271, guid: 49df6bd2ccef28a4ea22004fc04de732, type: 3}
   m_PrefabInstance: {fileID: 1617982419}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1622098003
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1622098016}
-  - component: {fileID: 1622098014}
-  - component: {fileID: 1622098013}
-  - component: {fileID: 1622098012}
-  - component: {fileID: 1622098004}
-  - component: {fileID: 1622098011}
-  - component: {fileID: 1622098010}
-  - component: {fileID: 1622098008}
-  - component: {fileID: 1622098007}
-  - component: {fileID: 1622098006}
-  - component: {fileID: 1622098005}
-  - component: {fileID: 1622098018}
-  - component: {fileID: 1622098020}
-  - component: {fileID: 1622098019}
-  - component: {fileID: 1622098021}
-  - component: {fileID: 1622098022}
-  - component: {fileID: 1622098023}
-  - component: {fileID: 1622098024}
-  - component: {fileID: 1622098025}
-  m_Layer: 0
-  m_Name: SproutGame
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1622098004
+--- !u!114 &1622098004 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4648902688299175745, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+  m_PrefabInstance: {fileID: 1475969102996757524}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3425380275f428642a25d57aba5b1b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.EndingService
-  endings:
-  - {fileID: 11400000, guid: dbaca2515ef350a478beb1310f86cb91, type: 2}
-  - {fileID: 11400000, guid: 3420921bccebbb8479c6280f0d457f9d, type: 2}
-  - {fileID: 11400000, guid: efa00fb7fae944d4b9bdfaada46b5459, type: 2}
-  - {fileID: 11400000, guid: 86539dbef664b4b49a684c8540756bfa, type: 2}
-  - {fileID: 11400000, guid: e2446971825efcb4d947dbf8a0b7f08c, type: 2}
-  unusualBouquetChain: 0
-  onEndingResolved:
-    m_PersistentCalls:
-      m_Calls: []
-  onEndingKind:
-    m_PersistentCalls:
-      m_Calls: []
-  onEndingSummary:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1622098005
+--- !u!114 &1622098012 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 517510226801919997, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+  m_PrefabInstance: {fileID: 1475969102996757524}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 753fc84bec26a914fba5b27f27a09a80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.SproutCursorGuard
-  craftingPanel: {fileID: 1946760592}
-  endingPanel: {fileID: 2044764863}
-  nightPanel: {fileID: 1591576726}
---- !u!114 &1622098006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8088612a5c6e74d47a7f1bf69b3fbbf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.SproutHotkeys
-  craftingPanel: {fileID: 1946760592}
-  dayCycle: {fileID: 1622098012}
-  dialogueUI: {fileID: 448172085}
-  playerTag: Player
---- !u!114 &1622098007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98ebf51ad18b23044ae1d9786990ad69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.FlowerFlagListener
-  flowerService: {fileID: 1622098014}
---- !u!114 &1622098008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6780ec563a2183e4ca1095ca9e02b43b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.DayNightLighting
-  sun: {fileID: 0}
-  dayCycle: {fileID: 1622098012}
-  blendSpeed: 1.2
-  useFog: 1
-  controlSkybox: 1
---- !u!114 &1622098010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 256f34154fd3621438bda88e74aa17d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.CentralFlagWriter
-  flowerService: {fileID: 1622098014}
---- !u!114 &1622098011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a7f4f398c78a9b4c85363a4f86e082f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.NPCBrainFlagBridge
-  npcBrains:
-  - {fileID: 189986788}
-  - {fileID: 600370090}
-  - {fileID: 490618957}
-  - {fileID: 90324455}
---- !u!114 &1622098012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d972d7ee5cea8b4bb63b922c18b83aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.DayCycleService
-  gossip: {fileID: 1622098013}
-  ending: {fileID: 1622098004}
-  countTalkAsPhaseProgress: 1
-  onPhaseChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onNewDay:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1622098013
+--- !u!114 &1622098013 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3322328614093629050, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+  m_PrefabInstance: {fileID: 1475969102996757524}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 595e9b5d0fad06a4c88bbd6c91eb23ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.NightGossipService
-  onNightSummary:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1622098014
+--- !u!114 &1622098014 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8095853611502732148, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+  m_PrefabInstance: {fileID: 1475969102996757524}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bdad170f48ef764591c4850f37bab1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.FlowerService
-  flowerDefs:
-  - {fileID: 11400000, guid: d6d38e78bc07cc049813e45f221bf9da, type: 2}
-  - {fileID: 11400000, guid: 4d8a7c490a09569429ec090f90411bea, type: 2}
-  - {fileID: 11400000, guid: 0a491aec1d7725f449c358110f1ceee9, type: 2}
-  - {fileID: 11400000, guid: 368fb2b336483974ca618e06a9b2224e, type: 2}
-  - {fileID: 11400000, guid: 380a3a4c2b887064588995f48bb17a6a, type: 2}
-  - {fileID: 11400000, guid: 51da9468db121a440b1e3352adee1fc3, type: 2}
-  - {fileID: 11400000, guid: cf8f813ba51b46646bd4ff54df9789dc, type: 2}
-  bouquetDefs:
-  - {fileID: 11400000, guid: a0dac83c273db1a4982bb9e7a1623787, type: 2}
-  - {fileID: 11400000, guid: 007e0bd7ccc453a4681ad0570ee238da, type: 2}
-  - {fileID: 11400000, guid: 2c58128b42f1e8042a2a390455ad479e, type: 2}
-  - {fileID: 11400000, guid: ccb05ca3e5eee584e9d63a3c54203e21, type: 2}
-  - {fileID: 11400000, guid: 7ed41380360104549ad52ba08606af88, type: 2}
-  - {fileID: 11400000, guid: 9b40a8698740c2c4d81a49a6020e3f61, type: 2}
-  - {fileID: 11400000, guid: 887f691af3f60ac4caa87c0da3386dda, type: 2}
-  - {fileID: 11400000, guid: ed29744196d797842860c3b23c9c0828, type: 2}
-  onFlowerGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-  onBouquetCrafted:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!4 &1622098016
+--- !u!4 &1622098016 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4326599454882538158, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+  m_PrefabInstance: {fileID: 1475969102996757524}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -150, y: -9.72044, z: -149.99997}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1523062566}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1622098018
+--- !u!114 &1622098025 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3561291560820549733, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+  m_PrefabInstance: {fileID: 1475969102996757524}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65225b9ef6c8c8a46bbc496922d64d4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.SceneFlow.PersistAcrossScenes
-  key: Director
-  destroyOnScenes: []
-  removeSceneDuplicatesByTag: 0
---- !u!114 &1622098019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 079c8dc20163555479edf31e2fac492e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.SpotlightFlagBridge
---- !u!114 &1622098020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e57616378647374d8465e90606899b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.NpcSpotlight
---- !u!114 &1622098021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5965e07f2dcf2a445b551f441c2a5a71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.UI.NightSleepNotice
-  dayCycle: {fileID: 0}
-  message: "Se hace de noche... deber\xEDas ir a dormir."
-  persistentHint: "Es de noche \u2014 ve a la cama a descansar"
-  toastSeconds: 4
---- !u!114 &1622098022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eeb6dd2b07b7bf479e986346c3bdb38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.PhaseGlowLighter
---- !u!114 &1622098023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7583c6b50e01900498e5ddeb648292c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Application.SproutGameDirector
-  daySettings: {fileID: 11400000, guid: 6875a82e9f8ad854295feda36d3e64fd, type: 2}
---- !u!114 &1622098024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf09c11bd4b2be846822d40dc901410f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.GlobalGuiFont
-  font: {fileID: 12800000, guid: e0377ed22b88db745ac079fa22826b69, type: 3}
---- !u!114 &1622098025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622098003}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d63cae1eaee3924ca3b9cb2ee03d75d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Persistence.SaveSystem
-  npcBrains:
-  - {fileID: 189986788}
-  - {fileID: 600370090}
-  - {fileID: 490618957}
-  - {fileID: 90324455}
-  dayCycle: {fileID: 1622098012}
-  playerTag: Player
-  loadOnStart: 1
 --- !u!1 &1633218590
 GameObject:
   m_ObjectHideFlags: 0
@@ -26802,7 +26679,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 39945498723631201, guid: 856a29b3e30b5eb4a88f82767403a8a2, type: 3}
     - {fileID: 6030710585787137176, guid: 856a29b3e30b5eb4a88f82767403a8a2, type: 3}
-    - {fileID: 4083736035804762422, guid: 856a29b3e30b5eb4a88f82767403a8a2, type: 3}
     - {fileID: 4083736035804762440, guid: 856a29b3e30b5eb4a88f82767403a8a2, type: 3}
     - {fileID: 4616570923698836913, guid: 856a29b3e30b5eb4a88f82767403a8a2, type: 3}
     - {fileID: 658616321364564420, guid: 856a29b3e30b5eb4a88f82767403a8a2, type: 3}
@@ -29570,6 +29446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Presentation.CurvedWorldFollow
   multiplier: 1
+  flatRadius: 0
   debugOnScreen: 0
 --- !u!1 &1886286428
 GameObject:
@@ -30266,37 +30143,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!1 &1936805003
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1936805004}
-  m_Layer: 0
-  m_Name: GameStateMachine
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1936805004
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1936805003}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -154.28, y: -9.61044, z: -142.16496}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1523062566}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1939765142
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31943,11 +31789,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3650474029344656566, guid: 1525f347328b95d4d92493fd5bea278e, type: 3}
 --- !u!4 &2020102913 stripped
@@ -32235,7 +32081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2044764864
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33996,6 +33842,58 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af346f639bec4524fb26fc27c669e08c, type: 3}
+--- !u!114 &53501542043839701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_offended
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 83fe9b9c-c469-45dc-879f-bf9071813fde
+  contextForAI: "El jugador ignor\xF3 la confesi\xF3n o fue fr\xEDo/cruel. Aster
+    se cierra y vuelve al invento para protegerse. Dolido pero disimulando."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_incomodo
+    value: 1
+  nextNodes:
+  - {fileID: 5691390254844099713}
+  openingLine: "Claro. S\xED. Volvamos a las estrellas. Las estrellas no tienen ex,
+    eso ayuda. \u2026No pasa nada. De verdad."
+  transitions: []
+--- !u!114 &501308832602398993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_insist
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 03fe3770-ec64-4123-8ba9-32b780ae05ae
+  contextForAI: Aster decide encenderla para reconquistar a la ex. Puede salir bien
+    o doler.
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_insiste
+    value: 1
+  nextNodes:
+  - {fileID: 5691390254844099713}
+  openingLine: "Para ella. Tengo que intentarlo. Si no, me preguntar\xE9 siempre\u2026
+    \xBFy si hubiera funcionado?"
+  transitions: []
 --- !u!4 &514480678892743149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7712621646973313824, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
@@ -34024,11 +33922,231 @@ CharacterController:
   m_CorrespondingSourceObject: {fileID: 7304796836138068397, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
   m_PrefabInstance: {fileID: 4749802022324530721}
   m_PrefabAsset: {fileID: 0}
---- !u!20 &4550624382483834436 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8878059353729580286, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
-  m_PrefabInstance: {fileID: 4749802022324530721}
+--- !u!114 &993751090778018318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Aster_attempt
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: 15265c1a-0bc2-41ae-afb8-fafdee556dbb
+  contextForAI: "TARDE. Aster ense\xF1a un intento saturado de estrellas (una bombilla
+    que ciega). Momento vulnerable. Decisi\xF3n: ayudarle a simplificar con criterio,
+    o decirle con honestidad que se esconde en el invento."
+  prerequisiteFlags:
+  - flag: aster_met
+    expectedValue: 1
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "Yo ya prob\xE9 algo\u2026 le met\xED TODAS las estrellas que pude.
+    Ahora en vez de un cielo es una bombilla que ciega. Me he pasado, \xBFverdad?"
+  choices:
+  - condition: el jugador le ayuda a simplificar con criterio
+    nextNode: {fileID: -4310401074370485196}
+  - condition: el jugador le dice con honestidad que se esconde en el invento
+    nextNode: {fileID: -802924246876509574}
+--- !u!114 &1024048882807877712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Aster_react
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: 82bbc7d6-14c7-4d8c-8234-c6355e44e69d
+  contextForAI: "Aster acaba de confesar que la m\xE1quina es para su ex y espera
+    una reacci\xF3n, expuesto."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes: []
+  openingLine: "\u2026Ya est\xE1. Lo he dicho. Di algo. Lo que sea. Tu cara me est\xE1
+    poniendo nervioso."
+  choices:
+  - condition: "el jugador responde con empat\xEDa y tacto"
+    nextNode: {fileID: -8420217992462988677}
+  - condition: "el jugador ignora la confesi\xF3n, es fr\xEDo, cruel o reacciona
+      demasiado"
+    nextNode: {fileID: 53501542043839701}
+--- !u!1001 &1475969102996757524
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1523062566}
+    m_Modifications:
+    - target: {fileID: 439834351383949455, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: nightPanel
+      value: 
+      objectReference: {fileID: 1591576726}
+    - target: {fileID: 439834351383949455, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: endingPanel
+      value: 
+      objectReference: {fileID: 2044764863}
+    - target: {fileID: 439834351383949455, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: craftingPanel
+      value: 
+      objectReference: {fileID: 1946760592}
+    - target: {fileID: 2510606174025014516, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: m_Name
+      value: SproutGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 3561291560820549733, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: 'npcBrains.Array.data[0]'
+      value: 
+      objectReference: {fileID: 189986788}
+    - target: {fileID: 3561291560820549733, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: 'npcBrains.Array.data[1]'
+      value: 
+      objectReference: {fileID: 600370090}
+    - target: {fileID: 3561291560820549733, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: 'npcBrains.Array.data[2]'
+      value: 
+      objectReference: {fileID: 490618957}
+    - target: {fileID: 3561291560820549733, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: 'npcBrains.Array.data[3]'
+      value: 
+      objectReference: {fileID: 90324455}
+    - target: {fileID: 4326599454882538158, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326599454882538158, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -9.72044
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326599454882538158, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -149.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326599454882538158, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326599454882538158, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326599454882538158, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326599454882538158, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326599454882538158, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326599454882538158, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326599454882538158, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662642933082617871, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: 'npcBrains.Array.data[0]'
+      value: 
+      objectReference: {fileID: 189986788}
+    - target: {fileID: 4662642933082617871, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: 'npcBrains.Array.data[1]'
+      value: 
+      objectReference: {fileID: 600370090}
+    - target: {fileID: 4662642933082617871, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: 'npcBrains.Array.data[2]'
+      value: 
+      objectReference: {fileID: 490618957}
+    - target: {fileID: 4662642933082617871, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: 'npcBrains.Array.data[3]'
+      value: 
+      objectReference: {fileID: 90324455}
+    - target: {fileID: 7810431431807373277, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: dialogueUI
+      value: 
+      objectReference: {fileID: 448172085}
+    - target: {fileID: 7810431431807373277, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+      propertyPath: craftingPanel
+      value: 
+      objectReference: {fileID: 1946760592}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e8af35bf32749574da79e1c4ff727fca, type: 3}
+--- !u!114 &3561034632549828475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511426048eb4ebf46b9184e6496e2b8a, type: 3}
+  m_Name: Aster_gossip
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ChoiceNodeSO
+  nodeGuid: 04b33c2e-0e19-4291-9a1a-fefd3b083c4a
+  contextForAI: "Aster sabe que la florista le cont\xF3 a Mochi lo de su ex. Herido
+    pero fingiendo frialdad, confronta: \xBFse lo contaste t\xFA? Seg\xFAn responda,
+    perdona o se cierra."
+  prerequisiteFlags:
+  - flag: aster_angry
+    expectedValue: 1
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_sabe_que_cotilleaste
+    value: 1
+  nextNodes: []
+  openingLine: "Mochi me ha preguntado por mi ex. Con esa voz de 'yo no s\xE9 nada',
+    que es justo la voz de quien sabe algo. \u2026\xBFSe lo contaste t\xFA?"
+  choices:
+  - condition: el jugador lo admite y se disculpa con sinceridad
+    nextNode: {fileID: 7842217028166960096}
+  - condition: el jugador lo niega, culpa a Mochi o se burla
+    nextNode: {fileID: -3447965769781748127}
+--- !u!114 &4378511989687501086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_free
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 5eb4df3b-7ffe-4bdc-bae6-09e78a33e229
+  contextForAI: "Aster decide encender la m\xE1quina para s\xED mismo y el pueblo:
+    aprende a soltar. Final de crecimiento."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_libre
+    value: 1
+  nextNodes:
+  - {fileID: 5691390254844099713}
+  openingLine: "Para m\xED. Y para quien quiera mirar. Si ella viene, viene. Pero
+    ya no la construyo por eso. Gracias por ayudarme a verlo."
+  transitions: []
 --- !u!1001 &4749802022324530721
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34084,6 +34202,10 @@ PrefabInstance:
     - target: {fileID: 1235443008524482697, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1235443008524482697, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1363794308266762099, guid: 205be15efcfbdae4cb21bd59a13f8302, type: 3}
       propertyPath: m_Layer
@@ -34429,6 +34551,56 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e786166720ff22429051c2a90e0f5da, type: 3}
+--- !u!114 &5691390254844099713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_bye
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: e011feb9-1b5c-4f2e-a4f4-917cc0c7dbe3
+  contextForAI: "Despedida final del d\xEDa. Antes de irse te sugiere hablar con
+    Moth sobre la luz. Terminal."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: recommend_moth
+    value: 1
+  - flag: glow_aster_none
+    value: 1
+  nextNodes: []
+  openingLine: "Me vuelvo al taller. Oye\u2026 preg\xFAntale a Moth sobre la luz.
+    Habla como si desayunara imposibles. Gracias por escuchar."
+  transitions: []
+--- !u!114 &7454747838331076001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Mochi_evade
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: 4c6ac8c7-2df2-4b3e-88ec-5fce71ffc7d6
+  contextForAI: "El jugador evadi\xF3, respuesta neutra o poco clara. Mochi se queda
+    inseguro y algo distante."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter: []
+  nextNodes:
+  - {fileID: 2897729196826193434, guid: d01b59844ad2fe142b1640062d04a152, type: 2}
+  openingLine: "\xBF\u2026eso es un s\xED o un no? Bah. Da igual. Olv\xEDdalo."
+  transitions: []
 --- !u!1001 &7796555497590537653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34560,6 +34732,66 @@ MonoBehaviour:
     flagsToApply:
     - flagName: photo_inspected
       value: 1
+--- !u!114 &7842217028166960096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bb417fcb585cc4b80fb00beca23d32, type: 3}
+  m_Name: Aster_forgive
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.SpeechNodeSO
+  nodeGuid: afe75e19-deff-423d-aca7-d8c3d3c8afd5
+  contextForAI: "El jugador admiti\xF3 y se disculp\xF3. Aster no lo pone f\xE1cil,
+    pero puede perdonar. Sigue dolido, pero valora la honestidad."
+  prerequisiteFlags: []
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_forgives
+    value: 1
+  - flag: glow_aster_none
+    value: 1
+  nextNodes:
+  - {fileID: 5691390254844099713}
+  openingLine: "Gracias por no mentir. No arregla la grieta, pero al menos no le
+    has puesto pintura encima. La pr\xF3xima vez, preg\xFAntame antes de convertirme
+    en noticia."
+  transitions: []
+--- !u!114 &8346110317872889273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa257dd4a8dea3479ec1e976e8b10ec, type: 3}
+  m_Name: Aster_confess
+  m_EditorClassIdentifier: Assembly-CSharp::OpenAI.Dialogue.ConversationNodeSO
+  nodeGuid: e888529c-fbe0-4f8e-b273-178a36d33781
+  contextForAI: "Aster confiesa que la m\xE1quina de estrellas es para reconquistar
+    a su ex (cortaron hace meses; ella se cans\xF3 de que se refugiara en sus inventos).
+    El concurso es la excusa."
+  prerequisiteFlags:
+  - flag: aster_idea_mejorada
+    expectedValue: 1
+  lockedReply: "A\uFFFDn no puedes avanzar por aqu\uFFFD."
+  resumeLine: 
+  flagsOnEnter:
+  - flag: aster_secret_known
+    value: 1
+  nextNodes:
+  - {fileID: 1024048882807877712}
+  openingLine: "Vale. Te lo digo. La m\xE1quina es para mi ex. Para recrear el cielo
+    de la noche en que nos conocimos. Pens\xE9 que si ganaba el concurso, tendr\xEDa
+    excusa para llamarla."
+  conversationTopics: []
+  exitCondition: "El jugador reacciona a la confesi\xF3n."
 --- !u!1001 &8421642711670879092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34634,3 +34866,4 @@ SceneRoots:
   - {fileID: 321318321}
   - {fileID: 243877132}
   - {fileID: 181900548}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    

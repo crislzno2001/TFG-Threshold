@@ -46,5 +46,25 @@ namespace Sprout.Application
             onEndingSummary?.Invoke(summary);
             return kind;
         }
+
+        /// <summary>DEBUG: fuerza mostrar un final concreto (para sacar foto), sin depender del estado.</summary>
+        public void ForceEnding(EndingKind kind)
+        {
+            var def = endings.Find(e => e != null && e.kind == kind);
+            if (def == null)
+            {
+                Debug.LogWarning($"[EndingService] (DEBUG) No hay EndingDefinitionSO para {kind}. Asígnalo en la lista 'endings'.");
+                return;
+            }
+            var creativity = D != null ? D.AggregateCreativity() : default;
+            var summary = D != null ? CreativitySummary.Build(creativity, D.Flags) : new List<string>();
+            onEndingKind?.Invoke(kind);
+            onEndingResolved?.Invoke(def);
+            onEndingSummary?.Invoke(summary);
+            Debug.Log($"[EndingService] (DEBUG) Final forzado: {kind}");
+        }
+
+        /// <summary>DEBUG: devuelve la definición de un final concreto (o null si no está en la lista).</summary>
+        public EndingDefinitionSO GetEndingDef(EndingKind kind) => endings.Find(e => e != null && e.kind == kind);
     }
 }

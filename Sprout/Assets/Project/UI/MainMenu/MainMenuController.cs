@@ -83,8 +83,9 @@ namespace ThresholdGame.Presentation.UI.MainMenu
             if (_btnContinue == null) return;
             bool hasSave = System.IO.File.Exists(
                 System.IO.Path.Combine(UnityEngine.Application.persistentDataPath, "sprout_save.json"));
-            _btnContinue.style.display = hasSave ? DisplayStyle.Flex : DisplayStyle.None;
-            _btnContinue.SetEnabled(hasSave);
+            _btnContinue.style.display = DisplayStyle.Flex;      // siempre visible
+            _btnContinue.SetEnabled(hasSave);                    // clicable solo si hay partida guardada
+            _btnContinue.style.opacity = hasSave ? 1f : 0.4f;    // color pleno con datos, apagado sin datos
         }
 
         // ── Handlers ─────────────────────────────────────────────────────────

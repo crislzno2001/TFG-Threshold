@@ -36,7 +36,7 @@ namespace OpenAI.Dialogue.Editor
             var so = ScriptableObject.CreateInstance(type) as DialogueNodeSO;
             so.name = type.Name.Replace("SO", "");
 
-            _graphView.CreateNodeView(so, Vector2.zero);
+            _graphView.CreateNodeView(so, _screenMousePos);
             return true;
         }
     }

@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Ending_BloomingVillage
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Data.EndingDefinitionSO
   kind: 0
-  title: A Blooming Village
-  epilogueText: You spoke honestly, you helped, and you imagined freely. The square
-    is louder now, warmer. Mochi cooks something that actually tastes good. Aster's
-    invention hums on the contest table. Even Rix half-smiles when you pass. The
-    village blooms because you did.
+  title: Pueblo en flor
+  epilogueText: "Regaste el pueblo con ideas y con verdad, y floreci\xF3. Nadie sabr\xEDa
+    explicar por qu\xE9, pero hoy todos caminan un poco m\xE1s ligeros. Tu abuela
+    estar\xEDa orgullosa."
   backgroundImage: {fileID: 0}
-  tint: {r: 1, g: 1, b: 1, a: 1}
+  tint: {r: 0, g: 0, b: 0, a: 1}

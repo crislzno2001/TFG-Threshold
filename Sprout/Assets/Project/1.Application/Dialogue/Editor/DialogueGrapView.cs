@@ -31,8 +31,14 @@ namespace OpenAI.Dialogue.Editor
 
             nodeCreationRequest = ctx =>
             {
+                // Convertimos la posición de pantalla del cursor a coordenadas locales del
+                // grafo (tiene en cuenta la posición de la ventana y el zoom/paneo actual),
+                // para que el nodo aparezca donde estaba el cursor y no siempre en (0,0).
+                Vector2 worldMousePosition = ctx.screenMousePosition - _window.position.position;
+                Vector2 graphMousePosition = contentViewContainer.WorldToLocal(worldMousePosition);
+
                 var provider = ScriptableObject.CreateInstance<NodeSearchProvider>();
-                provider.Init(this, ctx.screenMousePosition);
+                provider.Init(this, graphMousePosition);
                 SearchWindow.Open(new SearchWindowContext(ctx.screenMousePosition), provider);
             };
         }

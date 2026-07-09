@@ -35,8 +35,8 @@ namespace Sprout.Presentation.UI
             Cursor.visible = true;
             if (ending == null)
             {
-                if (titleText) titleText.text = "The End";
-                if (bodyText) bodyText.text = "Your story in the village comes to a close.";
+                if (titleText) titleText.text = "Fin";
+                if (bodyText) bodyText.text = "Tu historia en el pueblo llega a su fin.";
                 return;
             }
             if (titleText) titleText.text = ending.title;

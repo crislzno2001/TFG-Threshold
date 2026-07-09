@@ -105,9 +105,12 @@ namespace OpenAI.Dialogue.Editor
             }
             else
             {
+                // Multi: permite conectar "Siguiente" a VARIOS nodos. En ejecución, el juego
+                // elige el PRIMERO cuyos Prerequisite Gates se cumplan (FirstAvailable), lo que
+                // habilita ramificar por flags (p. ej. aster_originality_high).
                 OutputPort = Port.Create<Edge>(
                     Orientation.Horizontal, Direction.Output,
-                    Port.Capacity.Single, typeof(bool));
+                    Port.Capacity.Multi, typeof(bool));
                 OutputPort.portName = "Siguiente";
                 outputContainer.Add(OutputPort);
             }
@@ -418,6 +421,19 @@ namespace OpenAI.Dialogue.Editor
                 EditorUtility.SetDirty(NodeSO);
             });
             parent.Add(lockedReplyField);
+
+            var resumeLineField = new TextField("Resume Line")
+            {
+                value = NodeSO.resumeLine,
+                multiline = true,
+                tooltip = "Frase de 'bienvenida de vuelta' si la jugadora RE-ENTRA en este nodo tras irse a medias. Vacío = usa la frase normal."
+            };
+            resumeLineField.RegisterValueChangedCallback(e =>
+            {
+                NodeSO.resumeLine = e.newValue;
+                EditorUtility.SetDirty(NodeSO);
+            });
+            parent.Add(resumeLineField);
 
             var requirementsContainer = new VisualElement();
             parent.Add(requirementsContainer);

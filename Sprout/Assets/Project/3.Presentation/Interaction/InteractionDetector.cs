@@ -4,68 +4,47 @@ using ThresholdGame.Core.Interaction;
 
 namespace ThresholdGame.Presentation.Interaction
 {
+    /// <summary>
+    /// Detecta el interactuable más cercano en rango mediante un ESCANEO ACTIVO por física
+    /// (OverlapSphere) cada FixedUpdate. Antes usaba OnTriggerEnter/Exit, pero eso fallaba
+    /// cuando el jugador aparecía teletransportado junto a un objeto (portales, intro del coche):
+    /// el "enter" no se dispara si ya estás encima. El escaneo activo es inmune a eso.
+    /// </summary>
     public class InteractionDetector : MonoBehaviour
     {
         [SerializeField] private float detectionRadius = 2.5f;
 
         public IInteractable Current { get; private set; }
-
         public event Action<IInteractable> OnInteractableChanged;
 
-        private void Start()
+        private void FixedUpdate()
         {
-            var col = GetComponent<SphereCollider>();
-
-            if (col == null)
-                col = gameObject.AddComponent<SphereCollider>();
-
-            col.isTrigger = true;
-            col.radius = detectionRadius;
-
-            Debug.Log($"[InteractionDetector] Inicializado en {gameObject.name}. Radius = {detectionRadius}", this);
+            IInteractable best = FindNearest();
+            if (!ReferenceEquals(best, Current))
+            {
+                if (Current != null) Current.CancelInteraction();
+                Current = best;
+                OnInteractableChanged?.Invoke(Current);
+            }
         }
 
-        private void OnTriggerEnter(Collider other)
+        private IInteractable FindNearest()
         {
-            if (other.transform.root == transform.root)
-                return;
-            Debug.Log($"[InteractionDetector] Ha entrado algo: {other.name}", other);
+            // Sin límite de resultados: en escenas densas (floristería con muchas flores/props)
+            // el portal podía quedar fuera de un buffer pequeño y no detectarse.
+            var hits = Physics.OverlapSphere(transform.position, detectionRadius, ~0, QueryTriggerInteraction.Collide);
 
-            if (Current != null)
+            IInteractable best = null;
+            float bestSq = float.MaxValue;
+            foreach (var c in hits)
             {
-                Debug.Log($"[InteractionDetector] Ya hay un interactuable actual, ignoro {other.name}", other);
-                return;
+                if (c == null || c.transform.root == transform.root) continue; // no me detecto a mí misma
+                var it = c.GetComponentInParent<IInteractable>();
+                if (it == null) continue;
+                float d = (c.transform.position - transform.position).sqrMagnitude;
+                if (d < bestSq) { bestSq = d; best = it; }
             }
-
-            var interactable = other.GetComponentInParent<IInteractable>();
-
-            if (interactable == null)
-            {
-                Debug.Log($"[InteractionDetector] {other.name} NO tiene IInteractable en �l ni en sus padres.", other);
-                return;
-            }
-
-            Current = interactable;
-            OnInteractableChanged?.Invoke(Current);
-
-            Debug.Log($"[InteractionDetector] Interactable detectado: {other.name} / Label: {Current.InteractionLabel}", other);
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.transform.root == transform.root)
-                return;
-
-            var interactable = other.GetComponentInParent<IInteractable>();
-
-            if (interactable == null || interactable != Current)
-                return;
-
-            Debug.Log($"[InteractionDetector] Sale del rango: {other.name}", other);
-
-            Current.CancelInteraction();
-            Current = null;
-            OnInteractableChanged?.Invoke(null);
+            return best;
         }
 
         private void OnDrawGizmosSelected()

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Ending_TangledRoots
   m_EditorClassIdentifier: Assembly-CSharp::Sprout.Data.EndingDefinitionSO
   kind: 2
-  title: Tangled Roots
-  epilogueText: Rumours took root and grew thorns. Aster won't look at you. Moth's
-    plan curdled into something cruel, and Rix knows whose hand was in it. The village
-    is still cute from a distance. Up close, everything is tangled.
+  title: "Ra\xEDces enredadas"
+  epilogueText: "Removiste m\xE1s de lo que dejaste asentar. Algunas ra\xEDces se
+    enredaron y quedaron heridas que tardar\xE1n en cerrar. No todo fue culpa tuya\u2026
+    pero algo s\xED."
   backgroundImage: {fileID: 0}
-  tint: {r: 1, g: 1, b: 1, a: 1}
+  tint: {r: 0, g: 0, b: 0, a: 1}

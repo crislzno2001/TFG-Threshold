@@ -15,7 +15,7 @@ namespace Sprout.Application.Creativity
     /// Medidor de creatividad (estilo Torrance ampliado) para cualquier NPC. Puntúa los mensajes del
     /// jugador SOLO en los nodos de "reto creativo" (ideasNode + extraChallengeNodes), en 7 dimensiones:
     /// originalidad, detalle, coherencia, empatía, uso del mundo, riesgo y adaptación (mejorar una idea
-    /// tras una objeción). Los saludos y la charla normal NO se miden. Todo es invisible: se acumula en
+    /// tras una objeción).se acumula en
     /// el CreativityProfile del director y dispara contadores, flags y flores.
     ///
     /// Se auto-suscribe a DialogueUI.onPlayerMessageSent y DialogueRunner.onStepCompleted.
@@ -47,6 +47,11 @@ namespace Sprout.Application.Creativity
         [SerializeField] private string ideaDomain =
             "a concrete culinary idea: combining ingredients, a cooking technique, " +
             "a dish, or a way to present food.";
+
+        [Tooltip("Unidad que se cuenta en este reto. Por defecto una idea/propuesta " +
+                 "(no cambia nada en los retos plenos). Para las subpruebas ligeras usa: " +
+                 "question, possible cause, possible consequence, unusual use, improvement…")]
+        [SerializeField] private string countableUnit = "concrete idea/proposal";
 
         [Header("Config")]
         [SerializeField] private AISettingsSO aiSettings;
@@ -160,7 +165,7 @@ namespace Sprout.Application.Creativity
             sb.AppendLine("You invisibly score a player's message in a cozy narrative game, for a");
             sb.AppendLine("Torrance-style creativity profile. Be strict: use the FULL 0-10 range.");
             sb.AppendLine($"Character/situation right now: {situation}");
-            sb.AppendLine($"What counts as a concrete idea for this character: {ideaDomain}");
+            sb.AppendLine($"What counts as ONE countable {countableUnit} here: {ideaDomain}");
             sb.AppendLine("World elements the player could weave in: flowers, bouquets, cooking/food, the");
             sb.AppendLine("village, the neighbours, the day/night cycle, rumours, and emotions.");
             sb.AppendLine($"Previous player idea (only for ADAPTATION): \"{(string.IsNullOrWhiteSpace(previous) ? "(none)" : previous)}\"");
@@ -170,8 +175,8 @@ namespace Sprout.Application.Creativity
             sb.AppendLine("problem and world. EMPATHY = considers the character's feelings. WORLDUSE = uses");
             sb.AppendLine("world elements. RISK = dares something odd but sensible. ADAPTATION = improves or");
             sb.AppendLine("revises the previous idea after pushback (0 if unrelated or no previous idea).");
-            sb.AppendLine("IDEA=yes only if it's a concrete idea/proposal (no for greetings/questions/filler).");
-            sb.AppendLine("CATEGORY = one short word for the kind of idea.");
+            sb.AppendLine($"IDEA=yes only if the message contains a genuine {countableUnit} (no for greetings/off-topic/filler).");
+            sb.AppendLine($"CATEGORY = one short word for the kind of {countableUnit}.");
             sb.AppendLine("Reply in EXACTLY this pipe format, nothing else:");
             sb.AppendLine("IDEA=yes|no ; ORIGINALITY=0-10 ; DETAIL=0-10 ; COHERENCE=0-10 ; EMPATHY=0-10 ; WORLDUSE=0-10 ; RISK=0-10 ; ADAPTATION=0-10 ; CATEGORY=word");
             sb.AppendLine();

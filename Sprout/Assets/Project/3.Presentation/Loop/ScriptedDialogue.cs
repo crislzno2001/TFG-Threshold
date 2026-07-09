@@ -192,8 +192,19 @@ namespace Sprout.Presentation
             if (!_panelVisible) return;
             EnsureStyles();
 
+            _body.fontSize = Mathf.RoundToInt(fontSize * SproutTextScale.Get());
+            bool hasChoices = _choices != null && _choices.Count > 0;
+
             float w = Mathf.Min(900f, Screen.width - 120f);
-            float h = boxHeight;
+            float textWidth = w - 56f;
+            const float topPad = 52f; // hueco del nombre de Paco
+
+            // El cuadro se ADAPTA al alto real del texto (envuelto), para que nunca se corte,
+            // tenga el tamaño de letra que tenga (incluido el 150% de "Tamaño de texto").
+            float textH = string.IsNullOrEmpty(_shown) ? 0f : _body.CalcHeight(new GUIContent(_shown), textWidth);
+            float bottomPad = hasChoices ? (52f + 28f) : (30f + 16f);
+            float h = Mathf.Max(boxHeight, topPad + textH + bottomPad);
+
             float x = (Screen.width - w) / 2f;
             float y = Screen.height - h - 40f;
 
@@ -208,9 +219,6 @@ namespace Sprout.Presentation
             if (!string.IsNullOrEmpty(_speaker))
                 GUI.Label(new Rect(x + 28, y + 16, w - 56, 30), _speaker, _name);
 
-            _body.fontSize = Mathf.RoundToInt(fontSize * SproutTextScale.Get());
-            bool hasChoices = _choices != null && _choices.Count > 0;
-
             if (hasChoices)
             {
                 // Fila de opciones (cuadraditos) DEBAJO del texto de Paco, todos en la misma fila.
@@ -219,7 +227,7 @@ namespace Sprout.Presentation
                 float rowY = y + h - rowH - 16f;
                 float bwEach = (w - 56f - (n - 1) * gap) / n;
 
-                GUI.Label(new Rect(x + 28, y + 52, w - 56, rowY - (y + 58)), _shown, _body);
+                GUI.Label(new Rect(x + 28, y + topPad, textWidth, rowY - (y + topPad) - 6f), _shown, _body);
 
                 for (int k = 0; k < n; k++)
                 {
@@ -234,7 +242,7 @@ namespace Sprout.Presentation
             }
             else
             {
-                GUI.Label(new Rect(x + 28, y + 52, w - 56, h - 84), _shown, _body);
+                GUI.Label(new Rect(x + 28, y + topPad, textWidth, h - topPad - 40f), _shown, _body);
                 GUI.Label(new Rect(x + 28, y + h - 30, w - 56, 24), "clic / Enter para continuar  ▶", _hint);
             }
         }

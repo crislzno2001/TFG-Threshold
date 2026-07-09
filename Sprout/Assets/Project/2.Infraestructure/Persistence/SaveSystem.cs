@@ -59,9 +59,26 @@ namespace Sprout.Persistence
 
         private void Start()
         {
-            if ((loadOnStart || ContinueRequested) && HasSave) Load();
+            // SOLO "Continuar" carga la partida. Nueva partida (o sin datos) → estado limpio SIEMPRE,
+            // así se resetean todos los flags (incluida la intro) y no reapareces en el pueblo.
+            if (ContinueRequested && HasSave) Load();
+            else NewGameReset();
             ContinueRequested = false;
             if (dayCycle != null) dayCycle.onPhaseChanged.AddListener(OnPhase);
+        }
+
+        /// <summary>Reinicia el estado del director a una partida nueva (flags, inventario, relaciones y día).
+        /// Necesario porque el director persiste entre escenas: sin esto, el flag de la intro (y todo el
+        /// progreso) sobreviviría y la intro del coche se saltaría al empezar de nuevo.</summary>
+        private void NewGameReset()
+        {
+            var d = D;
+            if (d == null) return;
+            d.Flags.Clear();
+            d.Inventory.Clear();
+            d.Relationships.LoadFrom(new Dictionary<NpcId, int>());
+            d.Day.Load(1, DayPhase.Morning);
+            Debug.Log("[SaveSystem] Nueva partida: estado reiniciado.");
         }
 
         private void OnDestroy()
